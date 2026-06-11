@@ -1,0 +1,589 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-display: "Italiana", "Cormorant Garamond", serif;
+  --font-serif: "Cormorant Garamond", "EB Garamond", serif;
+  --font-body: "EB Garamond", "Cormorant Garamond", serif;
+  --font-caps: "Cormorant SC", "Cormorant Garamond", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* ✦ Aged Manuscript palette — parchment, oxblood, antique gold, deep ink */
+  --color-parchment: #F2EAD3;
+  --color-parchment-2: #ECE2C4;
+  --color-parchment-3: #E5D9B5;
+  --color-vellum: #FBF5E5;
+  --color-ink: #1A140E;
+  --color-ink-2: #2A1F14;
+  --color-ink-3: #3D2E1E;
+  --color-ink-soft: #5C4A33;
+  --color-faded: #8A7458;
+  --color-oxblood: #6B1F1A;
+  --color-oxblood-2: #8B2A23;
+  --color-gold: #A37E2C;
+  --color-gold-2: #C29A3F;
+  --color-gold-soft: #D9BE6E;
+  --color-rule: rgba(26, 20, 14, 0.22);
+  --color-rule-soft: rgba(26, 20, 14, 0.1);
+  --color-rule-strong: rgba(26, 20, 14, 0.55);
+  --color-foreground: #1A140E;
+  --color-foreground-secondary: rgba(26, 20, 14, 0.72);
+  --color-foreground-muted: rgba(26, 20, 14, 0.5);
+  --color-foreground-faint: rgba(26, 20, 14, 0.3);
+  --color-background: #F2EAD3;
+  --color-surface: #FBF5E5;
+  --color-surface-2: #ECE2C4;
+  --color-border: rgba(26, 20, 14, 0.18);
+  --color-border-strong: rgba(26, 20, 14, 0.4);
+
+  /* ✦ Radius — restraint, no chunky rounds */
+  --radius-xs: 1px;
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+
+  /* ✦ Shadows — soft, paper-like */
+  --shadow-paper: 0 1px 0 rgba(26, 20, 14, 0.08), 0 4px 16px rgba(26, 20, 14, 0.06);
+  --shadow-paper-2: 0 2px 0 rgba(26, 20, 14, 0.1), 0 12px 32px rgba(26, 20, 14, 0.08);
+  --shadow-press: inset 0 1px 0 rgba(26, 20, 14, 0.06);
+  --shadow-ink: 0 0 0 1px rgba(26, 20, 14, 0.2);
+
+  /* ✦ Motion */
+  --duration-fast: 180ms;
+  --duration-base: 320ms;
+  --duration-slow: 600ms;
+  --duration-slower: 900ms;
+  --easing-default: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --easing-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(26, 20, 14, 0.2) transparent;
+    background-color: var(--color-ink);
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+    background-color: var(--color-parchment);
+    background-image:
+      radial-gradient(ellipse 1200px 800px at 50% -10%, rgba(163, 126, 44, 0.06), transparent 60%),
+      radial-gradient(ellipse 1000px 700px at 100% 50%, rgba(107, 31, 26, 0.04), transparent 60%),
+      radial-gradient(ellipse 900px 600px at 0% 80%, rgba(58, 40, 22, 0.05), transparent 60%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background-color: rgba(163, 126, 44, 0.28);
+    color: var(--color-ink);
+  }
+
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(26, 20, 14, 0.18); border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(26, 20, 14, 0.32); }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-oxblood);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ═══════════════════════════════════════════
+   UTILITIES — paper, ornament, typography
+   ═══════════════════════════════════════════ */
+
+@utility py-section {
+  padding-top: clamp(5rem, 11vw, 9rem);
+  padding-bottom: clamp(5rem, 11vw, 9rem);
+}
+
+@utility px-page {
+  padding-left: clamp(1.25rem, 4vw, 3rem);
+  padding-right: clamp(1.25rem, 4vw, 3rem);
+}
+
+@utility drop-cap {
+  float: left;
+  font-family: var(--font-display);
+  font-size: 5.5em;
+  line-height: 0.85;
+  font-weight: 400;
+  margin: 0.08em 0.12em 0 0;
+  color: var(--color-oxblood);
+  text-shadow: 0 1px 0 rgba(107, 31, 26, 0.12);
+}
+
+@utility label-caps {
+  font-family: var(--font-caps);
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-ink-soft);
+  font-weight: 500;
+}
+
+@utility fleuron {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 1.5em;
+  line-height: 0.5;
+  color: var(--color-gold);
+  vertical-align: middle;
+  transform: translateY(0.15em);
+  font-style: italic;
+}
+
+@utility plate {
+  border: 1.5px solid var(--color-rule-strong);
+  box-shadow: inset 0 0 0 6px var(--color-parchment), inset 0 0 0 7.5px var(--color-rule-strong), inset 0 0 0 14px var(--color-parchment), inset 0 0 0 15.5px var(--color-rule-soft);
+  background: var(--color-vellum);
+}
+
+@utility plate-thin {
+  border: 1px solid var(--color-rule-strong);
+  background: var(--color-vellum);
+}
+
+@utility text-ink { color: var(--color-ink); }
+@utility text-ink-soft { color: var(--color-ink-soft); }
+@utility text-faded { color: var(--color-faded); }
+@utility text-oxblood { color: var(--color-oxblood); }
+@utility text-gold { color: var(--color-gold); }
+@utility text-vellum { color: var(--color-vellum); }
+@utility text-gold-soft { color: var(--color-gold-soft); }
+
+@utility text-italic-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+}
+
+@utility bg-vellum { background-color: var(--color-vellum); }
+@utility bg-parchment { background-color: var(--color-parchment); }
+@utility bg-parchment-2 { background-color: var(--color-parchment-2); }
+@utility bg-ink { background-color: var(--color-ink); }
+@utility bg-oxblood { background-color: var(--color-oxblood); }
+@utility bg-gold { background-color: var(--color-gold); }
+
+@utility border-rule { border-color: var(--color-rule); }
+@utility border-rule-strong { border-color: var(--color-rule-strong); }
+
+/* ✦ Plain CSS classes that need pseudo-elements (can't use @utility for these) */
+@layer utilities {
+  .paper-grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .paper-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+  .paper-grain > * { position: relative; z-index: 1; }
+
+  .paper-fibers {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .paper-fibers::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.05' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.15 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.6;
+  }
+
+  .corner-ornament {
+    position: relative;
+  }
+  .corner-ornament::before,
+  .corner-ornament::after {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--color-rule-strong);
+    pointer-events: none;
+  }
+  .corner-ornament::before {
+    top: -1px;
+    left: -1px;
+    border-right: 0;
+    border-bottom: 0;
+  }
+  .corner-ornament::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: 0;
+    border-top: 0;
+  }
+
+  .rule-ornate {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--color-rule-strong);
+  }
+  .rule-ornate::before,
+  .rule-ornate::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--color-rule);
+  }
+
+  .ribbon {
+    position: relative;
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: var(--color-oxblood);
+    color: var(--color-vellum);
+    font-family: var(--font-caps);
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 12px;
+    height: 100%;
+    background: var(--color-oxblood);
+    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%, 0 50%, 100% 50%, 100% 100%, 0 100%);
+    border: 0;
+  }
+  .ribbon::before { left: -10px; }
+  .ribbon::after { right: -10px; transform: scaleX(-1); }
+
+  .stagger-children > * {
+    opacity: 0;
+    animation: ink-fade 800ms var(--easing-out) forwards;
+  }
+  .stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+  .stagger-children > *:nth-child(2) { animation-delay: 90ms; }
+  .stagger-children > *:nth-child(3) { animation-delay: 180ms; }
+  .stagger-children > *:nth-child(4) { animation-delay: 270ms; }
+  .stagger-children > *:nth-child(5) { animation-delay: 360ms; }
+  .stagger-children > *:nth-child(6) { animation-delay: 450ms; }
+  .stagger-children > *:nth-child(7) { animation-delay: 540ms; }
+  .stagger-children > *:nth-child(8) { animation-delay: 630ms; }
+  .stagger-children > *:nth-child(9) { animation-delay: 720ms; }
+  .stagger-children > *:nth-child(10) { animation-delay: 810ms; }
+  .stagger-children > *:nth-child(11) { animation-delay: 900ms; }
+  .stagger-children > *:nth-child(12) { animation-delay: 990ms; }
+
+  /* ✦ Typewriter text */
+  .typewriter {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid currentColor;
+    width: 0;
+    animation: typewriter 4s steps(80, end) 0.3s forwards, blink-caret 0.8s step-end infinite;
+  }
+
+  /* ✦ Animated underline (use ::after on a span/link) */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 500ms var(--easing-out);
+  }
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ✦ 3D tilt-ready card */
+  .tilt-card {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: transform 600ms var(--easing-out);
+  }
+
+  /* ✦ Ink-splotch reveal mask (for image plates) */
+  .splotch-reveal {
+    clip-path: circle(0% at 50% 50%);
+    animation: splotch-reveal 1.2s var(--easing-out) forwards;
+  }
+
+  /* ✦ Curtain reveal — horizontal wipe */
+  .curtain-reveal {
+    clip-path: inset(0 100% 0 0);
+    animation: curtain-reveal 1s var(--easing-out) forwards;
+  }
+
+  /* ✦ Letter cascade — for per-letter text spans */
+  .letter-cascade > * {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(-12px) rotate(-4deg);
+    filter: blur(3px);
+    animation: letter-cascade 700ms var(--easing-out) forwards;
+  }
+}
+
+/* ═══════════════════════════════════════════
+   KEYFRAMES — ink, wax, paper, light
+   ═══════════════════════════════════════════ */
+
+@keyframes ink-fade {
+  0% { opacity: 0; transform: translateY(8px); filter: blur(2px); }
+  100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes seal-stamp {
+  0% { opacity: 0; transform: scale(1.3) rotate(-12deg); }
+  60% { opacity: 1; transform: scale(0.95) rotate(2deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+@keyframes candle-flicker {
+  0%, 100% { opacity: 0.95; }
+  50% { opacity: 0.78; }
+}
+
+@keyframes ink-spread {
+  0% { stroke-dashoffset: 600; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ✦ Typewriter cursor */
+@keyframes blink-caret {
+  0%, 100% { border-color: currentColor; }
+  50% { border-color: transparent; }
+}
+
+@keyframes typewriter {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+/* ✦ Letter cascade — for character-by-character reveal */
+@keyframes letter-cascade {
+  0% { opacity: 0; transform: translateY(-14px) rotate(-5deg); filter: blur(4px); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); filter: blur(0); }
+}
+
+/* ✦ Splotch reveal — circular mask for plates */
+@keyframes splotch-reveal {
+  0% { clip-path: circle(0% at 50% 50%); }
+  60% { clip-path: circle(60% at 50% 50%); }
+  100% { clip-path: circle(150% at 50% 50%); }
+}
+
+/* ✦ Curtain reveal — horizontal wipe */
+@keyframes curtain-reveal {
+  to { clip-path: inset(0 0 0 0); }
+}
+
+/* ✦ Path draw — for SVG outlines */
+@keyframes draw-path {
+  to { stroke-dashoffset: 0; }
+}
+
+/* ✦ Wax drip */
+@keyframes wax-drip {
+  0%, 100% { transform: scaleY(0); transform-origin: top; opacity: 0; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+}
+
+/* ✦ Slower, more dramatic candle */
+@keyframes candle-dance {
+  0%, 100% { transform: scale(1) rotate(0); opacity: 1; }
+  25% { transform: scale(0.96) rotate(-1deg); opacity: 0.85; }
+  50% { transform: scale(1.03) rotate(1deg); opacity: 0.95; }
+  75% { transform: scale(0.98) rotate(-0.5deg); opacity: 0.9; }
+}
+
+/* ✦ Slow rotate (for background ornaments) */
+@keyframes slow-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes slow-rotate-reverse {
+  to { transform: rotate(-360deg); }
+}
+
+/* ✦ Drift — for floating background elements */
+@keyframes drift-1 {
+  0%, 100% { transform: translate(0, 0); }
+  33% { transform: translate(40px, -30px); }
+  66% { transform: translate(-30px, 25px); }
+}
+
+@keyframes drift-2 {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-50px, 35px); }
+}
+
+/* ✦ Ken Burns — slow image zoom */
+@keyframes ken-burns {
+  0% { transform: scale(1.05) translate(0, 0); }
+  50% { transform: scale(1.12) translate(-2%, -1%); }
+  100% { transform: scale(1.05) translate(0, 0); }
+}
+
+/* ✦ Press / slam */
+@keyframes stamp-slam {
+  0% { opacity: 0; transform: scale(3) rotate(-25deg); }
+  60% { opacity: 0.9; transform: scale(0.85) rotate(4deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* ✦ Underline grow */
+@keyframes underline-grow {
+  from { transform: scaleX(0); transform-origin: left; }
+  to { transform: scaleX(1); transform-origin: left; }
+}
+
+/* ✦ Breath */
+@keyframes breath {
+  0%, 100% { transform: scale(1); opacity: 0.85; }
+  50% { transform: scale(1.04); opacity: 1; }
+}
+
+/* ✦ Quill scratch */
+@keyframes quill {
+  0% { transform: translate(0, 0) rotate(0); }
+  20% { transform: translate(2px, 1px) rotate(0.5deg); }
+  40% { transform: translate(-1px, 2px) rotate(-0.3deg); }
+  60% { transform: translate(1px, -1px) rotate(0.2deg); }
+  80% { transform: translate(-2px, 1px) rotate(-0.5deg); }
+  100% { transform: translate(0, 0) rotate(0); }
+}
+
+/* ✦ Ink splotch (radial pop) */
+@keyframes splotch-pop {
+  0% { opacity: 0; transform: scale(0) rotate(20deg); }
+  60% { opacity: 0.9; transform: scale(1.15) rotate(-3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
+}
+
+/* ✦ Page drop — like a sheet of paper settling */
+@keyframes page-drop {
+  0% { opacity: 0; transform: translateY(-30px) rotate(-1deg); }
+  100% { opacity: 1; transform: translateY(0) rotate(0); }
+}
+
+/* ✦ Big stamp impression */
+@keyframes stamp-impression {
+  0% { opacity: 0; transform: scale(4) rotate(-30deg); filter: blur(4px); }
+  50% { opacity: 0.7; transform: scale(0.9) rotate(3deg); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); }
+}
+
+/* ✦ Vertical draw */
+@keyframes vertical-draw {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+/* ✦ Subtle hover pulse (for live indicators) */
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* ✦ Glitch-jitter (gentle, old typewriter) */
+@keyframes gentle-jitter {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-0.5px, 0.5px); }
+  40% { transform: translate(0.5px, -0.5px); }
+  60% { transform: translate(-0.3px, -0.3px); }
+  80% { transform: translate(0.4px, 0.4px); }
+}
+
+/* ✦ Pull-in (for quote marks) */
+@keyframes pull-in {
+  0% { opacity: 0; transform: scale(3) translate(20px, -20px); }
+  100% { opacity: 1; transform: scale(1) translate(0, 0); }
+}
+
+/* ✦ Wax crack */
+@keyframes wax-crack {
+  0%, 100% { background-position: 0 0; }
+  50% { background-position: 4px 4px; }
+}
+
+/* ═══════════════════════════════════════════
+   ANIMATION UTILITIES
+   ═══════════════════════════════════════════ */
+
+@utility animate-ink { animation: ink-fade 900ms var(--easing-out) both; }
+@utility animate-seal { animation: seal-stamp 700ms var(--easing-out) both; }
+@utility animate-stamp-slam { animation: stamp-slam 600ms var(--easing-out) both; }
+@utility animate-candle { animation: candle-flicker 4s ease-in-out infinite; }
+@utility animate-candle-dance { animation: candle-dance 3s ease-in-out infinite; }
+@utility animate-marquee { animation: marqueeScroll 60s linear infinite; }
+@utility animate-ken-burns { animation: ken-burns 18s ease-in-out infinite; }
+@utility animate-drift-1 { animation: drift-1 16s ease-in-out infinite; }
+@utility animate-drift-2 { animation: drift-2 22s ease-in-out infinite; }
+@utility animate-slow-rotate { animation: slow-rotate 60s linear infinite; }
+@utility animate-slow-rotate-reverse { animation: slow-rotate-reverse 80s linear infinite; }
+@utility animate-breath { animation: breath 5s ease-in-out infinite; }
+@utility animate-quill { animation: quill 1.2s ease-in-out infinite; }
+@utility animate-splotch-pop { animation: splotch-pop 700ms var(--easing-out) both; }
+@utility animate-page-drop { animation: page-drop 1.1s var(--easing-out) both; }
+@utility animate-stamp-impression { animation: stamp-impression 800ms var(--easing-out) both; }
+@utility animate-vertical-draw { animation: vertical-draw 1s var(--easing-out) both; transform-origin: top; }
+@utility animate-pulse-dot { animation: pulse-dot 2s ease-in-out infinite; }
+@utility animate-jitter { animation: gentle-jitter 0.3s ease-in-out infinite; }
+@utility animate-pull-in { animation: pull-in 800ms var(--easing-out) both; }
+@utility animate-wax-drip { animation: wax-drip 4s ease-in-out infinite; }
+@utility animate-vertical-draw-bottom { animation: vertical-draw 1s var(--easing-out) both; transform-origin: bottom; }
+@utility animate-draw-path { animation: draw-path 2s var(--easing-out) both; }
