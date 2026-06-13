@@ -540,20 +540,91 @@ function CoatOfArms() {
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 1.2 }}
       />
-      {/* Quill */}
-      <motion.g
-        initial={{ opacity: 0, rotate: -30, scale: 0.5 }}
-        whileInView={{ opacity: 1, rotate: 0, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 1.4, type: "spring" }}
-        style={{ transformOrigin: "100px 75px" }}
-      >
-        <g transform="translate(95 55) rotate(-25)">
-          <path d="M0 0 L8 -40 L12 -42 L4 0 Z" fill="currentColor" />
-          <line x1="2" y1="-2" x2="2" y2="-38" stroke="#F2EAD3" strokeWidth="0.4" />
-          <path d="M0 0 L-6 6 L-3 4 L-2 8 Z" fill="currentColor" />
+      {/* Modern fountain pen — inclined, nib centered above pot */}
+      <g transform="translate(88, 42) rotate(-22 0 29)">
+        <rect x="-4" y="-30" width="8" height="40" rx="4" fill="currentColor" opacity="0.08" transform="translate(1.5, 1.5)" />
+        <rect x="-5" y="-30" width="10" height="38" rx="4" fill="currentColor" opacity="0.88" />
+        <rect x="-3" y="-28" width="2.5" height="34" rx="1.5" fill="#F2EAD3" opacity="0.06" />
+        <rect x="-5.5" y="6" width="11" height="2.5" rx="1" fill="#A37E2C" opacity="0.7" />
+        <path d="M -5 8.5 L 5 8.5 L 3.5 15 L -3.5 15 Z" fill="currentColor" opacity="0.95" />
+        <line x1="-3.5" y1="10" x2="3.5" y2="10" stroke="#F2EAD3" strokeWidth="0.2" opacity="0.1" />
+        <line x1="-3.5" y1="11.5" x2="3.5" y2="11.5" stroke="#F2EAD3" strokeWidth="0.2" opacity="0.1" />
+        <line x1="-3.5" y1="13" x2="3.5" y2="13" stroke="#F2EAD3" strokeWidth="0.2" opacity="0.1" />
+        <path d="M -3.5 15 L 3.5 15 L 2.5 23 L 0 28 L -2.5 23 Z" fill="#3D2E1E" />
+        <path d="M -2.5 16 L 2.5 16 L 1.8 22 L 0 26 L -1.8 22 Z" fill="#2A1F14" />
+        <path d="M -1 16 L 1 16 L 0.8 20 L 0 23 L -0.8 20 Z" fill="#5C4A33" opacity="0.3" />
+        <line x1="0" y1="15" x2="0" y2="27" stroke="#1A140E" strokeWidth="0.5" />
+        <circle cx="0" cy="16.5" r="0.6" fill="#1A140E" />
+        <ellipse cx="0" cy="29" rx="1.5" ry="0.8" fill="#1A140E" opacity="0">
+          <animate attributeName="opacity" values="0;0;0.85;0.85;0;0" dur="7s" begin="2s" repeatCount="indefinite" />
+        </ellipse>
+      </g>
+      {/* Modern ink bottle — at the very bottom */}
+      <g transform="translate(88 195)">
+        <ellipse cx="0" cy="17" rx="14" ry="4" fill="rgba(26,20,14,0.06)" />
+        <path d="M -12 6 Q -14 0 -11 -5 L -8 -10 Q -8 -14 -5 -16 L 5 -16 Q 8 -14 8 -10 L 11 -5 Q 14 0 12 6 Q 10 14 0 15 Q -10 14 -12 6 Z" fill="currentColor" opacity="0.88" />
+        <ellipse cx="0" cy="-16" rx="6" ry="2" fill="#3D2E1E" />
+        <ellipse cx="0" cy="-16.5" rx="5" ry="1.6" fill="#2A1F14" />
+        <ellipse cx="0" cy="-16" rx="4" ry="1.2" fill="#0D0A06" opacity="0.95" />
+        <path d="M -11 3 Q 0 5 11 3 L 11 10 Q 0 12 -11 10 Z" fill="#0D0A06" opacity="0.3" />
+        <path d="M -11 3 Q 0 5 11 3" stroke="#1A140E" strokeWidth="0.3" fill="none" opacity="0.25" />
+        <path d="M -10 4 Q -12 -1 -9 -4" stroke="#F2EAD3" strokeWidth="0.5" fill="none" opacity="0.1" />
+        <ellipse cx="0" cy="-16" rx="4.5" ry="1.3" fill="none" stroke="#1A140E" strokeWidth="0.2" opacity="0.4">
+          <animate attributeName="opacity" values="0.4;0.2;0.4" dur="3s" repeatCount="indefinite" />
+        </ellipse>
+      </g>
+      {/* Ink drops — gravity-accelerated fall */}
+      {[
+        { cx: 88, delay: "2.0s", dur: "1.1s", sp: "3.01s" },
+        { cx: 86, delay: "2.8s", dur: "1.3s", sp: "4.00s" },
+        { cx: 90, delay: "3.7s", dur: "1.0s", sp: "4.62s" },
+        { cx: 87, delay: "4.5s", dur: "1.2s", sp: "5.60s" },
+        { cx: 89, delay: "5.3s", dur: "1.4s", sp: "6.59s" },
+      ].map((d, i) => (
+        <g key={i}>
+          {/* Main drop — accelerates, stretches, then splats */}
+          <ellipse cx={d.cx} cy={73} rx="1.2" ry="1.2" fill="#1A140E" opacity="0">
+            <animate attributeName="opacity" values="0;1;1;0.5;0" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+            <animate attributeName="cy" values="73;86;110;145;179" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+            <animate attributeName="rx" values="1.2;0.8;0.6;1;3.5" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+            <animate attributeName="ry" values="1.2;1.8;3;2.5;0.4" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+          </ellipse>
+          {/* Trailing tail — stretches behind the drop */}
+          <ellipse cx={d.cx} cy={73} rx="0.8" ry="0.4" fill="#1A140E" opacity="0">
+            <animate attributeName="opacity" values="0;0;0.7;0.4;0" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+            <animate attributeName="cy" values="73;73;90;140;178" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+            <animate attributeName="rx" values="0.8;0.6;0.4;0.3;1.5" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+            <animate attributeName="ry" values="0.4;0.2;1.5;3;0.2" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
+          </ellipse>
+          {/* Crown splash — droplets scatter upward on impact */}
+          <circle cx={d.cx} cy={179} r="0.8" fill="#1A140E" opacity="0">
+            <animate attributeName="opacity" values="0;0;0.9;0.4;0" dur="0.6s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cx" values={`${d.cx};${d.cx - 2};${d.cx - 6};${d.cx - 9}`} dur="0.6s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cy" values="179;176;171;168" dur="0.6s" begin={d.sp} repeatCount="indefinite" />
+          </circle>
+          <circle cx={d.cx} cy={179} r="0.6" fill="#1A140E" opacity="0">
+            <animate attributeName="opacity" values="0;0;0.8;0.3;0" dur="0.55s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cx" values={`${d.cx};${d.cx + 2};${d.cx + 5};${d.cx + 8}`} dur="0.55s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cy" values="179;177;172;170" dur="0.55s" begin={d.sp} repeatCount="indefinite" />
+          </circle>
+          <circle cx={d.cx} cy={179} r="0.5" fill="#1A140E" opacity="0">
+            <animate attributeName="opacity" values="0;0;0.7;0.3;0" dur="0.5s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cx" values={`${d.cx};${d.cx - 1};${d.cx - 4};${d.cx - 6}`} dur="0.5s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cy" values="179;177;174;172" dur="0.5s" begin={d.sp} repeatCount="indefinite" />
+          </circle>
+          <circle cx={d.cx} cy={179} r="0.4" fill="#1A140E" opacity="0">
+            <animate attributeName="opacity" values="0;0;0.65;0.25;0" dur="0.45s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cx" values={`${d.cx};${d.cx + 1};${d.cx + 3};${d.cx + 5}`} dur="0.45s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="cy" values="179;178;175;173" dur="0.45s" begin={d.sp} repeatCount="indefinite" />
+          </circle>
+          {/* Ripple ring on ink surface */}
+          <ellipse cx={d.cx} cy={179} rx="1" ry="0.3" fill="none" stroke="#1A140E" strokeWidth="0.6" opacity="0">
+            <animate attributeName="opacity" values="0;0;0.7;0.25;0" dur="0.9s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="rx" values="1;1;12;18" dur="0.9s" begin={d.sp} repeatCount="indefinite" />
+            <animate attributeName="ry" values="0.3;0.3;3;4.5" dur="0.9s" begin={d.sp} repeatCount="indefinite" />
+          </ellipse>
         </g>
-      </motion.g>
+      ))}
       {/* Lamp */}
       <motion.g
         initial={{ opacity: 0, scale: 0.5 }}
