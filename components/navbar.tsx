@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
+import Link from "next/link";
 
 const navItems = [
   { label: "Prologue", href: "#prologue" },
@@ -114,6 +115,14 @@ export function Navbar() {
                 />
               </button>
             ))}
+            <span className="w-px h-5 bg-ink/20" />
+            <Link
+              href="/bookstore"
+              className="group relative font-caps text-[0.65rem] tracking-[0.35em] uppercase transition-colors duration-300 text-ink-soft hover:text-oxblood"
+            >
+              <LetterCascade text="Bookstore" />
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-oxblood transition-all duration-500 w-0 group-hover:w-4" />
+            </Link>
           </nav>
 
           <button
@@ -159,6 +168,19 @@ export function Navbar() {
                 {item.label}
               </motion.button>
             ))}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: navItems.length * 0.06 }}
+            >
+              <Link
+                href="/bookstore"
+                onClick={() => setOpen(false)}
+                className="block text-left font-caps text-xs tracking-[0.35em] uppercase text-oxblood hover:text-oxblood-2 transition-colors"
+              >
+                ✦ Bookstore
+              </Link>
+            </motion.div>
           </motion.nav>
         )}
       </div>
