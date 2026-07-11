@@ -15,6 +15,13 @@ interface Book {
   cover: string;
   excerpt: string;
   binding: string;
+  isbn?: string;
+  publisher?: string;
+  email?: string;
+  phone?: string;
+  dedication?: string;
+  preface?: string;
+  toc?: { title: string; page: string }[];
 }
 
 interface PurchaseItem {
@@ -27,6 +34,118 @@ interface PurchaseItem {
 }
 
 const books: Book[] = [
+  {
+    id: 0,
+    title: "White Words",
+    author: "Darshan Pathak",
+    category: "Poetry & Essays",
+    year: "2023",
+    price: "$3",
+    cover: "/bookstore/white-words-cover.jpg",
+    excerpt:
+      "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
+    binding: "First Edition · 312 pp.",
+    isbn: "978-9937-1-3757-7",
+    publisher: "Darshan Pathak",
+    email: "darshanpathak1992@gmail.com",
+    phone: "+977 9741766064",
+    dedication:
+      "Dedicated to my wife — B.S.C. Nurse (SGT University, India). “The book WHITE WORDS made me proud and challenge to my soul with no proof of love existence with the character of this book's words, the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing out.” — The wife.",
+    preface:
+      "“This book may be useful for all. In this book the key feature is the series of 93 Articles, containing positive status, a glossary of literary terms, and motivates to writing literary essays and documenting them in correct format. In this book the article 'Dark' guides to find the natural light in our life. The author has tries to avoid the bad habits of people.” — Amrit Aryal, Editor, Waling, March 16, 2023.",
+    toc: [
+      { title: "Can it be possible to feel it non-living", page: "3" },
+      { title: "Daily day dream", page: "5" },
+      { title: "Do not tell lie", page: "6" },
+      { title: "Words!!!", page: "7" },
+      { title: "Wishing from Her", page: "9" },
+      { title: "Why the crow is Crowing!", page: "11" },
+      { title: "We pronounced them the “Mad”", page: "12" },
+      { title: "To her!", page: "16" },
+      { title: "The sky above space", page: "19" },
+      { title: "The path of mind", page: "20" },
+      { title: "Temple is heart", page: "21" },
+      { title: "Spiritual symptoms", page: "22" },
+      { title: "Soul", page: "29" },
+      { title: "Show what you know", page: "30" },
+      { title: "Scientific letter of love", page: "31" },
+      { title: "Physical Punishment", page: "34" },
+      { title: "No one like you", page: "36" },
+      { title: "No competition at night", page: "38" },
+      { title: "Nervous!", page: "39" },
+      { title: "Mucosa Nebula", page: "41" },
+      { title: "Micro organisms", page: "45" },
+      { title: "Melodious music", page: "45" },
+      { title: "Kitchen", page: "46" },
+      { title: "I don't think so!", page: "47" },
+      { title: "Flowers", page: "49" },
+      { title: "Fish", page: "50" },
+      { title: "Yes!", page: "51" },
+      { title: "Evolution of Age!", page: "52" },
+      { title: "Don't put your hand on head and sex organs by yourself", page: "54" },
+      { title: "Moving Man", page: "59" },
+      { title: "Through the window", page: "60" },
+      { title: "Ey", page: "62" },
+      { title: "Apocryphal God", page: "63" },
+      { title: "Movement of Mind", page: "64" },
+      { title: "Stars are starring you!", page: "65" },
+      { title: "Wrong Answer", page: "66" },
+      { title: "The last Time", page: "68" },
+      { title: "Mr. Nobody", page: "69" },
+      { title: "No one can Construct and Destruct me", page: "70" },
+      { title: "Why are you able to give Suggestion to me", page: "71" },
+      { title: "The last Night", page: "72" },
+      { title: "Pain Cares The Body", page: "73" },
+      { title: "My life is Stealing", page: "74" },
+      { title: "Cap a Pie Euphony", page: "75" },
+      { title: "Birds", page: "76" },
+      { title: "Alphabet of alphabets", page: "77" },
+      { title: "Sand in sands", page: "78" },
+      { title: "Dust", page: "79" },
+      { title: "River", page: "80" },
+      { title: "Respect", page: "82" },
+      { title: "Regeneration Power", page: "83" },
+      { title: "Dormancy", page: "84" },
+      { title: "Girle", page: "86" },
+      { title: "Deception", page: "88" },
+      { title: "Heavenly hell habits!", page: "89" },
+      { title: "The Word “Peace”", page: "91" },
+      { title: "Crops life", page: "92" },
+      { title: "Steam and Smoke", page: "93" },
+      { title: "Fruits", page: "94" },
+      { title: "What makes wobble and warm in wet winter!", page: "95" },
+      { title: "Pen", page: "97" },
+      { title: "God", page: "98" },
+      { title: "Everything is Hole!", page: "100" },
+      { title: "Bookworm", page: "101" },
+      { title: "Returns in Return", page: "102" },
+      { title: "Why air is colourless!", page: "103" },
+      { title: "Earthquake", page: "105" },
+      { title: "Dark", page: "107" },
+      { title: "Shoe", page: "108" },
+      { title: "Think, listen, see and speak in English", page: "110" },
+      { title: "I love facebook status", page: "111" },
+      { title: "Experienced and Empirical", page: "114" },
+      { title: "Place to place", page: "129" },
+      { title: "My Wishes", page: "130" },
+      { title: "Hello Happy", page: "131" },
+      { title: "Sex and Aids", page: "132" },
+      { title: "They don't give you sufficient Salary.", page: "133" },
+      { title: "I want to be Defeated.", page: "134" },
+      { title: "Dear Students,", page: "135" },
+      { title: "Gossip and Gossiper", page: "136" },
+      { title: "Lion Skin but Fox Heart", page: "137" },
+      { title: "Shadow", page: "138" },
+      { title: "Watch and Clock", page: "139" },
+      { title: "Road", page: "140" },
+      { title: "Rest and Religion", page: "141" },
+      { title: "Love and war", page: "142" },
+      { title: "Distance", page: "143" },
+      { title: "Food", page: "144" },
+      { title: "Zero Hour", page: "145" },
+      { title: "Emptiness", page: "146" },
+    ],
+  },
   {
     id: 1,
     title: "A House of Salt",
@@ -373,9 +492,46 @@ function BookCard({
             </span>
           </div>
 
-          <p className="font-serif italic text-sm leading-relaxed text-ink-soft line-clamp-2">
+          <p className="font-serif italic text-sm leading-relaxed text-ink-soft line-clamp-3">
             {book.excerpt}
           </p>
+
+          {(book.isbn || book.publisher) && (
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 font-caps text-[0.5rem] tracking-[0.3em] uppercase text-faded">
+              {book.isbn && <span>ISBN {book.isbn}</span>}
+              {book.isbn && book.publisher && (
+                <span className="text-gold/50">❦</span>
+              )}
+              {book.publisher && <span>{book.publisher}</span>}
+            </div>
+          )}
+
+          {book.toc && book.toc.length > 0 && (
+            <details className="group/toc pt-1">
+              <summary className="flex cursor-pointer list-none items-center gap-2 font-caps text-[0.55rem] tracking-[0.35em] uppercase text-oxblood select-none">
+                <span className="underline decoration-oxblood/30 underline-offset-4 group-open/toc:no-underline">
+                  Table of Contents
+                </span>
+                <span className="text-gold transition-transform duration-300 group-open/toc:rotate-90">
+                  ❧
+                </span>
+                <span className="text-faded">({book.toc.length})</span>
+              </summary>
+              <ul className="mt-3 max-h-56 overflow-y-auto pr-2 space-y-1.5 border-l border-rule pl-3">
+                {book.toc.map((entry, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-baseline justify-between gap-3 font-serif text-xs text-ink-soft"
+                  >
+                    <span className="leading-snug">{entry.title}</span>
+                    <span className="shrink-0 font-caps text-[0.55rem] tracking-widest text-faded">
+                      p.{entry.page}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </details>
+          )}
 
           <div className="flex items-center justify-between pt-2 border-t border-rule">
             <div className="space-y-0.5">
