@@ -28,7 +28,7 @@ const works: Work[] = [
     edition: "First Edition · 312 pp. · ISBN 978-9937-1-3757-7",
     excerpt:
       "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
-    cover: "/bookstore/white-words-cover.jpg",
+    cover: "/bookstore/white-words-cover.webp",
     featured: true,
   },
 ];

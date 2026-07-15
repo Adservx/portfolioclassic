@@ -32,7 +32,7 @@ const book: Book = {
   author: "Darshan Pathak",
   category: "Poetry & Essays",
   year: "2023",
-  cover: "/bookstore/white-words-cover.jpg",
+  cover: "/bookstore/white-words-cover.webp",
   excerpt:
     "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
   binding: "First Edition · 312 pp.",

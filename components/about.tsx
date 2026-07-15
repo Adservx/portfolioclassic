@@ -4,7 +4,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, type ReactNode } from "react";
 import { Counter } from "@/components/counter";
 
-const VARANASI_IMG = "/varanasi-author.jpg";
+const VARANASI_IMG = "/varanasi-author.webp";
 
 const stats = [
   { target: 93, suffix: "", label: "Articles in White Words" },
@@ -162,7 +162,7 @@ export function About() {
                 transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="plate p-6 sm:p-8 lg:p-10 max-w-sm mx-auto hover:shadow-[0_30px_60px_rgba(26,20,14,0.15)] transition-shadow duration-700 relative overflow-hidden"
                 style={{
-                  backgroundImage: "url(/arms-bg.png)",
+                  backgroundImage: "url(/arms-bg.webp)",
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}

@@ -4,9 +4,9 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
 const PORTRAIT =
-  "/bookstore/messenger-creation.jpg";
+  "/bookstore/messenger-creation.webp";
 const BURST_PORTRAIT =
-  "/bookstore/burst-portrait.jpg";
+  "/bookstore/burst-portrait.webp";
 
 const NAME_FIRST = "Darshan";
 const NAME_LAST = "Pathak";

@@ -161,7 +161,7 @@ export function Navbar() {
               className="hidden sm:flex items-center justify-center w-9 h-9 border border-ink rounded-full overflow-hidden"
             >
               <Image
-                src="/bookstore/messenger-creation.jpg"
+                src="/bookstore/messenger-creation.webp"
                 alt="Darshan Pathak"
                 width={36}
                 height={36}
