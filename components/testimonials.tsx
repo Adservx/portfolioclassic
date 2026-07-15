@@ -5,46 +5,46 @@ import { SectionHeader } from "@/components/about";
 
 const press = [
   {
-    publication: "The New York Review of Books",
-    author: "Hermione Lee",
-    year: "2018",
+    publication: "Public Aawaj Weekly",
+    author: "Amrit Aryal, Editor",
+    year: "2023",
     quote:
-      "Pandit writes as if the page were a window — and what comes through it is the weather, the season, the unedited breath of a long life.",
+      "This book may be useful for all. The key feature is the series of 93 Articles, containing positive status, a glossary of literary terms, and motivates to writing literary essays.",
   },
   {
-    publication: "Le Monde des Livres",
-    author: "Pierre Michon",
-    year: "2014",
+    publication: "Readers' Perspectives",
+    author: "Indra Prasad Pathak & Hari kala Pathak",
+    year: "2023",
     quote:
-      "Aucun écrivain de notre temps n'a prêté une attention plus tranquille, plus intraitable, à la simple présence des choses.",
+      "My dear son, make us proud by showing your minds words in written form that is legal and valid throughout the globe rather than in oral form.",
   },
   {
-    publication: "The Hindu",
-    author: "Aravind Adiga",
-    year: "2011",
+    publication: "Readers' Perspectives",
+    author: "Youbraj Bhandari & Ishwari Bhandari",
+    year: "2023",
     quote:
-      "He has made of Indian English — and of Indian Hindi, and of silence itself — a register that no one had thought to use before him.",
+      "At the time of engagement of marriage, we observed and interviewed him and found that he is independent and create something new that will be beneficial for green world.",
   },
   {
-    publication: "The Guardian",
-    author: "James Wood",
-    year: "2009",
+    publication: "Readers' Perspectives",
+    author: "Geeta Pathak",
+    year: "2023",
     quote:
-      "Pandit's sentences arrive like someone you have known a long time, sitting down across from you, and beginning, at last, to speak.",
+      "The book 'WHITE WORDS' improves English and literature to each and every individual as universal language art and skills — biotic and abiotic, molecular and atomic.",
   },
   {
-    publication: "Nobel Committee",
-    author: "Swedish Academy",
-    year: "1998",
+    publication: "Readers' Perspectives",
+    author: "Yadav Bhandari",
+    year: "2023",
     quote:
-      "For a body of work in which the salt, the silence, and the sorrow of ordinary life are made holy; and for a prose that knows how to wait.",
+      "Darshan Pathak, who is microbiologist and sociologist, has eternal power to select best words to explain the matter that is happening around us in a systematic and scientific source.",
   },
   {
-    publication: "Granta",
-    author: "Ian Hamilton",
-    year: "1996",
+    publication: "Wife's Words",
+    author: "The Wife",
+    year: "2023",
     quote:
-      "He is the least hurried of writers. In a century that ran, Pandit sat, and the world, in his pages, learned to sit with him.",
+      "The book 'WHITE WORDS' made me proud and challenge to my soul with no proof of love existence with the character of this book's words — the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing.",
   },
 ];
 
@@ -60,7 +60,7 @@ export function Praise() {
         <SectionHeader
           eyebrow="Chapter IV"
           title="Of the Reception"
-          subtitle="What the critics and the readers have said, in five continents and forty years."
+          subtitle="What the readers and the well-wishers have said of White Words, First Edition."
         />
 
         {/* ✦ Compact press photograph band — ken burns */}
@@ -71,8 +71,8 @@ export function Praise() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16 max-w-4xl mx-auto"
         >
-          <div className="grid grid-cols-12 gap-4 items-end">
-            <div className="col-span-7 lg:col-span-5">
+          <div className="flex flex-col sm:grid sm:grid-cols-12 gap-4 sm:gap-6 items-end">
+            <div className="sm:col-span-5 w-full">
               <div className="relative aspect-[4/3] plate p-2 overflow-hidden">
                 <div className="absolute inset-2 animate-ken-burns">
                   <img
@@ -91,43 +91,43 @@ export function Praise() {
                 />
               </div>
             </div>
-            <div className="col-span-5 lg:col-span-7 pb-4">
-              <div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
-                A short archive
+            <div className="sm:col-span-7 pb-2 sm:pb-4">
+              <div className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+                From the Preface
               </div>
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="mt-3 font-serif text-xl lg:text-2xl text-ink leading-snug"
+                className="mt-2 sm:mt-3 font-serif text-lg sm:text-xl lg:text-2xl text-ink leading-snug"
               >
-                Forty years of reviews, in twelve languages, kept in a
-                single drawer. &ldquo;He reads each one,&rdquo; his
-                publisher says, &ldquo;and then puts it back, and never
-                mentions it again.&rdquo;
+                The first edition of author tries to include the social,
+                cultural and intellectual context of his time. It throws
+                new light on the theoretical and imaginative structures
+                of Pope&rsquo;s poetry.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.6 }}
-                className="mt-3 font-caps text-[0.55rem] tracking-[0.4em] uppercase text-faded"
+                className="mt-2 sm:mt-3 font-caps text-[0.65rem] tracking-[0.4em] uppercase text-faded"
               >
-                From the publisher&rsquo;s memoir · 2019
+                Amrit Aryal, Editor · Public Aawaj Weekly, 2023
               </motion.div>
             </div>
           </div>
         </motion.figure>
 
         {/* ✦ Asymmetric masonry-ish grid */}
-        <div className="mt-20 grid lg:grid-cols-12 gap-6 lg:gap-10">
+        <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-10">
           {press.map((p, i) => {
             const isFeature = i === 0 || i === 4;
             const isOffset = i === 1 || i === 3;
             return (
               <motion.figure
-                key={p.quote.slice(0, 20)}
+                key={`${p.author}-${p.quote.slice(0, 20)}`}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -139,7 +139,7 @@ export function Praise() {
                 <motion.div
                   whileHover={{ y: -6, boxShadow: "0 30px 60px rgba(26,20,14,0.12)" }}
                   transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                  className="plate-thin p-8 lg:p-10 h-full relative overflow-hidden"
+                  className="plate-thin p-6 sm:p-8 lg:p-10 h-full relative overflow-hidden"
                 >
                   {/* Sweep on hover */}
                   <motion.span
@@ -153,11 +153,11 @@ export function Praise() {
                     }}
                   />
 
-                  <div className="flex items-center justify-between border-b border-ink/40 pb-3 mb-6 relative">
-                    <span className="font-display text-xl lg:text-2xl text-ink leading-none">
+                  <div className="flex items-center justify-between border-b border-ink/40 pb-3 mb-6 relative gap-3">
+                    <span className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
                       {p.publication}
                     </span>
-                    <span className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft">
+                    <span className="font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft shrink-0">
                       {p.year}
                     </span>
                   </div>
@@ -168,7 +168,7 @@ export function Praise() {
                     whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.9, delay: 0.2 + i * 0.08, type: "spring", stiffness: 150 }}
-                    className="font-display text-7xl lg:text-8xl text-oxblood/30 leading-none -mb-6 -ml-1 select-none"
+                    className="font-display text-5xl sm:text-7xl lg:text-8xl text-oxblood/30 leading-none -mb-5 sm:-mb-6 -ml-1 select-none"
                   >
                     &ldquo;
                   </motion.div>
@@ -179,7 +179,7 @@ export function Praise() {
                     viewport={{ once: true }}
                     transition={{ duration: 1, delay: 0.3 + i * 0.08 }}
                     className={`font-serif italic text-ink-2 leading-relaxed relative ${
-                      isFeature ? "text-2xl lg:text-3xl" : "text-xl lg:text-2xl"
+                      isFeature ? "text-xl sm:text-2xl lg:text-3xl" : "text-lg sm:text-xl lg:text-2xl"
                     }`}
                   >
                     {p.quote}
@@ -190,14 +190,14 @@ export function Praise() {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.5 + i * 0.08 }}
-                    className="mt-6 pt-4 border-t border-rule flex items-center gap-3 relative"
+                    className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-rule flex items-center gap-3 relative"
                   >
-                    <span className="h-px w-8 bg-ink" />
+                    <span className="h-px w-6 sm:w-8 bg-ink" />
                     <div>
-                      <div className="font-serif text-base text-ink">
+                      <div className="font-serif text-sm sm:text-base text-ink">
                         {p.author}
                       </div>
-                      <div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
+                      <div className="font-caps text-[0.6rem] sm:text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
                         For {p.publication}
                       </div>
                     </div>
@@ -209,14 +209,14 @@ export function Praise() {
                   whileInView={{ pathLength: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
-                  className="absolute -top-1 -right-1 w-4 h-4 border-t border-r border-oxblood"
+                  className="absolute -top-1 -right-1 w-3 sm:w-4 h-3 sm:h-4 border-t border-r border-oxblood"
                 />
                 <motion.div
                   initial={{ pathLength: 0, opacity: 0 }}
                   whileInView={{ pathLength: 1, opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
-                  className="absolute -bottom-1 -left-1 w-4 h-4 border-b border-l border-oxblood"
+                  className="absolute -bottom-1 -left-1 w-3 sm:w-4 h-3 sm:h-4 border-b border-l border-oxblood"
                 />
               </motion.figure>
             );
@@ -226,12 +226,12 @@ export function Praise() {
         {/* ✦ Press list — at the bottom */}
         <div className="mt-32 grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-rule">
           {[
-            "Time · 100 Most Influential",
-            "The Paris Review · Art of Fiction No. 173",
-            "Sahitya Akademi · Fellowship",
-            "Commonwealth Poetry Prize · 1978",
-            "Danish Academy · Grand Prize",
-            "Ordre des Arts et des Lettres · Commandeur",
+            "White Words · First Edition, 2023",
+            "93 Articles · ISBN 978-9937-1-3757-7",
+            "Published by Darshan Pathak, Nepal",
+            "Printed at New Baba Chhapakhana, Butwal",
+            "Distributed by the Author",
+            "Price · $3",
           ].map((item, i) => (
             <motion.div
               key={item}

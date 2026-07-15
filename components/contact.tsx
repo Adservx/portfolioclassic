@@ -5,10 +5,10 @@ import { motion, AnimatePresence } from "motion/react";
 import { SectionHeader } from "@/components/about";
 
 const channels = [
-  { label: "Post", value: "Rajaram Pandit · c/o Chatto & Windus · 20 Vauxhall Bridge Rd · London SW1V 2SA", icon: "✉" },
-  { label: "Wire", value: "rajaram.pandit@panditpapers.org", icon: "✎" },
-  { label: "Telephone", value: "+91 0542 2500 1926", icon: "☏" },
-  { label: "Studio", value: "By the river, Varanasi — by appointment only", icon: "⌂" },
+  { label: "Email", value: "darshanpathak1992@gmail.com", icon: "✎" },
+  { label: "Phone", value: "+977 9741766064", icon: "☏" },
+  { label: "Author", value: "Darshan Pathak · Nepal", icon: "⌂" },
+  { label: "Book", value: "White Words (First Edition, 2023) · ISBN 978-9937-1-3757-7", icon: "☰" },
 ];
 
 export function Contact() {
@@ -37,10 +37,10 @@ export function Contact() {
         <SectionHeader
           eyebrow="Chapter V"
           title="Letters"
-          subtitle="To write to Rajaram Pandit, please use the form below, or post a letter in the old way."
+          subtitle="To write to Darshan Pathak, please use the form below, or email directly."
         />
 
-        <div className="mt-20 grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div className="mt-16 sm:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           {/* ✦ Left — address & details */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -49,10 +49,10 @@ export function Contact() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5"
           >
-            <div className="font-caps text-[0.62rem] tracking-[0.4em] uppercase text-ink-soft">
+            <div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
               Where to find him
             </div>
-            <h3 className="mt-3 font-serif text-4xl lg:text-5xl text-ink">
+            <h3 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl text-ink">
               The old <em className="text-oxblood">addresses</em>
             </h3>
 
@@ -61,15 +61,15 @@ export function Contact() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="mt-6 font-serif italic text-lg text-ink-soft leading-relaxed max-w-md"
+              className="mt-6 font-serif italic text-base sm:text-lg text-ink-soft leading-relaxed max-w-md"
             >
-              Mr. Pandit reads every letter. He answers, in his own hand, those
+              Mr. Pathak reads every letter. He answers, in his own hand, those
               that ask a real question. He does not answer fan mail, requests
               for blurbs, or invitations to speak in cities he has already
               visited.
             </motion.p>
 
-            <div className="mt-10 space-y-6">
+            <div className="mt-8 sm:mt-10 space-y-5 sm:space-y-6">
               {channels.map((c, i) => (
                 <motion.div
                   key={c.label}
@@ -91,7 +91,7 @@ export function Contact() {
                       className="absolute inset-x-0 bottom-0 h-px bg-oxblood origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"
                       aria-hidden
                     />
-                    <div className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-1">
+                    <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-1">
                       {c.label}
                     </div>
                     <div className="font-serif text-base text-ink-2 leading-snug group-hover:text-oxblood group-hover:translate-x-1 transition-all duration-500">
@@ -107,22 +107,22 @@ export function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
-              className="mt-10 plate-thin p-6 relative"
+              className="mt-8 sm:mt-10 plate-thin p-4 sm:p-6 relative"
             >
               <div className="flex items-center gap-3 mb-3">
                 <motion.span
                   animate={{ rotate: [0, 8, -8, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  className="fleuron text-gold text-2xl"
+                  className="fleuron text-gold text-xl sm:text-2xl"
                 >
                   ❦
                 </motion.span>
-                <span className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft">
+                <span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
                   For the Press
                 </span>
               </div>
-              <p className="font-serif italic text-base text-ink-2 leading-relaxed">
-                Press inquiries to <em>press@panditpapers.org</em>. The author
+<p className="font-serif italic text-sm sm:text-base text-ink-2 leading-relaxed">
+                Press inquiries to <em>darshanpathak1992@gmail.com</em>. The author
                 does not give interviews by telephone, but answers written
                 questions, in writing, on Thursdays.
               </p>
@@ -143,9 +143,9 @@ export function Contact() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="flex items-center gap-4 mb-6"
+              className="flex items-center gap-3 sm:gap-4 mb-6"
             >
-              <div className="relative w-16 h-16 lg:w-20 lg:h-20 plate-thin overflow-hidden shrink-0 group">
+              <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 plate-thin overflow-hidden shrink-0 group">
                 <img
                   src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=200&q=80&auto=format&fit=crop"
                   alt="An old typewriter, with a letter in its carriage"
@@ -157,11 +157,11 @@ export function Contact() {
                 />
               </div>
               <div className="flex-1 border-t border-b border-ink/30 py-2">
-                <div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
+                <div className="font-caps text-[0.6rem] sm:text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
                   By post
                 </div>
-                <div className="font-serif italic text-base text-ink mt-1">
-                  Mr. Pandit answers letters in the order they arrive.
+                <div className="font-serif italic text-sm sm:text-base text-ink mt-1">
+                  Mr. Pathak answers letters in the order they arrive.
                 </div>
               </div>
             </motion.div>
@@ -173,23 +173,23 @@ export function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative plate p-8 lg:p-12"
+              className="relative plate p-6 sm:p-8 lg:p-12"
             >
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.4 }}
-                className="absolute top-4 right-4 lg:top-6 lg:right-6 font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft"
+                className="absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-6 lg:right-6 font-caps text-[0.6rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft"
               >
                 Folio · {new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}
               </motion.div>
 
-              <div className="font-caps text-[0.62rem] tracking-[0.4em] uppercase text-ink-soft mb-8">
-                To Rajaram Pandit, from
+              <div className="font-caps text-[0.7rem] sm:text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft mb-6 sm:mb-8">
+                To Darshan Pathak, from
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-6 mb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                 <LetterField
                   label="Name"
                   value={form.name}
@@ -203,7 +203,7 @@ export function Contact() {
                 />
               </div>
 
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <LetterField
                   label="Subject"
                   value={form.subject}
@@ -212,7 +212,7 @@ export function Contact() {
               </div>
 
               <div>
-                <div className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+                <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
                   Your Letter
                 </div>
                 <textarea
@@ -220,18 +220,18 @@ export function Contact() {
                   value={form.body}
                   onChange={(e) => setForm({ ...form, body: e.target.value })}
                   required
-                  placeholder="Dear Mr. Pandit, ..."
-                  className="w-full bg-transparent border-b border-ink/40 focus:border-oxblood outline-none py-3 font-serif text-lg text-ink placeholder:text-ink-soft/50 placeholder:italic transition-colors duration-300 resize-none"
+                  placeholder="Dear Mr. Pathak, ..."
+                  className="w-full bg-transparent border-b border-ink/40 focus:border-oxblood outline-none py-3 font-serif text-base sm:text-lg text-ink placeholder:text-ink-soft/50 placeholder:italic transition-colors duration-300 resize-none"
                 />
               </div>
 
-              <div className="mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
                 <motion.div
                   initial={{ opacity: 0 }}
                   whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.6 }}
-                  className="font-serif italic text-sm text-ink-soft"
+                  className="font-serif italic text-xs sm:text-sm text-ink-soft"
                 >
                   All letters are read in the order they arrive. Patience, please.
                 </motion.div>
@@ -240,7 +240,7 @@ export function Contact() {
                   disabled={state !== "idle"}
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.96 }}
-                  className="group relative inline-flex items-center gap-3 px-8 py-4 bg-ink text-vellum font-caps uppercase tracking-[0.35em] text-[0.65rem] hover:bg-oxblood transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
+                  className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-ink text-vellum font-caps uppercase tracking-[0.35em] text-[0.7rem] sm:text-[0.75rem] hover:bg-oxblood transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
                 >
                   {/* Sweep on hover */}
                   <span
@@ -347,7 +347,7 @@ function LetterField({
   const [focused, setFocused] = useState(false);
   return (
     <div>
-      <div className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+      <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
         {label}
       </div>
       <div className="relative">

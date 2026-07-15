@@ -9,13 +9,13 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary:
-          "bg-ink text-vellum hover:bg-ink-2 border border-ink font-caps uppercase tracking-[0.3em] text-[0.65rem] px-6 py-3",
+          "bg-ink text-vellum hover:bg-ink-2 border border-ink font-caps uppercase tracking-[0.3em] text-[0.75rem] px-6 py-3",
         gold:
-          "bg-gold text-ink hover:bg-gold-2 border border-gold font-caps uppercase tracking-[0.3em] text-[0.65rem] px-6 py-3",
+          "bg-gold text-ink hover:bg-gold-2 border border-gold font-caps uppercase tracking-[0.3em] text-[0.75rem] px-6 py-3",
         oxblood:
-          "bg-oxblood text-vellum hover:bg-oxblood-2 border border-oxblood font-caps uppercase tracking-[0.3em] text-[0.65rem] px-6 py-3",
+          "bg-oxblood text-vellum hover:bg-oxblood-2 border border-oxblood font-caps uppercase tracking-[0.3em] text-[0.75rem] px-6 py-3",
         outline:
-          "bg-transparent text-ink border border-ink hover:bg-ink hover:text-vellum font-caps uppercase tracking-[0.3em] text-[0.65rem] px-6 py-3",
+          "bg-transparent text-ink border border-ink hover:bg-ink hover:text-vellum font-caps uppercase tracking-[0.3em] text-[0.75rem] px-6 py-3",
         ghost:
           "bg-transparent text-ink hover:text-oxblood font-serif italic text-base px-2 py-1",
         link:

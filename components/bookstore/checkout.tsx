@@ -73,7 +73,7 @@ function CreditCardDisplay({
                 animate={{ opacity: number ? 1 : 0.4 }}
                 className="flex items-center gap-1"
               >
-                <span className="text-vellum/50 font-caps text-[0.45rem] tracking-[0.2em]">
+                <span className="text-vellum/50 font-caps text-[0.55rem] tracking-[0.2em]">
                   {number.replace(/\D/g, "").startsWith("4")
                     ? "VISA"
                     : number.replace(/\D/g, "").startsWith("5")
@@ -87,7 +87,7 @@ function CreditCardDisplay({
                 transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
                 className="w-10 h-7 rounded-md bg-gradient-to-br from-gold/80 to-gold-2/80 flex items-center justify-center"
               >
-                <span className="text-ink font-caps text-[0.35rem] tracking-[0.15em]">
+                <span className="text-ink font-caps text-[0.55rem] tracking-[0.15em]">
                   {number.replace(/\D/g, "").startsWith("4")
                     ? "VISA"
                     : number.replace(/\D/g, "").startsWith("5")
@@ -114,7 +114,7 @@ function CreditCardDisplay({
             {/* Bottom row */}
             <div className="flex items-end justify-between">
               <div>
-                <p className="font-caps text-[0.4rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
+                <p className="font-caps text-[0.5rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
                   Cardholder
                 </p>
                 <motion.p
@@ -127,7 +127,7 @@ function CreditCardDisplay({
                 </motion.p>
               </div>
               <div className="text-right">
-                <p className="font-caps text-[0.4rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
+                <p className="font-caps text-[0.5rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
                   Expires
                 </p>
                 <motion.p
@@ -160,8 +160,8 @@ function CreditCardDisplay({
                 </motion.span>
               )}
             </div>
-            <p className="mx-6 mt-3 font-caps text-[0.35rem] tracking-[0.2em] text-vellum/30">
-              This card is issued by The Pandit Estate Bank. Authorised signature
+            <p className="mx-6 mt-3 font-caps text-[0.55rem] tracking-[0.2em] text-vellum/30">
+              This card is issued by The Pathak Estate Bank. Authorised signature
               required.
             </p>
           </div>
@@ -237,8 +237,8 @@ function ProcessingScreen({
           }
           className="w-24 h-24 rounded-full border border-oxblood/60 flex flex-col items-center justify-center"
         >
-          <span className="font-display text-oxblood text-sm leading-none">R · P</span>
-          <span className="font-caps text-oxblood/80 text-[0.45rem] tracking-[0.4em] mt-1">
+          <span className="font-display text-oxblood text-sm leading-none">D · P</span>
+          <span className="font-caps text-oxblood/80 text-[0.55rem] tracking-[0.4em] mt-1">
             EST. MCMLXXII
           </span>
         </motion.div>
@@ -373,13 +373,13 @@ function SuccessScreen({
             transition={{ delay: 0.6 }}
             className="font-display text-oxblood text-lg leading-none"
           >
-            R · P
+            D · P
           </motion.span>
           <motion.span
             initial={{ y: 10, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="font-caps text-oxblood/80 text-[0.45rem] tracking-[0.4em] mt-1"
+            className="font-caps text-oxblood/80 text-[0.55rem] tracking-[0.4em] mt-1"
           >
             CONFIRMED
           </motion.span>
@@ -443,7 +443,7 @@ function SuccessScreen({
           transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
           className="mt-8 inline-flex items-center gap-3 border border-rule bg-parchment px-6 py-3"
         >
-          <span className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
+          <span className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
             Order No.
           </span>
           <span className="font-mono text-lg text-oxblood">{orderNumber}</span>
@@ -459,7 +459,7 @@ function SuccessScreen({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onReturn}
-            className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.6rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
+            className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
           >
             Return to Bookstore
           </motion.button>
@@ -521,7 +521,7 @@ function ShippingForm({
     opts?: { type?: string }
   ) => (
     <div>
-      <label className="block font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+      <label className="block font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
         {label}
       </label>
       <input
@@ -540,7 +540,7 @@ function ShippingForm({
         <motion.p
           initial={{ opacity: 0, y: -5 }}
           animate={{ opacity: 1, y: 0 }}
-          className="font-caps text-[0.5rem] tracking-[0.2em] text-oxblood mt-1"
+          className="font-caps text-[0.6rem] tracking-[0.2em] text-oxblood mt-1"
         >
           {errors[key]}
         </motion.p>
@@ -557,7 +557,7 @@ function ShippingForm({
         </p>
       </div>
       <div className="h-px bg-rule" />
-      {field("Full Name", "name", "Rajaram Pandit")}
+      {field("Full Name", "name", "Darshan Pathak")}
       {field("Email", "email", "reader@example.com", { type: "email" })}
       {field("Street Address", "address", "42 Parchment Lane")}
       <div className="grid grid-cols-2 gap-4">
@@ -569,7 +569,7 @@ function ShippingForm({
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
           type="submit"
-          className="w-full bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.6rem] tracking-[0.35em] uppercase px-6 py-3 transition-all duration-300 cursor-pointer"
+          className="w-full bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-6 py-3 transition-all duration-300 cursor-pointer"
         >
           Continue to Payment
         </motion.button>
@@ -665,7 +665,7 @@ function PaymentForm({
             animate={{ opacity: 1 }}
             className="flex items-center gap-1 text-faded"
           >
-            <span className="font-caps text-[0.4rem] tracking-[0.15em] border border-rule px-1.5 py-0.5">
+            <span className="font-caps text-[0.5rem] tracking-[0.15em] border border-rule px-1.5 py-0.5">
               SSL
             </span>
             <span className="text-base">🔒</span>
@@ -674,7 +674,7 @@ function PaymentForm({
         <div className="h-px bg-rule" />
 
         <div>
-          <label className="block font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+          <label className="block font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
             Card Number
           </label>
           <input
@@ -696,7 +696,7 @@ function PaymentForm({
             <motion.p
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-caps text-[0.5rem] tracking-[0.2em] text-oxblood mt-1"
+              className="font-caps text-[0.6rem] tracking-[0.2em] text-oxblood mt-1"
             >
               {errors.cardNumber}
             </motion.p>
@@ -704,7 +704,7 @@ function PaymentForm({
         </div>
 
         <div>
-          <label className="block font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+          <label className="block font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
             Cardholder Name
           </label>
           <input
@@ -713,7 +713,7 @@ function PaymentForm({
             onChange={(e) => onChange({ ...data, cardName: e.target.value })}
             onFocus={() => setFocused("name")}
             onBlur={() => setFocused(null)}
-            placeholder="Rajaram Pandit"
+            placeholder="Darshan Pathak"
             className={`w-full bg-transparent border px-3 py-2.5 font-serif text-base text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
               errors.cardName
                 ? "border-oxblood"
@@ -724,7 +724,7 @@ function PaymentForm({
             <motion.p
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-caps text-[0.5rem] tracking-[0.2em] text-oxblood mt-1"
+              className="font-caps text-[0.6rem] tracking-[0.2em] text-oxblood mt-1"
             >
               {errors.cardName}
             </motion.p>
@@ -733,7 +733,7 @@ function PaymentForm({
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+            <label className="block font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
               Expiry
             </label>
             <input
@@ -755,14 +755,14 @@ function PaymentForm({
               <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="font-caps text-[0.5rem] tracking-[0.2em] text-oxblood mt-1"
+                className="font-caps text-[0.6rem] tracking-[0.2em] text-oxblood mt-1"
               >
                 {errors.expiry}
               </motion.p>
             )}
           </div>
           <div>
-            <label className="block font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+            <label className="block font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
               CVV
             </label>
             <input
@@ -783,7 +783,7 @@ function PaymentForm({
               <motion.p
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="font-caps text-[0.5rem] tracking-[0.2em] text-oxblood mt-1"
+                className="font-caps text-[0.6rem] tracking-[0.2em] text-oxblood mt-1"
               >
                 {errors.cvv}
               </motion.p>
@@ -795,7 +795,7 @@ function PaymentForm({
           <button
             type="button"
             onClick={onBack}
-            className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.6rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+            className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
           >
             Back
           </button>
@@ -803,7 +803,7 @@ function PaymentForm({
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.99 }}
             type="submit"
-            className="flex-1 bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.6rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+            className="flex-1 bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
           >
             Review Order
           </motion.button>
@@ -847,7 +847,7 @@ function ReviewOrder({
 
       {/* Items summary */}
       <div className="space-y-2">
-        <p className="font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft">
+        <p className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft">
           Items ({items.length})
         </p>
         {items.map((item) => (
@@ -865,7 +865,7 @@ function ReviewOrder({
               </div>
               <div>
                 <p className="font-serif text-sm text-ink">{item.title}</p>
-                <p className="font-caps text-[0.45rem] tracking-[0.3em] text-ink-soft">
+                <p className="font-caps text-[0.55rem] tracking-[0.3em] text-ink-soft">
                   Qty: {item.quantity}
                 </p>
               </div>
@@ -879,7 +879,7 @@ function ReviewOrder({
 
       {/* Shipping */}
       <div>
-        <p className="font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+        <p className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
           Shipping To
         </p>
         <div className="bg-parchment/60 border border-rule p-4 font-serif text-sm text-ink space-y-0.5">
@@ -894,7 +894,7 @@ function ReviewOrder({
 
       {/* Payment */}
       <div>
-        <p className="font-caps text-[0.5rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+        <p className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
           Payment
         </p>
         <div className="bg-parchment/60 border border-rule p-4 font-mono text-sm text-ink flex items-center gap-3">
@@ -905,7 +905,7 @@ function ReviewOrder({
 
       {/* Total */}
       <div className="flex items-center justify-between py-3 border-t border-ink">
-        <span className="font-caps text-[0.6rem] tracking-[0.35em] uppercase text-ink">
+        <span className="font-caps text-[0.7rem] tracking-[0.35em] uppercase text-ink">
           Total
         </span>
         <span className="font-display text-3xl text-ink">
@@ -916,7 +916,7 @@ function ReviewOrder({
       <div className="flex gap-3 pt-2">
         <button
           onClick={onBack}
-          className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.6rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+          className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
         >
           Back
         </button>
@@ -924,7 +924,7 @@ function ReviewOrder({
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
           onClick={onPlaceOrder}
-          className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[0.6rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+          className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
         >
           Place Order
         </motion.button>
@@ -955,7 +955,7 @@ export function Checkout({ items, onBack, onComplete }: CheckoutProps) {
   const [orderNumber, setOrderNumber] = useState("");
 
   const placeOrder = useCallback(() => {
-    const num = `RP-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}`;
+    const num = `DP-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}`;
     setOrderNumber(num);
     setStep(3);
   }, []);
@@ -981,12 +981,12 @@ export function Checkout({ items, onBack, onComplete }: CheckoutProps) {
               }}
               className="w-6 h-6 rounded-full border flex items-center justify-center"
             >
-              <span className="font-caps text-[0.45rem] tracking-[0.1em]">
+              <span className="font-caps text-[0.55rem] tracking-[0.1em]">
                 {i < step ? "✓" : i + 1}
               </span>
             </motion.div>
             <span
-              className={`font-caps text-[0.45rem] tracking-[0.25em] uppercase hidden sm:inline ${
+              className={`font-caps text-[0.55rem] tracking-[0.25em] uppercase hidden sm:inline ${
                 i <= step ? "text-ink" : "text-faded"
               }`}
             >

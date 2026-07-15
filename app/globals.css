@@ -15,8 +15,8 @@
   --color-ink: #1A140E;
   --color-ink-2: #2A1F14;
   --color-ink-3: #3D2E1E;
-  --color-ink-soft: #5C4A33;
-  --color-faded: #8A7458;
+  --color-ink-soft: #3A2D1C;
+  --color-faded: #5A4830;
   --color-oxblood: #6B1F1A;
   --color-oxblood-2: #8B2A23;
   --color-gold: #A37E2C;
@@ -26,9 +26,9 @@
   --color-rule-soft: rgba(26, 20, 14, 0.1);
   --color-rule-strong: rgba(26, 20, 14, 0.55);
   --color-foreground: #1A140E;
-  --color-foreground-secondary: rgba(26, 20, 14, 0.72);
-  --color-foreground-muted: rgba(26, 20, 14, 0.5);
-  --color-foreground-faint: rgba(26, 20, 14, 0.3);
+  --color-foreground-secondary: rgba(26, 20, 14, 0.85);
+  --color-foreground-muted: rgba(26, 20, 14, 0.75);
+  --color-foreground-faint: rgba(26, 20, 14, 0.55);
   --color-background: #F2EAD3;
   --color-surface: #FBF5E5;
   --color-surface-2: #ECE2C4;
@@ -68,10 +68,11 @@
     background-color: var(--color-ink);
   }
 
-  body {
+body {
     font-family: var(--font-body);
-    font-size: 1.0625rem;
-    line-height: 1.65;
+    font-size: 1.1875rem;
+    line-height: 1.75;
+    font-weight: 500;
     color: var(--color-ink);
     background-color: var(--color-parchment);
     background-image:
@@ -86,8 +87,8 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
-    font-weight: 500;
-    line-height: 1.1;
+    font-weight: 650;
+    line-height: 1.2;
     letter-spacing: -0.01em;
     color: var(--color-ink);
   }
@@ -105,6 +106,15 @@
   :focus-visible {
     outline: 1.5px solid var(--color-oxblood);
     outline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    body {
+      font-size: 1.0625rem;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      letter-spacing: -0.01em;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -134,7 +144,7 @@
 @utility drop-cap {
   float: left;
   font-family: var(--font-display);
-  font-size: 5.5em;
+  font-size: 3.8em;
   line-height: 0.85;
   font-weight: 400;
   margin: 0.08em 0.12em 0 0;
@@ -142,9 +152,15 @@
   text-shadow: 0 1px 0 rgba(107, 31, 26, 0.12);
 }
 
+@media (min-width: 640px) {
+  .drop-cap {
+    font-size: 5.5em;
+  }
+}
+
 @utility label-caps {
   font-family: var(--font-caps);
-  font-size: 0.72rem;
+  font-size: 0.82rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--color-ink-soft);
@@ -154,12 +170,18 @@
 @utility fleuron {
   display: inline-block;
   font-family: var(--font-serif);
-  font-size: 1.5em;
+  font-size: 1.3em;
   line-height: 0.5;
   color: var(--color-gold);
   vertical-align: middle;
   transform: translateY(0.15em);
   font-style: italic;
+}
+
+@media (min-width: 640px) {
+  .fleuron {
+    font-size: 1.5em;
+  }
 }
 
 @utility plate {
@@ -209,8 +231,18 @@
     inset: 0;
     pointer-events: none;
     z-index: 0;
-    opacity: 0.35;
-    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.18 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.55;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.09 0 0 0 0 0.06 0 0 0 0.2 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.15;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 800 600' xmlns='http://www.w3.org/2000/svg'><filter id='f2'><feTurbulence type='fractalNoise' baseFrequency='0.015 0.08' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25 0 0 0 0 0.18 0 0 0 0 0.1 0 0 0 0.12 0'/></filter><rect width='100%25' height='100%25' filter='url(%23f2)'/></svg>");
     mix-blend-mode: multiply;
   }
   .paper-grain > * { position: relative; z-index: 1; }
@@ -228,7 +260,7 @@
     pointer-events: none;
     background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'><filter id='f'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.05' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.15 0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23f)'/></svg>");
     mix-blend-mode: multiply;
-    opacity: 0.6;
+    opacity: 0.5;
   }
 
   .corner-ornament {
@@ -277,7 +309,7 @@
     background: var(--color-oxblood);
     color: var(--color-vellum);
     font-family: var(--font-caps);
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
   }
@@ -343,6 +375,12 @@
     transform-origin: left;
   }
 
+  /* ✦ Custom scrollbar for TOC */
+  .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(26, 20, 14, 0.15); border-radius: 0; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(26, 20, 14, 0.3); }
+
   /* ✦ 3D tilt-ready card */
   .tilt-card {
     transform-style: preserve-3d;
@@ -369,6 +407,180 @@
     transform: translateY(-12px) rotate(-4deg);
     filter: blur(3px);
     animation: letter-cascade 700ms var(--easing-out) forwards;
+  }
+
+  /* ✦ Fold crease — vertical (full-height line simulating a paper fold) */
+  .fold-crease-v {
+    position: fixed;
+    inset-y: 0;
+    width: 0;
+    z-index: 25;
+    pointer-events: none;
+  }
+  .fold-crease-v::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 1px;
+    background: linear-gradient(180deg,
+      transparent 5%,
+      rgba(26, 20, 14, 0.07) 25%,
+      rgba(26, 20, 14, 0.12) 50%,
+      rgba(26, 20, 14, 0.07) 75%,
+      transparent 95%
+    );
+  }
+  .fold-crease-v::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    left: 1px;
+    width: 2px;
+    background: linear-gradient(180deg,
+      transparent 5%,
+      rgba(255, 255, 255, 0.08) 25%,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(255, 255, 255, 0.08) 75%,
+      transparent 95%
+    );
+  }
+
+  /* ✦ Fold crease — horizontal (full-width line simulating a paper fold) */
+  .fold-crease-h {
+    position: fixed;
+    inset-x: 0;
+    height: 0;
+    z-index: 25;
+    pointer-events: none;
+  }
+  .fold-crease-h::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+      transparent 5%,
+      rgba(26, 20, 14, 0.07) 25%,
+      rgba(26, 20, 14, 0.12) 50%,
+      rgba(26, 20, 14, 0.07) 75%,
+      transparent 95%
+    );
+  }
+  .fold-crease-h::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    top: 1px;
+    height: 2px;
+    background: linear-gradient(90deg,
+      transparent 5%,
+      rgba(255, 255, 255, 0.08) 25%,
+      rgba(255, 255, 255, 0.14) 50%,
+      rgba(255, 255, 255, 0.08) 75%,
+      transparent 95%
+    );
+  }
+
+  /* ✦ Folded corners */
+  .folded-corner {
+    position: fixed;
+    width: 80px;
+    height: 80px;
+    z-index: 28;
+    pointer-events: none;
+  }
+
+  .folded-corner-br {
+    bottom: 0;
+    right: 0;
+  }
+  .folded-corner-br::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 80px 80px;
+    border-color: transparent transparent rgba(26, 20, 14, 0.07) transparent;
+  }
+  .folded-corner-br::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 80px 80px 0;
+    border-color: transparent rgba(248, 241, 225, 0.92) transparent transparent;
+  }
+
+  .folded-corner-bl {
+    bottom: 0;
+    left: 0;
+  }
+  .folded-corner-bl::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 80px 80px 0;
+    border-color: transparent rgba(26, 20, 14, 0.07) transparent transparent;
+  }
+  .folded-corner-bl::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 0 80px 80px;
+    border-color: transparent transparent rgba(248, 241, 225, 0.92) transparent;
+  }
+
+  .folded-corner-tr {
+    top: 0;
+    right: 0;
+  }
+  .folded-corner-tr::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 80px 0 0 80px;
+    border-color: transparent transparent transparent rgba(26, 20, 14, 0.07);
+  }
+  .folded-corner-tr::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 80px 80px 0;
+    border-color: transparent rgba(248, 241, 225, 0.92) transparent transparent;
+  }
+
+  /* ✦ Paper edge — multi-line border simulating stacked paper edges */
+  .paper-edge {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 29;
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.03),
+      inset 0 0 0 2px rgba(26, 20, 14, 0.03),
+      inset 0 0 0 3px rgba(255, 255, 255, 0.02);
   }
 }
 

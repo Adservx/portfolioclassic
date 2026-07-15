@@ -10,60 +10,55 @@ const DESK_IMG =
 const disciplines = [
   {
     no: "I",
-    title: "The Novel",
+    title: "The Article",
     description:
-      "Long prose; the patient unfolding of one life against the slow time of a place.",
-    forms: ["Realism", "Multi-voice", "Epistolary", "Mythic"],
-    tools: ["Hand-inked draft", "Three revisions", "One reading aloud"],
+      "Ninety-three short works — each a lens held up to a single corner of life, from love to micro-organism.",
+    forms: ["Personal essay", "Scientific note", "Social observation", "Philosophical fragment"],
+    tools: ["Notebook", "Pen", "Curiosity", "The morning hour"],
   },
   {
     no: "II",
-    title: "The Poem",
+    title: "The Lyric",
     description:
-      "The compression of an entire season into a single breath, a single page, a single line.",
-    forms: ["Sonnet", "Free verse", "Ghazal", "Haiku"],
-    tools: ["Cadence", "Silence", "Salt", "Light"],
+      "Where prose meets poetry — a sentence stretched until it hums, a thought compressed until it burns.",
+    forms: ["Prose poem", "Love letter", "Nature sketch", "Dream sequence"],
+    tools: ["Cadence", "Metaphor", "Silence", "Memory"],
   },
   {
     no: "III",
-    title: "The Essay",
+    title: "The Scientific Meditation",
     description:
-      "Thinking aloud, in good company, on the small unphotographed lives of things.",
-    forms: ["Personal", "Critical", "Memoir", "Letter"],
-    tools: ["Candle", "Pen", "River", "Memory"],
+      "A microscope aimed at the soul — photons, cells, zygotes, and the biology of love examined on the same page.",
+    forms: ["Microbiological metaphor", "Astronomical romance", "Anatomical reflection", "Ecological observation"],
+    tools: ["Microscope", "Textbook", "Imagination", "Awe"],
   },
   {
     no: "IV",
-    title: "Translation",
+    title: "The Moral Counsel",
     description:
-      "An act of hospitality — to bring a voice from one tongue into another, with its accent intact.",
-    forms: ["Hindi ↔ English", "Sanskrit", "Urdu", "French"],
-    tools: ["Two dictionaries", "A friend", "Patience", "A second draft"],
+      "Instruction dressed in urgency — a voice that has seen too much and will not stay silent about what it knows.",
+    forms: ["Social reform", "Behavioural code", "Spiritual warning", "Cultural critique"],
+    tools: ["Conviction", "Experience", "Compassion", "The nerve to speak"],
   },
 ];
 
 const influences = [
-  "Rabindranath Tagore",
-  "Mirza Ghalib",
-  "Marcel Proust",
-  "Wisława Szymborska",
-  "Toni Morrison",
-  "Walt Whitman",
-  "The Mahabharata",
-  "The Upanishads",
-  "Jane Austen",
-  "The Letters of Vincent van Gogh",
+  "The Bhagavad Gita",
+  "Lord Shiva",
+  "The Buddha",
+  "Jesus Christ",
+  "Prophet Muhammad",
+  "Microbiology",
+  "Sociology",
+  "The Nepali Himalaya",
+  "Public Aawaj Weekly",
+  "The morning newspaper",
 ];
 
 const languages = [
-  { name: "Hindi", level: "Working" },
+  { name: "Nepali", level: "Mother Tongue" },
   { name: "English", level: "Working" },
-  { name: "Sanskrit", level: "Reading" },
-  { name: "Urdu", level: "Reading" },
-  { name: "Bengali", level: "Reading" },
-  { name: "French", level: "Reading" },
-  { name: "Italian", level: "Reading" },
-  { name: "Japanese", level: "Reading" },
+  { name: "Hindi", level: "A Little" },
 ];
 
 export function Craft() {
@@ -89,8 +84,8 @@ export function Craft() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="mt-16"
         >
-          <div className="plate p-3 lg:p-4 max-w-5xl mx-auto">
-            <div className="relative aspect-[16/7] overflow-hidden">
+          <div className="plate p-2 sm:p-3 lg:p-4 max-w-5xl mx-auto">
+            <div className="relative aspect-[4/3] sm:aspect-[16/7] overflow-hidden">
               <div className="absolute inset-0 animate-ken-burns">
                 <img
                   src={DESK_IMG}
@@ -120,11 +115,11 @@ export function Craft() {
                 transition={{ delay: 0.4 }}
                 className="absolute top-4 left-4 right-4 flex items-start justify-between text-vellum"
               >
-                <span className="font-caps text-[0.55rem] tracking-[0.45em] uppercase">
+                <span className="font-caps text-[0.65rem] tracking-[0.45em] uppercase">
                   Plate III · The Desk
                 </span>
-                <span className="font-caps text-[0.55rem] tracking-[0.45em] uppercase">
-                  Varanasi · four in the morning
+                <span className="font-caps text-[0.65rem] tracking-[0.45em] uppercase">
+                  Nepal · early morning
                 </span>
               </motion.div>
               <motion.div
@@ -135,11 +130,11 @@ export function Craft() {
                 className="absolute bottom-6 left-6 right-6 lg:left-10 lg:right-auto lg:max-w-md text-vellum"
               >
                 <div className="font-serif italic text-lg lg:text-2xl leading-snug">
-                  &ldquo;Every day, the same hour. The lamp, the pen, the
-                  silence. The page, again.&rdquo;
+                  &ldquo;Writing is the statue, cannot be destroyed, but try to
+                  protect and preserve it from acid rain.&rdquo;
                 </div>
-                <div className="mt-3 font-caps text-[0.55rem] tracking-[0.4em] uppercase text-vellum/80">
-                  Notebook · undated
+                <div className="mt-3 font-caps text-[0.65rem] tracking-[0.4em] uppercase text-vellum/80">
+                  From <em>White Words</em> · Biology Love
                 </div>
               </motion.div>
             </div>
@@ -191,7 +186,7 @@ export function Craft() {
               </p>
 
               <div className="mt-6 pt-4 border-t border-rule">
-                <div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+                <div className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
                   Forms
                 </div>
                 <div className="flex flex-wrap gap-x-3 gap-y-1 font-serif text-sm text-ink">
@@ -205,7 +200,7 @@ export function Craft() {
               </div>
 
               <div className="mt-4 pt-4 border-t border-rule">
-                <div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+                <div className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
                   Tools of the Trade
                 </div>
                 <div className="flex flex-wrap gap-x-3 gap-y-1 font-serif italic text-sm text-ink-soft">
@@ -222,7 +217,7 @@ export function Craft() {
         </div>
 
         {/* ✦ Middle band — Languages and Influences side-by-side */}
-        <div className="mt-24 grid lg:grid-cols-12 gap-10 lg:gap-16">
+        <div className="mt-20 sm:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           {/* Languages */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -231,10 +226,10 @@ export function Craft() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-5"
           >
-            <div className="font-caps text-[0.62rem] tracking-[0.4em] uppercase text-ink-soft">
+            <div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
               The Tongues I Work In
             </div>
-            <h3 className="mt-3 font-serif text-4xl lg:text-5xl text-ink">
+            <h3 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl text-ink">
               Languages, <em className="text-oxblood">read & written</em>
             </h3>
 
@@ -256,7 +251,7 @@ export function Craft() {
                   <span className="relative font-serif text-xl text-ink group-hover:text-oxblood group-hover:translate-x-2 transition-all duration-500">
                     {l.name}
                   </span>
-                  <span className="relative font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-gold transition-colors duration-500">
+                  <span className="relative font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-gold transition-colors duration-500">
                     {l.level}
                   </span>
                 </motion.div>
@@ -271,10 +266,10 @@ export function Craft() {
               className="mt-8 flex items-center gap-3"
             >
               <span className="font-display text-4xl text-oxblood">
-                <Counter target={8} />
+                <Counter target={3} />
               </span>
               <span className="font-serif italic text-base text-ink-soft">
-                tongues, and counting
+                Tongues at my command
               </span>
             </motion.div>
           </motion.div>
@@ -287,10 +282,10 @@ export function Craft() {
             transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="lg:col-span-7"
           >
-            <div className="font-caps text-[0.62rem] tracking-[0.4em] uppercase text-ink-soft">
+            <div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
               Reading & Company
             </div>
-            <h3 className="mt-3 font-serif text-4xl lg:text-5xl text-ink">
+            <h3 className="mt-3 font-serif text-3xl sm:text-4xl lg:text-5xl text-ink">
               Standing on the shoulders{" "}
               <em className="text-oxblood">of</em>
             </h3>
@@ -329,22 +324,20 @@ export function Craft() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4 }}
-              className="mt-10 plate-thin p-6 lg:p-8 relative"
+              className="mt-10 plate-thin p-4 sm:p-6 lg:p-8 relative"
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start gap-3 sm:gap-4">
                 <motion.span
                   animate={{ rotate: [0, 5, -5, 0] }}
                   transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  className="fleuron text-gold text-3xl leading-none"
+                  className="fleuron text-gold text-2xl sm:text-3xl leading-none shrink-0"
                 >
                   ❦
                 </motion.span>
-                <p className="font-serif italic text-lg text-ink-2 leading-relaxed">
-                  &ldquo;I have been, all my life, a borrower. From the Ramayana
-                  and from the morning newspaper. From my mother and from
-                  the baker. From a poem by Ghalib that I have been trying,
-                  for forty years, to translate into English — and have not
-                  yet managed.&rdquo;
+                <p className="font-serif italic text-base sm:text-lg text-ink-2 leading-relaxed">
+                  &ldquo;The potential energy from imagination and thoughts to
+                  cure and prevention the chronic that the whole world is
+                  facing out.&rdquo;
                 </p>
               </div>
             </motion.div>

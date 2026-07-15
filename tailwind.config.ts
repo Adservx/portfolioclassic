@@ -7,6 +7,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontSize: {
+        xs: ["0.8125rem", { lineHeight: "1.5" }],
+        sm: ["0.9375rem", { lineHeight: "1.6" }],
+      },
       fontFamily: {
         heading: ["Archivo", "sans-serif"],
         body: ["Space Grotesk", "sans-serif"],

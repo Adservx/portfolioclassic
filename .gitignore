@@ -31,3 +31,11 @@ next-env.d.ts
 
 # editor
 .claude/
+
+# working/source files not part of the deployed site
+book.pdf
+Messenger_creation_*.jpg
+page_*.png
+ocr_chunks/
+\ book.pdf
+public/bookstore/white-words.pdf

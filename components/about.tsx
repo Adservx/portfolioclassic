@@ -1,44 +1,38 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useRef, type ReactNode } from "react";
 import { Counter } from "@/components/counter";
 
-const VARANASI_IMG =
-  "https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=1400&q=80&auto=format&fit=crop";
+const VARANASI_IMG = "/varanasi-author.jpg";
 
 const stats = [
-  { target: 50, suffix: "+", label: "Years Writing" },
-  { target: 47, suffix: "", label: "Books Published" },
-  { target: 31, suffix: "", label: "Languages" },
-  { target: 12, suffix: "", label: "Honorary Doctorates" },
+  { target: 93, suffix: "", label: "Articles in White Words" },
+  { target: 2023, suffix: "", label: "First Edition" },
+  { target: 2, suffix: "", label: "Professions" },
+  { target: 1, suffix: "", label: "Book Published" },
 ];
 
 const biography = [
   {
-    period: "1926",
-    title: "Born in Varanasi",
-    text: "Son of a Sanskrit scholar and a weaver. Learns to read the Ramayana before he can walk.",
+    period: "1992",
+    title: "Born in Nepal",
+    text: "Darshan Pathak born in Nepal. Early interest in science and humanities.",
   },
   {
-    period: "1948",
-    title: "First collection of poems",
-    text: "Sita's Forest, published privately in a print run of 200. All but 12 copies are lost to a monsoon.",
+    period: "2015, 2024",
+    title: "Microbiology & Sociology",
+    text: "Pursued dual expertise with a B.Sc. in Microbiology and an M.Arts in Sociology, combining a strong foundation in laboratory life sciences with advanced analytical research in human social systems",
   },
   {
-    period: "1961",
-    title: "The novel that changed everything",
-    text: "A House of Salt becomes a quiet sensation in South Asia, then the world. Translated into 31 languages.",
-  },
-  {
-    period: "1998",
-    title: "The Nobel Prize in Literature",
-    text: "Awarded \"for a body of work in which the salt, the silence, and the sorrow of ordinary life are made holy.\"",
+    period: "2023",
+    title: "White Words published",
+    text: "First Edition of 'White Words' released — 93 articles spanning love, spirit, science, and the quiet architecture of the mind. ISBN 978-9937-1-3757-7.",
   },
   {
     period: "Today",
-    title: "Still at the desk",
-    text: "Lives in Varanasi, in the same house for sixty-one years. Rises at four. Writes by hand until noon.",
+    title: "Author & Researcher",
+    text: "Continues writing and research. Lives in Nepal. Email: darshanpathak1992@gmail.com. Phone: +977 9741766064.",
   },
 ];
 
@@ -71,173 +65,183 @@ export function About() {
       <div className="relative mx-auto max-w-7xl">
         <SectionHeader
           eyebrow="Chapter I"
-          title="Of the Man"
-          subtitle="A life, set in five dates and one long letter to you."
+          title="Of the Author"
+          subtitle={
+            <>
+              Darshan Pathak — microbiologist, sociologist, and author of{" "}
+              <cite className="not-italic font-semibold text-oxblood">White Words</cite>
+            </>
+          }
         />
 
         {/* ✦ Asymmetric two-column */}
-        <div className="mt-16 lg:mt-24 grid lg:grid-cols-12 gap-10 lg:gap-20">
-          {/* Left — letter */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-7"
-          >
+          <div className="mt-12 sm:mt-16 lg:mt-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20">
+            {/* Left — letter */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="font-caps text-[0.62rem] tracking-[0.4em] uppercase text-ink-soft mb-6 flex items-center gap-3"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-7"
             >
-              <span className="fleuron text-gold">❦</span>
-              From a letter, dated 14 February 1989
-            </motion.div>
-
-            <div className="font-serif text-[1.18rem] leading-[1.75] text-ink-2 space-y-5">
-              <p>
-                <span className="drop-cap animate-splotch-pop">I</span>
-                <motion.span
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1, delay: 0.6 }}
-                >
-                  {" "}was born in a house where the river could be heard through
-                  every wall. My father taught grammar to boys who would never
-                  read a newspaper; my mother wove cloth so fine it was used to
-                  wrap the small gods in the temple by our lane. From them I
-                  learned that a sentence, like a thread, must be drawn from
-                  somewhere real, and pulled taut, and made to bear weight.
-                </motion.span>
-              </p>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.3 }}
+                transition={{ duration: 0.6 }}
+                className="font-caps text-[0.7rem] sm:text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft mb-4 sm:mb-6 flex items-center gap-3"
               >
-                I have been asked, by kind interviewers in Stockholm and
-                elsewhere, whether I consider myself a poet or a novelist. I
-                do not know what I am. I only know that I have written, every
-                day of my adult life, and that the writing has never become
-                easier. It has only become more necessary.
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-              >
-                What I have to offer my reader is small, and it is also
-                everything I have. It is a record of having paid attention.
-                That is all a writer can do.
-              </motion.p>
-            </div>
+                <span className="fleuron text-gold">❦</span>
+                From the preface to White Words, 2023
+              </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-10 flex items-center gap-4 text-ink-soft"
-            >
-              <span className="h-px flex-1 bg-rule" />
-              <span className="font-serif italic text-base">
-                — Rajaram Pandit, in confidence
-              </span>
-            </motion.div>
-          </motion.div>
-
-          {/* Right — coat of arms / heraldic plate */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-5"
-          >
-            <motion.div
-              whileHover={{ rotate: 0.5 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
-              className="plate p-8 lg:p-10 max-w-md mx-auto hover:shadow-[0_30px_60px_rgba(26,20,14,0.15)] transition-shadow duration-700"
-            >
-              <div className="text-center">
-                <motion.div
-                  initial={{ opacity: 0, letterSpacing: "0.1em" }}
-                  whileInView={{ opacity: 1, letterSpacing: "0.45em" }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.2 }}
-                  className="font-caps text-[0.6rem] uppercase text-ink-soft"
-                >
-                  Arms of the Author
-                </motion.div>
-
-                <motion.div style={{ y: armsY }} className="mt-6 flex justify-center">
-                  <CoatOfArms />
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="mt-6 font-display text-2xl text-ink"
-                >
-                  Pandit
-                </motion.div>
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
-                  className="mt-1 font-serif italic text-sm text-ink-soft"
-                >
-                  &ldquo;to draw water from a deep well&rdquo;
-                </motion.div>
-
-                <motion.div
+            <div className="font-serif text-[1.05rem] sm:text-[1.18rem] leading-[1.75] text-ink-2 space-y-5">
+                <p>
+                  <span className="drop-cap animate-splotch-pop">T</span>
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1, delay: 0.6 }}
+                  >
+                    {" "}his book may be useful for all. In this book the key feature
+                    is the series of 93 Articles, containing positive status, a
+                    glossary of literary terms, and motivates to writing literary
+                    essays and documenting them in correct format. In this book the
+                    article "Dark" guides to find the natural light in our life.
+                  </motion.span>
+                </p>
+                <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: 0.7 }}
-                  className="mt-6 grid grid-cols-2 gap-px bg-rule"
+                  transition={{ duration: 0.8, delay: 0.3 }}
                 >
-                  <div className="bg-parchment-2 p-3">
-                    <div className="font-caps text-[0.55rem] tracking-[0.35em] uppercase text-ink-soft">
-                      Field
-                    </div>
-                    <div className="font-serif italic text-base text-ink mt-1">
-                      Vellum, a river argent
-                    </div>
-                  </div>
-                  <div className="bg-parchment-2 p-3">
-                    <div className="font-caps text-[0.55rem] tracking-[0.35em] uppercase text-ink-soft">
-                      Crest
-                    </div>
-                    <div className="font-serif italic text-base text-ink mt-1">
-                      A quill & a lamp
-                    </div>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  style={{ y: y2 }}
-                  className="mt-8 pt-6 border-t border-rule"
+                  I have been asked, by kind interviewers in Stockholm and
+                  elsewhere, whether I consider myself a poet or a novelist. I
+                  do not know what I am. I only know that I have written, every
+                  day of my adult life, and that the writing has never become
+                  easier. It has only become more necessary.
+                </motion.p>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
                 >
-                  <div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
-                    Motto
-                  </div>
-                  <div className="font-serif italic text-lg text-ink mt-1">
-                    &ldquo;Patiently, against the dark.&rdquo;
-                  </div>
-                </motion.div>
+                  What I have to offer my reader is small, and it is also
+                  everything I have. It is a record of having paid attention.
+                  That is all a writer can do.
+                </motion.p>
               </div>
+
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-8 sm:mt-10 flex items-center gap-4 text-ink-soft"
+              >
+                <span className="h-px flex-1 bg-rule" />
+                <span className="font-serif italic text-sm sm:text-base">
+                  — Darshan Pathak, in confidence
+                </span>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </div>
+
+            {/* Right — coat of arms / heraldic plate */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-5"
+            >
+              <motion.div
+                whileHover={{ rotate: 0.5 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="plate p-6 sm:p-8 lg:p-10 max-w-sm mx-auto hover:shadow-[0_30px_60px_rgba(26,20,14,0.15)] transition-shadow duration-700 relative overflow-hidden"
+                style={{
+                  backgroundImage: "url(/arms-bg.png)",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                <div className="absolute inset-0 bg-parchment/70" />
+                <div className="text-center relative z-10">
+                  <motion.div
+                    initial={{ opacity: 0, letterSpacing: "0.1em" }}
+                    whileInView={{ opacity: 1, letterSpacing: "0.45em" }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2 }}
+                    className="font-caps text-[0.55rem] uppercase text-ink-soft"
+                  >
+                    White Words &middot; First Edition
+                  </motion.div>
+
+                  <motion.div style={{ y: armsY }} className="mt-6 flex justify-center">
+                    <CoatOfArms />
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="mt-6 font-display text-2xl text-ink"
+                  >
+                    Darshan Pathak
+                  </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="mt-1 font-serif italic text-sm text-ink-soft"
+                  >
+                    &ldquo;The series of 93 Articles&rdquo;
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.7 }}
+                    className="mt-6 grid grid-cols-2 gap-px bg-rule"
+                  >
+                    <div className="bg-parchment-2 p-3">
+                      <div className="font-caps text-[0.45rem] tracking-[0.35em] uppercase text-ink-soft">
+                        Articles
+                      </div>
+                      <div className="font-serif italic text-base text-ink mt-1">
+                        93
+                      </div>
+                    </div>
+                    <div className="bg-parchment-2 p-3">
+                      <div className="font-caps text-[0.45rem] tracking-[0.35em] uppercase text-ink-soft">
+                        Published
+                      </div>
+                      <div className="font-serif italic text-base text-ink mt-1">
+                        2023
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    style={{ y: y2 }}
+                    className="mt-8 pt-6 border-t border-rule"
+                  >
+                    <div className="font-caps text-[0.45rem] tracking-[0.4em] uppercase text-ink-soft">
+                      Article &ldquo;Dark&rdquo;
+                    </div>
+                    <div className="font-serif italic text-lg text-ink mt-1">
+                      &ldquo;Dark guides to find the natural light in our life&rdquo;
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
 
         {/* ✦ Varanasi plate — ken burns */}
         <motion.figure
@@ -247,8 +251,8 @@ export function About() {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="mt-24 lg:mt-32"
         >
-          <div className="plate p-3 lg:p-4 max-w-5xl mx-auto">
-            <div className="relative aspect-[16/7] overflow-hidden">
+          <div className="plate p-2 sm:p-3 lg:p-4 max-w-5xl mx-auto">
+            <div className="relative aspect-[4/3] sm:aspect-[16/7] overflow-hidden">
               <div className="absolute inset-0 animate-ken-burns">
                 <img
                   src={VARANASI_IMG}
@@ -257,19 +261,35 @@ export function About() {
                   height={613}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-full object-cover sepia-[0.35] contrast-105"
+                  className="w-full h-full object-cover object-top brightness-[1.08] contrast-[1.15] saturate-[1.1]"
                 />
               </div>
+              {/* Color grade — warm/cinematic tone */}
               <div
-                className="absolute inset-0 pointer-events-none"
+                className="absolute inset-0 pointer-events-none mix-blend-color"
                 style={{
                   background:
-                    "linear-gradient(180deg, rgba(26,20,14,0.15) 0%, transparent 35%, transparent 60%, rgba(26,20,14,0.6) 100%)",
+                    "linear-gradient(135deg, rgba(210,150,70,0.18) 0%, rgba(180,120,60,0.08) 40%, rgba(70,100,130,0.12) 70%, rgba(50,70,100,0.2) 100%)",
+                }}
+              />
+              {/* Soft overlay glow */}
+              <div
+                className="absolute inset-0 pointer-events-none mix-blend-overlay"
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(230,190,120,0.06) 0%, transparent 45%, transparent 65%, rgba(40,60,80,0.08) 100%)",
                 }}
               />
               <div
                 className="absolute inset-0 pointer-events-none"
-                style={{ boxShadow: "inset 0 0 80px 10px rgba(26,20,14,0.4)" }}
+                style={{
+                  background:
+                    "linear-gradient(180deg, rgba(26,20,14,0.2) 0%, transparent 35%, transparent 60%, rgba(26,20,14,0.65) 100%)",
+                }}
+              />
+              <div
+                className="absolute inset-0 pointer-events-none"
+                style={{ boxShadow: "inset 0 0 100px 20px rgba(26,20,14,0.5)" }}
               />
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
@@ -278,11 +298,11 @@ export function About() {
                 transition={{ delay: 0.4 }}
                 className="absolute top-4 left-4 right-4 flex items-start justify-between text-vellum"
               >
-                <span className="font-caps text-[0.55rem] tracking-[0.45em] uppercase">
-                  Plate II · The City
+                <span className="font-caps text-[0.65rem] tracking-[0.45em] uppercase">
+                  Plate II · The Honours
                 </span>
-                <span className="font-caps text-[0.55rem] tracking-[0.45em] uppercase">
-                  Kashi · circa MMXXV
+                <span className="font-caps text-[0.65rem] tracking-[0.45em] uppercase">
+                  Nepal · 2023–MMXXV
                 </span>
               </motion.div>
               <motion.div
@@ -293,11 +313,11 @@ export function About() {
                 className="absolute bottom-4 left-4 right-4 text-vellum"
               >
                 <div className="font-serif italic text-lg lg:text-2xl leading-snug max-w-xl">
-                  &ldquo;The river is older than the gods, and gentler than
-                  any of them.&rdquo;
+                  &ldquo;The recognition is not mine alone — it belongs to
+                  every word, every page, every sleepless hour.&rdquo;
                 </div>
-                <div className="mt-2 font-caps text-[0.55rem] tracking-[0.4em] uppercase text-vellum/80">
-                  From <em>The River Remembers</em> · 1971
+                <div className="mt-2 font-caps text-[0.65rem] tracking-[0.4em] uppercase text-vellum/80">
+                  From the author&rsquo;s notes · 2023
                 </div>
               </motion.div>
             </div>
@@ -307,43 +327,43 @@ export function About() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 1 }}
-            className="mt-3 text-center font-serif italic text-sm text-ink-soft"
+            className="mt-3 text-center font-serif italic text-xs sm:text-sm text-ink-soft px-4"
           >
-            Varanasi, the city the author has refused to leave for
-            sixty-one years.
+            A collection of achievements recognising a lifetime devoted to
+            the written word.
           </motion.figcaption>
         </motion.figure>
 
         {/* ✦ Stats row — with counters */}
-        <div className="mt-24 lg:mt-32 grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -4, backgroundColor: "rgba(251, 245, 229, 1)" }}
-              className="bg-vellum p-6 lg:p-8 text-center group cursor-default transition-colors duration-500"
-            >
-              <div className="font-display text-5xl lg:text-6xl text-ink leading-none">
-                <Counter target={s.target} suffix={s.suffix} />
-              </div>
-              <div className="mt-3 font-caps text-[0.6rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-oxblood transition-colors duration-500">
-                {s.label}
-              </div>
-            </motion.div>
-          ))}
-        </div>
+          <div className="mt-20 sm:mt-24 lg:mt-32 grid grid-cols-2 lg:grid-cols-4 gap-px bg-rule">
+            {stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4, backgroundColor: "rgba(251, 245, 229, 1)" }}
+                className="bg-vellum p-4 sm:p-6 lg:p-8 text-center group cursor-default transition-colors duration-500"
+              >
+                <div className="font-display text-3xl sm:text-5xl lg:text-6xl text-ink leading-none">
+                  <Counter target={s.target} suffix={s.suffix} />
+                </div>
+                <div className="mt-2 sm:mt-3 font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-oxblood transition-colors duration-500">
+                  {s.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
 
         {/* ✦ Timeline */}
-        <div className="mt-24 lg:mt-32">
-          <div className="flex items-end justify-between mb-10">
+        <div className="mt-20 sm:mt-24 lg:mt-32">
+          <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 sm:mb-10 gap-4">
             <div>
-              <div className="font-caps text-[0.62rem] tracking-[0.4em] uppercase text-ink-soft">
+              <div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
                 Chronology
               </div>
-              <h3 className="font-serif text-4xl lg:text-5xl text-ink mt-2">
+              <h3 className="font-serif text-3xl sm:text-4xl lg:text-5xl text-ink mt-2">
                 Five dates, <em className="text-oxblood">a life.</em>
               </h3>
             </div>
@@ -361,18 +381,18 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-                className="group relative grid grid-cols-12 gap-6 py-8 border-t border-rule last:border-b last:border-b-rule hover:bg-vellum/30 transition-colors duration-500"
+                className="group relative grid grid-cols-12 gap-3 sm:gap-6 py-6 sm:py-8 border-t border-rule last:border-b last:border-b-rule hover:bg-vellum/30 transition-colors duration-500"
               >
-                <div className="col-span-3 lg:col-span-2">
-                  <div className="font-display text-4xl lg:text-5xl text-oxblood leading-none group-hover:scale-110 transition-transform duration-500 origin-left">
+                <div className="col-span-4 sm:col-span-3 lg:col-span-2">
+                  <div className="font-display text-2xl sm:text-4xl lg:text-5xl text-oxblood leading-none group-hover:scale-110 transition-transform duration-500 origin-left">
                     {b.period}
                   </div>
                 </div>
-                <div className="col-span-9 lg:col-span-10">
-                  <h4 className="font-serif text-2xl text-ink group-hover:text-oxblood transition-colors duration-500">
+                <div className="col-span-8 sm:col-span-9 lg:col-span-10">
+                  <h4 className="font-serif text-xl sm:text-2xl text-ink group-hover:text-oxblood transition-colors duration-500">
                     {b.title}
                   </h4>
-                  <p className="mt-2 font-serif text-[1.05rem] leading-relaxed text-ink-soft max-w-2xl">
+                  <p className="mt-2 font-serif text-[0.95rem] sm:text-[1.05rem] leading-relaxed text-ink-soft max-w-2xl">
                     {b.text}
                   </p>
                 </div>
@@ -403,7 +423,7 @@ export function SectionHeader({
 }: {
   eyebrow: string;
   title: string;
-  subtitle: string;
+  subtitle: ReactNode;
 }) {
   return (
     <div className="text-center max-w-3xl mx-auto">
@@ -421,7 +441,7 @@ export function SectionHeader({
           transition={{ duration: 0.8, delay: 0.2 }}
           className="h-px w-12 bg-ink origin-right"
         />
-        <span className="font-caps text-[0.62rem] tracking-[0.45em] uppercase text-ink-soft">
+        <span className="font-caps text-[0.72rem] tracking-[0.45em] uppercase text-ink-soft">
           {eyebrow}
         </span>
         <motion.span
@@ -438,7 +458,7 @@ export function SectionHeader({
         whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
         viewport={{ once: true }}
         transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="mt-6 font-serif text-5xl md:text-6xl lg:text-7xl text-ink leading-[1.05]"
+        className="mt-4 sm:mt-6 font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-ink leading-[1.05]"
       >
         {title}
       </motion.h2>
@@ -460,7 +480,7 @@ export function SectionHeader({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="mt-6 font-serif italic text-lg text-ink-soft"
+        className="mt-4 sm:mt-6 font-serif italic text-base sm:text-lg text-ink-soft px-4 sm:px-0"
       >
         {subtitle}
       </motion.p>
@@ -478,7 +498,6 @@ function CoatOfArms() {
       whileInView="visible"
       viewport={{ once: true }}
     >
-      {/* Shield outline draws first */}
       <motion.path
         d="M30 50 Q30 30 50 30 L150 30 Q170 30 170 50 L170 130 Q170 180 100 200 Q30 180 30 130 Z"
         fill="#F2EAD3"
@@ -499,7 +518,6 @@ function CoatOfArms() {
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
       />
-      {/* Chief */}
       <motion.line
         x1="40" y1="80" x2="160" y2="80"
         stroke="currentColor" strokeWidth="0.8"
@@ -516,7 +534,6 @@ function CoatOfArms() {
         viewport={{ once: true }}
         transition={{ duration: 0.8, delay: 0.9 }}
       />
-      {/* River */}
       <motion.path
         d="M50 130 Q70 120 90 130 T130 130 T170 130"
         stroke="#6B1F1A"
@@ -540,7 +557,6 @@ function CoatOfArms() {
         viewport={{ once: true }}
         transition={{ duration: 1.5, delay: 1.2 }}
       />
-      {/* Modern fountain pen — inclined, nib centered above pot */}
       <g transform="translate(88, 42) rotate(-22 0 29)">
         <rect x="-4" y="-30" width="8" height="40" rx="4" fill="currentColor" opacity="0.08" transform="translate(1.5, 1.5)" />
         <rect x="-5" y="-30" width="10" height="38" rx="4" fill="currentColor" opacity="0.88" />
@@ -559,7 +575,6 @@ function CoatOfArms() {
           <animate attributeName="opacity" values="0;0;0.85;0.85;0;0" dur="7s" begin="2s" repeatCount="indefinite" />
         </ellipse>
       </g>
-      {/* Modern ink bottle — at the very bottom */}
       <g transform="translate(88 195)">
         <ellipse cx="0" cy="17" rx="14" ry="4" fill="rgba(26,20,14,0.06)" />
         <path d="M -12 6 Q -14 0 -11 -5 L -8 -10 Q -8 -14 -5 -16 L 5 -16 Q 8 -14 8 -10 L 11 -5 Q 14 0 12 6 Q 10 14 0 15 Q -10 14 -12 6 Z" fill="currentColor" opacity="0.88" />
@@ -573,7 +588,6 @@ function CoatOfArms() {
           <animate attributeName="opacity" values="0.4;0.2;0.4" dur="3s" repeatCount="indefinite" />
         </ellipse>
       </g>
-      {/* Ink drops — gravity-accelerated fall */}
       {[
         { cx: 88, delay: "2.0s", dur: "1.1s", sp: "3.01s" },
         { cx: 86, delay: "2.8s", dur: "1.3s", sp: "4.00s" },
@@ -582,21 +596,18 @@ function CoatOfArms() {
         { cx: 89, delay: "5.3s", dur: "1.4s", sp: "6.59s" },
       ].map((d, i) => (
         <g key={i}>
-          {/* Main drop — accelerates, stretches, then splats */}
           <ellipse cx={d.cx} cy={73} rx="1.2" ry="1.2" fill="#1A140E" opacity="0">
             <animate attributeName="opacity" values="0;1;1;0.5;0" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
             <animate attributeName="cy" values="73;86;110;145;179" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
             <animate attributeName="rx" values="1.2;0.8;0.6;1;3.5" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
             <animate attributeName="ry" values="1.2;1.8;3;2.5;0.4" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
           </ellipse>
-          {/* Trailing tail — stretches behind the drop */}
           <ellipse cx={d.cx} cy={73} rx="0.8" ry="0.4" fill="#1A140E" opacity="0">
             <animate attributeName="opacity" values="0;0;0.7;0.4;0" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
             <animate attributeName="cy" values="73;73;90;140;178" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
             <animate attributeName="rx" values="0.8;0.6;0.4;0.3;1.5" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
             <animate attributeName="ry" values="0.4;0.2;1.5;3;0.2" dur={d.dur} begin={d.delay} repeatCount="indefinite" />
           </ellipse>
-          {/* Crown splash — droplets scatter upward on impact */}
           <circle cx={d.cx} cy={179} r="0.8" fill="#1A140E" opacity="0">
             <animate attributeName="opacity" values="0;0;0.9;0.4;0" dur="0.6s" begin={d.sp} repeatCount="indefinite" />
             <animate attributeName="cx" values={`${d.cx};${d.cx - 2};${d.cx - 6};${d.cx - 9}`} dur="0.6s" begin={d.sp} repeatCount="indefinite" />
@@ -617,7 +628,6 @@ function CoatOfArms() {
             <animate attributeName="cx" values={`${d.cx};${d.cx + 1};${d.cx + 3};${d.cx + 5}`} dur="0.45s" begin={d.sp} repeatCount="indefinite" />
             <animate attributeName="cy" values="179;178;175;173" dur="0.45s" begin={d.sp} repeatCount="indefinite" />
           </circle>
-          {/* Ripple ring on ink surface */}
           <ellipse cx={d.cx} cy={179} rx="1" ry="0.3" fill="none" stroke="#1A140E" strokeWidth="0.6" opacity="0">
             <animate attributeName="opacity" values="0;0;0.7;0.25;0" dur="0.9s" begin={d.sp} repeatCount="indefinite" />
             <animate attributeName="rx" values="1;1;12;18" dur="0.9s" begin={d.sp} repeatCount="indefinite" />
@@ -625,7 +635,6 @@ function CoatOfArms() {
           </ellipse>
         </g>
       ))}
-      {/* Lamp */}
       <motion.g
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1 }}
@@ -645,7 +654,6 @@ function CoatOfArms() {
           </path>
         </g>
       </motion.g>
-      {/* Mantling */}
       <motion.g
         stroke="currentColor" strokeWidth="0.8" fill="none" opacity="0.6"
         initial={{ pathLength: 0 }}
@@ -661,3 +669,5 @@ function CoatOfArms() {
     </motion.svg>
   );
 }
+
+

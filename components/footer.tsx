@@ -4,18 +4,19 @@ import { useRef } from "react";
 import { motion } from "motion/react";
 
 const colophon = [
-  ["Set in", "Italiana, Cormorant Garamond & EB Garamond"],
-  ["Printed on", "Recycled parchment, FSC certified"],
-  ["First folio", "A.D. MMXXVI"],
-  ["Engraver", "OpenCode · Studio of Letters"],
+  ["First Edition", "A.D. 2023"],
+  ["Publisher", "Darshan Pathak, Nepal"],
+  ["Printer", "New Baba Chhapakhana, Butwal-8, Rupandehi"],
+  ["Contact", "darshanpathak1992@gmail.com"],
 ];
 
 const links = [
   { label: "Prologue", href: "#prologue" },
   { label: "The Library", href: "#works" },
   { label: "Of the Craft", href: "#craft" },
-  { label: "Press", href: "#press" },
+  { label: "Of the Reception", href: "#press" },
   { label: "Letters", href: "#letters" },
+  { label: "Bookstore", href: "/bookstore" },
 ];
 
 export function Footer() {
@@ -46,7 +47,7 @@ export function Footer() {
         />
       </div>
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-12 py-20">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12 py-16 sm:py-20">
         {/* ✦ Huge name, like a book's final page */}
         <div className="text-center">
           <motion.div
@@ -54,16 +55,16 @@ export function Footer() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex items-center justify-center gap-3 text-vellum/60"
+            className="flex items-center justify-center gap-2 sm:gap-3 text-vellum/60"
           >
             <motion.span
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-px w-10 bg-vellum/40 origin-right"
+              className="h-px w-6 sm:w-10 bg-vellum/40 origin-right"
             />
-            <span className="font-caps text-[0.6rem] tracking-[0.45em] uppercase">
+            <span className="font-caps text-[0.6rem] sm:text-[0.7rem] tracking-[0.45em] uppercase">
               Finis · The End
             </span>
             <motion.span
@@ -71,13 +72,13 @@ export function Footer() {
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="h-px w-10 bg-vellum/40 origin-left"
+              className="h-px w-6 sm:w-10 bg-vellum/40 origin-left"
             />
           </motion.div>
 
-          <h2 className="mt-6 font-display text-6xl md:text-7xl lg:text-8xl text-vellum leading-[0.9]">
+<h2 className="mt-6 font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-vellum leading-[0.9]">
             <span className="letter-cascade inline-block">
-              {"Rajaram".split("").map((ch, i) => (
+              {"Darshan".split("").map((ch, i) => (
                 <span
                   key={i}
                   style={{ animationDelay: `${400 + i * 50}ms` }}
@@ -92,13 +93,13 @@ export function Footer() {
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="block italic font-serif text-[0.42em] text-gold-soft font-light -mt-2"
+              className="block italic font-serif text-[0.52em] text-gold-soft font-light -mt-2"
             >
               <span className="letter-cascade inline-block">
-                {"pandit".split("").map((ch, i) => (
+                {"pathak".split("").map((ch, i) => (
                   <span
                     key={i}
-                    style={{ animationDelay: `${900 + i * 50}ms` }}
+                    style={{ animationDelay: `${1200 + i * 50}ms` }}
                     className="inline-block"
                   >
                     {ch}
@@ -115,8 +116,7 @@ export function Footer() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-6 font-serif italic text-vellum/70 text-lg max-w-xl mx-auto"
           >
-            &ldquo;The page refuses nothing honest.&rdquo; — A life in letters, still being
-            written.
+            &ldquo;Dark guides to find the natural light in our life.&rdquo;
           </motion.p>
 
           {/* ✦ Big wax seal */}
@@ -129,17 +129,17 @@ export function Footer() {
           >
             <div className="w-24 h-24 rounded-full border border-oxblood/60 flex flex-col items-center justify-center">
               <span className="font-display text-oxblood text-sm leading-none">
-                R · P
+                D · P
               </span>
-              <span className="font-caps text-oxblood/80 text-[0.45rem] tracking-[0.4em] mt-1">
-                MMXXVI
+              <span className="font-caps text-oxblood/80 text-[0.55rem] tracking-[0.4em] mt-1">
+                MMXXIII
               </span>
             </div>
           </motion.div>
         </div>
 
         {/* ✦ Navigation + colophon */}
-        <div className="mt-20 grid lg:grid-cols-12 gap-10 lg:gap-16 pt-10 border-t border-vellum/15">
+        <div className="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-16 pt-8 sm:pt-10 border-t border-vellum/15">
           {/* Navigation */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -148,7 +148,7 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-4"
           >
-            <div className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
+            <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
               The Chapters
             </div>
             <ul className="space-y-2">
@@ -182,7 +182,7 @@ export function Footer() {
             transition={{ duration: 0.6, delay: 0.3 }}
             className="lg:col-span-5"
           >
-            <div className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
+            <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
               Colophon
             </div>
             <dl className="space-y-3">
@@ -193,12 +193,12 @@ export function Footer() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
-                  className="grid grid-cols-12 gap-4 border-b border-vellum/10 pb-3"
+                  className="grid grid-cols-4 sm:grid-cols-12 gap-2 sm:gap-4 border-b border-vellum/10 pb-3"
                 >
-                  <dt className="col-span-3 font-caps text-[0.6rem] tracking-[0.3em] uppercase text-vellum/50">
+                  <dt className="col-span-4 sm:col-span-3 font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.3em] uppercase text-vellum/50">
                     {term}
                   </dt>
-                  <dd className="col-span-9 font-serif text-vellum/85 italic">
+                  <dd className="col-span-8 sm:col-span-9 font-serif text-vellum/85 italic text-sm sm:text-base">
                     {def}
                   </dd>
                 </motion.div>
@@ -212,9 +212,9 @@ export function Footer() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="lg:col-span-3 flex flex-col items-start lg:items-end"
+            className="lg:col-span-3 flex flex-col items-start lg:items-end sm:col-span-2 sm:items-start lg:items-end"
           >
-            <div className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
+            <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
               Back to the top
             </div>
             <button
@@ -227,19 +227,19 @@ export function Footer() {
               <motion.span
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="w-12 h-12 border border-vellum/40 rounded-full flex items-center justify-center group-hover:border-gold-soft group-hover:bg-gold-soft/10 transition-all duration-500"
+                className="w-10 h-10 sm:w-12 sm:h-12 border border-vellum/40 rounded-full flex items-center justify-center group-hover:border-gold-soft group-hover:bg-gold-soft/10 transition-all duration-500"
               >
                 <motion.span
                   animate={{ y: [0, -2, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                  className="font-display text-xl text-vellum group-hover:text-gold-soft"
+                  className="font-display text-lg sm:text-xl text-vellum group-hover:text-gold-soft"
                 >
                   ↑
                 </motion.span>
               </motion.span>
             </button>
-            <div className="mt-6 font-serif italic text-vellum/40 text-sm">
-              No. 01 · Volume I
+            <div className="mt-4 sm:mt-6 font-serif italic text-vellum/40 text-xs sm:text-sm">
+              ISBN 978-9937-1-3757-7
             </div>
           </motion.div>
         </div>
@@ -252,8 +252,8 @@ export function Footer() {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="mt-16 pt-6 border-t border-vellum/15 flex flex-col sm:flex-row items-center justify-between gap-4"
         >
-          <p className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-vellum/40">
-            © MMXXVI · The Pandit Estate · All rights reserved
+          <p className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-vellum/40">
+            © 2023 · Darshan Pathak · All rights reserved
           </p>
           <div className="flex items-center gap-3">
             <motion.span
@@ -264,7 +264,7 @@ export function Footer() {
               ❦
             </motion.span>
             <span className="font-serif italic text-vellum/50 text-sm">
-              Patiently, against the dark
+              White Words · First Edition
             </span>
             <motion.span
               animate={{ rotate: [0, -15, 15, 0] }}

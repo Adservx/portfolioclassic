@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import { Checkout } from "@/components/bookstore/checkout";
+import { InkMotes } from "@/components/ink-motes";
 
 interface Book {
   id: number;
@@ -11,10 +12,11 @@ interface Book {
   author: string;
   category: string;
   year: string;
-  price: string;
   cover: string;
   excerpt: string;
   binding: string;
+  price: string;
+  pdfUrl?: string;
   isbn?: string;
   publisher?: string;
   email?: string;
@@ -24,284 +26,183 @@ interface Book {
   toc?: { title: string; page: string }[];
 }
 
-interface PurchaseItem {
-  id: number;
-  title: string;
-  price: string;
-  cover: string;
-  binding: string;
-  quantity: number;
-}
-
-const books: Book[] = [
-  {
-    id: 0,
-    title: "White Words",
-    author: "Darshan Pathak",
-    category: "Poetry & Essays",
-    year: "2023",
-    price: "$3",
-    cover: "/bookstore/white-words-cover.jpg",
-    excerpt:
-      "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
-    binding: "First Edition · 312 pp.",
-    isbn: "978-9937-1-3757-7",
-    publisher: "Darshan Pathak",
-    email: "darshanpathak1992@gmail.com",
-    phone: "+977 9741766064",
-    dedication:
-      "Dedicated to my wife — B.S.C. Nurse (SGT University, India). “The book WHITE WORDS made me proud and challenge to my soul with no proof of love existence with the character of this book's words, the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing out.” — The wife.",
-    preface:
-      "“This book may be useful for all. In this book the key feature is the series of 93 Articles, containing positive status, a glossary of literary terms, and motivates to writing literary essays and documenting them in correct format. In this book the article 'Dark' guides to find the natural light in our life. The author has tries to avoid the bad habits of people.” — Amrit Aryal, Editor, Waling, March 16, 2023.",
-    toc: [
-      { title: "Can it be possible to feel it non-living", page: "3" },
-      { title: "Daily day dream", page: "5" },
-      { title: "Do not tell lie", page: "6" },
-      { title: "Words!!!", page: "7" },
-      { title: "Wishing from Her", page: "9" },
-      { title: "Why the crow is Crowing!", page: "11" },
-      { title: "We pronounced them the “Mad”", page: "12" },
-      { title: "To her!", page: "16" },
-      { title: "The sky above space", page: "19" },
-      { title: "The path of mind", page: "20" },
-      { title: "Temple is heart", page: "21" },
-      { title: "Spiritual symptoms", page: "22" },
-      { title: "Soul", page: "29" },
-      { title: "Show what you know", page: "30" },
-      { title: "Scientific letter of love", page: "31" },
-      { title: "Physical Punishment", page: "34" },
-      { title: "No one like you", page: "36" },
-      { title: "No competition at night", page: "38" },
-      { title: "Nervous!", page: "39" },
-      { title: "Mucosa Nebula", page: "41" },
-      { title: "Micro organisms", page: "45" },
-      { title: "Melodious music", page: "45" },
-      { title: "Kitchen", page: "46" },
-      { title: "I don't think so!", page: "47" },
-      { title: "Flowers", page: "49" },
-      { title: "Fish", page: "50" },
-      { title: "Yes!", page: "51" },
-      { title: "Evolution of Age!", page: "52" },
-      { title: "Don't put your hand on head and sex organs by yourself", page: "54" },
-      { title: "Moving Man", page: "59" },
-      { title: "Through the window", page: "60" },
-      { title: "Ey", page: "62" },
-      { title: "Apocryphal God", page: "63" },
-      { title: "Movement of Mind", page: "64" },
-      { title: "Stars are starring you!", page: "65" },
-      { title: "Wrong Answer", page: "66" },
-      { title: "The last Time", page: "68" },
-      { title: "Mr. Nobody", page: "69" },
-      { title: "No one can Construct and Destruct me", page: "70" },
-      { title: "Why are you able to give Suggestion to me", page: "71" },
-      { title: "The last Night", page: "72" },
-      { title: "Pain Cares The Body", page: "73" },
-      { title: "My life is Stealing", page: "74" },
-      { title: "Cap a Pie Euphony", page: "75" },
-      { title: "Birds", page: "76" },
-      { title: "Alphabet of alphabets", page: "77" },
-      { title: "Sand in sands", page: "78" },
-      { title: "Dust", page: "79" },
-      { title: "River", page: "80" },
-      { title: "Respect", page: "82" },
-      { title: "Regeneration Power", page: "83" },
-      { title: "Dormancy", page: "84" },
-      { title: "Girle", page: "86" },
-      { title: "Deception", page: "88" },
-      { title: "Heavenly hell habits!", page: "89" },
-      { title: "The Word “Peace”", page: "91" },
-      { title: "Crops life", page: "92" },
-      { title: "Steam and Smoke", page: "93" },
-      { title: "Fruits", page: "94" },
-      { title: "What makes wobble and warm in wet winter!", page: "95" },
-      { title: "Pen", page: "97" },
-      { title: "God", page: "98" },
-      { title: "Everything is Hole!", page: "100" },
-      { title: "Bookworm", page: "101" },
-      { title: "Returns in Return", page: "102" },
-      { title: "Why air is colourless!", page: "103" },
-      { title: "Earthquake", page: "105" },
-      { title: "Dark", page: "107" },
-      { title: "Shoe", page: "108" },
-      { title: "Think, listen, see and speak in English", page: "110" },
-      { title: "I love facebook status", page: "111" },
-      { title: "Experienced and Empirical", page: "114" },
-      { title: "Place to place", page: "129" },
-      { title: "My Wishes", page: "130" },
-      { title: "Hello Happy", page: "131" },
-      { title: "Sex and Aids", page: "132" },
-      { title: "They don't give you sufficient Salary.", page: "133" },
-      { title: "I want to be Defeated.", page: "134" },
-      { title: "Dear Students,", page: "135" },
-      { title: "Gossip and Gossiper", page: "136" },
-      { title: "Lion Skin but Fox Heart", page: "137" },
-      { title: "Shadow", page: "138" },
-      { title: "Watch and Clock", page: "139" },
-      { title: "Road", page: "140" },
-      { title: "Rest and Religion", page: "141" },
-      { title: "Love and war", page: "142" },
-      { title: "Distance", page: "143" },
-      { title: "Food", page: "144" },
-      { title: "Zero Hour", page: "145" },
-      { title: "Emptiness", page: "146" },
-    ],
-  },
-  {
-    id: 1,
-    title: "A House of Salt",
-    author: "Rajaram Pandit",
-    category: "Novel",
-    year: "1961",
-    price: "£18",
-    cover: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=600&q=80&auto=format&fit=crop",
-    excerpt: "Three sisters inherit, after their mother's death, not the house they grew up in but a debt — and a salt-mine on the edge of a drying sea.",
-    binding: "Clothbound, 312 pp.",
-  },
-  {
-    id: 2,
-    title: "The River Remembers",
-    author: "Rajaram Pandit",
-    category: "Novel",
-    year: "1971",
-    price: "£20",
-    cover: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=600&q=80&auto=format&fit=crop",
-    excerpt: "A boatman on the Ganges recounts, in a single night, the lives of the fifty passengers he has carried in forty years.",
-    binding: "Clothbound, 288 pp.",
-  },
-  {
-    id: 3,
-    title: "Varanasi Cantos",
-    author: "Rajaram Pandit",
-    category: "Poetry",
-    year: "1978",
-    price: "£14",
-    cover: "https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=600&q=80&auto=format&fit=crop",
-    excerpt: "Eighty-four sonnets in a voice older than the city itself — and a city older, perhaps, than the voice.",
-    binding: "Sewn pamphlet, 96 pp.",
-  },
-  {
-    id: 4,
-    title: "On Quiet Things",
-    author: "Rajaram Pandit",
-    category: "Essays",
-    year: "1984",
-    price: "£16",
-    cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?w=600&q=80&auto=format&fit=crop",
-    excerpt: "Twenty essays on the small unphotographed lives of things — a kettle, a hand, a window in winter, the moment before sleep.",
-    binding: "Clothbound, 224 pp.",
-  },
-  {
-    id: 5,
-    title: "Letters to a Young Poet",
-    author: "Rajaram Pandit",
-    category: "Letters",
-    year: "1992",
-    price: "£22",
-    cover: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&q=80&auto=format&fit=crop",
-    excerpt: "Forty-six letters written over fifteen years to a young man who would, in time, become a poet in his own right.",
-    binding: "Clothbound, 368 pp.",
-  },
-  {
-    id: 6,
-    title: "The Cartographer of Grief",
-    author: "Rajaram Pandit",
-    category: "Novel",
-    year: "2002",
-    price: "£20",
-    cover: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=600&q=80&auto=format&fit=crop",
-    excerpt: "A retired surveyor, called to map a village that has vanished from every map, finds that the village is not so much lost as unfinished.",
-    binding: "Clothbound, 336 pp.",
-  },
-  {
-    id: 7,
-    title: "The Hour Before Dawn",
-    author: "Rajaram Pandit",
-    category: "Poetry",
-    year: "2011",
-    price: "£15",
-    cover: "https://images.unsplash.com/photo-1530538987395-032d1800fdd4?w=600&q=80&auto=format&fit=crop",
-    excerpt: "A late, spare book — fifty-two short poems, each one set in the hour between four and five in the morning.",
-    binding: "Sewn pamphlet, 80 pp.",
-  },
-  {
-    id: 8,
-    title: "Patiently, Against the Dark",
-    author: "Rajaram Pandit",
-    category: "Essays",
-    year: "2018",
-    price: "£25",
-    cover: "https://images.unsplash.com/photo-1502810190503-8303352d0dd1?w=600&q=80&auto=format&fit=crop",
-    excerpt: "A lifetime of essays gathered into a single volume, with a new preface written at ninety-two.",
-    binding: "Clothbound, 512 pp.",
-  },
-  {
-    id: 9,
-    title: "The Pandit Papers",
-    author: "Rajaram Pandit",
-    category: "Collected Works",
-    year: "2027",
-    price: "£45",
-    cover: "https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=600&q=80&auto=format&fit=crop",
-    excerpt: "The complete critical writings, with previously unpublished material from the author's archives.",
-    binding: "Quarter-bound leather, 720 pp.",
-  },
-];
+const book: Book = {
+  id: 1,
+  title: "White Words",
+  author: "Darshan Pathak",
+  category: "Poetry & Essays",
+  year: "2023",
+  cover: "/bookstore/white-words-cover.jpg",
+  excerpt:
+    "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
+  binding: "First Edition · 312 pp.",
+  price: "$3.00",
+  pdfUrl: "/bookstore/white-words.pdf",
+  isbn: "978-9937-1-3757-7",
+  publisher: "Darshan Pathak",
+  email: "darshanpathak1992@gmail.com",
+  phone: "+977 9741766064",
+  dedication:
+    "Dedicated to my wife — B.S.C. Nurse (SGT University, India). “The book WHITE WORDS made me proud and challenge to my soul with no proof of love existence with the character of this book's words, the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing out.” — The wife.",
+  preface:
+    "“This book may be useful for all. In this book the key feature is the series of 93 Articles, containing positive status, a glossary of literary terms, and motivates to writing literary essays and documenting them in correct format. In this book the article 'Dark' guides to find the natural light in our life. The author has tries to avoid the bad habits of people.” — Amrit Aryal, Editor, Waling, March 16, 2023.",
+  toc: [
+    { title: "Can it be possible to feel it non-living", page: "3" },
+    { title: "Daily day dream", page: "5" },
+    { title: "Do not tell lie", page: "6" },
+    { title: "Words!!!", page: "7" },
+    { title: "Wishing from Her", page: "9" },
+    { title: "Why the crow is Crowing!", page: "11" },
+    { title: "We pronounced them the “Mad”", page: "12" },
+    { title: "To her!", page: "16" },
+    { title: "The sky above space", page: "19" },
+    { title: "The path of mind", page: "20" },
+    { title: "Temple is heart", page: "21" },
+    { title: "Spiritual symptoms", page: "22" },
+    { title: "Soul", page: "29" },
+    { title: "Show what you know", page: "30" },
+    { title: "Scientific letter of love", page: "31" },
+    { title: "Physical Punishment", page: "34" },
+    { title: "No one like you", page: "36" },
+    { title: "No competition at night", page: "38" },
+    { title: "Nervous!", page: "39" },
+    { title: "Mucosa Nebula", page: "41" },
+    { title: "Micro organisms", page: "45" },
+    { title: "Melodious music", page: "45" },
+    { title: "Kitchen", page: "46" },
+    { title: "I don't think so!", page: "47" },
+    { title: "Flowers", page: "49" },
+    { title: "Fish", page: "50" },
+    { title: "Yes!", page: "51" },
+    { title: "Evolution of Age!", page: "52" },
+    { title: "Don't put your hand on head and sex organs by yourself", page: "54" },
+    { title: "Moving Man", page: "59" },
+    { title: "Through the window", page: "60" },
+    { title: "Ey", page: "62" },
+    { title: "Apocryphal God", page: "63" },
+    { title: "Movement of Mind", page: "64" },
+    { title: "Stars are starring you!", page: "65" },
+    { title: "Wrong Answer", page: "66" },
+    { title: "The last Time", page: "68" },
+    { title: "Mr. Nobody", page: "69" },
+    { title: "No one can Construct and Destruct me", page: "70" },
+    { title: "Why are you able to give Suggestion to me", page: "71" },
+    { title: "The last Night", page: "72" },
+    { title: "Pain Cares The Body", page: "73" },
+    { title: "My life is Stealing", page: "74" },
+    { title: "Cap a Pie Euphony", page: "75" },
+    { title: "Birds", page: "76" },
+    { title: "Alphabet of alphabets", page: "77" },
+    { title: "Sand in sands", page: "78" },
+    { title: "Dust", page: "79" },
+    { title: "River", page: "80" },
+    { title: "Respect", page: "82" },
+    { title: "Regeneration Power", page: "83" },
+    { title: "Dormancy", page: "84" },
+    { title: "Girle", page: "86" },
+    { title: "Deception", page: "88" },
+    { title: "Heavenly hell habits!", page: "89" },
+    { title: "The Word “Peace”", page: "91" },
+    { title: "Crops life", page: "92" },
+    { title: "Steam and Smoke", page: "93" },
+    { title: "Fruits", page: "94" },
+    { title: "What makes wobble and warm in wet winter!", page: "95" },
+    { title: "Pen", page: "97" },
+    { title: "God", page: "98" },
+    { title: "Everything is Hole!", page: "100" },
+    { title: "Bookworm", page: "101" },
+    { title: "Returns in Return", page: "102" },
+    { title: "Why air is colourless!", page: "103" },
+    { title: "Earthquake", page: "105" },
+    { title: "Dark", page: "107" },
+    { title: "Shoe", page: "108" },
+    { title: "Think, listen, see and speak in English", page: "110" },
+    { title: "I love facebook status", page: "111" },
+    { title: "Experienced and Empirical", page: "114" },
+    { title: "Place to place", page: "129" },
+    { title: "My Wishes", page: "130" },
+    { title: "Hello Happy", page: "131" },
+    { title: "Sex and Aids", page: "132" },
+    { title: "They don't give you sufficient Salary.", page: "133" },
+    { title: "I want to be Defeated.", page: "134" },
+    { title: "Dear Students,", page: "135" },
+    { title: "Gossip and Gossiper", page: "136" },
+    { title: "Lion Skin but Fox Heart", page: "137" },
+    { title: "Shadow", page: "138" },
+    { title: "Watch and Clock", page: "139" },
+    { title: "Road", page: "140" },
+    { title: "Rest and Religion", page: "141" },
+    { title: "Love and war", page: "142" },
+    { title: "Distance", page: "143" },
+    { title: "Food", page: "144" },
+    { title: "Zero Hour", page: "145" },
+    { title: "Emptiness", page: "146" },
+  ],
+};
 
 export default function Bookstore() {
-  const [purchasing, setPurchasing] = useState<PurchaseItem | null>(null);
+  const [mode, setMode] = useState<"catalog" | "checkout" | "complete">("catalog");
+  const [format, setFormat] = useState<"print" | "digital">("print");
 
-  const handlePurchase = (book: Book) => {
-    setPurchasing({
-      id: book.id,
-      title: book.title,
-      price: book.price,
-      cover: book.cover,
-      binding: book.binding,
-      quantity: 1,
-    });
-  };
+  const handlePrintPurchase = useCallback(() => {
+    setFormat("print");
+    setMode("checkout");
+  }, []);
 
-  const handleComplete = () => setPurchasing(null);
+  const handleDigitalPurchase = useCallback(() => {
+    setFormat("digital");
+    setMode("checkout");
+  }, []);
 
-  const handleBack = () => setPurchasing(null);
+  const handleBack = useCallback(() => {
+    setMode("catalog");
+  }, []);
+
+  const handleComplete = useCallback(() => {
+    setMode("complete");
+  }, []);
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen bg-parchment paper-grain"
+      style={{
+        backgroundImage: `
+          /* ✦ Realistic folded paper with visible grain texture */
+          url("data:image/svg+xml;utf8,<svg viewBox='0 0 1200 1600' xmlns='http://www.w3.org/2000/svg'><defs><filter id='p' x='-5%25' y='-5%25' width='110%25' height='110%25'><feTurbulence type='fractalNoise' baseFrequency='0.006 0.009' numOctaves='5' seed='11' result='n1'/><feTurbulence type='fractalNoise' baseFrequency='0.04 0.35' numOctaves='4' seed='7' result='n2'/><feColorMatrix type='matrix' values='1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.35 0' in='n2' result='n2a'/><feBlend in='n1' in2='n2a' mode='multiply' result='n'/><feDiffuseLighting in='n' lighting-color='#f4ecd8' surfaceScale='3.2' diffuseConstant='1.1' result='lit'><feDistantLight azimuth='228' elevation='52'/></feDiffuseLighting></filter></defs><rect width='100%25' height='100%25' filter='url(%23p)'/></svg>"),
+          /* Bold fold valley shadows */
+          linear-gradient(90deg, transparent 25%, rgba(120,90,50,0.12) 31%, rgba(120,90,50,0.22) 33%, rgba(120,90,50,0.12) 35%, transparent 41%),
+          linear-gradient(90deg, transparent 58%, rgba(120,90,50,0.10) 64%, rgba(120,90,50,0.20) 66%, rgba(120,90,50,0.10) 68%, transparent 74%),
+          /* Fold highlights */
+          linear-gradient(90deg, transparent 33%, rgba(255,248,230,0.20) 34%, rgba(255,248,230,0.08) 35%, transparent 37%),
+          linear-gradient(90deg, transparent 66%, rgba(255,248,230,0.18) 67%, rgba(255,248,230,0.07) 68%, transparent 70%),
+          /* Warm ambient light */
+          radial-gradient(ellipse 600px 400px at 20% 20%, rgba(230,200,150,0.10) 0%, transparent 100%),
+          radial-gradient(ellipse 500px 700px at 80% 80%, rgba(200,170,120,0.08) 0%, transparent 100%),
+          /* Edge darkening */
+          radial-gradient(ellipse 200px 100% at 0% 50%, rgba(140,110,70,0.06) 0%, transparent 100%),
+          radial-gradient(ellipse 200px 100% at 100% 50%, rgba(140,110,70,0.06) 0%, transparent 100%),
+          radial-gradient(ellipse 100% 150px at 50% 0%, rgba(130,100,60,0.04) 0%, transparent 100%),
+          radial-gradient(ellipse 100% 150px at 50% 100%, rgba(130,100,60,0.04) 0%, transparent 100%)
+        `
+      }}
+    >
+      <InkMotes count={16} />
       <div className="paper-fibers" />
 
       {/* ✦ Header */}
-      <header className="relative z-10 border-b border-rule bg-parchment/90 backdrop-blur-md">
+      <header className="relative z-20 border-b border-rule bg-parchment/90 backdrop-blur-md">
         <div className="mx-auto max-w-7xl px-6 lg:px-12 py-4">
           <div className="flex items-center justify-between">
-            {purchasing ? (
-              <button
-                onClick={handleBack}
-                className="group inline-flex items-center gap-2 font-caps text-[0.6rem] tracking-[0.35em] uppercase text-ink-soft hover:text-oxblood transition-colors duration-300 cursor-pointer"
-              >
-                <motion.span
-                  whileHover={{ x: -4 }}
-                  transition={{ duration: 0.3 }}
-                  className="font-display text-lg text-oxblood"
-                >
-                  ←
-                </motion.span>
-                Back to Catalog
-              </button>
-            ) : (
-              <Link
-                href="/"
-                className="group inline-flex items-center gap-2 font-caps text-[0.6rem] tracking-[0.35em] uppercase text-ink-soft hover:text-oxblood transition-colors duration-300"
-              >
-                <motion.span
-                  whileHover={{ x: -4 }}
-                  transition={{ duration: 0.3 }}
-                  className="font-display text-lg text-oxblood"
-                >
-                  ←
-                </motion.span>
-                Return to Portfolio
-              </Link>
-            )}
+            <Link
+              href="/"
+              className="group inline-flex items-center gap-2 text-ink-soft hover:text-ink transition-colors duration-300"
+            >
+              <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-lg">
+                ←
+              </motion.span>
+              <span className="font-caps text-[0.7rem] tracking-[0.35em] uppercase">
+                Portfolio
+              </span>
+            </Link>
             <div className="flex items-center gap-3">
               <motion.span
                 animate={{ rotate: [0, 10, -10, 0] }}
@@ -310,7 +211,7 @@ export default function Bookstore() {
               >
                 ❦
               </motion.span>
-              <span className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
+              <span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
                 Official Bookstore
               </span>
             </div>
@@ -318,243 +219,492 @@ export default function Bookstore() {
         </div>
       </header>
 
-      {/* ✦ Checkout view */}
-      {purchasing ? (
-        <main className="relative z-10 py-20 px-6 lg:px-12">
-          <Checkout
-            items={[purchasing]}
+      <AnimatePresence mode="wait">
+        {mode === "catalog" && (
+          <CatalogView key="catalog" book={book} onPrintPurchase={handlePrintPurchase} onDigitalPurchase={handleDigitalPurchase} />
+        )}
+        {mode === "checkout" && (
+          <CheckoutView
+            key="checkout"
+            book={book}
+            format={format}
             onBack={handleBack}
             onComplete={handleComplete}
           />
-        </main>
-      ) : (
-        <>
-          {/* ✦ Hero */}
-          <section className="relative z-10 pt-20 pb-16 px-6 lg:px-12 overflow-hidden">
-            <div className="mx-auto max-w-7xl text-center">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              >
-                <span className="inline-block font-caps text-[0.6rem] tracking-[0.45em] uppercase text-oxblood mb-6 border border-oxblood/40 px-4 py-1.5">
-                  The Authorised Edition
-                </span>
-              </motion.div>
-              <motion.h1
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="font-display text-5xl md:text-7xl lg:text-8xl text-ink leading-[0.9]"
-              >
-                Bookstore
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-6 font-serif italic text-lg text-ink-soft max-w-2xl mx-auto"
-              >
-                First editions, clothbound reissues, and signed copies — each volume
-                bound with the care it deserves.
-              </motion.p>
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.4 }}
-                className="mt-10 rule-ornate text-ink-soft/50 text-sm max-w-md mx-auto"
-              >
-                <span>First folio</span>
-                <span className="fleuron text-gold">❦</span>
-                <span>Limited printing</span>
-                <span className="fleuron text-gold">❦</span>
-                <span>Hand-bound</span>
-              </motion.div>
-            </div>
-          </section>
-
-          {/* ✦ Catalog */}
-          <main className="relative z-10 pb-32 px-6 lg:px-12">
-            <div className="mx-auto max-w-7xl">
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-                {books.map((book, i) => (
-                  <BookCard
-                    key={book.id}
-                    book={book}
-                    index={i}
-                    onPurchase={handlePurchase}
-                  />
-                ))}
-              </div>
-
-              {/* ✦ Colophon */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-                className="mt-20 pt-10 border-t border-rule"
-              >
-                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-                  <div className="font-serif italic text-sm text-ink-soft">
-                    All orders dispatched from the author&rsquo;s own study. Allow 2–4
-                    weeks for delivery.
-                  </div>
-                  <Link
-                    href="/"
-                    className="group inline-flex items-center gap-3 font-caps text-[0.6rem] tracking-[0.35em] uppercase text-ink-soft hover:text-oxblood transition-colors duration-300"
-                  >
-                    <motion.span
-                      whileHover={{ x: -4 }}
-                      transition={{ duration: 0.3 }}
-                      className="font-display text-lg text-oxblood"
-                    >
-                      ←
-                    </motion.span>
-                    Return to Portfolio
-                    <span className="h-px w-8 bg-ink-soft/40 group-hover:w-12 group-hover:bg-oxblood transition-all duration-500" />
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-          </main>
-        </>
-      )}
+        )}
+        {mode === "complete" && (
+          <CompleteView key="complete" format={format} book={book} onReturn={handleBack} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
 
-function BookCard({
+/* =====================================================================
+   CATALOG VIEW — full book detail page
+   ===================================================================== */
+
+function CatalogView({ book, onPrintPurchase, onDigitalPurchase }: { book: Book; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-10"
+    >
+      {/* ✦ Hero — Split Layout */}
+      <section className="relative pt-12 pb-20 px-6 lg:px-12 overflow-hidden">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+
+            {/* Cover — left 2 cols */}
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-2 relative"
+            >
+              <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 overflow-hidden plate shadow-paper-2">
+                <img
+                  src={book.cover}
+                  alt={`Cover of ${book.title}`}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 40px 4px rgba(0,0,0,0.35)" }} />
+              </div>
+            </motion.div>
+
+            {/* Details — right 3 cols */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-3"
+            >
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.35 }}
+              >
+                <span className="inline-block font-caps text-[0.6rem] tracking-[0.45em] uppercase text-oxblood mb-4 border border-oxblood/40 px-3 py-1">
+                  The Only Edition
+                </span>
+              </motion.div>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="font-display text-5xl md:text-7xl lg:text-8xl text-ink leading-[0.9]"
+              >
+                {book.title}
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="mt-5 font-serif italic text-lg text-ink-soft max-w-xl leading-relaxed"
+              >
+                {book.excerpt}
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+                className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 font-caps text-[0.6rem] tracking-[0.35em] uppercase text-gold"
+              >
+                <span>ISBN {book.isbn}</span>
+                <span className="text-gold/50">❦</span>
+                <span>{book.binding}</span>
+                <span className="text-gold/50">❦</span>
+                <span>{book.year}</span>
+                {book.publisher && (
+                  <>
+                    <span className="text-gold/50">❦</span>
+                    <span>{book.publisher}</span>
+                  </>
+                )}
+              </motion.div>
+
+              {/* Price + CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.7 }}
+                className="mt-10 flex flex-wrap items-center gap-6"
+              >
+                <div className="flex items-baseline gap-2">
+                  <span className="font-display text-5xl text-oxblood">{book.price}</span>
+                  <span className="font-serif italic text-sm text-faded">incl. VAT</span>
+                </div>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onPrintPurchase}
+                    className="relative rounded-[16px] bg-gradient-to-b from-[#8B2A23] to-[#6B1F1A] text-[#FBF5E5] px-14 py-7 transition-all duration-200 hover:brightness-110 shadow-[0_10px_0_#4A1410,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#4A1410] active:translate-y-[7px] cursor-pointer text-center"
+                  >
+                    <span className="relative z-10 block font-caps font-bold text-xl leading-tight">🛒 Buy</span>
+                    <span className="relative z-10 block font-caps font-bold text-4xl tracking-[0.1em] uppercase text-[#D9BE6E] mt-1">Hardcopy (Physical)</span>
+                  </motion.button>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={onDigitalPurchase}
+                    className="relative rounded-[16px] bg-gradient-to-b from-[#3D2E1E] to-[#1A140E] text-[#FBF5E5] px-14 py-7 transition-all duration-200 hover:brightness-125 shadow-[0_10px_0_#0F0B08,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#0F0B08] active:translate-y-[7px] cursor-pointer text-center"
+                  >
+                    <span className="relative z-10 block font-caps font-bold text-xl leading-tight">🛒 Buy</span>
+                    <span className="relative z-10 block font-caps font-bold text-4xl tracking-[0.1em] uppercase text-[#D9BE6E] mt-1">Softcopy (PDF)</span>
+                  </motion.button>
+                </div>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ✦ Product Details Section */}
+      <section className="relative z-10 pb-32 px-6 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+
+            {/* Left column — Dedication, Preface, Metadata */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-10"
+            >
+              {/* Author */}
+              <div>
+                <h3 className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-oxblood mb-3">
+                  Author
+                </h3>
+                <p className="font-serif text-xl text-ink">{book.author}</p>
+              </div>
+
+              {/* Dedication */}
+              {book.dedication && (
+                <div>
+                  <h3 className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-oxblood mb-3">
+                    Dedication
+                  </h3>
+                  <blockquote className="font-serif italic text-sm text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
+                    “{book.dedication}”
+                  </blockquote>
+                </div>
+              )}
+
+              {/* Preface */}
+              {book.preface && (
+                <div>
+                  <h3 className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-oxblood mb-3">
+                    Preface
+                  </h3>
+                  <blockquote className="font-serif italic text-sm text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
+                    “{book.preface}”
+                  </blockquote>
+                </div>
+              )}
+
+              {/* Contact */}
+              <div>
+                <h3 className="font-caps text-[0.6rem] tracking-[0.4em] uppercase text-oxblood mb-3">
+                  Inquiries
+                </h3>
+                <div className="font-serif text-sm text-ink-soft space-y-1">
+                  {book.email && <p>{book.email}</p>}
+                  {book.phone && <p>{book.phone}</p>}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right column — TOC */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="bg-vellum border border-rule p-6 lg:p-8">
+                <div className="flex items-center justify-between mb-5">
+                  <h3 className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-oxblood">
+                    Table of Contents
+                  </h3>
+                  <span className="font-caps text-[0.55rem] tracking-[0.3em] uppercase text-faded">
+                    {book.toc?.length || 0} articles
+                  </span>
+                </div>
+                <div className="h-px bg-rule mb-5" />
+                <ul className="space-y-1.5 max-h-[420px] overflow-y-auto pr-2 custom-scrollbar">
+                  {book.toc?.map((entry, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-baseline justify-between gap-3 py-1.5 border-b border-rule group"
+                    >
+                      <span className="font-serif text-sm text-ink-soft group-hover:text-ink transition-colors duration-300 leading-snug">
+                        {entry.title}
+                      </span>
+                      <span className="shrink-0 font-caps text-[0.55rem] tracking-widest text-faded">
+                        p.{entry.page}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* ✦ Colophon */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mt-20 pt-10 border-t border-rule"
+          >
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+              <div className="font-serif italic text-sm text-faded">
+                White Words (2023) by Darshan Pathak — the author&rsquo;s only
+                published work. Free PDF download for readers.
+              </div>
+              <Link
+                href="/"
+                className="group inline-flex items-center gap-3 font-caps text-[0.65rem] tracking-[0.35em] uppercase text-ink-soft hover:text-ink transition-colors duration-300"
+              >
+                <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-lg">
+                  ←
+                </motion.span>
+                Return to Portfolio
+                <span className="h-px w-8 bg-ink/20 group-hover:w-12 group-hover:bg-ink/40 transition-all duration-500" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </motion.div>
+  );
+}
+
+/* =====================================================================
+   CHECKOUT VIEW
+   ===================================================================== */
+
+function CheckoutView({
   book,
-  index,
-  onPurchase,
+  format,
+  onBack,
+  onComplete,
 }: {
   book: Book;
-  index: number;
-  onPurchase: (book: Book) => void;
+  format: "print" | "digital";
+  onBack: () => void;
+  onComplete: () => void;
 }) {
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 40 }}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.08,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      className="group relative bg-vellum border border-rule hover:border-ink/40 transition-colors duration-500"
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      className="relative z-10 pt-12 pb-32 px-6 lg:px-12"
     >
-      {/* Corner ornaments */}
-      <div className="absolute top-0 left-0 w-3 h-3 border-t border-l border-ink/20 pointer-events-none" />
-      <div className="absolute top-0 right-0 w-3 h-3 border-t border-r border-ink/20 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-3 h-3 border-b border-l border-ink/20 pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-3 h-3 border-b border-r border-ink/20 pointer-events-none" />
-
-      <div className="p-6 lg:p-8">
-        {/* Cover image */}
-        <div className="relative aspect-[3/4] mb-6 overflow-hidden plate-thin">
-          <img
-            src={book.cover}
-            alt={`Cover of ${book.title}`}
-            width={300}
-            height={400}
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover sepia-[0.4] contrast-110 group-hover:sepia-[0.1] group-hover:saturate-100 transition-all duration-700"
-          />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(26,20,14,0.25) 0%, transparent 40%, rgba(26,20,14,0.45) 100%)",
-            }}
-          />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ boxShadow: "inset 0 0 25px 3px rgba(26,20,14,0.3)" }}
-          />
-          {/* Category badge */}
-          <div className="absolute top-3 left-3 bg-vellum/90 border border-rule px-2.5 py-1">
-            <span className="font-caps text-[0.5rem] tracking-[0.35em] uppercase text-ink-soft">
-              {book.category}
+      <div className="mx-auto max-w-2xl">
+        <div className="bg-vellum border border-rule p-6 lg:p-8 shadow-paper-2">
+          {/* Back link */}
+          <button
+            onClick={onBack}
+            className="group inline-flex items-center gap-2 text-ink-soft hover:text-ink transition-colors duration-300 mb-6 cursor-pointer"
+          >
+            <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-base text-gold">
+              ←
+            </motion.span>
+            <span className="font-caps text-[0.6rem] tracking-[0.35em] uppercase">
+              Back to Bookstore
             </span>
-          </div>
-        </div>
+          </button>
 
-        {/* Book details */}
-        <div className="space-y-3">
-          <div className="flex items-baseline justify-between gap-4">
-            <h2 className="font-serif text-xl lg:text-2xl text-ink group-hover:text-oxblood transition-colors duration-500">
-              {book.title}
-            </h2>
-            <span className="font-display text-2xl text-oxblood shrink-0">
-              {book.price}
-            </span>
-          </div>
-
-          <p className="font-serif italic text-sm leading-relaxed text-ink-soft line-clamp-3">
-            {book.excerpt}
-          </p>
-
-          {(book.isbn || book.publisher) && (
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 pt-1 font-caps text-[0.5rem] tracking-[0.3em] uppercase text-faded">
-              {book.isbn && <span>ISBN {book.isbn}</span>}
-              {book.isbn && book.publisher && (
-                <span className="text-gold/50">❦</span>
-              )}
-              {book.publisher && <span>{book.publisher}</span>}
+          {/* Mini cart summary */}
+          <div className="flex items-center gap-4 mb-6 p-4 bg-parchment border border-rule">
+            <div className="w-12 h-16 overflow-hidden plate-thin shrink-0">
+              <img
+                src={book.cover}
+                alt={book.title}
+                className="w-full h-full object-cover"
+              />
             </div>
-          )}
-
-          {book.toc && book.toc.length > 0 && (
-            <details className="group/toc pt-1">
-              <summary className="flex cursor-pointer list-none items-center gap-2 font-caps text-[0.55rem] tracking-[0.35em] uppercase text-oxblood select-none">
-                <span className="underline decoration-oxblood/30 underline-offset-4 group-open/toc:no-underline">
-                  Table of Contents
-                </span>
-                <span className="text-gold transition-transform duration-300 group-open/toc:rotate-90">
-                  ❧
-                </span>
-                <span className="text-faded">({book.toc.length})</span>
-              </summary>
-              <ul className="mt-3 max-h-56 overflow-y-auto pr-2 space-y-1.5 border-l border-rule pl-3">
-                {book.toc.map((entry, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-baseline justify-between gap-3 font-serif text-xs text-ink-soft"
-                  >
-                    <span className="leading-snug">{entry.title}</span>
-                    <span className="shrink-0 font-caps text-[0.55rem] tracking-widest text-faded">
-                      p.{entry.page}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </details>
-          )}
-
-          <div className="flex items-center justify-between pt-2 border-t border-rule">
-            <div className="space-y-0.5">
-              <div className="font-caps text-[0.55rem] tracking-[0.35em] uppercase text-ink-soft">
-                {book.binding}
-              </div>
-              <div className="font-serif italic text-xs text-faded">
-                {book.year} · {book.author}
-              </div>
+            <div className="flex-1 min-w-0">
+              <p className="font-serif text-sm text-ink truncate">{book.title}</p>
+              <p className="font-caps text-[0.55rem] tracking-[0.3em] uppercase text-ink-soft mt-0.5">
+                {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: 1
+              </p>
+              <p className="font-serif italic text-[0.65rem] text-faded mt-0.5">
+                {format === "print"
+                  ? "Dispatch in 2–4 weeks"
+                  : "Delivered via email after purchase"}
+              </p>
             </div>
-            <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={() => onPurchase(book)}
-              className="group/btn relative overflow-hidden border border-ink px-5 py-2 transition-all duration-300 hover:bg-ink cursor-pointer"
-            >
-              <span className="relative z-10 font-caps text-[0.55rem] tracking-[0.35em] uppercase text-ink group-hover/btn:text-vellum transition-colors duration-300">
-                Purchase
-              </span>
-              <span className="absolute inset-0 bg-ink translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
-            </motion.button>
+            <span className="font-display text-lg text-oxblood shrink-0">{book.price}</span>
           </div>
+
+          <Checkout
+            items={[
+              {
+                id: book.id,
+                title: book.title,
+                price: book.price,
+                cover: book.cover,
+                binding: book.binding,
+                quantity: 1,
+              },
+            ]}
+            onBack={onBack}
+            onComplete={onComplete}
+          />
         </div>
       </div>
-    </motion.article>
+    </motion.div>
+  );
+}
+
+/* =====================================================================
+   COMPLETE VIEW — post-purchase
+   ===================================================================== */
+
+function CompleteView({ onReturn, format, book }: { onReturn: () => void; format: "print" | "digital"; book: Book }) {
+  const orderNumber = `DP-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}`;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+      className="relative z-10 flex flex-col items-center justify-center min-h-[70vh] px-6"
+    >
+      {/* Wax seal */}
+      <motion.div
+        initial={{ scale: 5, rotate: -30, opacity: 0 }}
+        animate={{ scale: 1, rotate: -8, opacity: 1 }}
+        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], type: "spring", stiffness: 120 }}
+        className="w-32 h-32 rounded-full border-4 border-double border-oxblood flex items-center justify-center bg-oxblood/5 mb-8"
+      >
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="w-[104px] h-[104px] rounded-full border border-oxblood/40 flex flex-col items-center justify-center"
+        >
+          <motion.span
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="font-display text-oxblood text-lg leading-none"
+          >
+            D · P
+          </motion.span>
+          <motion.span
+            initial={{ y: 10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.7 }}
+            className="font-caps text-oxblood/60 text-[0.55rem] tracking-[0.4em] mt-1"
+          >
+            CONFIRMED
+          </motion.span>
+        </motion.div>
+      </motion.div>
+
+      {/* Confetti */}
+      {[...Array(12)].map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+          animate={{
+            opacity: [0, 1, 0],
+            scale: [0, 1, 0],
+            x: Math.cos((i / 12) * Math.PI * 2) * (80 + Math.random() * 60),
+            y: Math.sin((i / 12) * Math.PI * 2) * (80 + Math.random() * 60) - 40,
+          }}
+          transition={{ duration: 1.5, delay: 0.3 + i * 0.05, ease: "easeOut" }}
+          className="absolute w-2 h-2"
+          style={{
+            background: i % 3 === 0 ? "#A37E2C" : i % 3 === 1 ? "#6B1F1A" : "#1A140E",
+            clipPath: `polygon(${50 + 50 * Math.cos((i * 60 * Math.PI) / 180)}% ${50 + 50 * Math.sin((i * 60 * Math.PI) / 180)}%, ${50 + 50 * Math.cos(((i * 60 + 120) * Math.PI) / 180)}% ${50 + 50 * Math.sin(((i * 60 + 120) * Math.PI) / 180)}%, ${50 + 50 * Math.cos(((i * 60 + 240) * Math.PI) / 180)}% ${50 + 50 * Math.sin(((i * 60 + 240) * Math.PI) / 180)}%)`,
+          }}
+        />
+      ))}
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.5 }}
+        className="text-center relative"
+      >
+        <div className="rule-ornate text-faded max-w-xs mx-auto mb-6">
+          <span>Order</span>
+          <span className="fleuron text-gold">❦</span>
+          <span>Confirmed</span>
+        </div>
+
+        <h2 className="font-display text-4xl md:text-5xl text-ink leading-[0.9] mb-4">
+          Thank You
+        </h2>
+        <p className="font-serif italic text-lg text-ink-soft max-w-md mx-auto">
+          {format === "print"
+            ? "Your order has been received and will be dispatched from the author&rsquo;s study within 2–4 weeks."
+            : "Your digital copy is ready. Download it below — a receipt has been sent to your email."}
+        </p>
+
+        {format === "digital" && book.pdfUrl && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="mt-6"
+          >
+            <a
+              href={book.pdfUrl}
+              download
+              className="inline-flex items-center gap-2 bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-8 py-3.5 transition-all duration-300"
+            >
+              <span>Download PDF</span>
+              <span className="text-base">↓</span>
+            </a>
+          </motion.div>
+        )}
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
+          className="mt-8 inline-flex items-center gap-3 border border-rule bg-vellum px-6 py-3"
+        >
+          <span className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+            Order No.
+          </span>
+          <span className="font-mono text-lg text-oxblood">{orderNumber}</span>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="mt-10"
+        >
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            onClick={onReturn}
+            className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
+          >
+            Continue Browsing
+          </motion.button>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

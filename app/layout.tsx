@@ -40,9 +40,12 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Rajaram Pandit — Nobel Laureate in Literature",
+  title: "Darshan Pathak — Author of White Words",
   description:
-    "The official portfolio of Rajaram Pandit, Nobel Laureate in Literature. Essays, poetry, novels, and the long arc of a singular literary voice.",
+    "The official portfolio of Darshan Pathak, author of White Words (2023). Microbiologist, sociologist, and writer of 93 articles on love, spirit, science, and the quiet architecture of the mind.",
+  icons: {
+    icon: "/favicon.jpg",
+  },
 };
 
 export default function RootLayout({
