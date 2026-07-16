@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Italiana, Cormorant_Garamond, EB_Garamond, Cormorant_SC, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -38,6 +38,14 @@ const jetbrains = JetBrains_Mono({
   variable: "--font-mono-var",
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#f4efe6",
+};
 
 export const metadata: Metadata = {
   title: "Darshan Pathak — Author of White Words",

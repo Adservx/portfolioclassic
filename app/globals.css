@@ -66,6 +66,19 @@
     scrollbar-width: thin;
     scrollbar-color: rgba(26, 20, 14, 0.2) transparent;
     background-color: var(--color-ink);
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      position: relative;
+    }
+    * {
+      max-width: 100vw;
+    }
   }
 
 body {
