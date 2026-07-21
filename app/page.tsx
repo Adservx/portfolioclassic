@@ -1,16 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useEffect } from "react";
-import { Navbar } from "@/components/navbar";
-import { Hero } from "@/components/hero";
-import { About } from "@/components/about";
-import { Works } from "@/components/work";
-import { Craft } from "@/components/skills";
-import { Praise } from "@/components/testimonials";
-import { Contact } from "@/components/contact";
-import { Footer } from "@/components/footer";
-import { InkMotes } from "@/components/ink-motes";
-import { ScrollProgress } from "@/components/scroll-progress";
+
+const Navbar = dynamic(() => import("@/components/navbar").then((m) => ({ default: m.Navbar })), { ssr: false });
+const Hero = dynamic(() => import("@/components/hero").then((m) => ({ default: m.Hero })));
+const About = dynamic(() => import("@/components/about").then((m) => ({ default: m.About })));
+const Works = dynamic(() => import("@/components/work").then((m) => ({ default: m.Works })));
+const Craft = dynamic(() => import("@/components/skills").then((m) => ({ default: m.Craft })));
+const Praise = dynamic(() => import("@/components/testimonials").then((m) => ({ default: m.Praise })));
+const Contact = dynamic(() => import("@/components/contact").then((m) => ({ default: m.Contact })));
+const Footer = dynamic(() => import("@/components/footer").then((m) => ({ default: m.Footer })));
+const InkMotes = dynamic(() => import("@/components/ink-motes").then((m) => ({ default: m.InkMotes })), { ssr: false });
+const ScrollProgress = dynamic(() => import("@/components/scroll-progress").then((m) => ({ default: m.ScrollProgress })), { ssr: false });
 
 export default function Home() {
   useEffect(() => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { SectionHeader } from "@/components/about";
 
 const press = [
@@ -75,15 +76,14 @@ className="mt-16 max-w-4xl mx-auto"
 <div className="sm:col-span-5 w-full">
 <div className="relative aspect-[4/3] plate p-2 overflow-hidden">
 <div className="absolute inset-2 animate-ken-burns">
-<img
-src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?w=800&q=80&auto=format&fit=crop"
-alt="A press archive — bound reviews and clippings in a wooden drawer"
-width={800}
-height={600}
-loading="lazy"
-decoding="async"
-className="w-full h-full object-cover sepia-[0.4] contrast-105"
-/>
+            <Image
+              src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?w=800&q=80&auto=format&fit=crop"
+              alt="A press archive — bound reviews and clippings in a wooden drawer"
+              fill
+              loading="lazy"
+              sizes="(max-width: 640px) 100vw, 400px"
+              className="object-cover sepia-[0.4] contrast-105"
+            />
 </div>
 <div
 className="absolute inset-2 pointer-events-none"

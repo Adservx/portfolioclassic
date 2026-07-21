@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "motion/react";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -39,16 +39,16 @@ function BrushStroke({ className = "", style = {}, scale = 1, fill = "#ffffff" }
       aria-hidden="true"
     >
       <defs>
-        <filter id="brushBlur" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="brushBlur">
           <feGaussianBlur stdDeviation="1.2" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
-        <filter id="brushTexture" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="brushTexture">
           <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" result="noise" />
           <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
           <feComposite in="SourceGraphic" operator="in" />
         </filter>
-        <filter id="brushEdge" x="-50%" y="-50%" width="200%" height="200%">
+        <filter id="brushEdge">
           <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" result="edge" />
           <feDisplacementMap in="SourceGraphic" in2="edge" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
         </filter>
@@ -79,6 +79,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
+  const observerRef = useRef<IntersectionObserver | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -89,20 +90,35 @@ export function Navbar() {
 
   useEffect(() => {
     const ids = navItems.map((i) => i.href.slice(1));
-    const observer = new IntersectionObserver(
+    let ticking = false;
+    observerRef.current = new IntersectionObserver(
       (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(`#${e.target.id}`);
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) setActive(`#${e.target.id}`);
+          });
+          ticking = false;
         });
       },
       { rootMargin: "-40% 0px -55% 0px" }
     );
     ids.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) observer.observe(el);
+      if (el) observerRef.current?.observe(el);
     });
-    return () => observer.disconnect();
+    return () => observerRef.current?.disconnect();
   }, []);
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [open]);
 
   const goTo = (href: string) => {
     setOpen(false);
@@ -119,7 +135,6 @@ export function Navbar() {
         scrolled ? "backdrop-blur-sm" : "bg-transparent"
       }`}
     >
-      {/* ✦ Professional white-ink wash — refined, subtle, no geometric border */}
       <motion.div
         aria-hidden
         initial={false}
@@ -158,14 +173,14 @@ export function Navbar() {
             <motion.span
               whileHover={{ rotate: 360 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="hidden sm:flex items-center justify-center w-9 h-9 border border-ink rounded-full overflow-hidden"
+              className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 border border-ink rounded-full overflow-hidden"
             >
               <Image
-                src="/bookstore/messenger-creation.webp"
+                src="/Messenger_creation_5BFE9F8A-3F7A-44DC-8F5B-166C92150325.jpg"
                 alt="Darshan Pathak"
-                width={36}
-                height={36}
-                className="w-full h-full object-cover"
+                width={48}
+                height={48}
+                className="w-full h-full object-cover scale-125"
               />
             </motion.span>
             <span className="hidden sm:flex flex-col items-start leading-none">
@@ -176,10 +191,13 @@ export function Navbar() {
                 D. Pathak
               </span>
             </span>
-            <span className="sm:hidden font-display text-xl font-medium text-ink group-hover:text-link transition-colors">D.P.</span>
+            <span className="sm:hidden font-display text-lg font-medium text-ink group-hover:text-link transition-colors">Darshan Pathak</span>
           </button>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8 group/nav relative">
+            <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
+              <BrushStroke style={{ transform: 'scale(1.2) scaleY(2.3)' }} />
+            </div>
             {navItems.map((item) => (
               <button
                 key={item.href}
@@ -188,18 +206,9 @@ export function Navbar() {
                   active === item.href ? "text-link" : "text-ink/70 hover:text-link"
                 }`}
               >
-                <span className="relative z-10">
-                  <LetterCascade text={item.label} />
+                <span className="relative">
+                  {item.label}
                 </span>
-                <motion.div
-                  initial={false}
-                  whileHover={{ scaleX: [1, 1.12, 1], scaleY: [1, 1.25, 1] }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none"
-                  style={{ transformOrigin: "center" }}
-                >
-<BrushStroke scale={1.1} className="transition-opacity duration-300" />
-                </motion.div>
                 <span
                   className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
                     active === item.href ? "w-5" : "w-0 group-hover:w-3"
@@ -212,25 +221,16 @@ export function Navbar() {
               href="/bookstore"
               className="group relative font-caps text-[0.95rem] font-medium tracking-[0.3em] uppercase transition-colors duration-300 text-link hover:text-link-hover"
             >
-              <span className="relative z-10">
-                <LetterCascade text="Bookstore" />
+              <span className="relative">
+                Bookstore
               </span>
-              <motion.div
-                initial={false}
-                whileHover={{ scaleX: [1, 1.08, 1], scaleY: [1, 1.15, 1] }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none"
-                style={{ transformOrigin: "center" }}
-              >
-                <BrushStroke scale={1.1} className="transition-opacity duration-300" />
-              </motion.div>
               <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-4" />
             </Link>
           </nav>
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex flex-col gap-[5px] w-7 h-7 items-center justify-center cursor-pointer"
+            className="md:hidden flex flex-col gap-[5px] w-7 h-7 items-center justify-center cursor-pointer z-50"
             aria-label="Toggle menu"
           >
             <span
@@ -251,85 +251,60 @@ export function Navbar() {
           </button>
         </div>
 
-        {open && (
-          <motion.nav
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden relative pb-6 border-t border-rule pt-4 flex flex-col gap-6 overflow-hidden"
-          >
-            {/* ✦ Tinted brush-paint wash — matches desktop nav aesthetic */}
-            <div className="absolute inset-0 -z-10 pointer-events-none">
-              <div className="absolute inset-0 bg-parchment/90" />
-              <BrushStroke
-                fill="#E0E0E0"
-                scale={1.1}
-                style={{ width: "100%", height: "4rem" }}
-                className="absolute inset-x-0 top-[-18px] opacity-70 mix-blend-multiply"
-              />
-              <BrushStroke
-                fill="#F5F5F5"
-                scale={1.05}
-                style={{ width: "100%", height: "4rem" }}
-                className="absolute inset-x-0 bottom-[-18px] opacity-60 mix-blend-screen"
-              />
-            </div>
-            {navItems.map((item, i) => (
-              <motion.button
-                key={item.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.06 }}
-                onClick={() => goTo(item.href)}
-                className="group relative text-center cursor-pointer"
-              >
-                <span className="relative z-10 font-caps text-sm font-semibold tracking-[0.35em] uppercase transition-colors duration-300 cursor-pointer group-hover:text-link">
-                  <LetterCascade text={item.label} />
-                </span>
-                <motion.div
-                  initial={false}
-                  whileHover={{ scaleX: [1, 1.12, 1], scaleY: [1, 1.25, 1] }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none w-full"
-                  style={{ transformOrigin: "center" }}
-                >
-                  <BrushStroke scale={1.15} className="transition-opacity duration-300" />
-                </motion.div>
-                <span
-                  className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
-                    active === item.href ? "w-8" : "w-0 group-hover:w-6"
-                  }`}
-                />
-              </motion.button>
-            ))}
+        <AnimatePresence>
+          {open && (
             <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: navItems.length * 0.06 }}
+              key="mobile-menu"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="fixed inset-0 top-0 left-0 w-full h-full z-40 bg-background/98 backdrop-blur-sm md:hidden"
             >
-              <Link
-                href="/bookstore"
-                onClick={() => setOpen(false)}
-                className="group relative block text-center cursor-pointer"
-              >
-                <span className="relative z-10 font-caps text-sm font-semibold tracking-[0.3em] uppercase text-link hover:text-link-hover underline underline-offset-4 decoration-link/60 transition-colors">
-                  <LetterCascade text="Bookstore" />
-                </span>
+              <nav className="flex flex-col items-center justify-center h-full gap-8 px-6">
+                {navItems.map((item, i) => (
+                  <motion.button
+                    key={item.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ delay: i * 0.05, duration: 0.3 }}
+                    onClick={() => goTo(item.href)}
+                    className="group relative cursor-pointer"
+                  >
+                    <span className={`relative font-caps text-xl font-medium tracking-[0.35em] uppercase transition-colors duration-300 ${
+                      active === item.href ? "text-link" : "text-ink/80 hover:text-link"
+                    }`}>
+                      {item.label}
+                    </span>
+                    <span
+                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
+                        active === item.href ? "w-8" : "w-0 group-hover:w-6"
+                      }`}
+                    />
+                  </motion.button>
+                ))}
                 <motion.div
-                  initial={false}
-                  whileHover={{ scaleX: [1, 1.08, 1], scaleY: [1, 1.15, 1] }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none w-full"
-                  style={{ transformOrigin: "center" }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ delay: navItems.length * 0.05, duration: 0.3 }}
                 >
-                  <BrushStroke scale={1.15} className="transition-opacity duration-300" />
+                  <Link
+                    href="/bookstore"
+                    onClick={() => setOpen(false)}
+                    className="group relative block cursor-pointer"
+                  >
+                    <span className="relative font-caps text-xl font-medium tracking-[0.3em] uppercase text-link group-hover:text-link-hover transition-colors">
+                      Bookstore
+                    </span>
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-8" />
+                  </Link>
                 </motion.div>
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-8" />
-              </Link>
+              </nav>
             </motion.div>
-          </motion.nav>
-        )}
+          )}
+        </AnimatePresence>
       </div>
     </header>
   );

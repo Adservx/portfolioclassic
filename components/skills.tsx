@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { SectionHeader } from "@/components/about";
 import { Counter } from "@/components/counter";
 
@@ -87,15 +88,14 @@ className="mt-16"
 <div className="plate p-2 sm:p-3 lg:p-4 max-w-5xl mx-auto">
 <div className="relative aspect-[4/3] sm:aspect-[16/7] overflow-hidden">
 <div className="absolute inset-0 animate-ken-burns">
-<img
-src={DESK_IMG}
-alt="The author's desk, with a typewriter and a sheaf of half-finished pages"
-width={1400}
-height={613}
-loading="lazy"
-decoding="async"
-className="w-full h-full object-cover sepia-[0.45] contrast-105"
-/>
+            <Image
+              src={DESK_IMG}
+              alt="The author's desk, with a typewriter and a sheaf of half-finished pages"
+              fill
+              loading="lazy"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1024px"
+              className="object-cover sepia-[0.45] contrast-105"
+            />
 </div>
 <div
 className="absolute inset-0 pointer-events-none"

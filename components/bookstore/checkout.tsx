@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
 
 interface CartItem {
 id: number;
@@ -856,11 +857,12 @@ key={item.id}
 className="flex items-center justify-between py-2 border-b border-rule"
 >
 <div className="flex items-center gap-3">
-<div className="w-8 h-10 overflow-hidden plate-thin">
-<img
-src={item.cover}
-alt={item.title}
-className="w-full h-full object-cover"
+<div className="w-8 h-10 overflow-hidden plate-thin relative">
+<Image
+  src={item.cover}
+  alt={item.title}
+  fill
+  className="object-cover"
 />
 </div>
 <div>

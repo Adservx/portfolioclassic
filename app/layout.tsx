@@ -11,7 +11,7 @@ const italiana = Italiana({
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-serif-var",
   display: "swap",
@@ -64,6 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-scroll-behavior="smooth"
       className={`${italiana.variable} ${cormorant.variable} ${ebGaramond.variable} ${cormorantSC.variable} ${jetbrains.variable}`}
     >
       <body className="relative min-h-screen">

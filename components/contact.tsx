@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
 import { SectionHeader } from "@/components/about";
 
 const channels = [
@@ -146,15 +147,14 @@ transition={{ duration: 0.6 }}
 className="flex items-center gap-3 sm:gap-4 mb-6"
 >
 <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 plate-thin overflow-hidden shrink-0 group">
-<img
-src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=200&q=80&auto=format&fit=crop"
-alt="An old typewriter, with a letter in its carriage"
-width={200}
-height={200}
-loading="lazy"
-decoding="async"
-className="absolute inset-0 w-full h-full object-cover sepia-[0.5] contrast-110 group-hover:scale-110 transition-transform duration-700"
-/>
+            <Image
+              src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=200&q=80&auto=format&fit=crop"
+              alt="An old typewriter, with a letter in its carriage"
+              fill
+              loading="lazy"
+              sizes="80px"
+              className="object-cover sepia-[0.5] contrast-110 group-hover:scale-110 transition-transform duration-700"
+            />
 </div>
 <div className="flex-1 border-t border-b border-ink/30 py-2">
 <div className="font-caps text-[0.6rem] sm:text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">

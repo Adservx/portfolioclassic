@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { Checkout } from "@/components/bookstore/checkout";
 import { InkMotes } from "@/components/ink-motes";
@@ -246,11 +247,14 @@ transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
 className="lg:col-span-2 relative"
 >
 <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 overflow-hidden plate shadow-paper-2">
-<img
-src={book.cover}
-alt={`Cover of ${book.title}`}
-className="absolute inset-0 w-full h-full object-cover"
-/>
+<Image
+              src={book.cover}
+              alt={`Cover of ${book.title}`}
+              fill
+              priority
+              sizes="(max-width: 640px) 100vw, 400px"
+              className="object-cover"
+            />
 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 40px 4px rgba(0,0,0,0.35)" }} />
 </div>
 </motion.div>
@@ -510,12 +514,13 @@ Back to Bookstore
 
 {/* Mini cart summary */}
 <div className="flex items-center gap-4 mb-6 p-4 bg-parchment border border-rule">
-<div className="w-12 h-16 overflow-hidden plate-thin shrink-0">
-<img
-src={book.cover}
-alt={book.title}
-className="w-full h-full object-cover"
-/>
+<div className="relative w-12 h-16 overflow-hidden plate-thin shrink-0">
+          <Image
+              src={book.cover}
+              alt={book.title}
+              fill
+              className="object-cover"
+            />
 </div>
 <div className="flex-1 min-w-0">
 <p className="font-serif text-sm text-ink truncate">{book.title}</p>

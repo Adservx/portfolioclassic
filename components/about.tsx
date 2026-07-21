@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef, type ReactNode } from "react";
+import Image from "next/image";
 import { Counter } from "@/components/counter";
 
 const VARANASI_IMG = "/varanasi-author.webp";
@@ -254,15 +255,14 @@ className="mt-24 lg:mt-32"
 <div className="plate p-2 sm:p-3 lg:p-4 max-w-5xl mx-auto">
 <div className="relative aspect-[4/3] sm:aspect-[16/7] overflow-hidden">
 <div className="absolute inset-0 animate-ken-burns">
-<img
-src={VARANASI_IMG}
-alt="The ghats of Varanasi at first light, where the river meets the city"
-width={1400}
-height={613}
-loading="lazy"
-decoding="async"
-className="w-full h-full object-cover object-top brightness-[1.08] contrast-[1.15] saturate-[1.1]"
-/>
+          <Image
+            src={VARANASI_IMG}
+            alt="The ghats of Varanasi at first light, where the river meets the city"
+            fill
+            loading="lazy"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1024px"
+            className="object-cover object-top brightness-[1.08] contrast-[1.15] saturate-[1.1]"
+          />
 </div>
 {/* Color grade — warm/cinematic tone */}
 <div
@@ -383,16 +383,16 @@ viewport={{ once: true, margin: "-50px" }}
 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
 className="group relative grid grid-cols-12 gap-3 sm:gap-6 py-6 sm:py-8 border-t border-rule last:border-b last:border-b-rule hover:bg-vellum/30 transition-colors duration-500"
 >
-<div className="col-span-4 sm:col-span-3 lg:col-span-2">
-<div className="font-display text-4xl sm:text-5xl lg:text-6xl text-oxblood leading-none group-hover:scale-110 transition-transform duration-500 origin-left">
+<div className="col-span-5 sm:col-span-4 lg:col-span-2 overflow-hidden">
+<div className="font-display text-xl sm:text-3xl lg:text-5xl text-oxblood leading-none">
 {b.period}
 </div>
 </div>
-<div className="col-span-8 sm:col-span-9 lg:col-span-10">
-<h4 className="font-serif text-2xl sm:text-3xl text-ink group-hover:text-oxblood transition-colors duration-500">
+<div className="col-span-7 sm:col-span-8 lg:col-span-10 min-w-0">
+<h4 className="font-serif text-xl sm:text-2xl lg:text-3xl text-ink group-hover:text-oxblood transition-colors duration-500 break-words">
 {b.title}
 </h4>
-<p className="mt-2 font-serif text-[1.1rem] sm:text-[1.2rem] leading-relaxed text-ink-soft max-w-2xl">
+<p className="mt-2 font-serif text-[1rem] sm:text-[1.1rem] lg:text-[1.2rem] leading-relaxed text-ink-soft max-w-2xl break-words">
 {b.text}
 </p>
 </div>

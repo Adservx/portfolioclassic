@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import Image from "next/image";
 
 const PORTRAIT =
 "/bookstore/messenger-creation.webp";
@@ -41,16 +42,17 @@ animate={{ scale: 1, rotate: 0, opacity: 0.4, filter: "blur(0px) brightness(0.7)
 transition={{ duration: 2.4, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="absolute inset-0">
-<img
-src={BURST_PORTRAIT}
-alt=""
-loading="eager"
-className="w-full h-full object-cover scale-125"
-style={{
-            filter:
-              "grayscale(1) brightness(0.7) contrast(1.3)",
-}}
-/>
+          <Image
+            src={BURST_PORTRAIT}
+            alt=""
+            fill
+            priority
+            className="object-cover scale-125"
+            style={{
+              filter:
+                "grayscale(1) contrast(1.9) brightness(1.05)",
+            }}
+          />
 {/* Fire-burnt frame overlay */}
 <motion.div
 className="absolute inset-0 pointer-events-none"
@@ -217,7 +219,7 @@ Epigraph · From <em>White Words</em>
 </motion.div>
 
 <p className="font-serif text-[1.5rem] sm:text-[1.7rem] lg:text-[2.1rem] leading-[1.45] text-ink-2">
-<span className="drop-cap animate-splotch-pop">T</span>
+<span className="drop-cap animate-splotch-pop -mt-1 !text-[3.5em] sm:!text-[5em] !font-normal">T</span>
 <motion.span
 initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
@@ -263,14 +265,14 @@ className="lg:col-span-5"
 >
 <div className="plate p-3 sm:p-5 lg:p-6 max-w-[260px] sm:max-w-sm lg:max-w-md mx-auto group cursor-pointer">
 <div className="relative aspect-[4/5] bg-ink overflow-hidden splotch-reveal">
-<img
-src={PORTRAIT}
-alt="Darshan Pathak — author of White Words"
-width={800}
-height={1000}
-loading="eager"
-className="absolute inset-0 w-full h-full object-cover contrast-110 saturate-125 scale-130 transition-transform duration-1000 group-hover:scale-140"
-/>
+            <Image
+              src={PORTRAIT}
+              alt="Darshan Pathak — author of White Words"
+              fill
+              priority
+              sizes="(max-width: 640px) 260px, (max-width: 1024px) 384px, 500px"
+              className="object-cover contrast-110 saturate-125 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
+            />
 <div
 className="absolute inset-0 pointer-events-none"
 style={{

@@ -2,6 +2,7 @@
 
 import { useRef, useState, MouseEvent } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SectionHeader } from "@/components/about";
@@ -171,15 +172,14 @@ w.featured ? "bg-vellum/40 -mx-3 px-3 lg:-mx-6 lg:px-6" : ""
 style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
 className="relative aspect-[3/4] max-w-[100px] sm:max-w-[120px] lg:max-w-[140px] overflow-hidden plate-thin mx-auto"
 >
-<img
-src={w.cover}
-alt={`Cover of ${w.title}`}
-width={300}
-height={400}
-loading="lazy"
-decoding="async"
-className="absolute inset-0 w-full h-full object-cover sepia-[0.5] contrast-110 group-hover:sepia-[0.2] group-hover:saturate-100 transition-all duration-700"
-/>
+            <Image
+              src={w.cover}
+              alt={`Cover of ${w.title}`}
+              fill
+              loading="lazy"
+              sizes="(max-width: 640px) 100px, (max-width: 1024px) 120px, 140px"
+              className="object-cover sepia-[0.5] contrast-110 group-hover:sepia-[0.2] group-hover:saturate-100 transition-all duration-700"
+            />
 <div
 className="absolute inset-0 pointer-events-none"
 style={{

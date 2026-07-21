@@ -1,48 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { motion, useInView } from "motion/react";
 
 interface CounterProps {
   target: number;
   suffix?: string;
-  duration?: number;
   className?: string;
 }
 
-export function Counter({ target, suffix = "", duration = 2200, className = "" }: CounterProps) {
-  const [value, setValue] = useState(0);
+export function Counter({ target, suffix = "", className = "" }: CounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const hasRun = useRef(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasRun.current) {
-          hasRun.current = true;
-          const start = performance.now();
-          const tick = (now: number) => {
-            const elapsed = now - start;
-            const t = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - t, 4);
-            setValue(Math.floor(eased * target));
-            if (t < 1) requestAnimationFrame(tick);
-            else setValue(target);
-          };
-          requestAnimationFrame(tick);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [target, duration]);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <span ref={ref} className={className}>
-      {value}
+    <motion.span
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
+    >
+      {inView ? target : 0}
       {suffix}
-    </span>
+    </motion.span>
   );
 }
