@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -76,6 +76,7 @@ function BrushStroke({ className = "", style = {}, scale = 1, fill = "#ffffff" }
 }
 
 export function Navbar() {
+  const prefersReduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("");
   const [open, setOpen] = useState(false);
@@ -132,7 +133,7 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "backdrop-blur-sm" : "bg-transparent"
+        scrolled ? "md:backdrop-blur-sm" : "bg-transparent"
       }`}
     >
       <motion.div
@@ -164,14 +165,14 @@ export function Navbar() {
           }}
         />
       </motion.div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12" style={{ paddingLeft: "calc(1.5rem + env(safe-area-inset-left, 0px))", paddingRight: "calc(1.5rem + env(safe-area-inset-right, 0px))" }}>
         <div className="flex items-center justify-between h-16 lg:h-20">
           <button
             onClick={() => goTo("#prologue")}
             className="group flex items-center gap-3 cursor-pointer"
           >
             <motion.span
-              whileHover={{ rotate: 360 }}
+              whileHover={prefersReduced ? {} : { rotate: 360 }}
               transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 border border-ink rounded-full overflow-hidden"
             >
@@ -230,24 +231,26 @@ export function Navbar() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex flex-col gap-[5px] w-7 h-7 items-center justify-center cursor-pointer z-50"
+            className="md:hidden flex items-center justify-center w-11 h-11 cursor-pointer z-50 -mr-1.5"
             aria-label="Toggle menu"
           >
-            <span
-              className={`block w-5 h-px bg-ink transition-all duration-300 ${
-                open ? "rotate-45 translate-y-[6px]" : ""
-              }`}
-            />
-            <span
-              className={`block w-5 h-px bg-ink transition-all duration-300 ${
-                open ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`block w-5 h-px bg-ink transition-all duration-300 ${
-                open ? "-rotate-45 -translate-y-[6px]" : ""
-              }`}
-            />
+            <span className="flex flex-col gap-[5px] w-5 items-center">
+              <span
+                className={`block w-5 h-px bg-ink transition-all duration-300 ${
+                  open ? "rotate-45 translate-y-[6px]" : ""
+                }`}
+              />
+              <span
+                className={`block w-5 h-px bg-ink transition-all duration-300 ${
+                  open ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`block w-5 h-px bg-ink transition-all duration-300 ${
+                  open ? "-rotate-45 -translate-y-[6px]" : ""
+                }`}
+              />
+            </span>
           </button>
         </div>
 
@@ -258,49 +261,40 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="fixed inset-0 top-0 left-0 w-full h-full z-40 bg-background/98 backdrop-blur-sm md:hidden"
+              transition={{ duration: 0.15 }}
+              className="fixed inset-0 top-0 left-0 w-full h-full z-40 bg-background md:hidden" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
             >
-              <nav className="flex flex-col items-center justify-center h-full gap-8 px-6">
-                {navItems.map((item, i) => (
-                  <motion.button
+              <nav className="flex flex-col items-center justify-center h-full gap-6 px-6 pb-12">
+                {navItems.map((item) => (
+                  <button
                     key={item.href}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ delay: i * 0.05, duration: 0.3 }}
                     onClick={() => goTo(item.href)}
-                    className="group relative cursor-pointer"
+                    className="group relative cursor-pointer py-3 px-6"
                   >
                     <span className={`relative font-caps text-xl font-medium tracking-[0.35em] uppercase transition-colors duration-300 ${
-                      active === item.href ? "text-link" : "text-ink/80 hover:text-link"
+                      active === item.href ? "text-link" : "text-ink/80"
                     }`}>
                       {item.label}
                     </span>
                     <span
                       className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
-                        active === item.href ? "w-8" : "w-0 group-hover:w-6"
+                        active === item.href ? "w-8" : "w-0"
                       }`}
                     />
-                  </motion.button>
+                  </button>
                 ))}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: navItems.length * 0.05, duration: 0.3 }}
-                >
+                <div>
                   <Link
                     href="/bookstore"
                     onClick={() => setOpen(false)}
-                    className="group relative block cursor-pointer"
+                    className="group relative block cursor-pointer py-3 px-6"
                   >
-                    <span className="relative font-caps text-xl font-medium tracking-[0.3em] uppercase text-link group-hover:text-link-hover transition-colors">
+                    <span className="relative font-caps text-xl font-medium tracking-[0.3em] uppercase text-link transition-colors">
                       Bookstore
                     </span>
-                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-8" />
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0" />
                   </Link>
-                </motion.div>
+                </div>
               </nav>
             </motion.div>
           )}
