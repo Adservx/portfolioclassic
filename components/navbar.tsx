@@ -172,11 +172,11 @@ export function Navbar() {
               <span className="font-caps text-[0.75rem] tracking-[0.35em] text-ink/50 font-semibold transition-colors duration-500 group-hover:text-ink/70">
                 DARSHAN PATHAK
               </span>
-              <span className="font-display text-2xl font-normal text-ink mt-0.5 group-hover:text-oxblood transition-colors duration-500">
+              <span className="font-display text-3xl font-normal text-ink mt-0.5 group-hover:text-link transition-colors duration-500">
                 D. Pathak
               </span>
             </span>
-            <span className="sm:hidden font-display text-xl font-medium text-ink group-hover:text-oxblood transition-colors">D.P.</span>
+            <span className="sm:hidden font-display text-xl font-medium text-ink group-hover:text-link transition-colors">D.P.</span>
           </button>
 
           <nav className="hidden md:flex items-center gap-8">
@@ -184,8 +184,8 @@ export function Navbar() {
               <button
                 key={item.href}
                 onClick={() => goTo(item.href)}
-                className={`group relative font-caps text-[0.8rem] font-medium tracking-[0.35em] uppercase transition-colors duration-300 cursor-pointer ${
-                  active === item.href ? "text-oxblood" : "text-ink/70 hover:text-oxblood"
+                className={`group relative font-caps text-[0.9rem] font-medium tracking-[0.35em] uppercase transition-colors duration-300 cursor-pointer ${
+                  active === item.href ? "text-link" : "text-ink/70 hover:text-link"
                 }`}
               >
                 <span className="relative z-10">
@@ -201,7 +201,7 @@ export function Navbar() {
 <BrushStroke scale={1.1} className="transition-opacity duration-300" />
                 </motion.div>
                 <span
-                  className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-oxblood transition-all duration-500 ${
+                  className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
                     active === item.href ? "w-5" : "w-0 group-hover:w-3"
                   }`}
                 />
@@ -210,7 +210,7 @@ export function Navbar() {
             <span className="w-px h-5 bg-ink/15" />
             <Link
               href="/bookstore"
-              className="group relative font-caps text-[0.85rem] font-medium tracking-[0.3em] uppercase transition-colors duration-300 text-ink/70 hover:text-oxblood"
+              className="group relative font-caps text-[0.95rem] font-medium tracking-[0.3em] uppercase transition-colors duration-300 text-link hover:text-link-hover"
             >
               <span className="relative z-10">
                 <LetterCascade text="Bookstore" />
@@ -224,7 +224,7 @@ export function Navbar() {
               >
                 <BrushStroke scale={1.1} className="transition-opacity duration-300" />
               </motion.div>
-              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-oxblood transition-all duration-500 w-0 group-hover:w-4" />
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-4" />
             </Link>
           </nav>
 
@@ -263,13 +263,13 @@ export function Navbar() {
             <div className="absolute inset-0 -z-10 pointer-events-none">
               <div className="absolute inset-0 bg-parchment/90" />
               <BrushStroke
-                fill="#ECE2C4"
+                fill="#E0E0E0"
                 scale={1.1}
                 style={{ width: "100%", height: "4rem" }}
                 className="absolute inset-x-0 top-[-18px] opacity-70 mix-blend-multiply"
               />
               <BrushStroke
-                fill="#FBF5E5"
+                fill="#F5F5F5"
                 scale={1.05}
                 style={{ width: "100%", height: "4rem" }}
                 className="absolute inset-x-0 bottom-[-18px] opacity-60 mix-blend-screen"
@@ -284,7 +284,7 @@ export function Navbar() {
                 onClick={() => goTo(item.href)}
                 className="group relative text-center cursor-pointer"
               >
-                <span className="relative z-10 font-caps text-sm font-semibold tracking-[0.35em] uppercase transition-colors duration-300 cursor-pointer group-hover:text-oxblood">
+                <span className="relative z-10 font-caps text-sm font-semibold tracking-[0.35em] uppercase transition-colors duration-300 cursor-pointer group-hover:text-link">
                   <LetterCascade text={item.label} />
                 </span>
                 <motion.div
@@ -297,7 +297,7 @@ export function Navbar() {
                   <BrushStroke scale={1.15} className="transition-opacity duration-300" />
                 </motion.div>
                 <span
-                  className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-oxblood transition-all duration-500 ${
+                  className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
                     active === item.href ? "w-8" : "w-0 group-hover:w-6"
                   }`}
                 />
@@ -313,7 +313,7 @@ export function Navbar() {
                 onClick={() => setOpen(false)}
                 className="group relative block text-center cursor-pointer"
               >
-                <span className="relative z-10 font-caps text-sm font-semibold tracking-[0.3em] uppercase text-oxblood hover:text-oxblood-2 transition-colors">
+                <span className="relative z-10 font-caps text-sm font-semibold tracking-[0.3em] uppercase text-link hover:text-link-hover underline underline-offset-4 decoration-link/60 transition-colors">
                   <LetterCascade text="Bookstore" />
                 </span>
                 <motion.div
@@ -325,7 +325,7 @@ export function Navbar() {
                 >
                   <BrushStroke scale={1.15} className="transition-opacity duration-300" />
                 </motion.div>
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-oxblood transition-all duration-500 w-0 group-hover:w-8" />
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-8" />
               </Link>
             </motion.div>
           </motion.nav>

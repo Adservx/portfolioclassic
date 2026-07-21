@@ -1,39 +1,41 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-display: "Italiana", "Cormorant Garamond", serif;
-  --font-serif: "Cormorant Garamond", "EB Garamond", serif;
-  --font-body: "EB Garamond", "Cormorant Garamond", serif;
-  --font-caps: "Cormorant SC", "Cormorant Garamond", serif;
+  --font-display: system-ui, sans-serif;
+  --font-serif: system-ui, sans-serif;
+  --font-body: system-ui, sans-serif;
+  --font-caps: system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* ✦ Aged Manuscript palette — parchment, oxblood, antique gold, deep ink */
-  --color-parchment: #F2EAD3;
-  --color-parchment-2: #ECE2C4;
-  --color-parchment-3: #E5D9B5;
-  --color-vellum: #FBF5E5;
-  --color-ink: #1A140E;
-  --color-ink-2: #2A1F14;
-  --color-ink-3: #3D2E1E;
-  --color-ink-soft: #3A2D1C;
-  --color-faded: #5A4830;
-  --color-oxblood: #6B1F1A;
-  --color-oxblood-2: #8B2A23;
-  --color-gold: #A37E2C;
-  --color-gold-2: #C29A3F;
-  --color-gold-soft: #D9BE6E;
-  --color-rule: rgba(26, 20, 14, 0.22);
-  --color-rule-soft: rgba(26, 20, 14, 0.1);
-  --color-rule-strong: rgba(26, 20, 14, 0.55);
-  --color-foreground: #1A140E;
-  --color-foreground-secondary: rgba(26, 20, 14, 0.85);
-  --color-foreground-muted: rgba(26, 20, 14, 0.75);
-  --color-foreground-faint: rgba(26, 20, 14, 0.55);
-  --color-background: #F2EAD3;
-  --color-surface: #FBF5E5;
-  --color-surface-2: #ECE2C4;
-  --color-border: rgba(26, 20, 14, 0.18);
-  --color-border-strong: rgba(26, 20, 14, 0.4);
+  /* ✦ Clean palette — white, black, blue accents */
+  --color-parchment: #FFFFFF;
+  --color-parchment-2: #F5F5F5;
+  --color-parchment-3: #EFEFEF;
+  --color-vellum: #FAFAFA;
+  --color-ink: #000000;
+  --color-ink-2: #111111;
+  --color-ink-3: #222222;
+  --color-ink-soft: #333333;
+  --color-faded: #666666;
+  --color-oxblood: #000000;
+  --color-oxblood-2: #222222;
+  --color-gold: #444444;
+  --color-gold-2: #666666;
+  --color-gold-soft: #888888;
+  --color-link: #2563EB;
+  --color-link-hover: #1D4ED8;
+  --color-rule: rgba(0, 0, 0, 0.15);
+  --color-rule-soft: rgba(0, 0, 0, 0.06);
+  --color-rule-strong: rgba(0, 0, 0, 0.4);
+  --color-foreground: #000000;
+  --color-foreground-secondary: rgba(0, 0, 0, 0.85);
+  --color-foreground-muted: rgba(0, 0, 0, 0.75);
+  --color-foreground-faint: rgba(0, 0, 0, 0.55);
+  --color-background: #FFFFFF;
+  --color-surface: #FAFAFA;
+  --color-surface-2: #F5F5F5;
+  --color-border: rgba(0, 0, 0, 0.15);
+  --color-border-strong: rgba(0, 0, 0, 0.35);
 
   /* ✦ Radius — restraint, no chunky rounds */
   --radius-xs: 1px;
@@ -41,11 +43,11 @@
   --radius-md: 3px;
   --radius-lg: 4px;
 
-  /* ✦ Shadows — soft, paper-like */
-  --shadow-paper: 0 1px 0 rgba(26, 20, 14, 0.08), 0 4px 16px rgba(26, 20, 14, 0.06);
-  --shadow-paper-2: 0 2px 0 rgba(26, 20, 14, 0.1), 0 12px 32px rgba(26, 20, 14, 0.08);
-  --shadow-press: inset 0 1px 0 rgba(26, 20, 14, 0.06);
-  --shadow-ink: 0 0 0 1px rgba(26, 20, 14, 0.2);
+  /* ✦ Shadows — soft, clean */
+  --shadow-paper: 0 1px 0 rgba(0, 0, 0, 0.06), 0 4px 16px rgba(0, 0, 0, 0.04);
+  --shadow-paper-2: 0 2px 0 rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.06);
+  --shadow-press: inset 0 1px 0 rgba(0, 0, 0, 0.04);
+  --shadow-ink: 0 0 0 1px rgba(0, 0, 0, 0.15);
 
   /* ✦ Motion */
   --duration-fast: 180ms;
@@ -64,8 +66,8 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     scrollbar-width: thin;
-    scrollbar-color: rgba(26, 20, 14, 0.2) transparent;
-    background-color: var(--color-ink);
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+    background-color: var(--color-parchment);
     overflow-x: hidden;
     max-width: 100%;
   }
@@ -83,15 +85,11 @@
 
 body {
     font-family: var(--font-body);
-    font-size: 1.1875rem;
-    line-height: 1.75;
-    font-weight: 500;
+    font-size: 1.25rem;
+    line-height: 1.7;
+    font-weight: 400;
     color: var(--color-ink);
-    background-color: var(--color-parchment);
-    background-image:
-      radial-gradient(ellipse 1200px 800px at 50% -10%, rgba(163, 126, 44, 0.06), transparent 60%),
-      radial-gradient(ellipse 1000px 700px at 100% 50%, rgba(107, 31, 26, 0.04), transparent 60%),
-      radial-gradient(ellipse 900px 600px at 0% 80%, rgba(58, 40, 22, 0.05), transparent 60%);
+    background-color: var(--color-background);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -99,31 +97,31 @@ body {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif);
-    font-weight: 650;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
     color: var(--color-ink);
   }
 
   ::selection {
-    background-color: rgba(163, 126, 44, 0.28);
+    background-color: rgba(37, 99, 235, 0.2);
     color: var(--color-ink);
   }
 
   ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(26, 20, 14, 0.18); border-radius: 0; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(26, 20, 14, 0.32); }
+  ::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.15); border-radius: 0; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.3); }
 
   :focus-visible {
-    outline: 1.5px solid var(--color-oxblood);
+    outline: 1.5px solid var(--color-link);
     outline-offset: 3px;
   }
 
   @media (max-width: 640px) {
     body {
-      font-size: 1.0625rem;
+      font-size: 1.2rem;
     }
     h1, h2, h3, h4, h5, h6 {
       letter-spacing: -0.01em;
@@ -157,43 +155,41 @@ body {
 @utility drop-cap {
   float: left;
   font-family: var(--font-display);
-  font-size: 3.8em;
+  font-size: 4.5em;
   line-height: 0.85;
-  font-weight: 400;
+  font-weight: 700;
   margin: 0.08em 0.12em 0 0;
-  color: var(--color-oxblood);
-  text-shadow: 0 1px 0 rgba(107, 31, 26, 0.12);
+  color: var(--color-ink);
 }
 
 @media (min-width: 640px) {
   .drop-cap {
-    font-size: 5.5em;
+    font-size: 6.5em;
   }
 }
 
 @utility label-caps {
   font-family: var(--font-caps);
-  font-size: 0.82rem;
-  letter-spacing: 0.32em;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--color-ink-soft);
-  font-weight: 500;
+  font-weight: 600;
 }
 
 @utility fleuron {
   display: inline-block;
-  font-family: var(--font-serif);
+  font-family: var(--font-body);
   font-size: 1.3em;
   line-height: 0.5;
-  color: var(--color-gold);
+  color: var(--color-ink-soft);
   vertical-align: middle;
   transform: translateY(0.15em);
-  font-style: italic;
 }
 
 @media (min-width: 640px) {
   .fleuron {
-    font-size: 1.5em;
+    font-size: 1.8em;
   }
 }
 
@@ -215,10 +211,11 @@ body {
 @utility text-gold { color: var(--color-gold); }
 @utility text-vellum { color: var(--color-vellum); }
 @utility text-gold-soft { color: var(--color-gold-soft); }
+@utility text-link { color: var(--color-link); }
+@utility text-link-hover { color: var(--color-link-hover); }
 
 @utility text-italic-serif {
-  font-family: var(--font-serif);
-  font-style: italic;
+  font-family: var(--font-body);
   font-weight: 400;
 }
 
@@ -228,6 +225,7 @@ body {
 @utility bg-ink { background-color: var(--color-ink); }
 @utility bg-oxblood { background-color: var(--color-oxblood); }
 @utility bg-gold { background-color: var(--color-gold); }
+@utility bg-link { background-color: var(--color-link); }
 
 @utility border-rule { border-color: var(--color-rule); }
 @utility border-rule-strong { border-color: var(--color-rule-strong); }
@@ -319,8 +317,8 @@ body {
     position: relative;
     display: inline-block;
     padding: 0.5rem 1.5rem;
-    background: var(--color-oxblood);
-    color: var(--color-vellum);
+    background: var(--color-ink);
+    color: var(--color-background);
     font-family: var(--font-caps);
     font-size: 0.8rem;
     letter-spacing: 0.35em;
@@ -333,7 +331,7 @@ body {
     top: 0;
     width: 12px;
     height: 100%;
-    background: var(--color-oxblood);
+    background: var(--color-ink);
     clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%, 0 50%, 100% 50%, 100% 100%, 0 100%);
     border: 0;
   }
@@ -391,8 +389,8 @@ body {
   /* ✦ Custom scrollbar for TOC */
   .custom-scrollbar::-webkit-scrollbar { width: 4px; }
   .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(26, 20, 14, 0.15); border-radius: 0; }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(26, 20, 14, 0.3); }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); border-radius: 0; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.25); }
 
   /* ✦ 3D tilt-ready card */
   .tilt-card {
@@ -435,27 +433,27 @@ body {
     position: absolute;
     inset: 0;
     width: 1px;
-    background: linear-gradient(180deg,
-      transparent 5%,
-      rgba(26, 20, 14, 0.07) 25%,
-      rgba(26, 20, 14, 0.12) 50%,
-      rgba(26, 20, 14, 0.07) 75%,
-      transparent 95%
-    );
-  }
-  .fold-crease-v::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    left: 1px;
-    width: 2px;
-    background: linear-gradient(180deg,
-      transparent 5%,
-      rgba(255, 255, 255, 0.08) 25%,
-      rgba(255, 255, 255, 0.14) 50%,
-      rgba(255, 255, 255, 0.08) 75%,
-      transparent 95%
-    );
+      background: linear-gradient(180deg,
+        transparent 5%,
+        rgba(0, 0, 0, 0.05) 25%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.05) 75%,
+        transparent 95%
+      );
+    }
+    .fold-crease-v::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      left: 1px;
+      width: 2px;
+      background: linear-gradient(180deg,
+        transparent 5%,
+        rgba(255, 255, 255, 0.1) 25%,
+        rgba(255, 255, 255, 0.18) 50%,
+        rgba(255, 255, 255, 0.1) 75%,
+        transparent 95%
+      );
   }
 
   /* ✦ Fold crease — horizontal (full-width line simulating a paper fold) */
@@ -471,27 +469,27 @@ body {
     position: absolute;
     inset: 0;
     height: 1px;
-    background: linear-gradient(90deg,
-      transparent 5%,
-      rgba(26, 20, 14, 0.07) 25%,
-      rgba(26, 20, 14, 0.12) 50%,
-      rgba(26, 20, 14, 0.07) 75%,
-      transparent 95%
-    );
-  }
-  .fold-crease-h::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    top: 1px;
-    height: 2px;
-    background: linear-gradient(90deg,
-      transparent 5%,
-      rgba(255, 255, 255, 0.08) 25%,
-      rgba(255, 255, 255, 0.14) 50%,
-      rgba(255, 255, 255, 0.08) 75%,
-      transparent 95%
-    );
+      background: linear-gradient(90deg,
+        transparent 5%,
+        rgba(0, 0, 0, 0.05) 25%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.05) 75%,
+        transparent 95%
+      );
+    }
+    .fold-crease-h::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      top: 1px;
+      height: 2px;
+      background: linear-gradient(90deg,
+        transparent 5%,
+        rgba(255, 255, 255, 0.1) 25%,
+        rgba(255, 255, 255, 0.18) 50%,
+        rgba(255, 255, 255, 0.1) 75%,
+        transparent 95%
+      );
   }
 
   /* ✦ Folded corners */
@@ -516,7 +514,7 @@ body {
     height: 0;
     border-style: solid;
     border-width: 0 0 80px 80px;
-    border-color: transparent transparent rgba(26, 20, 14, 0.07) transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.06) transparent;
   }
   .folded-corner-br::after {
     content: "";
@@ -527,7 +525,7 @@ body {
     height: 0;
     border-style: solid;
     border-width: 0 80px 80px 0;
-    border-color: transparent rgba(248, 241, 225, 0.92) transparent transparent;
+    border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
   }
 
   .folded-corner-bl {
@@ -543,7 +541,7 @@ body {
     height: 0;
     border-style: solid;
     border-width: 0 80px 80px 0;
-    border-color: transparent rgba(26, 20, 14, 0.07) transparent transparent;
+    border-color: transparent rgba(0, 0, 0, 0.06) transparent transparent;
   }
   .folded-corner-bl::after {
     content: "";
@@ -554,7 +552,7 @@ body {
     height: 0;
     border-style: solid;
     border-width: 0 0 80px 80px;
-    border-color: transparent transparent rgba(248, 241, 225, 0.92) transparent;
+    border-color: transparent transparent rgba(255, 255, 255, 0.95) transparent;
   }
 
   .folded-corner-tr {
@@ -570,7 +568,7 @@ body {
     height: 0;
     border-style: solid;
     border-width: 80px 0 0 80px;
-    border-color: transparent transparent transparent rgba(26, 20, 14, 0.07);
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.06);
   }
   .folded-corner-tr::after {
     content: "";
@@ -581,7 +579,7 @@ body {
     height: 0;
     border-style: solid;
     border-width: 0 80px 80px 0;
-    border-color: transparent rgba(248, 241, 225, 0.92) transparent transparent;
+    border-color: transparent rgba(255, 255, 255, 0.95) transparent transparent;
   }
 
   /* ✦ Paper edge — multi-line border simulating stacked paper edges */
@@ -592,7 +590,7 @@ body {
     z-index: 29;
     box-shadow:
       inset 0 0 0 1px rgba(255, 255, 255, 0.03),
-      inset 0 0 0 2px rgba(26, 20, 14, 0.03),
+      inset 0 0 0 2px rgba(0, 0, 0, 0.03),
       inset 0 0 0 3px rgba(255, 255, 255, 0.02);
   }
 }
