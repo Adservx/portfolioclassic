@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 const colophon = [
 ["First Edition", "A.D. 2023"],
@@ -20,6 +20,7 @@ const links = [
 ];
 
 export function Footer() {
+const prefersReduced = useReducedMotion();
 const ref = useRef<HTMLElement>(null);
 
 const goTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -29,6 +30,7 @@ return (
 <div className="paper-grain absolute inset-0 pointer-events-none opacity-30" />
 
 {/* ✦ Slow rotating seal in background */}
+{!prefersReduced && (
 <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
 <motion.div
 animate={{ rotate: 360 }}
@@ -46,6 +48,7 @@ transition={{ duration: 280, repeat: Infinity, ease: "linear" }}
 className="absolute w-[100%] aspect-square border border-vellum/5 rounded-full"
 />
 </div>
+)}
 
 <div className="relative mx-auto max-w-7xl px-6 lg:px-12 py-16 sm:py-20">
 {/* ✦ Huge name, like a book's final page */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { Counter } from "@/components/counter";
@@ -38,14 +38,15 @@ text: "Continues writing and research. Lives in Nepal. Email: darshanpathak1992@
 ];
 
 export function About() {
+const prefersReduced = useReducedMotion();
 const ref = useRef<HTMLElement>(null);
 const { scrollYProgress } = useScroll({
 target: ref,
 offset: ["start end", "end start"],
 });
-const y1 = useTransform(scrollYProgress, [0, 1], [40, -40]);
-const y2 = useTransform(scrollYProgress, [0, 1], [-30, 30]);
-const armsY = useTransform(scrollYProgress, [0, 1], [0, -50]);
+const y1 = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [40, -40]);
+const y2 = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [-30, 30]);
+const armsY = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [0, -50]);
 
 return (
 <section

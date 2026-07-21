@@ -136,6 +136,7 @@ onLeave: () => void;
 }) {
 const ref = useRef<HTMLDivElement>(null);
 const router = useRouter();
+const [isTouch] = useState(() => typeof window !== "undefined" && "ontouchstart" in window);
 const mouseX = useMotionValue(0.5);
 const mouseY = useMotionValue(0.5);
 const springX = useSpring(mouseX, { stiffness: 200, damping: 25 });
@@ -144,7 +145,7 @@ const rotateY = useTransform(springX, [0, 1], [-8, 8]);
 const rotateX = useTransform(springY, [0, 1], [8, -8]);
 
 const handleMove = (e: MouseEvent<HTMLDivElement>) => {
-if (!ref.current) return;
+if (!ref.current || isTouch) return;
 const rect = ref.current.getBoundingClientRect();
 mouseX.set((e.clientX - rect.left) / rect.width);
 mouseY.set((e.clientY - rect.top) / rect.height);
@@ -168,8 +169,8 @@ w.featured ? "bg-vellum/40 -mx-3 px-3 lg:-mx-6 lg:px-6" : ""
 >
 {/* Cover with 3D tilt */}
 <div className="col-span-3 sm:col-span-2 lg:col-span-2 perspective-1000">
-<motion.div
-style={{ rotateY, rotateX, transformStyle: "preserve-3d" }}
+          <motion.div
+              style={!isTouch ? { rotateY, rotateX, transformStyle: "preserve-3d" } : undefined}
 className="relative aspect-[3/4] max-w-[100px] sm:max-w-[120px] lg:max-w-[140px] overflow-hidden plate-thin mx-auto"
 >
             <Image

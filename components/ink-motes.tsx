@@ -40,9 +40,12 @@ export function InkMotes({ count = 24, className = "" }: { count?: number; class
 const [moteseed, setMoteseed] = useState<Mote[]>([]);
 const [mounted, setMounted] = useState(false);
 
+const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+const reducedCount = isMobile ? Math.min(count, 8) : count;
+
 useEffect(() => {
 setMounted(true);
-setMoteseed(generateMoteseed(count, Math.floor(Math.random() * 100000)));
+setMoteseed(generateMoteseed(reducedCount, Math.floor(Math.random() * 100000)));
 }, [count]);
 
 if (!mounted) return null;

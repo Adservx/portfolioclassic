@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
 
@@ -13,14 +13,15 @@ const NAME_FIRST = "Darshan";
 const NAME_LAST = "Pathak";
 
 export function Hero() {
+const prefersReduced = useReducedMotion();
 const ref = useRef<HTMLElement>(null);
 const { scrollYProgress } = useScroll({
 target: ref,
 offset: ["start start", "end start"],
 });
-const y = useTransform(scrollYProgress, [0, 1], [0, 80]);
-const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
-const portraitY = useTransform(scrollYProgress, [0, 1], [0, -30]);
+const y = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [0, 80]);
+const opacity = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
+const portraitY = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [0, -30]);
 
 return (
 <section

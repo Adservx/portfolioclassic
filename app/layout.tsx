@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Italiana, Cormorant_Garamond, EB_Garamond, Cormorant_SC, JetBrains_Mono } from "next/font/google";
+import { Italiana, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const italiana = Italiana({
@@ -17,21 +17,6 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
-const ebGaramond = EB_Garamond({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-body-var",
-  display: "swap",
-});
-
-const cormorantSC = Cormorant_SC({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-caps-var",
-  display: "swap",
-});
-
 const jetbrains = JetBrains_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
@@ -42,8 +27,6 @@ const jetbrains = JetBrains_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor: "#f4efe6",
 };
 
@@ -65,7 +48,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${italiana.variable} ${cormorant.variable} ${ebGaramond.variable} ${cormorantSC.variable} ${jetbrains.variable}`}
+      className={`${italiana.variable} ${cormorant.variable} ${jetbrains.variable}`}
     >
       <body className="relative min-h-screen">
         <div className="paper-fibers" />
