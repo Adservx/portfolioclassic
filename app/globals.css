@@ -60,6 +60,10 @@
 }
 
 @layer base {
+  section[id] {
+    content-visibility: auto;
+    contain-intrinsic-size: 100vh;
+  }
   *, *::before, *::after { box-sizing: border-box; }
 
   html {

@@ -38,9 +38,9 @@ backgroundColor: "var(--color-background)"
 <motion.div
 aria-hidden
 className="absolute inset-0 pointer-events-none overflow-hidden"
-initial={{ scale: 2.4, rotate: -12, opacity: 0, filter: "blur(20px) brightness(1.8)" }}
-animate={{ scale: 1, rotate: 0, opacity: 0.4, filter: "blur(0px) brightness(0.7)" }}
-transition={{ duration: 2.4, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+initial={{ opacity: 0 }}
+animate={{ opacity: 0.4 }}
+transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="absolute inset-0">
           <Image
@@ -55,7 +55,7 @@ transition={{ duration: 2.4, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             }}
           />
 {/* Fire-burnt frame overlay */}
-<motion.div
+<div
 className="absolute inset-0 pointer-events-none"
 style={{
               boxShadow:
@@ -63,8 +63,6 @@ style={{
               background:
                 "radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.7) 100%)",
 }}
-animate={{ opacity: [0.85, 1, 0.85] }}
-transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
 />
 {/* Charred edge ring */}
 <div

@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 
-const Navbar = dynamic(() => import("@/components/navbar").then((m) => ({ default: m.Navbar })), { ssr: false });
+const Navbar = dynamic(() => import("@/components/navbar").then((m) => ({ default: m.Navbar })));
 const Hero = dynamic(() => import("@/components/hero").then((m) => ({ default: m.Hero })));
 const About = dynamic(() => import("@/components/about").then((m) => ({ default: m.About })));
 const Works = dynamic(() => import("@/components/work").then((m) => ({ default: m.Works })));
