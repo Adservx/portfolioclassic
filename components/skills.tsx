@@ -66,7 +66,7 @@ export function Craft() {
 return (
 <section
 id="craft"
-className="relative py-section px-6 lg:px-12 overflow-hidden bg-parchment-2"
+className="relative py-section px-5 sm:px-6 lg:px-12 overflow-hidden bg-parchment-2"
 >
 <div className="paper-grain absolute inset-0 pointer-events-none" />
 
@@ -151,7 +151,7 @@ whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true, margin: "-50px" }}
 transition={{ duration: 0.7, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
 whileHover={{ y: -6, scale: 1.005 }}
-className="bg-parchment-2 p-8 lg:p-10 group hover:bg-vellum transition-colors duration-500 relative overflow-hidden"
+className="bg-parchment-2 p-5 sm:p-8 lg:p-10 group hover:bg-vellum transition-colors duration-500 relative overflow-hidden"
 >
 {/* Sweep highlight on hover */}
 <motion.div

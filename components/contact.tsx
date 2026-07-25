@@ -30,7 +30,7 @@ setTimeout(() => setState("idle"), 4500);
 return (
 <section
 id="letters"
-className="relative py-section px-6 lg:px-12 overflow-hidden bg-parchment-2"
+className="relative py-section px-5 sm:px-6 lg:px-12 overflow-hidden bg-parchment-2"
 >
 <div className="paper-grain absolute inset-0 pointer-events-none" />
 
@@ -240,7 +240,7 @@ type="submit"
 disabled={state !== "idle"}
 whileHover={{ scale: 1.04, y: -2 }}
 whileTap={{ scale: 0.96 }}
-className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-ink text-vellum font-caps uppercase tracking-[0.35em] text-[0.8rem] sm:text-[0.85rem] hover:bg-oxblood transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
+className="group relative inline-flex items-center justify-center gap-3 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 min-h-12 bg-ink text-vellum font-caps uppercase tracking-[0.28em] sm:tracking-[0.35em] text-[0.75rem] sm:text-[0.85rem] hover:bg-oxblood transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden touch-manipulation"
 >
 {/* Sweep on hover */}
 <span

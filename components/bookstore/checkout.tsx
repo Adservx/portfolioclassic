@@ -963,9 +963,9 @@ setStep(3);
 }, []);
 
 return (
-<div className="mx-auto max-w-2xl">
+<div className="mx-auto max-w-2xl w-full px-0">
 {/* Step indicator */}
-<div className="flex items-center gap-2 mb-8">
+<div className="flex items-center gap-1.5 sm:gap-2 mb-6 sm:mb-8 overflow-x-auto no-scrollbar">
 {["Shipping", "Payment", "Review", "Confirm"].map((label, i) => (
 <div key={label} className="flex items-center gap-2">
 <motion.div

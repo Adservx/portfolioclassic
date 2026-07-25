@@ -52,7 +52,7 @@ return (
 <section
 id="about"
 ref={ref}
-className="relative py-section px-6 lg:px-12 overflow-hidden"
+className="relative py-section px-5 sm:px-6 lg:px-12 overflow-hidden"
 >
 <div className="paper-grain absolute inset-0 pointer-events-none" />
 
@@ -347,10 +347,10 @@ transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
 whileHover={{ y: -4, backgroundColor: "rgba(250, 250, 250, 1)" }}
 className="bg-vellum p-4 sm:p-6 lg:p-8 text-center group cursor-default transition-colors duration-500"
 >
-<div className="font-display text-5xl sm:text-6xl lg:text-7xl text-ink leading-none">
+<div className="font-display text-4xl sm:text-6xl lg:text-7xl text-ink leading-none tabular-nums">
 <Counter target={s.target} suffix={s.suffix} />
 </div>
-<div className="mt-2 sm:mt-3 font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-oxblood transition-colors duration-500">
+<div className="mt-2 sm:mt-3 font-caps text-[0.55rem] sm:text-[0.7rem] tracking-[0.2em] sm:tracking-[0.4em] uppercase text-ink-soft group-hover:text-oxblood transition-colors duration-500 leading-snug px-1">
 {s.label}
 </div>
 </motion.div>
@@ -364,7 +364,7 @@ className="bg-vellum p-4 sm:p-6 lg:p-8 text-center group cursor-default transiti
 <div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
 Chronology
 </div>
-<h3 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-ink mt-2">
+<h3 className="font-serif text-[clamp(2.25rem,9vw,4.5rem)] sm:text-6xl lg:text-7xl text-ink mt-2">
 Five dates, <em className="text-oxblood">a life.</em>
 </h3>
 </div>

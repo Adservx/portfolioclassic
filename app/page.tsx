@@ -21,7 +21,8 @@ export default function Home() {
     const target = document.querySelector(hash);
     if (target) {
       setTimeout(() => {
-        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        const headerOffset = window.innerWidth < 640 ? 72 : 88;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerOffset;
         window.scrollTo({ top, behavior: "smooth" });
       }, 100);
     }

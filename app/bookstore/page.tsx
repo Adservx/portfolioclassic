@@ -164,35 +164,42 @@ setMode("complete");
 }, []);
 
 return (
-<div className="relative min-h-screen bg-background"
+<div
+className="relative min-h-screen min-h-[100dvh] bg-background overflow-x-clip"
+style={{
+paddingBottom: "env(safe-area-inset-bottom, 0px)",
+}}
 >
 <InkMotes count={16} />
 <div className="paper-fibers" />
 
 {/* ✦ Header */}
-<header className="relative z-20 border-b border-rule bg-background/90 backdrop-blur-md">
-<div className="mx-auto max-w-7xl px-6 lg:px-12 py-4">
-<div className="flex items-center justify-between">
+<header
+className="relative z-20 border-b border-rule bg-background/90 backdrop-blur-md"
+style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+>
+<div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12 py-3.5 sm:py-4">
+<div className="flex items-center justify-between gap-3">
 <Link
 href="/"
-className="group inline-flex items-center gap-2 text-link underline underline-offset-4 decoration-link/60 transition-colors duration-300"
+className="group inline-flex items-center gap-2 text-link underline underline-offset-4 decoration-link/60 transition-colors duration-300 min-h-11 touch-manipulation shrink-0"
 >
 <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-lg">
 ←
 </motion.span>
-<span className="font-caps text-[0.7rem] tracking-[0.35em] uppercase">
+<span className="font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.3em] sm:tracking-[0.35em] uppercase">
 Portfolio
 </span>
 </Link>
-<div className="flex items-center gap-3">
+<div className="flex items-center gap-2 sm:gap-3 min-w-0">
 <motion.span
 animate={{ rotate: [0, 10, -10, 0] }}
 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-className="fleuron text-gold text-base"
+className="fleuron text-gold text-base shrink-0"
 >
 ❦
 </motion.span>
-<span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
+<span className="font-caps text-[0.58rem] sm:text-[0.7rem] tracking-[0.22em] sm:tracking-[0.4em] uppercase text-ink-soft truncate">
 Official Bookstore
 </span>
 </div>
@@ -235,9 +242,9 @@ transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
 className="relative z-10"
 >
 {/* ✦ Hero — Split Layout */}
-<section className="relative pt-12 pb-20 px-6 lg:px-12 overflow-hidden">
+<section className="relative pt-8 sm:pt-12 pb-16 sm:pb-20 px-5 sm:px-6 lg:px-12 overflow-hidden">
 <div className="mx-auto max-w-7xl">
-<div className="grid lg:grid-cols-5 gap-10 lg:gap-16 items-center">
+<div className="grid lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-16 items-center">
 
 {/* Cover — left 2 cols */}
 <motion.div
@@ -280,7 +287,7 @@ The Only Edition
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-className="font-display text-6xl md:text-8xl lg:text-9xl text-ink leading-[0.9]"
+className="font-display text-[clamp(2.75rem,10vw,8rem)] md:text-8xl lg:text-9xl text-ink leading-[0.9] break-words"
 >
 {book.title}
 </motion.h1>
@@ -318,30 +325,30 @@ className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 font-caps text-[0.6r
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.7 }}
-className="mt-10 flex flex-wrap items-center gap-6"
+className="mt-8 sm:mt-10 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-5 sm:gap-6 w-full"
 >
 <div className="flex items-baseline gap-2">
-<span className="font-display text-6xl text-oxblood">{book.price}</span>
+<span className="font-display text-5xl sm:text-6xl text-oxblood">{book.price}</span>
 <span className="font-serif text-sm text-faded">incl. VAT</span>
 </div>
-<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 w-full sm:w-auto">
 <motion.button
-whileHover={{ scale: 1.05 }}
-whileTap={{ scale: 0.95 }}
+whileHover={{ scale: 1.03 }}
+whileTap={{ scale: 0.97 }}
 onClick={onPrintPurchase}
-className="relative rounded-[16px] bg-gradient-to-b from-[#222222] to-[#000000] text-[#FAFAFA] px-14 py-7 transition-all duration-200 hover:brightness-110 shadow-[0_10px_0_#222222,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#222222] active:translate-y-[7px] cursor-pointer text-center"
+className="relative w-full sm:w-auto rounded-[16px] bg-gradient-to-b from-[#222222] to-[#000000] text-[#FAFAFA] px-6 sm:px-10 md:px-14 py-5 sm:py-6 md:py-7 transition-all duration-200 hover:brightness-110 shadow-[0_8px_0_#222222,0_14px_28px_-8px_rgba(0,0,0,0.4)] sm:shadow-[0_10px_0_#222222,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#222222] active:translate-y-[5px] sm:active:translate-y-[7px] cursor-pointer text-center touch-manipulation"
 >
-<span className="relative z-10 block font-caps font-bold text-xl leading-tight">🛒 Buy</span>
-<span className="relative z-10 block font-caps font-bold text-4xl tracking-[0.1em] uppercase text-[#888888] mt-1">Hardcopy (Physical)</span>
+<span className="relative z-10 block font-caps font-bold text-base sm:text-xl leading-tight">🛒 Buy</span>
+<span className="relative z-10 block font-caps font-bold text-xl sm:text-2xl md:text-4xl tracking-[0.08em] sm:tracking-[0.1em] uppercase text-[#888888] mt-1">Hardcopy (Physical)</span>
 </motion.button>
 <motion.button
-whileHover={{ scale: 1.05 }}
-whileTap={{ scale: 0.95 }}
+whileHover={{ scale: 1.03 }}
+whileTap={{ scale: 0.97 }}
 onClick={onDigitalPurchase}
-className="relative rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] text-[#FAFAFA] px-14 py-7 transition-all duration-200 hover:brightness-125 shadow-[0_10px_0_#111111,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#111111] active:translate-y-[7px] cursor-pointer text-center"
+className="relative w-full sm:w-auto rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] text-[#FAFAFA] px-6 sm:px-10 md:px-14 py-5 sm:py-6 md:py-7 transition-all duration-200 hover:brightness-125 shadow-[0_8px_0_#111111,0_14px_28px_-8px_rgba(0,0,0,0.4)] sm:shadow-[0_10px_0_#111111,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#111111] active:translate-y-[5px] sm:active:translate-y-[7px] cursor-pointer text-center touch-manipulation"
 >
-<span className="relative z-10 block font-caps font-bold text-xl leading-tight">🛒 Buy</span>
-<span className="relative z-10 block font-caps font-bold text-4xl tracking-[0.1em] uppercase text-[#888888] mt-1">Softcopy (PDF)</span>
+<span className="relative z-10 block font-caps font-bold text-base sm:text-xl leading-tight">🛒 Buy</span>
+<span className="relative z-10 block font-caps font-bold text-xl sm:text-2xl md:text-4xl tracking-[0.08em] sm:tracking-[0.1em] uppercase text-[#888888] mt-1">Softcopy (PDF)</span>
 </motion.button>
 </div>
 </motion.div>
@@ -351,7 +358,7 @@ className="relative rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] 
 </section>
 
 {/* ✦ Product Details Section */}
-<section className="relative z-10 pb-32 px-6 lg:px-12">
+<section className="relative z-10 pb-20 sm:pb-32 px-5 sm:px-6 lg:px-12">
 <div className="mx-auto max-w-7xl">
 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
 
@@ -495,10 +502,10 @@ initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
 exit={{ opacity: 0, y: -20 }}
 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-className="relative z-10 pt-12 pb-32 px-6 lg:px-12"
+className="relative z-10 pt-8 sm:pt-12 pb-20 sm:pb-32 px-5 sm:px-6 lg:px-12"
 >
 <div className="mx-auto max-w-2xl">
-<div className="bg-vellum border border-rule p-6 lg:p-8 shadow-paper-2">
+<div className="bg-vellum border border-rule p-4 sm:p-6 lg:p-8 shadow-paper-2">
 {/* Back link */}
 <button
 onClick={onBack}
@@ -569,7 +576,7 @@ initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 exit={{ opacity: 0 }}
 transition={{ duration: 0.4 }}
-className="relative z-10 flex flex-col items-center justify-center min-h-[70vh] px-6"
+className="relative z-10 flex flex-col items-center justify-center min-h-[70vh] min-h-[70dvh] px-5 sm:px-6"
 >
 {/* Wax seal */}
 <motion.div

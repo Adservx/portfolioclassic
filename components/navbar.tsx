@@ -125,7 +125,9 @@ export function Navbar() {
     setOpen(false);
     const t = document.querySelector(href);
     if (t) {
-      const top = t.getBoundingClientRect().top + window.scrollY - 70;
+      // Header height + room for notched devices (safe-area handled in header padding)
+      const headerOffset = window.innerWidth < 640 ? 72 : window.innerWidth < 1024 ? 80 : 96;
+      const top = t.getBoundingClientRect().top + window.scrollY - headerOffset;
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
@@ -165,8 +167,15 @@ export function Navbar() {
           }}
         />
       </motion.div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-12" style={{ paddingLeft: "calc(1.5rem + env(safe-area-inset-left, 0px))", paddingRight: "calc(1.5rem + env(safe-area-inset-right, 0px))" }}>
-        <div className="flex items-center justify-between h-16 lg:h-20">
+      <div
+        className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-12"
+        style={{
+          paddingLeft: "max(1.25rem, env(safe-area-inset-left, 0px))",
+          paddingRight: "max(1.25rem, env(safe-area-inset-right, 0px))",
+          paddingTop: "env(safe-area-inset-top, 0px)",
+        }}
+      >
+        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           <button
             onClick={() => goTo("#prologue")}
             className="group flex items-center gap-3 cursor-pointer"
@@ -262,16 +271,20 @@ export function Navbar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="fixed inset-0 top-0 left-0 w-full h-full z-40 bg-background md:hidden" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+              className="fixed inset-0 top-0 left-0 w-full h-[100dvh] z-40 bg-background md:hidden overflow-y-auto overscroll-contain"
+              style={{
+                paddingTop: "env(safe-area-inset-top, 0px)",
+                paddingBottom: "env(safe-area-inset-bottom, 0px)",
+              }}
             >
-              <nav className="flex flex-col items-center justify-center h-full gap-6 px-6 pb-12">
+              <nav className="flex flex-col items-center justify-center min-h-full gap-4 sm:gap-6 px-6 py-20">
                 {navItems.map((item) => (
                   <button
                     key={item.href}
                     onClick={() => goTo(item.href)}
-                    className="group relative cursor-pointer py-3 px-6"
+                    className="group relative cursor-pointer py-3.5 px-6 min-h-12 min-w-[12rem] touch-manipulation"
                   >
-                    <span className={`relative font-caps text-xl font-medium tracking-[0.35em] uppercase transition-colors duration-300 ${
+                    <span className={`relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.35em] uppercase transition-colors duration-300 ${
                       active === item.href ? "text-link" : "text-ink/80"
                     }`}>
                       {item.label}
@@ -287,9 +300,9 @@ export function Navbar() {
                   <Link
                     href="/bookstore"
                     onClick={() => setOpen(false)}
-                    className="group relative block cursor-pointer py-3 px-6"
+                    className="group relative block cursor-pointer py-3.5 px-6 min-h-12 touch-manipulation"
                   >
-                    <span className="relative font-caps text-xl font-medium tracking-[0.3em] uppercase text-link transition-colors">
+                    <span className="relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.3em] uppercase text-link transition-colors">
                       Bookstore
                     </span>
                     <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0" />

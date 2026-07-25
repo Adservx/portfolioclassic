@@ -53,7 +53,7 @@ export function Praise() {
 return (
 <section
 id="press"
-className="relative py-section px-6 lg:px-12 overflow-hidden"
+className="relative py-section px-5 sm:px-6 lg:px-12 overflow-hidden"
 >
 <div className="paper-grain absolute inset-0 pointer-events-none" />
 

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { SectionHeader } from "@/components/about";
+import { useIsCoarsePointer } from "@/lib/use-media-query";
 
 interface Work {
 no: string;
@@ -40,7 +41,7 @@ const [hovered, setHovered] = useState<string | null>(null);
 return (
 <section
 id="works"
-className="relative py-section px-6 lg:px-12 overflow-hidden"
+className="relative py-section px-5 sm:px-6 lg:px-12 overflow-hidden"
 >
 <div className="paper-grain absolute inset-0 pointer-events-none" />
 
@@ -136,7 +137,7 @@ onLeave: () => void;
 }) {
 const ref = useRef<HTMLDivElement>(null);
 const router = useRouter();
-const [isTouch] = useState(() => typeof window !== "undefined" && "ontouchstart" in window);
+const isTouch = useIsCoarsePointer();
 const mouseX = useMotionValue(0.5);
 const mouseY = useMotionValue(0.5);
 const springX = useSpring(mouseX, { stiffness: 200, damping: 25 });
@@ -163,9 +164,9 @@ onMouseLeave={onLeave}
 onMouseMove={handleMove}
 onClick={() => router.push("/bookstore")}
 ref={ref}
-className={`group relative grid grid-cols-12 gap-3 sm:gap-4 lg:gap-8 py-6 lg:py-8 border-b border-rule transition-colors duration-500 cursor-pointer ${
-w.featured ? "bg-vellum/40 -mx-3 px-3 lg:-mx-6 lg:px-6" : ""
-} hover:bg-vellum/60`}
+className={`group relative grid grid-cols-12 gap-3 sm:gap-4 lg:gap-8 py-6 lg:py-8 border-b border-rule transition-colors duration-500 cursor-pointer touch-manipulation ${
+w.featured ? "bg-vellum/40 -mx-3 px-3 sm:-mx-4 sm:px-4 lg:-mx-6 lg:px-6" : ""
+} hover:bg-vellum/60 active:bg-vellum/70`}
 >
 {/* Cover with 3D tilt */}
 <div className="col-span-3 sm:col-span-2 lg:col-span-2 perspective-1000">

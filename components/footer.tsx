@@ -50,7 +50,10 @@ className="absolute w-[100%] aspect-square border border-vellum/5 rounded-full"
 </div>
 )}
 
-<div className="relative mx-auto max-w-7xl px-6 lg:px-12 py-16 sm:py-20">
+<div
+className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-12 py-14 sm:py-20"
+style={{ paddingBottom: "max(3.5rem, env(safe-area-inset-bottom, 0px))" }}
+>
 {/* ✦ Huge name, like a book's final page */}
 <div className="text-center">
 <motion.div
@@ -79,7 +82,7 @@ className="h-px w-6 sm:w-10 bg-vellum/40 origin-left"
 />
 </motion.div>
 
-<h2 className="mt-6 font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-vellum leading-[0.9]">
+<h2 className="mt-6 font-display text-[clamp(2.5rem,12vw,5rem)] sm:text-6xl md:text-7xl lg:text-8xl text-vellum leading-[0.9]">
 <span className="letter-cascade inline-block">
 {"Darshan".split("").map((ch, i) => (
 <span

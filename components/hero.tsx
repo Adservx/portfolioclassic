@@ -27,7 +27,7 @@ return (
 <section
 id="prologue"
 ref={ref}
-className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden"
+className="relative min-h-screen min-h-[100dvh] flex items-center pt-20 sm:pt-24 pb-10 sm:pb-12 overflow-hidden"
 style={{
 backgroundColor: "var(--color-background)"
 }}
@@ -110,7 +110,7 @@ className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl animate-dri
 
 <motion.div
 style={{ y, opacity }}
-className="relative mx-auto max-w-7xl w-full px-6 lg:px-12 z-10"
+className="relative mx-auto max-w-7xl w-full px-5 sm:px-6 lg:px-12 z-10"
 >
 {/* ✦ Top register — masthead */}
 <motion.div
@@ -148,7 +148,7 @@ A portfolio in five movements
 
 {/* ✦ MASTHEAD — name with letter cascade */}
 <div className="mt-6 sm:mt-8 lg:mt-10 flex flex-col items-center">
-<h1 className="font-display text-[clamp(4.5rem,18vw,15rem)] leading-[0.85] tracking-[-0.02em] text-ink text-center">
+<h1 className="font-display text-[clamp(2.85rem,12.5vw+0.35rem,15rem)] leading-[0.85] tracking-[-0.02em] text-ink text-center max-w-full">
 <span className="letter-cascade inline-block">
 {NAME_FIRST.split("").map((ch, i) => (
 <span
@@ -187,7 +187,7 @@ transition={{ duration: 1, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
 className="origin-center mt-4 sm:mt-6 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-ink"
 >
 <span className="hidden sm:block h-px w-16 bg-ink" />
-<span className="font-caps text-[0.65rem] sm:text-[0.75rem] tracking-[0.35em] sm:tracking-[0.5em] uppercase text-center sm:text-left">
+<span className="font-caps text-[0.58rem] sm:text-[0.75rem] tracking-[0.22em] sm:tracking-[0.5em] uppercase text-center sm:text-left px-1 max-w-[20rem] sm:max-w-none leading-relaxed">
 Microbiologist · Sociologist · Author of <em>White Words</em>
 </span>
 <span className="hidden sm:block h-px w-16 bg-ink" />
@@ -217,8 +217,8 @@ Epigraph · From <em>White Words</em>
 </span>
 </motion.div>
 
-<p className="font-serif text-[1.5rem] sm:text-[1.7rem] lg:text-[2.1rem] leading-[1.45] text-ink-2">
-<span className="drop-cap animate-splotch-pop -mt-1 !text-[3.5em] sm:!text-[5em] !font-normal">T</span>
+<p className="font-serif text-[1.25rem] sm:text-[1.7rem] lg:text-[2.1rem] leading-[1.45] text-ink-2">
+<span className="drop-cap animate-splotch-pop -mt-1 !text-[2.75em] sm:!text-[5em] !font-normal">T</span>
 <motion.span
 initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
@@ -328,9 +328,9 @@ Engraved by hand
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 transition={{ duration: 1.5, delay: 2.5 }}
-className="mt-12 sm:mt-16 lg:mt-24 border-y border-ink/30 py-4 overflow-hidden"
+className="mt-12 sm:mt-16 lg:mt-24 border-y border-ink/30 py-4 overflow-hidden max-w-[100%] [mask-image:linear-gradient(90deg,transparent,black_6%,black_94%,transparent)]"
 >
-<div className="flex items-center gap-8 sm:gap-12 whitespace-nowrap font-serif text-ink-soft text-xs sm:text-sm animate-marquee">
+<div className="flex items-center gap-8 sm:gap-12 whitespace-nowrap font-serif text-ink-soft text-xs sm:text-sm animate-marquee will-change-transform">
 {Array.from({ length: 2 }).flatMap((_, i) =>
 [
 "White Words",
