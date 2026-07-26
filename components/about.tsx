@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import { useRef, type ReactNode } from "react";
+import { useRef, useEffect, type ReactNode } from "react";
 import Image from "next/image";
 import { Counter } from "@/components/counter";
 
@@ -38,15 +38,21 @@ text: "Continues writing and research. Lives in Nepal. Email: darshanpathak2082@
 ];
 
 export function About() {
-const prefersReduced = useReducedMotion();
-const ref = useRef<HTMLElement>(null);
-const { scrollYProgress } = useScroll({
-target: ref,
-offset: ["start end", "end start"],
-});
-const y1 = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [40, -40]);
-const y2 = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [-30, 30]);
-const armsY = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const mobileRef = useRef(false);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const disableParallax = prefersReduced || mobileRef.current;
+  const y1 = disableParallax ? undefined : useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const y2 = disableParallax ? undefined : useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const armsY = disableParallax ? undefined : useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  useEffect(() => {
+    mobileRef.current = window.innerWidth < 768;
+  }, []);
 
 return (
 <section

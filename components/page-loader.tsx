@@ -37,9 +37,9 @@ export function PageLoader() {
       bar.style.transform = "scaleX(1)";
 
       requestAnimationFrame(() => {
-        bar.style.transition = "opacity 400ms ease";
+        bar.style.transition = "opacity 300ms ease";
         bar.style.opacity = "0";
-        setTimeout(() => setDone(true), 500);
+        setTimeout(() => setDone(true), 400);
       });
     };
 

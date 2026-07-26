@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 
@@ -21,35 +21,40 @@ const links = [
 ];
 
 export function Footer() {
-const prefersReduced = useReducedMotion();
-const ref = useRef<HTMLElement>(null);
+  const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const isMobile = useRef(false);
 
-const goTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  useEffect(() => {
+    isMobile.current = window.innerWidth < 768;
+  }, []);
 
-return (
-<footer ref={ref} className="relative bg-ink text-vellum">
-<div className="paper-grain absolute inset-0 pointer-events-none opacity-30" />
+  const goTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-{/* ✦ Slow rotating seal in background */}
-{!prefersReduced && (
-<div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
-<motion.div
-animate={{ rotate: 360 }}
-transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
-className="w-[140%] aspect-square border border-vellum/5 rounded-full"
-/>
-<motion.div
-animate={{ rotate: -360 }}
-transition={{ duration: 240, repeat: Infinity, ease: "linear" }}
-className="absolute w-[120%] aspect-square border border-vellum/5 rounded-full"
-/>
-<motion.div
-animate={{ rotate: 360 }}
-transition={{ duration: 280, repeat: Infinity, ease: "linear" }}
-className="absolute w-[100%] aspect-square border border-vellum/5 rounded-full"
-/>
-</div>
-)}
+  return (
+    <footer ref={ref} className="relative bg-ink text-vellum">
+      <div className="paper-grain absolute inset-0 pointer-events-none opacity-30" />
+
+      {/* ✦ Slow rotating seal in background — disabled on mobile */}
+      {!prefersReduced && !isMobile.current && (
+        <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
+            className="w-[140%] aspect-square border border-vellum/5 rounded-full"
+          />
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 240, repeat: Infinity, ease: "linear" }}
+            className="absolute w-[120%] aspect-square border border-vellum/5 rounded-full"
+          />
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 280, repeat: Infinity, ease: "linear" }}
+            className="absolute w-[100%] aspect-square border border-vellum/5 rounded-full"
+          />
+        </div>
+      )}
 
 <div className="relative mx-auto max-w-7xl px-6 lg:px-12 py-16 sm:py-20">
 {/* ✦ Huge name, like a book's final page */}

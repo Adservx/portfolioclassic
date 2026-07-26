@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
 
 const PORTRAIT =
@@ -13,15 +13,20 @@ const NAME_FIRST = "Darshan";
 const NAME_LAST = "Pathak";
 
 export function Hero() {
-const prefersReduced = useReducedMotion();
-const ref = useRef<HTMLElement>(null);
-const { scrollYProgress } = useScroll({
-target: ref,
-offset: ["start start", "end start"],
-});
-const y = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [0, 80]);
-const opacity = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
-const portraitY = prefersReduced ? undefined : useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const prefersReduced = useReducedMotion();
+  const ref = useRef<HTMLElement>(null);
+  const isMobile = useRef(false);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+  const y = prefersReduced || isMobile.current ? undefined : useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const opacity = prefersReduced || isMobile.current ? undefined : useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
+  const portraitY = prefersReduced || isMobile.current ? undefined : useTransform(scrollYProgress, [0, 1], [0, -30]);
+
+  useEffect(() => {
+    isMobile.current = window.innerWidth < 768;
+  }, []);
 
 return (
 <section

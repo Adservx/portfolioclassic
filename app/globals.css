@@ -76,20 +76,37 @@
   }
 
   @media (max-width: 768px) {
+    html {
+      -webkit-overflow-scrolling: touch;
+    }
     html, body {
       overflow-x: hidden;
       max-width: 100vw;
       position: relative;
     }
+    body {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
+    }
     * {
       max-width: 100vw;
     }
+    section[id] {
+      content-visibility: visible;
+      contain: none;
+    }
+    #page-content {
+      content-visibility: visible;
+      contain: none;
+    }
     .paper-grain::before,
-    .paper-grain::after,
-    .paper-fibers::after {
+    .paper-grain::after {
       display: none;
     }
     .paper-fibers {
+      display: none;
+    }
+    .paper-fibers::after {
       display: none;
     }
     .animate-marquee,
@@ -123,7 +140,7 @@
     }
   }
 
-body {
+  body {
     font-family: var(--font-body);
     font-size: 1.25rem;
     line-height: 1.7;
@@ -133,6 +150,15 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+
+  @media (max-width: 768px) {
+    body {
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: none;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -637,6 +663,7 @@ body {
     content-visibility: auto;
     contain-intrinsic-size: 100vh;
     contain: layout style paint;
+    will-change: transform;
   }
 }
 

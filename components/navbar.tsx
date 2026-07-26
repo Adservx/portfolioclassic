@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -79,11 +79,25 @@ function BrushStroke({ className = "", style = {}, scale = 1, fill = "#ffffff" }
 export function Navbar() {
   const prefersReduced = useReducedMotion();
   const pathname = usePathname();
+  const scrolledRef = useRef(false);
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const ticking = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => {
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          const isScrolled = window.scrollY > 40;
+          if (isScrolled !== scrolledRef.current) {
+            scrolledRef.current = isScrolled;
+            setScrolled(isScrolled);
+          }
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -103,7 +117,7 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "md:backdrop-blur-sm" : "bg-transparent"
+        scrolled ? "md:backdrop-blur-sm bg-background/90" : "bg-transparent"
       }`}
     >
       <motion.div
