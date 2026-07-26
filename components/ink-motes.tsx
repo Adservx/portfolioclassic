@@ -89,8 +89,6 @@ export function InkMotes({
       style={{
         zIndex: 1,
         contain: "strict",
-        // Pause animations off-tab without unmounting (no flash on return)
-        animationPlayState: visible ? "running" : "paused",
       }}
     >
       {moteseed.map((m) => (
@@ -104,7 +102,12 @@ export function InkMotes({
             background: COLORS[m.color],
             boxShadow: `0 0 ${m.size * 3}px ${COLORS[m.color]}`,
             opacity: m.opacity,
-            animation: `mote-rise ${m.duration}s linear ${m.delay}s infinite`,
+            // Longhand only — never mix `animation` shorthand with animationPlayState
+            animationName: "mote-rise",
+            animationDuration: `${m.duration}s`,
+            animationTimingFunction: "linear",
+            animationDelay: `${m.delay}s`,
+            animationIterationCount: "infinite",
             animationPlayState: visible ? "running" : "paused",
             ["--drift" as string]: `${m.drift}px`,
             willChange: "transform, opacity",
