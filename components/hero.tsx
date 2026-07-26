@@ -34,7 +34,7 @@ backgroundColor: "var(--color-background)"
 >
 
 
-{/* ✦ Burst portrait — aesthetic filtered overlay with fire-burnt frame */}
+ {/* ✦ Burst portrait — aesthetic filtered overlay with fire-burnt frame */}
 <motion.div
 aria-hidden
 className="absolute inset-0 pointer-events-none overflow-hidden"
@@ -43,35 +43,36 @@ animate={{ opacity: 0.4 }}
 transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="absolute inset-0">
-          <Image
-            src={BURST_PORTRAIT}
-            alt=""
-            fill
-            priority
-            className="object-cover scale-125"
-            style={{
-              filter:
-                "grayscale(1) contrast(1.9) brightness(1.05)",
-            }}
-          />
+<Image
+src={BURST_PORTRAIT}
+alt=""
+fill
+priority
+sizes="100vw"
+className="object-cover scale-125"
+style={{
+filter:
+"grayscale(1) contrast(1.9) brightness(1.05)",
+}}
+/>
 {/* Fire-burnt frame overlay */}
 <div
 className="absolute inset-0 pointer-events-none"
 style={{
-              boxShadow:
-                "inset 0 0 80px 30px rgba(0,0,0,0.4), inset 0 0 160px 60px rgba(0,0,0,0.25)",
-              background:
-                "radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.7) 100%)",
+boxShadow:
+"inset 0 0 80px 30px rgba(0,0,0,0.4), inset 0 0 160px 60px rgba(0,0,0,0.25)",
+background:
+"radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.7) 100%)",
 }}
 />
 {/* Charred edge ring */}
 <div
 className="absolute inset-0 pointer-events-none"
 style={{
-            border: "6px solid rgba(0,0,0,0.3)",
-            borderRadius: "2px",
-            boxShadow:
-              "inset 0 0 30px 8px rgba(0,0,0,0.3), 0 0 20px 4px rgba(0,0,0,0.15)",
+border: "6px solid rgba(0,0,0,0.3)",
+borderRadius: "2px",
+boxShadow:
+"inset 0 0 30px 8px rgba(0,0,0,0.3), 0 0 20px 4px rgba(0,0,0,0.15)",
 clipPath: "inset(0)",
 }}
 />
@@ -86,15 +87,15 @@ background:
 />
 </motion.div>
 
-{/* ✦ Floating ambient orbs (subtle) */}
+ {/* ✦ Floating ambient orbs (subtle) */}
 <div aria-hidden className="absolute inset-0 pointer-events-none">
 <div
 className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl animate-drift-1"
-    style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%)" }}
-        />
-        <div
-          className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full blur-3xl animate-drift-2"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%)" }}
+style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%)" }}
+/>
+<div
+className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full blur-3xl animate-drift-2"
+style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%)" }}
 />
 </div>
 
@@ -256,14 +257,14 @@ className="lg:col-span-5"
 >
 <div className="plate p-3 sm:p-5 lg:p-6 max-w-[260px] sm:max-w-sm lg:max-w-md mx-auto group cursor-pointer">
 <div className="relative aspect-[4/5] bg-ink overflow-hidden splotch-reveal">
-            <Image
-              src={PORTRAIT}
-              alt="Darshan Pathak — author of White Words"
-              fill
-              priority
-              sizes="(max-width: 640px) 260px, (max-width: 1024px) 384px, 500px"
-              className="object-cover contrast-110 saturate-125 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
-            />
+<Image
+src={PORTRAIT}
+alt="Darshan Pathak — author of White Words"
+fill
+priority
+sizes="(max-width: 640px) 260px, (max-width: 1024px) 384px, 500px"
+className="object-cover contrast-110 saturate-125 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
+/>
 <div
 className="absolute inset-0 pointer-events-none"
 style={{
@@ -271,24 +272,24 @@ background:
 "linear-gradient(180deg, rgba(0, 0, 0,0.2) 0%, transparent 30%, transparent 60%, rgba(0, 0, 0,0.55) 100%)",
 }}
 />
-<div className="absolute top-3 left-3 right-3 flex items-start justify-between text-vellum mix-blend-difference">
-<motion.span
-initial={{ opacity: 0, y: -8 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ delay: 2 }}
-className="font-caps text-[0.6rem] tracking-[0.4em] uppercase"
->
-Plate I
-</motion.span>
-<motion.span
-initial={{ opacity: 0, y: -8 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ delay: 2.1 }}
-className="font-caps text-[0.6rem] tracking-[0.4em] uppercase"
->
-aet. LXXII
-</motion.span>
-</div>
+            <div className="absolute top-3 left-3 right-3 flex items-start justify-between text-vellum mix-blend-difference">
+              <motion.span
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2 }}
+                className="font-caps text-[0.6rem] tracking-[0.4em] uppercase"
+              >
+                Plate I
+              </motion.span>
+              <motion.span
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 2.1 }}
+                className="font-caps text-[0.6rem] tracking-[0.4em] uppercase"
+              >
+                aet. LXXII
+              </motion.span>
+            </div>
 <div className="absolute bottom-3 left-3 right-3 text-vellum font-serif text-xs">
 Darshan Pathak · Microbiologist & Sociologist · Nepal
 </div>

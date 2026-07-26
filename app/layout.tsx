@@ -54,7 +54,7 @@ export default function RootLayout({
       <body className="relative min-h-screen">
         <PageLoader />
         <div className="paper-fibers" />
-        <div id="page-content" className="will-change-transform">
+        <div id="page-content">
           {children}
         </div>
       </body>

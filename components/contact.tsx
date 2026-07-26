@@ -111,11 +111,11 @@ transition={{ delay: 0.6 }}
 className="mt-8 sm:mt-10 plate-thin p-4 sm:p-6 relative"
 >
 <div className="flex items-center gap-3 mb-3">
-<motion.span
-animate={{ rotate: [0, 8, -8, 0] }}
-transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-className="fleuron text-gold text-xl sm:text-2xl"
->
+              <motion.span
+                animate={{ rotate: [0, 8, -8, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                className="fleuron text-gold text-xl sm:text-2xl"
+              >
 ❦
 </motion.span>
 <span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">

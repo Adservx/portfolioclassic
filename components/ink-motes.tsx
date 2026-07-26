@@ -46,7 +46,7 @@ const reducedCount = isMobile ? Math.min(count, 8) : count;
 useEffect(() => {
 setMounted(true);
 setMoteseed(generateMoteseed(reducedCount, Math.floor(Math.random() * 100000)));
-}, [count]);
+}, [count, reducedCount]);
 
 if (!mounted) return null;
 
@@ -54,7 +54,7 @@ return (
 <div
 aria-hidden
 className={`pointer-events-none fixed inset-0 overflow-hidden ${className}`}
-style={{ zIndex: 1 }}
+style={{ zIndex: 1, willChange: "transform", backfaceVisibility: "hidden" }}
 >
 {moteseed.map((m) => (
 <span
@@ -69,6 +69,7 @@ boxShadow: `0 0 ${m.size * 3}px ${COLORS[m.color]}`,
 opacity: m.opacity,
 animation: `mote-rise ${m.duration}s linear ${m.delay}s infinite`,
 ["--drift" as string]: `${m.drift}px`,
+backfaceVisibility: "hidden",
 }}
 />
 ))}

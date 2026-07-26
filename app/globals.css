@@ -117,6 +117,10 @@
       clip-path: none !important;
       animation: none !important;
     }
+    .curtain-reveal {
+      clip-path: none !important;
+      animation: none !important;
+    }
   }
 
 body {
@@ -630,8 +634,9 @@ body {
   }
 
   #page-content {
-    transform: translateX(var(--page-slide-x, 0px));
-    will-change: transform;
+    content-visibility: auto;
+    contain-intrinsic-size: 100vh;
+    contain: layout style paint;
   }
 }
 

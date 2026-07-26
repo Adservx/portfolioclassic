@@ -22,7 +22,6 @@ export function PageLoader() {
       const eased = 1 - Math.pow(1 - t, 3);
 
       bar.style.transform = `scaleX(${eased})`;
-      document.documentElement.style.setProperty("--page-slide-x", `${(1 - eased) * 80}px`);
 
       if (t < 1) {
         frameRef.current = requestAnimationFrame(tick);
@@ -35,7 +34,6 @@ export function PageLoader() {
       cancelled = true;
       cancelAnimationFrame(frameRef.current);
 
-      document.documentElement.style.setProperty("--page-slide-x", "0px");
       bar.style.transform = "scaleX(1)";
 
       requestAnimationFrame(() => {
