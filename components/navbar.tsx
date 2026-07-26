@@ -201,22 +201,23 @@ export function Navbar() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex items-center justify-center w-11 h-11 cursor-pointer z-50 -mr-1.5"
+            className="md:hidden flex items-center justify-center w-12 h-12 cursor-pointer z-50 -mr-2 active:scale-90 transition-transform duration-200"
             aria-label="Toggle menu"
+            aria-expanded={open}
           >
             <span className="flex flex-col gap-[5px] w-5 items-center">
               <span
-                className={`block w-5 h-px bg-ink transition-all duration-300 ${
+                className={`block w-5 h-px bg-ink transition-all duration-300 origin-center ${
                   open ? "rotate-45 translate-y-[6px]" : ""
                 }`}
               />
               <span
-                className={`block w-5 h-px bg-ink transition-all duration-300 ${
-                  open ? "opacity-0" : "opacity-100"
+                className={`block w-5 h-px bg-ink transition-all duration-200 ${
+                  open ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
                 }`}
               />
               <span
-                className={`block w-5 h-px bg-ink transition-all duration-300 ${
+                className={`block w-5 h-px bg-ink transition-all duration-300 origin-center ${
                   open ? "-rotate-45 -translate-y-[6px]" : ""
                 }`}
               />
@@ -231,42 +232,56 @@ export function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="fixed inset-0 top-0 left-0 w-full h-full z-40 bg-background md:hidden" style={{ paddingTop: "env(safe-area-inset-top, 0px)" }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 top-0 left-0 w-full h-[100dvh] z-40 bg-background/60 backdrop-blur-sm md:hidden"
             >
-              <nav className="flex flex-col items-center justify-center h-full gap-6 px-6 pb-12">
-                {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setOpen(false)}
-                    className="group relative cursor-pointer py-3 px-6"
-                  >
-                    <span className={`relative font-caps text-xl font-medium tracking-[0.35em] uppercase transition-colors duration-300 ${
-                      isActive(item.href) ? "text-link" : "text-ink/80"
-                    }`}>
-                      {item.label}
-                    </span>
-                    <span
-                      className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
-                        isActive(item.href) ? "w-8" : "w-0"
-                      }`}
-                    />
-                  </Link>
-                ))}
-                <div>
-                  <Link
-                    href="/bookstore"
-                    onClick={() => setOpen(false)}
-                    className="group relative block cursor-pointer py-3 px-6"
-                  >
-                    <span className="relative font-caps text-xl font-medium tracking-[0.3em] uppercase text-link transition-colors">
-                      Bookstore
-                    </span>
-                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0" />
-                  </Link>
-                </div>
-              </nav>
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", damping: 28, stiffness: 300, mass: 0.8 }}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute right-0 top-0 h-full w-full max-w-sm bg-background border-l border-ink/10 overflow-y-auto overscroll-contain"
+                style={{
+                  paddingTop: "env(safe-area-inset-top, 0px)",
+                  paddingBottom: "env(safe-area-inset-bottom, 0px)",
+                }}
+              >
+                <nav className="flex flex-col items-center justify-center min-h-full gap-6 px-6 py-24">
+                  {navItems.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className="group relative cursor-pointer py-3.5 px-6 w-full max-w-[14rem] touch-manipulation"
+                    >
+                      <span className={`relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.35em] uppercase transition-colors duration-300 ${
+                        isActive(item.href) ? "text-link" : "text-ink/80"
+                      }`}>
+                        {item.label}
+                      </span>
+                      <span
+                        className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
+                          isActive(item.href) ? "w-8" : "w-0"
+                        }`}
+                      />
+                    </Link>
+                  ))}
+                  <div className="w-full max-w-[14rem]">
+                    <Link
+                      href="/bookstore"
+                      onClick={() => setOpen(false)}
+                      className="group relative block cursor-pointer py-3.5 px-6 touch-manipulation"
+                    >
+                      <span className="relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.3em] uppercase text-link transition-colors">
+                        Bookstore
+                      </span>
+                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0" />
+                    </Link>
+                  </div>
+                </nav>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>
