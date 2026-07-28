@@ -95,7 +95,7 @@ aria-hidden
 <div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-1">
 {c.label}
 </div>
-<div className="font-serif text-base text-ink-2 leading-snug group-hover:text-oxblood group-hover:translate-x-1 transition-all duration-500">
+<div className="font-serif text-base text-ink-2 leading-snug group-hover:text-oxblood group-hover:translate-x-1 transition-[color,transform] duration-500">
 {c.value}
 </div>
 </div>
@@ -111,13 +111,9 @@ transition={{ delay: 0.6 }}
 className="mt-8 sm:mt-10 plate-thin p-4 sm:p-6 relative"
 >
 <div className="flex items-center gap-3 mb-3">
-              <motion.span
-                animate={{ rotate: [0, 8, -8, 0] }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="fleuron text-gold text-xl sm:text-2xl"
-              >
-❦
-</motion.span>
+              <span className="fleuron text-gold text-xl sm:text-2xl animate-fleuron-wobble">
+                ❦
+              </span>
 <span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
 For the Press
 </span>
@@ -148,7 +144,7 @@ className="flex items-center gap-3 sm:gap-4 mb-6"
 >
 <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 plate-thin overflow-hidden shrink-0 group">
             <Image
-              src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=200&q=80&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=160&q=60&auto=format&fit=crop"
               alt="An old typewriter, with a letter in its carriage"
               fill
               loading="lazy"
@@ -258,13 +254,9 @@ exit={{ opacity: 0 }}
 className="flex items-center gap-3"
 >
 Seal & Send
-<motion.span
-animate={{ x: [0, 4, 0] }}
-transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-className="font-display text-base"
->
-→
-</motion.span>
+                  <span className="font-display text-base animate-arrow-nudge-x">
+                    →
+                  </span>
 </motion.span>
 )}
 {state === "sealing" && (

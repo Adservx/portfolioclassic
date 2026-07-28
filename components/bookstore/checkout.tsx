@@ -461,7 +461,7 @@ className="mt-10"
 whileHover={{ scale: 1.02 }}
 whileTap={{ scale: 0.98 }}
 onClick={onReturn}
-className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
+className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Return to Bookstore
 </motion.button>
@@ -585,7 +585,7 @@ return (
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 type="submit"
-className="w-full bg-link text-vellum hover:bg-link-hover font-caps text-[0.85rem] tracking-[0.35em] uppercase px-6 py-3 transition-all duration-300 cursor-pointer"
+className="w-full bg-link text-vellum hover:bg-link-hover font-caps text-[0.85rem] tracking-[0.35em] uppercase px-6 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Continue to Payment
 </motion.button>
@@ -811,7 +811,7 @@ className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
 <button
 type="button"
 onClick={onBack}
-className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
 >
 Back
 </button>
@@ -819,7 +819,7 @@ Back
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 type="submit"
-className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Review Order
 </motion.button>
@@ -942,7 +942,7 @@ Total
 <button
 type="button"
 onClick={onBack}
-className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
 >
 Back
 </button>
@@ -951,7 +951,7 @@ type="button"
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 onClick={onPlaceOrder}
-className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-all duration-300 cursor-pointer"
+className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Place Order
 </motion.button>

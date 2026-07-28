@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import { useRef, useEffect, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
 import Image from "next/image";
 import { Counter } from "@/components/counter";
+import { useCanParallax } from "@/lib/use-is-mobile";
 
 const VARANASI_IMG = "/varanasi-author.webp";
 
@@ -39,20 +40,19 @@ text: "Continues writing and research. Lives in Nepal. Email: darshanpathak2082@
 
 export function About() {
   const prefersReduced = useReducedMotion();
+  const canParallax = useCanParallax();
   const ref = useRef<HTMLElement>(null);
-  const mobileRef = useRef(false);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const disableParallax = prefersReduced || mobileRef.current;
-  const y1 = disableParallax ? undefined : useTransform(scrollYProgress, [0, 1], [40, -40]);
-  const y2 = disableParallax ? undefined : useTransform(scrollYProgress, [0, 1], [-30, 30]);
-  const armsY = disableParallax ? undefined : useTransform(scrollYProgress, [0, 1], [0, -50]);
-
-  useEffect(() => {
-    mobileRef.current = window.innerWidth < 768;
-  }, []);
+  // Always call transforms (hooks rules); gate application with canParallax
+  const y1Raw = useTransform(scrollYProgress, [0, 1], [40, -40]);
+  const y2Raw = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const armsYRaw = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const y1 = canParallax && !prefersReduced ? y1Raw : undefined;
+  const y2 = canParallax && !prefersReduced ? y2Raw : undefined;
+  const armsY = canParallax && !prefersReduced ? armsYRaw : undefined;
 
 return (
 <section
@@ -187,9 +187,9 @@ className="font-caps text-[0.7rem] uppercase text-ink-soft"
 White Words &middot; First Edition
 </motion.div>
 
-<motion.div style={{ y: armsY }} className="mt-16 flex justify-center -ml-20">
-<CoatOfArms />
-</motion.div>
+            <motion.div style={{ y: armsY }} className="mt-16 flex justify-center -ml-20">
+              <CoatOfArms static={!canParallax} />
+            </motion.div>
 
 <motion.div
 initial={{ opacity: 0, scale: 0.8 }}
@@ -271,22 +271,22 @@ className="mt-24 lg:mt-32"
             className="object-cover object-top brightness-[1.08] contrast-[1.15] saturate-[1.1]"
           />
 </div>
-{/* Color grade — warm/cinematic tone */}
-<div
-className="absolute inset-0 pointer-events-none mix-blend-color"
-style={{
-background:
-"linear-gradient(135deg, rgba(210,150,70,0.18) 0%, rgba(180,120,60,0.08) 40%, rgba(70,100,130,0.12) 70%, rgba(50,70,100,0.2) 100%)",
-}}
-/>
-{/* Soft overlay glow */}
-<div
-className="absolute inset-0 pointer-events-none mix-blend-overlay"
-style={{
-background:
-"linear-gradient(180deg, rgba(230,190,120,0.06) 0%, transparent 45%, transparent 65%, rgba(40,60,80,0.08) 100%)",
-}}
-/>
+                {/* Color grade — warm/cinematic tone (hidden on mobile: blend modes = compositing cost) */}
+                <div
+                  className="absolute inset-0 pointer-events-none mix-blend-color hidden md:block"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(210,150,70,0.18) 0%, rgba(180,120,60,0.08) 40%, rgba(70,100,130,0.12) 70%, rgba(50,70,100,0.2) 100%)",
+                  }}
+                />
+                {/* Soft overlay glow */}
+                <div
+                  className="absolute inset-0 pointer-events-none mix-blend-overlay hidden md:block"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, rgba(230,190,120,0.06) 0%, transparent 45%, transparent 65%, rgba(40,60,80,0.08) 100%)",
+                  }}
+                />
 <div
 className="absolute inset-0 pointer-events-none"
 style={{
@@ -461,8 +461,8 @@ className="h-px w-12 bg-ink origin-left"
 </motion.div>
 
 <motion.h2
-initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
-whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+initial={{ opacity: 0, y: 20 }}
+whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
 className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-ink leading-[1.05]"
@@ -495,14 +495,14 @@ className="mt-4 sm:mt-6 font-serif text-base sm:text-lg text-ink-soft px-4 sm:px
 );
 }
 
-function CoatOfArms() {
+function CoatOfArms({ static: isStatic = false }: { static?: boolean }) {
 return (
 <motion.svg
 viewBox="0 0 200 220"
 className="w-40 h-44 text-ink"
 fill="none"
-initial="hidden"
-whileInView="visible"
+initial={isStatic ? undefined : "hidden"}
+whileInView={isStatic ? undefined : "visible"}
 viewport={{ once: true }}
 >
 <motion.path
@@ -510,36 +510,37 @@ d="M30 50 Q30 30 50 30 L150 30 Q170 30 170 50 L170 130 Q170 180 100 200 Q30 180 
 fill="#FAFAFA"
 stroke="currentColor"
 strokeWidth="1.5"
-initial={{ pathLength: 0, opacity: 0 }}
-whileInView={{ pathLength: 1, opacity: 1 }}
+initial={isStatic ? undefined : { pathLength: 0, opacity: 0 }}
+animate={isStatic ? { opacity: 1 } : undefined}
+whileInView={isStatic ? undefined : { pathLength: 1, opacity: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+transition={{ duration: isStatic ? 0 : 1.5, ease: [0.16, 1, 0.3, 1] }}
 />
 <motion.path
 d="M38 56 Q38 40 54 40 L146 40 Q162 40 162 56 L162 128 Q162 170 100 188 Q38 170 38 128 Z"
 stroke="currentColor"
 strokeWidth="0.8"
 opacity="0.5"
-initial={{ pathLength: 0 }}
-whileInView={{ pathLength: 1 }}
+initial={isStatic ? undefined : { pathLength: 0 }}
+whileInView={isStatic ? undefined : { pathLength: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+transition={{ duration: isStatic ? 0 : 1.5, delay: isStatic ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
 />
 <motion.line
 x1="40" y1="80" x2="160" y2="80"
 stroke="currentColor" strokeWidth="0.8"
-initial={{ pathLength: 0 }}
-whileInView={{ pathLength: 1 }}
+initial={isStatic ? undefined : { pathLength: 0 }}
+whileInView={isStatic ? undefined : { pathLength: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 0.8, delay: 0.8 }}
+transition={{ duration: isStatic ? 0 : 0.8, delay: isStatic ? 0 : 0.8 }}
 />
 <motion.line
 x1="40" y1="86" x2="160" y2="86"
 stroke="currentColor" strokeWidth="0.5"
-initial={{ pathLength: 0 }}
-whileInView={{ pathLength: 1 }}
+initial={isStatic ? undefined : { pathLength: 0 }}
+whileInView={isStatic ? undefined : { pathLength: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 0.8, delay: 0.9 }}
+transition={{ duration: isStatic ? 0 : 0.8, delay: isStatic ? 0 : 0.9 }}
 />
 <motion.path
 d="M50 130 Q70 120 90 130 T130 130 T170 130"
@@ -547,10 +548,10 @@ stroke="#000000"
 strokeWidth="2"
 fill="none"
 strokeLinecap="round"
-initial={{ pathLength: 0 }}
-whileInView={{ pathLength: 1 }}
+initial={isStatic ? undefined : { pathLength: 0 }}
+whileInView={isStatic ? undefined : { pathLength: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 1.5, delay: 1 }}
+transition={{ duration: isStatic ? 0 : 1.5, delay: isStatic ? 0 : 1 }}
 />
 <motion.path
 d="M50 138 Q70 128 90 138 T130 138 T170 138"
@@ -559,10 +560,10 @@ strokeWidth="1.2"
 fill="none"
 strokeLinecap="round"
 opacity="0.6"
-initial={{ pathLength: 0 }}
-whileInView={{ pathLength: 1 }}
+initial={isStatic ? undefined : { pathLength: 0 }}
+whileInView={isStatic ? undefined : { pathLength: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 1.5, delay: 1.2 }}
+transition={{ duration: isStatic ? 0 : 1.5, delay: isStatic ? 0 : 1.2 }}
 />
 <g transform="translate(88, 42) rotate(-22 0 29)">
 <rect x="-4" y="-30" width="8" height="40" rx="4" fill="currentColor" opacity="0.08" transform="translate(1.5, 1.5)" />
@@ -578,9 +579,11 @@ transition={{ duration: 1.5, delay: 1.2 }}
 <path d="M -1 16 L 1 16 L 0.8 20 L 0 23 L -0.8 20 Z" fill="#5C4A33" opacity="0.3" />
 <line x1="0" y1="15" x2="0" y2="27" stroke="#000000" strokeWidth="0.5" />
 <circle cx="0" cy="16.5" r="0.6" fill="#000000" />
+{!isStatic && (
 <ellipse cx="0" cy="29" rx="1.5" ry="0.8" fill="#000000" opacity="0">
 <animate attributeName="opacity" values="0;0;0.85;0.85;0;0" dur="7s" begin="2s" repeatCount="indefinite" />
 </ellipse>
+)}
 </g>
 <g transform="translate(88 195)">
 <ellipse cx="0" cy="17" rx="14" ry="4" fill="rgba(0, 0, 0,0.06)" />
@@ -591,10 +594,14 @@ transition={{ duration: 1.5, delay: 1.2 }}
 <path d="M -11 3 Q 0 5 11 3 L 11 10 Q 0 12 -11 10 Z" fill="#0D0A06" opacity="0.3" />
 <path d="M -11 3 Q 0 5 11 3" stroke="#000000" strokeWidth="0.3" fill="none" opacity="0.25" />
 <path d="M -10 4 Q -12 -1 -9 -4" stroke="#FFFFFF" strokeWidth="0.5" fill="none" opacity="0.1" />
+{!isStatic && (
 <ellipse cx="0" cy="-16" rx="4.5" ry="1.3" fill="none" stroke="#000000" strokeWidth="0.2" opacity="0.4">
 <animate attributeName="opacity" values="0.4;0.2;0.4" dur="3s" repeatCount="indefinite" />
 </ellipse>
+)}
 </g>
+{!isStatic && (
+<>
 {[
 { cx: 88, delay: "2.0s", dur: "1.1s", sp: "3.01s" },
 { cx: 86, delay: "2.8s", dur: "1.3s", sp: "4.00s" },
@@ -642,31 +649,38 @@ transition={{ duration: 1.5, delay: 1.2 }}
 </ellipse>
 </g>
 ))}
+</>
+)}
 <motion.g
-initial={{ opacity: 0, scale: 0.5 }}
-whileInView={{ opacity: 1, scale: 1 }}
+initial={isStatic ? undefined : { opacity: 0, scale: 0.5 }}
+whileInView={isStatic ? undefined : { opacity: 1, scale: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 0.8, delay: 1.6, type: "spring" }}
+transition={{ duration: isStatic ? 0 : 0.8, delay: isStatic ? 0 : 1.6, type: "spring" }}
 style={{ transformOrigin: "100px 155px" }}
 >
 <g transform="translate(100 155)">
 <ellipse cx="0" cy="0" rx="14" ry="3" fill="currentColor" opacity="0.3" />
 <path d="M-8 0 L-6 -16 L6 -16 L8 0 Z" fill="currentColor" />
 <line x1="0" y1="-16" x2="0" y2="-22" stroke="currentColor" strokeWidth="0.8" />
+{!isStatic && (
+<>
 <circle cx="0" cy="-24" r="2" fill="#444444">
 <animate attributeName="r" values="2;2.4;1.8;2.2;2" dur="2.5s" repeatCount="indefinite" />
 </circle>
 <path d="M-1 -24 Q0 -28 1 -24" stroke="#444444" strokeWidth="1" fill="none">
 <animate attributeName="opacity" values="0.6;1;0.7;1;0.6" dur="1.8s" repeatCount="indefinite" />
 </path>
+</>
+)}
+{isStatic && <circle cx="0" cy="-24" r="2" fill="#444444" />}
 </g>
 </motion.g>
 <motion.g
 stroke="currentColor" strokeWidth="0.8" fill="none" opacity="0.6"
-initial={{ pathLength: 0 }}
-whileInView={{ pathLength: 1 }}
+initial={isStatic ? undefined : { pathLength: 0 }}
+whileInView={isStatic ? undefined : { pathLength: 1 }}
 viewport={{ once: true }}
-transition={{ duration: 1.5, delay: 1.8 }}
+transition={{ duration: isStatic ? 0 : 1.5, delay: isStatic ? 0 : 1.8 }}
 >
 <path d="M28 60 Q15 70 18 90 Q22 80 30 78" />
 <path d="M28 100 Q12 110 18 130" />

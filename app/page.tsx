@@ -1,12 +1,22 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { Navbar } from "@/components/navbar";
+import { Hero } from "@/components/hero";
+import { Footer } from "@/components/footer";
 
-const Navbar = dynamic(() => import("@/components/navbar").then((m) => ({ default: m.Navbar })));
-const Hero = dynamic(() => import("@/components/hero").then((m) => ({ default: m.Hero })));
-const Footer = dynamic(() => import("@/components/footer").then((m) => ({ default: m.Footer })));
-const InkMotes = dynamic(() => import("@/components/ink-motes").then((m) => ({ default: m.InkMotes })), { ssr: false });
-const ScrollProgress = dynamic(() => import("@/components/scroll-progress").then((m) => ({ default: m.ScrollProgress })), { ssr: false });
+// Non-critical overlays only — keep Navbar/Hero/Footer static to avoid chunk pop-in
+const InkMotes = dynamic(
+  () => import("@/components/ink-motes").then((m) => ({ default: m.InkMotes })),
+  { ssr: false }
+);
+const ScrollProgress = dynamic(
+  () =>
+    import("@/components/scroll-progress").then((m) => ({
+      default: m.ScrollProgress,
+    })),
+  { ssr: false }
+);
 
 export default function Home() {
   return (

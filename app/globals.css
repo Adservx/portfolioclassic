@@ -60,10 +60,6 @@
 }
 
 @layer base {
-  section[id] {
-    content-visibility: auto;
-    contain-intrinsic-size: 100vh;
-  }
   *, *::before, *::after { box-sizing: border-box; }
 
   html {
@@ -73,42 +69,30 @@
     scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
     background-color: var(--color-parchment);
     max-width: 100%;
+    /* Prevent mobile chrome show/hide from thrashing layout */
+    height: 100%;
   }
 
   @media (max-width: 768px) {
     html {
       -webkit-overflow-scrolling: touch;
+      scroll-behavior: auto; /* smooth scroll + address-bar resize = flicker */
     }
     html, body {
-      overflow-x: hidden;
-      max-width: 100vw;
+      overflow-x: clip;
+      max-width: 100%;
       position: relative;
     }
     body {
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior: none;
+      overscroll-behavior-y: none;
+      /* Stabilize paint while mobile URL bar collapses/expands */
+      min-height: 100%;
+      min-height: 100dvh;
     }
-    * {
-      max-width: 100vw;
-    }
-    section[id] {
-      content-visibility: visible;
-      contain: none;
-    }
-    #page-content {
-      content-visibility: visible;
-      contain: none;
-    }
-    .paper-grain::before,
-    .paper-grain::after {
-      display: none;
-    }
-    .paper-fibers {
-      display: none;
-    }
-    .paper-fibers::after {
-      display: none;
-    }
+    /* Never force max-width: 100vw on * — causes reflow thrash & fixed-element bugs */
+
+    /* Kill continuous / expensive motion on mobile (keep one-shot entrance CSS) */
     .animate-marquee,
     .animate-ken-burns,
     .animate-slow-rotate,
@@ -138,6 +122,43 @@
       clip-path: none !important;
       animation: none !important;
     }
+    /* SVG / CSS noise textures + large blurs re-rasterize on every scroll frame */
+    .paper-grain::before,
+    .paper-grain::after {
+      display: none !important;
+    }
+    .paper-fibers,
+    .paper-fibers::after {
+      display: none !important;
+    }
+    /* Prefer static min-height over 100vh (jumps with mobile browser chrome) */
+    .min-h-screen {
+      min-height: 100svh;
+    }
+    /* Large filter: blur() layers are a top cause of mobile scroll flicker */
+    .blur-3xl,
+    .blur-\[32px\],
+    .blur-\[40px\] {
+      filter: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+    /* Soften permanent will-change so mobile GPU isn't over-committed */
+    .animate-marquee,
+    .animate-ken-burns,
+    .animate-drift-1,
+    .animate-drift-2,
+    .animate-slow-rotate,
+    .animate-slow-rotate-reverse,
+    .animate-candle,
+    .animate-candle-dance,
+    .animate-breath,
+    .animate-quill,
+    .animate-wax-drip,
+    .animate-pulse-dot,
+    .animate-jitter {
+      will-change: auto !important;
+    }
   }
 
   body {
@@ -151,14 +172,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: none;
-  }
-
-  @media (max-width: 768px) {
-    body {
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior: none;
-    }
+    overscroll-behavior-y: none;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -659,11 +673,37 @@
       inset 0 0 0 3px rgba(255, 255, 255, 0.02);
   }
 
+  /*
+   * NEVER put content-visibility / contain / will-change on #page-content.
+   * content-visibility:auto on the root content tree makes whole sections
+   * paint/unpaint while scrolling — the classic "page reloading / flickering"
+   * effect on mobile Safari & Chrome. will-change:transform forces a permanent
+   * compositor layer that re-rasterizes on every scroll frame.
+   */
   #page-content {
-    content-visibility: auto;
-    contain-intrinsic-size: 100vh;
-    contain: layout style paint;
-    will-change: transform;
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+  }
+
+  /* Hero burn frame — full inset shadows on desktop, lighter on mobile */
+  .hero-burn-frame {
+    box-shadow:
+      inset 0 0 80px 30px rgba(0, 0, 0, 0.4),
+      inset 0 0 160px 60px rgba(0, 0, 0, 0.25);
+  }
+  @media (max-width: 768px) {
+    .hero-burn-frame {
+      box-shadow: inset 0 0 40px 16px rgba(0, 0, 0, 0.35);
+    }
+    .hero-burst-img {
+      /* Avoid continuous CSS filter re-raster on mobile GPUs during scroll */
+      filter: grayscale(1) contrast(1.1) brightness(1.02) !important;
+      transform: translateZ(0);
+    }
+    .hero-burn-frame {
+      box-shadow: inset 0 0 40px 16px rgba(0,0,0,0.35) !important;
+    }
   }
 }
 
@@ -855,6 +895,36 @@
   50% { background-position: 4px 4px; }
 }
 
+/* ✦ Subtle continuous ornament motion (CSS — killed on mobile by @media animation:none) */
+@keyframes fleuron-rock {
+  0%, 100% { rotate: 0deg; }
+  33% { rotate: 5deg; }
+  66% { rotate: -5deg; }
+}
+@keyframes fleuron-sway {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: 10deg; }
+  75% { rotate: -10deg; }
+}
+@keyframes fleuron-wobble {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: 8deg; }
+  75% { rotate: -8deg; }
+}
+@keyframes fleuron-spin {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: 15deg; }
+  75% { rotate: -15deg; }
+}
+@keyframes arrow-nudge-x {
+  0%, 100% { translate: 0; }
+  50% { translate: 4px; }
+}
+@keyframes arrow-nudge-y {
+  0%, 100% { translate: 0; }
+  50% { translate: -2px; }
+}
+
 /* ═══════════════════════════════════════════
    ANIMATION UTILITIES
    ═══════════════════════════════════════════ */
@@ -898,4 +968,24 @@
 @utility px-safe {
   padding-left: env(safe-area-inset-left, 0px);
   padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* ✦ Continuous ornament motion (CSS — killed by mobile media query) */
+@utility animate-fleuron-rock {
+  animation: fleuron-rock 6s ease-in-out infinite;
+}
+@utility animate-fleuron-sway {
+  animation: fleuron-sway 4s ease-in-out infinite;
+}
+@utility animate-fleuron-wobble {
+  animation: fleuron-wobble 5s ease-in-out infinite;
+}
+@utility animate-fleuron-spin {
+  animation: fleuron-spin 6s ease-in-out infinite;
+}
+@utility animate-arrow-nudge-x {
+  animation: arrow-nudge-x 1.5s ease-in-out infinite;
+}
+@utility animate-arrow-nudge-y {
+  animation: arrow-nudge-y 1.5s ease-in-out infinite;
 }

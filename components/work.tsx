@@ -104,13 +104,9 @@ Bookstore
 </Link>.
 </div>
 <div className="flex items-center gap-3">
-<motion.span
-animate={{ rotate: [0, 10, -10, 0] }}
-transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-className="fleuron text-gold text-base"
->
-❦
-</motion.span>
+              <span className="fleuron text-gold text-base animate-fleuron-sway">
+                ❦
+              </span>
 <span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
 End of Index
 </span>
@@ -179,7 +175,7 @@ className="relative aspect-[3/4] max-w-[100px] sm:max-w-[120px] lg:max-w-[140px]
               fill
               loading="lazy"
               sizes="(max-width: 640px) 100px, (max-width: 1024px) 120px, 140px"
-              className="object-cover sepia-[0.5] contrast-110 group-hover:sepia-[0.2] group-hover:saturate-100 transition-all duration-700"
+              className="object-cover sepia-[0.5] contrast-110 group-hover:sepia-[0.2] group-hover:saturate-100 transition-[filter] duration-700"
             />
 <div
 className="absolute inset-0 pointer-events-none"

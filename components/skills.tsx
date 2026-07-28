@@ -6,7 +6,7 @@ import { SectionHeader } from "@/components/about";
 import { Counter } from "@/components/counter";
 
 const DESK_IMG =
-"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1400&q=80&auto=format&fit=crop";
+"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1000&q=65&auto=format&fit=crop";
 
 const disciplines = [
 {
@@ -248,7 +248,7 @@ className="flex items-center justify-between border-b border-rule py-3 group cur
 className="absolute inset-0 bg-gold/5 -translate-x-full group-hover:translate-x-0 transition-transform duration-500"
 aria-hidden
 />
-<span className="relative font-serif text-2xl text-ink group-hover:text-oxblood group-hover:translate-x-2 transition-all duration-500">
+<span className="relative font-serif text-2xl text-ink group-hover:text-oxblood group-hover:translate-x-2 transition-[color,transform] duration-500">
 {l.name}
 </span>
 <span className="relative font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-gold transition-colors duration-500">
@@ -327,13 +327,9 @@ transition={{ delay: 0.4 }}
 className="mt-10 plate-thin p-4 sm:p-6 lg:p-8 relative"
 >
 <div className="flex items-start gap-3 sm:gap-4">
-<motion.span
-animate={{ rotate: [0, 5, -5, 0] }}
-transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-className="fleuron text-gold text-2xl sm:text-3xl leading-none shrink-0"
->
-❦
-</motion.span>
+              <span className="fleuron text-gold text-2xl sm:text-3xl leading-none shrink-0 animate-fleuron-rock">
+                ❦
+              </span>
 <p className="font-serif text-lg sm:text-xl text-ink-2 leading-relaxed">
 &ldquo;The potential energy from imagination and thoughts to
 cure and prevention the chronic that the whole world is

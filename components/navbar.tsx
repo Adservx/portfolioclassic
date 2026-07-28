@@ -116,10 +116,17 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         scrolled ? "md:backdrop-blur-sm bg-background/90" : "bg-transparent"
       }`}
+      style={{
+        // Promote once; avoid will-change thrash. Padding for notches.
+        paddingTop: "env(safe-area-inset-top, 0px)",
+        WebkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
+      }}
     >
+      {/* Soft glow wash — desktop only (large blur layers re-composite every scroll on mobile) */}
       <motion.div
         aria-hidden
         initial={false}
@@ -127,8 +134,8 @@ export function Navbar() {
           opacity: scrolled ? 1 : 0,
           y: scrolled ? 0 : -8,
         }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="absolute inset-x-0 top-0 bottom-0 -z-10 pointer-events-none"
+        transition={{ duration: prefersReduced ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className="absolute inset-x-0 top-0 bottom-0 -z-10 pointer-events-none hidden md:block"
       >
         <div
           className="absolute left-1/2 -translate-x-1/2 top-[-8px] h-[100px] w-[92%] blur-[32px]"
@@ -169,10 +176,10 @@ export function Navbar() {
               />
             </motion.span>
             <span className="hidden sm:flex flex-col items-start leading-none">
-              <span className="font-caps text-[0.85rem] tracking-[0.1em] text-ink font-bold transition-all duration-500">
+              <span className="font-caps text-[0.85rem] tracking-[0.1em] text-ink font-bold transition-colors duration-500">
                 DARSHAN PATHAK
               </span>
-              <span className="font-caps text-[0.75rem] tracking-[0.2em] text-ink/60 mt-0.5 transition-all duration-500 group-hover:text-link">
+              <span className="font-caps text-[0.75rem] tracking-[0.2em] text-ink/60 mt-0.5 transition-colors duration-500 group-hover:text-link">
                 Author, Microbiologist &amp; Sociologist
               </span>
             </span>
@@ -195,7 +202,7 @@ export function Navbar() {
                   {item.label}
                 </span>
                 <span
-                  className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
+                  className={`absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-[width] duration-500 ${
                     isActive(item.href) ? "w-5" : "w-0 group-hover:w-3"
                   }`}
                 />
@@ -209,7 +216,7 @@ export function Navbar() {
               <span className="relative">
                 Bookstore
               </span>
-              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0 group-hover:w-4" />
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 h-px bg-link transition-[width] duration-500 w-0 group-hover:w-4" />
             </Link>
           </nav>
 
@@ -221,17 +228,17 @@ export function Navbar() {
           >
             <span className="flex flex-col gap-[5px] w-5 items-center">
               <span
-                className={`block w-5 h-px bg-ink transition-all duration-300 origin-center ${
+                className={`block w-5 h-px bg-ink transition-[transform] duration-300 origin-center ${
                   open ? "rotate-45 translate-y-[6px]" : ""
                 }`}
               />
               <span
-                className={`block w-5 h-px bg-ink transition-all duration-200 ${
+                className={`block w-5 h-px bg-ink transition-[transform,opacity] duration-200 ${
                   open ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
                 }`}
               />
               <span
-                className={`block w-5 h-px bg-ink transition-all duration-300 origin-center ${
+                className={`block w-5 h-px bg-ink transition-[transform] duration-300 origin-center ${
                   open ? "-rotate-45 -translate-y-[6px]" : ""
                 }`}
               />
@@ -248,7 +255,7 @@ export function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 top-0 left-0 w-full h-[100dvh] z-40 bg-background/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 top-0 left-0 w-full h-[100dvh] z-40 bg-background/85 md:hidden"
             >
               <motion.div
                 initial={{ x: "100%" }}
@@ -276,7 +283,7 @@ export function Navbar() {
                         {item.label}
                       </span>
                       <span
-                        className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 ${
+                        className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-[width] duration-500 ${
                           isActive(item.href) ? "w-8" : "w-0"
                         }`}
                       />
@@ -291,7 +298,7 @@ export function Navbar() {
                       <span className="relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.3em] uppercase text-link transition-colors">
                         Bookstore
                       </span>
-                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-all duration-500 w-0" />
+                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-[width] duration-500 w-0" />
                     </Link>
                   </div>
                 </nav>

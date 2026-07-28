@@ -1,8 +1,9 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import { useCanParallax } from "@/lib/use-is-mobile";
 
 const colophon = [
 ["First Edition", "A.D. 2023"],
@@ -22,21 +23,17 @@ const links = [
 
 export function Footer() {
   const prefersReduced = useReducedMotion();
+  const canParallax = useCanParallax();
   const ref = useRef<HTMLElement>(null);
-  const isMobile = useRef(false);
-
-  useEffect(() => {
-    isMobile.current = window.innerWidth < 768;
-  }, []);
 
   const goTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <footer ref={ref} className="relative bg-ink text-vellum">
-      <div className="paper-grain absolute inset-0 pointer-events-none opacity-30" />
+      <div className="paper-grain absolute inset-0 pointer-events-none opacity-30 hidden md:block" />
 
-      {/* ✦ Slow rotating seal in background — disabled on mobile */}
-      {!prefersReduced && !isMobile.current && (
+      {/* ✦ Slow rotating seal in background — desktop only (infinite spin = mobile jank) */}
+      {canParallax && !prefersReduced && (
         <div aria-hidden className="absolute inset-0 pointer-events-none overflow-hidden flex items-center justify-center">
           <motion.div
             animate={{ rotate: 360 }}
@@ -98,8 +95,8 @@ className="inline-block"
 ))}
 </span>
 <motion.span
-initial={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+initial={{ opacity: 0, y: -10 }}
+whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
 className="block font-serif text-[0.52em] text-gold-soft font-light -mt-2"
@@ -236,15 +233,11 @@ Return
 <motion.span
 whileHover={{ rotate: 360 }}
 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-className="w-10 h-10 sm:w-12 sm:h-12 border border-link/40 rounded-full flex items-center justify-center group-hover:border-link-hover group-hover:bg-link/10 transition-all duration-500"
+className="w-10 h-10 sm:w-12 sm:h-12 border border-link/40 rounded-full flex items-center justify-center group-hover:border-link-hover group-hover:bg-link/10 transition-[border-color,background-color] duration-500"
 >
-<motion.span
-animate={{ y: [0, -2, 0] }}
-transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-className="font-display text-lg sm:text-xl text-link group-hover:text-link-hover"
->
-↑
-</motion.span>
+                <span className="font-display text-lg sm:text-xl text-link group-hover:text-link-hover animate-arrow-nudge-y">
+                    ↑
+                  </span>
 </motion.span>
 </button>
 <div className="mt-4 sm:mt-6 font-serif text-vellum/40 text-xs sm:text-sm">
@@ -265,23 +258,15 @@ className="mt-16 pt-6 border-t border-vellum/15 flex flex-col sm:flex-row items-
 © 2023 · Darshan Pathak · All rights reserved
 </p>
 <div className="flex items-center gap-3">
-<motion.span
-animate={{ rotate: [0, 15, -15, 0] }}
-transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-className="fleuron text-gold-soft text-base"
->
-❦
-</motion.span>
-<span className="font-serif text-vellum/50 text-sm">
-White Words · First Edition
-</span>
-<motion.span
-animate={{ rotate: [0, -15, 15, 0] }}
-transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-className="fleuron text-gold-soft text-base"
->
-❦
-</motion.span>
+              <span className="fleuron text-gold-soft text-base animate-fleuron-spin">
+                ❦
+              </span>
+              <span className="font-serif text-vellum/50 text-sm">
+                White Words · First Edition
+              </span>
+              <span className="fleuron text-gold-soft text-base animate-fleuron-spin" style={{ animationDelay: "-3s" }}>
+                ❦
+              </span>
 </div>
 </motion.div>
 </div>

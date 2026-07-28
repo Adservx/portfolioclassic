@@ -1,8 +1,9 @@
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Image from "next/image";
+import { useCanParallax } from "@/lib/use-is-mobile";
 
 const PORTRAIT =
 "/bookstore/messenger-creation.webp";
@@ -14,19 +15,18 @@ const NAME_LAST = "Pathak";
 
 export function Hero() {
   const prefersReduced = useReducedMotion();
+  const canParallax = useCanParallax();
   const ref = useRef<HTMLElement>(null);
-  const isMobile = useRef(false);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const y = prefersReduced || isMobile.current ? undefined : useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const opacity = prefersReduced || isMobile.current ? undefined : useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
-  const portraitY = prefersReduced || isMobile.current ? undefined : useTransform(scrollYProgress, [0, 1], [0, -30]);
-
-  useEffect(() => {
-    isMobile.current = window.innerWidth < 768;
-  }, []);
+  // Always call transforms (hooks rules); only apply on desktop
+  const yRaw = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const opacityRaw = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.6, 0]);
+  const portraitYRaw = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const scrollStyle = canParallax ? { y: yRaw, opacity: opacityRaw } : undefined;
+  const portraitStyle = canParallax ? { y: portraitYRaw } : undefined;
 
 return (
 <section
@@ -43,9 +43,9 @@ backgroundColor: "var(--color-background)"
 <motion.div
 aria-hidden
 className="absolute inset-0 pointer-events-none overflow-hidden"
-initial={{ opacity: 0 }}
+initial={prefersReduced ? false : { opacity: 0 }}
 animate={{ opacity: 0.4 }}
-transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+transition={{ duration: prefersReduced ? 0 : 1.2, delay: prefersReduced ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="absolute inset-0">
 <Image
@@ -54,25 +54,23 @@ alt=""
 fill
 priority
 sizes="100vw"
-className="object-cover scale-125"
+className="object-cover scale-110 md:scale-125 hero-burst-img"
 style={{
-filter:
-"grayscale(1) contrast(1.9) brightness(1.05)",
+// Heavy live filters re-rasterize on scroll on mobile GPUs — use lighter treatment
+filter: "grayscale(1) contrast(1.4) brightness(1.02)",
 }}
 />
-{/* Fire-burnt frame overlay */}
+{/* Fire-burnt frame overlay — lighter inset shadows on small screens via CSS */}
 <div
-className="absolute inset-0 pointer-events-none"
+className="absolute inset-0 pointer-events-none hero-burn-frame"
 style={{
-boxShadow:
-"inset 0 0 80px 30px rgba(0,0,0,0.4), inset 0 0 160px 60px rgba(0,0,0,0.25)",
 background:
 "radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.7) 100%)",
 }}
 />
 {/* Charred edge ring */}
 <div
-className="absolute inset-0 pointer-events-none"
+className="absolute inset-0 pointer-events-none hidden md:block"
 style={{
 border: "6px solid rgba(0,0,0,0.3)",
 borderRadius: "2px",
@@ -92,8 +90,8 @@ background:
 />
 </motion.div>
 
- {/* ✦ Floating ambient orbs (subtle) */}
-<div aria-hidden className="absolute inset-0 pointer-events-none">
+ {/* ✦ Floating ambient orbs — desktop only (blur + continuous anim = mobile jank) */}
+<div aria-hidden className="absolute inset-0 pointer-events-none hidden md:block">
 <div
 className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl animate-drift-1"
 style={{ background: "radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%)" }}
@@ -104,7 +102,7 @@ style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparen
 />
 </div>
 
-<div className="paper-grain absolute inset-0 pointer-events-none" />
+<div className="paper-grain absolute inset-0 pointer-events-none hidden md:block" />
 
 {/* Decorative corner medallions — slow rotate on hover */}
 <div className="absolute top-20 left-6 lg:left-12 hidden md:block z-10">
@@ -115,7 +113,7 @@ style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparen
 </div>
 
 <motion.div
-style={{ y, opacity }}
+style={scrollStyle}
 className="relative mx-auto max-w-7xl w-full px-6 lg:px-12 z-10"
 >
 {/* ✦ Top register — masthead */}
@@ -167,8 +165,8 @@ className="inline-block"
 ))}
 </span>
 <motion.span
-initial={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+initial={{ opacity: 0, y: -10 }}
+animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
 className="block text-oxblood font-display text-[0.58em] -mt-2 tracking-[0.04em]"
 >
@@ -257,7 +255,7 @@ initial={{ opacity: 0, scale: 0.96, rotate: -1 }}
 whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-style={{ y: portraitY }}
+style={portraitStyle}
 className="lg:col-span-5"
 >
 <div className="plate p-3 sm:p-5 lg:p-6 max-w-[260px] sm:max-w-sm lg:max-w-md mx-auto group cursor-pointer">
@@ -268,7 +266,7 @@ alt="Darshan Pathak — author of White Words"
 fill
 priority
 sizes="(max-width: 640px) 260px, (max-width: 1024px) 384px, 500px"
-className="object-cover contrast-110 saturate-125 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
+className="object-cover md:contrast-110 md:saturate-125 contrast-100 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
 />
 <div
 className="absolute inset-0 pointer-events-none"
@@ -277,7 +275,7 @@ background:
 "linear-gradient(180deg, rgba(0, 0, 0,0.2) 0%, transparent 30%, transparent 60%, rgba(0, 0, 0,0.55) 100%)",
 }}
 />
-            <div className="absolute top-3 left-3 right-3 flex items-start justify-between text-vellum mix-blend-difference">
+            <div className="absolute top-3 left-3 right-3 flex items-start justify-between text-vellum md:mix-blend-difference">
               <motion.span
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -78,7 +78,7 @@ className="mt-16 max-w-4xl mx-auto"
 <div className="relative aspect-[4/3] plate p-2 overflow-hidden">
 <div className="absolute inset-2 animate-ken-burns">
             <Image
-              src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?w=800&q=80&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?w=600&q=65&auto=format&fit=crop"
               alt="A press archive — bound reviews and clippings in a wooden drawer"
               fill
               loading="lazy"
