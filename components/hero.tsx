@@ -32,19 +32,19 @@ return (
 <section
 id="prologue"
 ref={ref}
-className="relative min-h-screen flex items-center pt-24 pb-12 overflow-hidden"
+className="relative min-h-screen flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
 style={{
 backgroundColor: "var(--color-background)"
 }}
 >
 
 
- {/* ✦ Burst portrait — aesthetic filtered overlay with fire-burnt frame */}
+ {/* ✦ Burst portrait — full-bleed backdrop, face pinned to the top strip */}
 <motion.div
 aria-hidden
 className="absolute inset-0 pointer-events-none overflow-hidden"
 initial={prefersReduced ? false : { opacity: 0 }}
-animate={{ opacity: 0.4 }}
+animate={{ opacity: 0.75 }}
 transition={{ duration: prefersReduced ? 0 : 1.2, delay: prefersReduced ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="absolute inset-0">
@@ -53,39 +53,37 @@ src={BURST_PORTRAIT}
 alt=""
 fill
 priority
+quality={90}
 sizes="100vw"
-className="object-cover scale-110 md:scale-125 hero-burst-img"
+className="object-cover hero-burst-img"
 style={{
-// Heavy live filters re-rasterize on scroll on mobile GPUs — use lighter treatment
-filter: "grayscale(1) contrast(1.4) brightness(1.02)",
+// Light warm grade — keeps the portrait natural and crisp
+filter: "sepia(0.3) contrast(1.06) brightness(1.05) saturate(1.05)",
 }}
 />
-{/* Fire-burnt frame overlay — lighter inset shadows on small screens via CSS */}
+{/* Soft vignette — depth at top/sides, white dissolve at the very bottom */}
 <div
 className="absolute inset-0 pointer-events-none hero-burn-frame"
 style={{
 background:
-"radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.3) 75%, rgba(0,0,0,0.5) 90%, rgba(0,0,0,0.7) 100%)",
+"radial-gradient(ellipse at 50% 20%, transparent 60%, rgba(0,0,0,0.06) 85%, rgba(0,0,0,0.16) 100%), linear-gradient(to bottom, transparent 72%, rgba(255,255,255,0.95) 100%)",
 }}
 />
-{/* Charred edge ring */}
+{/* Gentle edge ring — sits on the band's outer edges, no hard line mid-screen */}
 <div
 className="absolute inset-0 pointer-events-none hidden md:block"
 style={{
-border: "6px solid rgba(0,0,0,0.3)",
-borderRadius: "2px",
-boxShadow:
-"inset 0 0 30px 8px rgba(0,0,0,0.3), 0 0 20px 4px rgba(0,0,0,0.15)",
+boxShadow: "inset 0 0 18px 5px rgba(0,0,0,0.05)",
 clipPath: "inset(0)",
 }}
 />
 </div>
-{/* Ink-bleed vignette over burst */}
+{/* Localised light behind the masthead only — keeps the name readable without washing the face */}
 <div
 className="absolute inset-0"
 style={{
 background:
-"radial-gradient(ellipse at 50% 50%, transparent 30%, rgba(0, 0, 0,0.85) 100%)",
+"radial-gradient(ellipse 72% 48% at 50% 55%, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.35) 55%, transparent 85%)",
 }}
 />
 </motion.div>
@@ -116,43 +114,43 @@ style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparen
 style={scrollStyle}
 className="relative mx-auto max-w-7xl w-full px-6 lg:px-12 z-10"
 >
-{/* ✦ Top register — masthead */}
+{/* ✦ Top register — masthead (spaced below the face strip) */}
 <motion.div
 initial={{ opacity: 0, y: -10 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-className="flex flex-col items-center text-center"
+className="mt-28 sm:mt-36 lg:mt-32 flex flex-col items-center text-center"
 >
 <div className="flex items-center gap-2 sm:gap-3 text-ink-soft">
 <motion.span
 initial={{ scaleX: 0 }}
 animate={{ scaleX: 1 }}
 transition={{ duration: 0.8, delay: 0.4 }}
-className="h-px w-8 sm:w-12 bg-rule-strong origin-left"
+className="hidden sm:block h-px w-8 lg:w-12 bg-rule-strong origin-left"
 />
-<span className="font-caps text-[0.75rem] sm:text-[0.85rem] tracking-[0.45em] uppercase font-bold">
+<span className="font-caps text-[0.78rem] sm:text-[0.9rem] lg:text-[1rem] tracking-[0.3em] sm:tracking-[0.45em] uppercase font-bold">
 The Complete Works & Life
 </span>
 <motion.span
 initial={{ scaleX: 0 }}
 animate={{ scaleX: 1 }}
 transition={{ duration: 0.8, delay: 0.4 }}
-className="h-px w-8 sm:w-12 bg-rule-strong origin-right"
+className="hidden sm:block h-px w-8 lg:w-12 bg-rule-strong origin-right"
 />
 </div>
 <motion.p
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 transition={{ delay: 0.7, duration: 0.8 }}
-className="mt-3 font-serif text-base text-ink-soft"
+className="mt-3 font-serif text-text-lg text-ink-soft"
 >
 A portfolio in five movements
 </motion.p>
 </motion.div>
 
 {/* ✦ MASTHEAD — name with letter cascade */}
-<div className="mt-6 sm:mt-8 lg:mt-10 flex flex-col items-center">
-<h1 className="font-display text-[clamp(4.5rem,18vw,15rem)] leading-[0.85] tracking-[-0.02em] text-ink text-center">
+<div className="mt-4 sm:mt-6 lg:mt-8 flex flex-col items-center">
+<h1 className="font-display text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-[-0.02em] text-ink text-center">
 <span className="letter-cascade inline-block">
 {NAME_FIRST.split("").map((ch, i) => (
 <span
@@ -188,10 +186,10 @@ className="inline-block"
 initial={{ opacity: 0, scaleX: 0 }}
 animate={{ opacity: 1, scaleX: 1 }}
 transition={{ duration: 1, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
-className="origin-center mt-4 sm:mt-6 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-ink"
+className="origin-center mt-3 sm:mt-4 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-ink"
 >
 <span className="hidden sm:block h-px w-16 bg-ink" />
-<span className="font-caps text-[0.95rem] sm:text-[1.05rem] text-center sm:text-left">
+<span className="font-caps text-[1.1rem] sm:text-[1.15rem] text-center sm:text-left">
 Microbiologist · Sociologist · Author of <em>White Words</em>
 </span>
 <span className="hidden sm:block h-px w-16 bg-ink" />
@@ -199,7 +197,7 @@ Microbiologist · Sociologist · Author of <em>White Words</em>
 </div>
 
 {/* ✦ Two-column body — epigraph & portrait */}
-<div className="mt-10 sm:mt-12 lg:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+<div className="mt-8 lg:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
 {/* Left: Epigraph with drop cap */}
 <motion.div
 initial={{ opacity: 0, y: 20 }}
@@ -213,7 +211,7 @@ initial={{ opacity: 0, x: -20 }}
 whileInView={{ opacity: 1, x: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.6, delay: 0.5 }}
-className="flex items-center gap-3 mb-4 sm:mb-6"
+className="flex items-center gap-3 mb-3 sm:mb-4"
 >
 <span className="fleuron">❦</span>
 <span className="font-caps text-[1rem] text-ink-soft">
@@ -221,8 +219,8 @@ Epigraph · From "White Words"
 </span>
 </motion.div>
 
-<p className="font-serif text-[1.5rem] sm:text-[1.7rem] lg:text-[2.1rem] leading-[1.45] text-ink-2">
-<span className="drop-cap animate-splotch-pop -mt-1 !text-[3.5em] sm:!text-[5em] !font-normal">T</span>
+<p className="font-serif text-[1.4rem] sm:text-[1.5rem] lg:text-[1.6rem] leading-[1.35] text-ink-2">
+<span className="drop-cap animate-splotch-pop -mt-1 !text-[2.8em] sm:!text-[3.5em] !font-normal">T</span>
 <motion.span
 initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
@@ -240,10 +238,10 @@ initial={{ opacity: 0, x: -20 }}
 whileInView={{ opacity: 1, x: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.6, delay: 3 }}
-className="mt-4 sm:mt-6 flex items-center gap-3"
+className="mt-3 sm:mt-4 flex items-center gap-3"
 >
 <span className="h-px w-10 bg-rule-strong" />
-<span className="font-serif text-sm sm:text-base text-ink-soft">
+<span className="font-serif text-text-base sm:text-text-lg text-ink-soft">
 — Darshan Pathak, Nepal, March 2023
 </span>
 </motion.div>
@@ -258,14 +256,14 @@ transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
 style={portraitStyle}
 className="lg:col-span-5"
 >
-<div className="plate p-3 sm:p-5 lg:p-6 max-w-[260px] sm:max-w-sm lg:max-w-md mx-auto group cursor-pointer">
+<div className="plate p-3 sm:p-4 lg:p-5 max-w-[200px] sm:max-w-[240px] lg:max-w-[260px] mx-auto group cursor-pointer">
 <div className="relative aspect-[4/5] bg-ink overflow-hidden splotch-reveal">
 <Image
 src={PORTRAIT}
 alt="Darshan Pathak — author of White Words"
 fill
 priority
-sizes="(max-width: 640px) 260px, (max-width: 1024px) 384px, 500px"
+sizes="(max-width: 640px) 200px, (max-width: 1024px) 240px, 260px"
 className="object-cover md:contrast-110 md:saturate-125 contrast-100 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
 />
 <div
@@ -280,7 +278,7 @@ background:
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2 }}
-                className="font-caps text-[0.6rem] tracking-[0.4em] uppercase"
+                className="font-caps text-[0.75rem] tracking-[0.4em] uppercase"
               >
                 Plate I
               </motion.span>
@@ -288,12 +286,12 @@ background:
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 2.1 }}
-                className="font-caps text-[0.6rem] tracking-[0.4em] uppercase"
+                className="font-caps text-[0.75rem] tracking-[0.4em] uppercase"
               >
                 aet. LXXII
               </motion.span>
             </div>
-<div className="absolute bottom-3 left-3 right-3 text-vellum font-serif text-xs">
+<div className="absolute bottom-3 left-3 right-3 text-vellum font-serif text-text-sm">
 Darshan Pathak · Microbiologist & Sociologist · Nepal
 </div>
 <div
@@ -308,9 +306,9 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ delay: 2.5, duration: 0.8 }}
-className="mt-2 sm:mt-4 flex items-center justify-between text-ink-soft"
+className="mt-2 sm:mt-3 flex items-center justify-between text-ink-soft"
 >
-<span className="font-caps text-[0.5rem] sm:text-[0.65rem] tracking-[0.4em] uppercase">
+<span className="font-caps text-[0.65rem] sm:text-[0.8rem] tracking-[0.4em] uppercase">
 Engraved by hand
 </span>
 <Seal />
@@ -319,14 +317,14 @@ Engraved by hand
 </motion.div>
 </div>
 
-{/* ✦ Marquee — works in scroll */}
+{/* ✦ Marquee — works in scroll, closing strip of the hero */}
 <motion.div
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 transition={{ duration: 1.5, delay: 2.5 }}
-className="mt-12 sm:mt-16 lg:mt-24 border-y border-ink/30 py-4 overflow-hidden"
+className="mt-6 lg:mt-8 border-y-2 border-ink/20 bg-background py-3 shadow-[0_-12px_32px_rgba(0,0,0,0.05)] overflow-hidden"
 >
-<div className="flex items-center gap-8 sm:gap-12 whitespace-nowrap font-serif text-ink-soft text-xs sm:text-sm animate-marquee">
+<div className="flex items-center gap-8 sm:gap-12 whitespace-nowrap font-serif text-ink-soft text-text-sm sm:text-text-base animate-marquee">
 {Array.from({ length: 2 }).flatMap((_, i) =>
 [
 "White Words",
@@ -430,7 +428,7 @@ animate={{ opacity: 1, scale: 1, rotate: 0 }}
 transition={{ duration: 0.9, delay: 1, ease: [0.16, 1, 0.3, 1] }}
 className="flex flex-col items-center text-ink-soft"
 >
-<span className="font-caps text-[0.65rem] tracking-[0.4em] uppercase">
+<span className="font-caps text-[0.8rem] tracking-[0.4em] uppercase">
 {label}
 </span>
 <span className="font-display text-3xl text-ink mt-1 leading-none">
@@ -449,7 +447,7 @@ className="relative w-8 h-8 sm:w-12 sm:h-12 rounded-full border-2 border-oxblood
 style={{ animationDelay: "2.5s" }}
 >
 <span className="absolute inset-0.5 sm:inset-1 rounded-full border border-oxblood/60" />
-<span className="font-display text-oxblood text-[0.5rem] sm:text-[0.7rem] leading-none text-center">
+<span className="font-display text-oxblood text-[0.65rem] sm:text-[0.85rem] leading-none text-center">
 D<br />P
 </span>
 {/* Wax drip */}

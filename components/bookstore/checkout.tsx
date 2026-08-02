@@ -25,7 +25,7 @@ return parseFloat(price.replace(/[£$€]/g, ""));
 }
 
 function formatPrice(n: number): string {
-return `£${n.toFixed(2)}`;
+return `$${n.toFixed(2)}`;
 }
 
 /* ============================================================
@@ -75,7 +75,7 @@ className="relative w-full h-full [transform-style:preserve-3d]"
 animate={{ opacity: number ? 1 : 0.4 }}
 className="flex items-center gap-1"
 >
-<span className="text-vellum/50 font-caps text-[0.85rem] tracking-[0.2em]">
+<span className="text-vellum/50 font-caps text-[1rem] tracking-[0.2em]">
 {number.replace(/\D/g, "").startsWith("4")
 ? "VISA"
 : number.replace(/\D/g, "").startsWith("5")
@@ -89,7 +89,7 @@ animate={{ scale: 1 }}
 transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
 className="w-10 h-7 rounded-md bg-gradient-to-br from-gold/80 to-gold-2/80 flex items-center justify-center"
 >
-<span className="text-ink font-caps text-[0.85rem] tracking-[0.15em]">
+<span className="text-ink font-caps text-[1rem] tracking-[0.15em]">
 {number.replace(/\D/g, "").startsWith("4")
 ? "VISA"
 : number.replace(/\D/g, "").startsWith("5")
@@ -108,7 +108,7 @@ animate={{ opacity: 1, y: 0 }}
 className="font-mono text-xl tracking-[0.2em] text-vellum/90"
 >
 {maskCardNumber(number) || (
-<span className="text-vellum/30 text-base">•••• •••• •••• ••••</span>
+<span className="text-vellum/30 text-text-lg">•••• •••• •••• ••••</span>
 )}
 </motion.p>
 </div>
@@ -116,27 +116,27 @@ className="font-mono text-xl tracking-[0.2em] text-vellum/90"
 {/* Bottom row */}
 <div className="flex items-end justify-between">
 <div>
-<p className="font-caps text-[0.65rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
+<p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
 Cardholder
 </p>
 <motion.p
 key={name}
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
-className="font-serif text-sm tracking-wider text-vellum/80 uppercase"
+className="font-serif text-text-base tracking-wider text-vellum/80 uppercase"
 >
 {name || "YOUR NAME"}
 </motion.p>
 </div>
 <div className="text-right">
-<p className="font-caps text-[0.65rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
+<p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
 Expires
 </p>
 <motion.p
 key={expiry}
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
-className="font-mono text-sm text-vellum/80"
+className="font-mono text-text-base text-vellum/80"
 >
 {expiry || "MM/YY"}
 </motion.p>
@@ -156,13 +156,13 @@ className="font-mono text-sm text-vellum/80"
 <motion.span
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
-className="font-mono text-sm text-ink tracking-widest"
+className="font-mono text-text-base text-ink tracking-widest"
 >
 {cvv}
 </motion.span>
 )}
 </div>
-<p className="mx-6 mt-3 font-caps text-[0.85rem] tracking-[0.2em] text-vellum/30">
+<p className="mx-6 mt-3 font-caps text-[1rem] tracking-[0.2em] text-vellum/30">
 This card is issued by The Pathak Estate Bank. Authorised signature
 required.
 </p>
@@ -239,8 +239,8 @@ currentStep >= 4
 }
 className="w-24 h-24 rounded-full border border-oxblood/60 flex flex-col items-center justify-center"
 >
-<span className="font-display text-oxblood text-sm leading-none">D · P</span>
-<span className="font-caps text-oxblood/80 text-[0.85rem] tracking-[0.4em] mt-1">
+<span className="font-display text-oxblood text-text-base leading-none">D · P</span>
+<span className="font-caps text-oxblood/80 text-[1rem] tracking-[0.4em] mt-1">
 EST. MCMLXXII
 </span>
 </motion.div>
@@ -307,7 +307,7 @@ i < currentStep
 initial={{ pathLength: 0 }}
 animate={{ pathLength: 1 }}
 transition={{ duration: 0.3 }}
-className="text-xs"
+className="text-text-sm"
 >
 ✓
 </motion.span>
@@ -319,7 +319,7 @@ className="w-1.5 h-1.5 rounded-full bg-oxblood"
 />
 ) : null}
 </motion.div>
-<span className="font-serif text-sm">{step}</span>
+<span className="font-serif text-text-base">{step}</span>
 </motion.div>
 ))}
 </div>
@@ -329,7 +329,7 @@ className="w-1.5 h-1.5 rounded-full bg-oxblood"
 initial={{ opacity: 0, y: 10 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ delay: 0.3 }}
-className="mt-6 font-serif text-ink-soft text-sm"
+className="mt-6 font-serif text-ink-soft text-text-base"
 >
 Your order has been recorded in the ledger.
 </motion.p>
@@ -345,9 +345,11 @@ SUCCESS
 function SuccessScreen({
 orderNumber,
 onReturn,
+format,
 }: {
 orderNumber: string;
 onReturn: () => void;
+format?: "print" | "digital";
 }) {
 return (
 <div className="flex flex-col items-center justify-center py-16 px-6">
@@ -381,7 +383,7 @@ D · P
 initial={{ y: 10, opacity: 0 }}
 animate={{ y: 0, opacity: 1 }}
 transition={{ delay: 0.7 }}
-className="font-caps text-oxblood/80 text-[0.85rem] tracking-[0.4em] mt-1"
+className="font-caps text-oxblood/80 text-[1rem] tracking-[0.4em] mt-1"
 >
 CONFIRMED
 </motion.span>
@@ -434,8 +436,9 @@ className="text-center relative"
 Thank You
 </h2>
 <p className="font-serif text-lg text-ink-soft max-w-md mx-auto">
-Your order has been received and will be dispatched from the author&rsquo;s
-study within 2–4 weeks.
+{format === "digital"
+? "Your digital copy is ready — a download link has been sent to your email."
+: "Your order has been received and will be dispatched from the author&rsquo;s study within 2–4 weeks."}
 </p>
 
 {/* Order number */}
@@ -445,7 +448,7 @@ animate={{ opacity: 1, scale: 1 }}
 transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
 className="mt-8 inline-flex items-center gap-3 border border-rule bg-parchment px-6 py-3"
 >
-<span className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+<span className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
 Order No.
 </span>
 <span className="font-mono text-lg text-oxblood">{orderNumber}</span>
@@ -461,7 +464,7 @@ className="mt-10"
 whileHover={{ scale: 1.02 }}
 whileTap={{ scale: 0.98 }}
 onClick={onReturn}
-className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3 transition-[background-color] duration-300 cursor-pointer"
+className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[1rem] tracking-[0.35em] uppercase px-8 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Return to Bookstore
 </motion.button>
@@ -535,7 +538,7 @@ placeholder: string,
 opts?: { type?: string }
 ) => (
 <div>
-<label className="block font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
 {label}
 </label>
 <input
@@ -544,7 +547,7 @@ type={opts?.type || "text"}
 value={data[key]}
 onChange={(e) => onChange({ ...data, [key]: e.target.value })}
 placeholder={placeholder}
-className={`w-full bg-transparent border px-3 py-2.5 font-serif text-base text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
+className={`w-full bg-transparent border px-3 py-2.5 font-serif text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
 errors[key]
 ? "border-oxblood"
 : "border-rule hover:border-ink/40 focus:border-ink"
@@ -554,7 +557,7 @@ errors[key]
 <motion.p
 initial={{ opacity: 0, y: -5 }}
 animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
+className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
 >
 {errors[key]}
 </motion.p>
@@ -566,7 +569,7 @@ return (
 <form onSubmit={handleSubmit} className="space-y-5">
 <div>
 <h3 className="font-display text-2xl text-ink mb-1">{isDigital ? "Your Details" : "Shipping"}</h3>
-<p className="font-serif text-base text-ink-soft">
+<p className="font-serif text-text-lg text-ink-soft">
 {isDigital ? "Where should we send your download link?" : "Where should we send your books?"}
 </p>
 </div>
@@ -585,7 +588,7 @@ return (
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 type="submit"
-className="w-full bg-link text-vellum hover:bg-link-hover font-caps text-[0.85rem] tracking-[0.35em] uppercase px-6 py-3 transition-[background-color] duration-300 cursor-pointer"
+className="w-full bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-6 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Continue to Payment
 </motion.button>
@@ -672,7 +675,7 @@ flip={focused === "cvv"}
 <div className="flex items-center justify-between">
 <div>
 <h3 className="font-display text-2xl text-ink mb-1">Payment</h3>
-<p className="font-serif text-base text-ink-soft">
+<p className="font-serif text-text-lg text-ink-soft">
 Secure checkout — your details are encrypted.
 </p>
 </div>
@@ -681,16 +684,16 @@ initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 className="flex items-center gap-1 text-faded"
 >
-<span className="font-caps text-[0.65rem] tracking-[0.15em] border border-rule px-1.5 py-0.5">
+<span className="font-caps text-[0.8rem] tracking-[0.15em] border border-rule px-1.5 py-0.5">
 SSL
 </span>
-<span className="text-base">🔒</span>
+<span className="text-text-lg">🔒</span>
 </motion.div>
 </div>
 <div className="h-px bg-rule" />
 
 <div>
-<label className="block font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
 Card Number
 </label>
 <input
@@ -702,7 +705,7 @@ onChange={(e) => handleCardNumber(e.target.value)}
 onFocus={() => setFocused("number")}
 onBlur={() => setFocused(null)}
 placeholder="1234 5678 9012 3456"
-className={`w-full bg-transparent border px-3 py-2.5 font-mono text-base text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
+className={`w-full bg-transparent border px-3 py-2.5 font-mono text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
 errors.cardNumber
 ? "border-oxblood"
 : "border-rule hover:border-ink/40 focus:border-ink"
@@ -712,7 +715,7 @@ errors.cardNumber
 <motion.p
 initial={{ opacity: 0, y: -5 }}
 animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
+className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
 >
 {errors.cardNumber}
 </motion.p>
@@ -720,7 +723,7 @@ className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
 </div>
 
 <div>
-<label className="block font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
 Cardholder Name
 </label>
 <input
@@ -730,7 +733,7 @@ onChange={(e) => onChange({ ...data, cardName: e.target.value })}
 onFocus={() => setFocused("name")}
 onBlur={() => setFocused(null)}
 placeholder="Darshan Pathak"
-className={`w-full bg-transparent border px-3 py-2.5 font-serif text-base text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
+className={`w-full bg-transparent border px-3 py-2.5 font-serif text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
 errors.cardName
 ? "border-oxblood"
 : "border-rule hover:border-ink/40 focus:border-ink"
@@ -740,7 +743,7 @@ errors.cardName
 <motion.p
 initial={{ opacity: 0, y: -5 }}
 animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
+className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
 >
 {errors.cardName}
 </motion.p>
@@ -749,7 +752,7 @@ className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
 
 <div className="grid grid-cols-2 gap-4">
 <div>
-<label className="block font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
 Expiry
 </label>
 <input
@@ -761,7 +764,7 @@ onChange={(e) => handleExpiry(e.target.value)}
 onFocus={() => setFocused("expiry")}
 onBlur={() => setFocused(null)}
 placeholder="MM/YY"
-className={`w-full bg-transparent border px-3 py-2.5 font-mono text-base text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
+className={`w-full bg-transparent border px-3 py-2.5 font-mono text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
 errors.expiry
 ? "border-oxblood"
 : "border-rule hover:border-ink/40 focus:border-ink"
@@ -771,14 +774,14 @@ errors.expiry
 <motion.p
 initial={{ opacity: 0, y: -5 }}
 animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
+className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
 >
 {errors.expiry}
 </motion.p>
 )}
 </div>
 <div>
-<label className="block font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
 CVV
 </label>
 <input
@@ -789,7 +792,7 @@ onChange={(e) => handleCvv(e.target.value)}
 onFocus={() => setFocused("cvv")}
 onBlur={() => setFocused(null)}
 placeholder="123"
-className={`w-full bg-transparent border px-3 py-2.5 font-mono text-base text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
+className={`w-full bg-transparent border px-3 py-2.5 font-mono text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
 errors.cvv
 ? "border-oxblood"
 : "border-rule hover:border-ink/40 focus:border-ink"
@@ -799,7 +802,7 @@ errors.cvv
 <motion.p
 initial={{ opacity: 0, y: -5 }}
 animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
+className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
 >
 {errors.cvv}
 </motion.p>
@@ -811,7 +814,7 @@ className="font-caps text-[0.75rem] tracking-[0.2em] text-oxblood mt-1"
 <button
 type="button"
 onClick={onBack}
-className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
+className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
 >
 Back
 </button>
@@ -819,7 +822,7 @@ Back
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 type="submit"
-className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
+className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Review Order
 </motion.button>
@@ -857,7 +860,7 @@ return (
 <div className="space-y-6">
 <div>
 <h3 className="font-display text-2xl text-ink mb-1">Review Order</h3>
-<p className="font-serif text-base text-ink-soft">
+<p className="font-serif text-text-lg text-ink-soft">
 Please confirm your details before placing the order.
 </p>
 </div>
@@ -865,7 +868,7 @@ Please confirm your details before placing the order.
 
 {/* Items summary */}
 <div className="space-y-2">
-<p className="font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft">
+<p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft">
 Items ({items.length})
 </p>
 {items.map((item) => (
@@ -883,13 +886,13 @@ className="flex items-center justify-between py-2 border-b border-rule"
 />
 </div>
 <div>
-<p className="font-serif text-sm text-ink">{item.title}</p>
-<p className="font-caps text-[0.85rem] tracking-[0.3em] text-ink-soft">
+<p className="font-serif text-text-base text-ink">{item.title}</p>
+<p className="font-caps text-[1rem] tracking-[0.3em] text-ink-soft">
 Qty: {item.quantity}
 </p>
 </div>
 </div>
-<span className="font-display text-base text-oxblood">
+<span className="font-display text-text-lg text-oxblood">
 {formatPrice(parsePrice(item.price) * item.quantity)}
 </span>
 </div>
@@ -898,10 +901,10 @@ Qty: {item.quantity}
 
 {/* Shipping */}
 <div>
-<p className="font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+<p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 {format === "digital" ? "Contact" : "Shipping To"}
 </p>
-<div className="bg-parchment/60 border border-rule p-4 font-serif text-sm text-ink space-y-0.5">
+<div className="bg-parchment/60 border border-rule p-4 font-serif text-text-base text-ink space-y-0.5">
 <p>{shipping.name}</p>
 <p>{shipping.email}</p>
 {format !== "digital" && (
@@ -919,10 +922,10 @@ Qty: {item.quantity}
 
 {/* Payment */}
 <div>
-<p className="font-caps text-[0.75rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+<p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 Payment
 </p>
-<div className="bg-parchment/60 border border-rule p-4 font-mono text-sm text-ink flex items-center gap-3">
+<div className="bg-parchment/60 border border-rule p-4 font-mono text-text-base text-ink flex items-center gap-3">
 <span className="text-faded">•••• •••• ••••</span>
 <span>{payment.cardNumber.slice(-4)}</span>
 </div>
@@ -930,7 +933,7 @@ Payment
 
 {/* Total */}
 <div className="flex items-center justify-between py-3 border-t border-ink">
-<span className="font-caps text-[0.85rem] tracking-[0.35em] uppercase text-ink">
+<span className="font-caps text-[1rem] tracking-[0.35em] uppercase text-ink">
 Total
 </span>
 <span className="font-display text-3xl text-ink">
@@ -942,7 +945,7 @@ Total
 <button
 type="button"
 onClick={onBack}
-className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
+className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
 >
 Back
 </button>
@@ -951,7 +954,7 @@ type="button"
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 onClick={onPlaceOrder}
-className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
+className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
 >
 Place Order
 </motion.button>
@@ -1012,12 +1015,12 @@ i <= step
 }}
 className="w-6 h-6 rounded-full border flex items-center justify-center"
 >
-<span className="font-caps text-[0.85rem] tracking-[0.1em]">
+<span className="font-caps text-[1rem] tracking-[0.1em]">
 {i < step ? "✓" : i + 1}
 </span>
 </motion.div>
 <span
-className={`font-caps text-[0.85rem] tracking-[0.25em] uppercase hidden sm:inline ${
+className={`font-caps text-[1rem] tracking-[0.25em] uppercase hidden sm:inline ${
 i <= step ? "text-ink" : "text-faded"
 }`}
 >
@@ -1065,7 +1068,7 @@ format={format}
 )}
 {step === 3 && <ProcessingScreen onComplete={() => setStep(4)} />}
 {step === 4 && (
-<SuccessScreen orderNumber={orderNumber} onReturn={onComplete} />
+<SuccessScreen orderNumber={orderNumber} onReturn={onComplete} format={format} />
 )}
 </motion.div>
 </AnimatePresence>

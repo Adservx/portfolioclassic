@@ -30,52 +30,6 @@ function LetterCascade({ text, className = "" }: { text: string; className?: str
   );
 }
 
-function BrushStroke({ className = "", style = {}, scale = 1, fill = "#ffffff" }: { className?: string; style?: React.CSSProperties; scale?: number; fill?: string }) {
-  return (
-    <svg
-      className={className}
-      style={{ width: "100%", height: "100%", pointerEvents: "none", transform: `scale(${scale})`, transformOrigin: "center", ...style }}
-      viewBox="0 0 280 56"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        <filter id="brushBlur">
-          <feGaussianBlur stdDeviation="1.2" result="blur" />
-          <feComposite in="SourceGraphic" in2="blur" operator="over" />
-        </filter>
-        <filter id="brushTexture">
-          <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="4" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
-          <feComposite in="SourceGraphic" operator="in" />
-        </filter>
-        <filter id="brushEdge">
-          <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" result="edge" />
-          <feDisplacementMap in="SourceGraphic" in2="edge" scale="1.5" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </defs>
-      <path
-        d="M6,28 C6,10 18,2 36,4 C54,6 72,3 90,6 C108,9 126,6 144,9 C162,12 180,9 198,12 C216,15 234,12 252,15 C264,18 272,22 276,28 C278,34 270,38 256,40 C242,42 224,39 206,42 C188,45 170,42 152,45 C134,48 116,45 98,48 C80,51 62,48 44,45 C26,42 14,40 10,34 C6,28 6,28 6,28 Z"
-        fill={fill}
-        filter="url(#brushBlur)"
-        opacity="0.75"
-      />
-      <path
-        d="M6,28 C6,10 18,2 36,4 C54,6 72,3 90,6 C108,9 126,6 144,9 C162,12 180,9 198,12 C216,15 234,12 252,15 C264,18 272,22 276,28 C278,34 270,38 256,40 C242,42 224,39 206,42 C188,45 170,42 152,45 C134,48 116,45 98,48 C80,51 62,48 44,45 C26,42 14,40 10,34 C6,28 6,28 6,28 Z"
-        fill={fill}
-        filter="url(#brushTexture)"
-        opacity="0.18"
-      />
-      <path
-        d="M10,28 C10,14 22,4 42,6 C62,8 82,5 102,8 C122,11 142,8 162,11 C182,14 202,11 222,14 C242,17 260,19 268,25 C270,29 266,33 254,34 C242,35 224,33 206,35 C188,37 170,35 152,37 C134,39 116,37 98,39 C80,41 64,39 48,37 C32,35 22,34 14,30 C10,28 10,28 10,28 Z"
-        fill={fill}
-        opacity="0.35"
-        filter="url(#brushEdge)"
-      />
-    </svg>
-  );
-}
-
 export function Navbar() {
   const prefersReduced = useReducedMotion();
   const pathname = usePathname();
@@ -116,8 +70,8 @@ export function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-        scrolled ? "md:backdrop-blur-sm bg-background/90" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 bg-background transition-colors duration-300 ${
+        scrolled ? "border-b border-rule/50 md:backdrop-blur-sm" : ""
       }`}
       style={{
         // Promote once; avoid will-change thrash. Padding for notches.
@@ -176,25 +130,22 @@ export function Navbar() {
               />
             </motion.span>
             <span className="hidden sm:flex flex-col items-start leading-none">
-              <span className="font-caps text-[0.85rem] tracking-[0.1em] text-ink font-bold transition-colors duration-500">
+              <span className="font-caps text-[1rem] tracking-[0.1em] text-ink font-bold transition-colors duration-500">
                 DARSHAN PATHAK
               </span>
-              <span className="font-caps text-[0.75rem] tracking-[0.2em] text-ink/60 mt-0.5 transition-colors duration-500 group-hover:text-link">
+              <span className="font-caps text-[0.9rem] tracking-[0.2em] text-ink/60 mt-0.5 transition-colors duration-500 group-hover:text-link">
                 Author, Microbiologist &amp; Sociologist
               </span>
             </span>
-            <span className="sm:hidden font-display text-lg font-medium text-ink group-hover:text-link transition-colors">Darshan Pathak</span>
+            <span className="sm:hidden font-display text-lg font-semibold text-ink group-hover:text-link transition-colors">Darshan Pathak</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8 group/nav relative">
-            <div className="absolute inset-0 -z-10 flex items-center justify-center pointer-events-none">
-              <BrushStroke style={{ transform: 'scale(1.2) scaleY(2.3)' }} />
-            </div>
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`group relative font-caps text-[0.9rem] font-medium tracking-[0.35em] uppercase transition-colors duration-300 ${
+                className={`group relative font-nav font-bold text-[1rem] tracking-[0.35em] uppercase transition-colors duration-300 ${
                   isActive(item.href) ? "text-link" : "text-link hover:text-link/70"
                 }`}
               >
@@ -211,7 +162,7 @@ export function Navbar() {
             <span className="w-px h-5 bg-ink/15" />
             <Link
               href="/bookstore"
-              className="group relative font-caps text-[0.95rem] font-medium tracking-[0.3em] uppercase transition-colors duration-300 text-link hover:text-link-hover"
+              className="group relative font-nav font-bold text-[1rem] tracking-[0.35em] uppercase transition-colors duration-300 text-link hover:text-link-hover"
             >
               <span className="relative">
                 Bookstore
@@ -277,7 +228,7 @@ export function Navbar() {
                       onClick={() => setOpen(false)}
                       className="group relative cursor-pointer py-3.5 px-6 w-full max-w-[14rem] touch-manipulation"
                     >
-                      <span className={`relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.35em] uppercase transition-colors duration-300 ${
+                      <span className={`relative font-caps text-lg sm:text-xl font-bold tracking-[0.28em] sm:tracking-[0.35em] uppercase transition-colors duration-300 ${
                         isActive(item.href) ? "text-link" : "text-ink/80"
                       }`}>
                         {item.label}
@@ -295,7 +246,7 @@ export function Navbar() {
                       onClick={() => setOpen(false)}
                       className="group relative block cursor-pointer py-3.5 px-6 touch-manipulation"
                     >
-                      <span className="relative font-caps text-lg sm:text-xl font-medium tracking-[0.28em] sm:tracking-[0.3em] uppercase text-link transition-colors">
+                      <span className="relative font-caps text-lg sm:text-xl font-bold tracking-[0.28em] sm:tracking-[0.3em] uppercase text-link transition-colors">
                         Bookstore
                       </span>
                       <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-px bg-link transition-[width] duration-500 w-0" />

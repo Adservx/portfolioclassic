@@ -70,7 +70,7 @@ viewport={{ once: true }}
 transition={{ duration: 0.8, delay: 0.2 }}
 className="h-px w-6 sm:w-10 bg-vellum/40 origin-right"
 />
-<span className="font-caps text-[0.6rem] sm:text-[0.7rem] tracking-[0.45em] uppercase">
+<span className="font-caps text-[0.75rem] sm:text-[0.85rem] tracking-[0.45em] uppercase">
 Finish · The End
 </span>
 <motion.span
@@ -134,10 +134,10 @@ transition={{ delay: 0.5, duration: 0.9, type: "spring", stiffness: 150 }}
 className="mt-10 mx-auto w-28 h-28 rounded-full border-4 border-double border-oxblood flex items-center justify-center bg-oxblood/10"
 >
 <div className="w-24 h-24 rounded-full border border-oxblood/60 flex flex-col items-center justify-center">
-<span className="font-display text-oxblood text-sm leading-none">
+<span className="font-display text-oxblood text-text-base leading-none">
 D · P
 </span>
-<span className="font-caps text-oxblood/80 text-[0.55rem] tracking-[0.4em] mt-1">
+<span className="font-caps text-oxblood/80 text-[0.7rem] tracking-[0.4em] mt-1">
 MMXXIII
 </span>
 </div>
@@ -154,7 +154,7 @@ viewport={{ once: true }}
 transition={{ duration: 0.6, delay: 0.2 }}
 className="lg:col-span-4"
 >
-<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
 The Chapters
 </div>
 <ul className="space-y-2">
@@ -168,9 +168,9 @@ transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
 >
               <Link
                   href={l.href}
-                  className="group inline-flex items-center gap-2 font-serif text-blue-400 underline underline-offset-4 decoration-blue-400/60 transition-colors duration-300"
+                  className="group inline-flex items-center gap-2 font-serif text-link underline underline-offset-4 decoration-link/60 transition-colors duration-300"
                 >
-                  <span className="font-display text-gold-soft text-sm group-hover:translate-x-1 transition-transform duration-300">
+                  <span className="font-display text-gold-soft text-text-base group-hover:translate-x-1 transition-transform duration-300">
                     →
                   </span>
                   {l.label}
@@ -188,7 +188,7 @@ viewport={{ once: true }}
 transition={{ duration: 0.6, delay: 0.3 }}
 className="lg:col-span-5"
 >
-<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
 Colophon
 </div>
 <dl className="space-y-3">
@@ -201,10 +201,10 @@ viewport={{ once: true }}
 transition={{ duration: 0.4, delay: 0.4 + i * 0.1 }}
 className="grid grid-cols-4 sm:grid-cols-12 gap-2 sm:gap-4 border-b border-vellum/10 pb-3"
 >
-<dt className="col-span-4 sm:col-span-3 font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.3em] uppercase text-vellum/50">
+<dt className="col-span-4 sm:col-span-3 font-caps text-[0.8rem] sm:text-[0.85rem] tracking-[0.3em] uppercase text-vellum/50">
 {term}
 </dt>
-<dd className="col-span-8 sm:col-span-9 font-serif text-vellum/85 text-sm sm:text-base">
+<dd className="col-span-8 sm:col-span-9 font-serif text-vellum/85 text-text-base sm:text-text-lg">
 {def}
 </dd>
 </motion.div>
@@ -218,9 +218,9 @@ initial={{ opacity: 0, y: 20 }}
 whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.6, delay: 0.4 }}
-className="lg:col-span-3 flex flex-col items-start lg:items-end sm:col-span-2 sm:items-start lg:items-end"
+className="lg:col-span-3 flex flex-col items-start lg:items-end"
 >
-<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-vellum/50 mb-4">
 Back to the top
 </div>
 <button
@@ -240,7 +240,7 @@ className="w-10 h-10 sm:w-12 sm:h-12 border border-link/40 rounded-full flex ite
                   </span>
 </motion.span>
 </button>
-<div className="mt-4 sm:mt-6 font-serif text-vellum/40 text-xs sm:text-sm">
+<div className="mt-4 sm:mt-6 font-serif text-vellum/40 text-text-sm sm:text-text-base">
 ISBN 978-9937-1-3757-7
 </div>
 </motion.div>
@@ -254,17 +254,17 @@ viewport={{ once: true }}
 transition={{ duration: 0.8, delay: 0.6 }}
 className="mt-16 pt-6 border-t border-vellum/15 flex flex-col sm:flex-row items-center justify-between gap-4"
 >
-<p className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-vellum/40">
+<p className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-vellum/40">
 © 2023 · Darshan Pathak · All rights reserved
 </p>
 <div className="flex items-center gap-3">
-              <span className="fleuron text-gold-soft text-base animate-fleuron-spin">
+              <span className="fleuron text-gold-soft text-text-lg animate-fleuron-spin">
                 ❦
               </span>
-              <span className="font-serif text-vellum/50 text-sm">
+              <span className="font-serif text-vellum/50 text-text-base">
                 White Words · First Edition
               </span>
-              <span className="fleuron text-gold-soft text-base animate-fleuron-spin" style={{ animationDelay: "-3s" }}>
+              <span className="fleuron text-gold-soft text-text-lg animate-fleuron-spin" style={{ animationDelay: "-3s" }}>
                 ❦
               </span>
 </div>

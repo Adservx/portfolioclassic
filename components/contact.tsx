@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/about";
@@ -15,7 +15,14 @@ const channels = [
 export function Contact() {
 const [form, setForm] = useState({ name: "", email: "", subject: "", body: "" });
 const [state, setState] = useState<"idle" | "sealing" | "sent">("idle");
+const [folioDate, setFolioDate] = useState("");
 const formRef = useRef<HTMLFormElement>(null);
+
+useEffect(() => {
+setFolioDate(
+new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })
+);
+}, []);
 
 const submit = (e: React.FormEvent) => {
 e.preventDefault();
@@ -50,7 +57,7 @@ viewport={{ once: true, margin: "-50px" }}
 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
 className="lg:col-span-5"
 >
-<div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 Where to find him
 </div>
 <h3 className="mt-3 font-serif text-5xl sm:text-6xl lg:text-7xl text-ink">
@@ -62,7 +69,7 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ delay: 0.3 }}
-className="mt-6 font-serif text-base sm:text-lg text-ink-soft leading-relaxed max-w-md"
+className="mt-6 font-serif text-text-lg sm:text-lg text-ink-soft leading-relaxed max-w-md"
 >
 Mr. Pathak reads every letter. He answers, in his own hand, those
 that ask a real question. He does not answer fan mail, requests
@@ -92,10 +99,10 @@ className="font-display text-2xl text-gold leading-none mt-1 w-8"
 className="absolute inset-x-0 bottom-0 h-px bg-oxblood origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"
 aria-hidden
 />
-<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-1">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft mb-1">
 {c.label}
 </div>
-<div className="font-serif text-base text-ink-2 leading-snug group-hover:text-oxblood group-hover:translate-x-1 transition-[color,transform] duration-500">
+<div className="font-serif text-text-lg text-ink-2 leading-snug group-hover:text-oxblood group-hover:translate-x-1 transition-[color,transform] duration-500">
 {c.value}
 </div>
 </div>
@@ -114,11 +121,11 @@ className="mt-8 sm:mt-10 plate-thin p-4 sm:p-6 relative"
               <span className="fleuron text-gold text-xl sm:text-2xl animate-fleuron-wobble">
                 ❦
               </span>
-<span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
+<span className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 For the Press
 </span>
 </div>
-<p className="font-serif text-sm sm:text-base text-ink-2 leading-relaxed">
+<p className="font-serif text-text-base sm:text-text-lg text-ink-2 leading-relaxed">
 Press inquiries to <em>darshanpathak2082@gmail.com</em>. The author
 does not give interviews by telephone, but answers written
 questions, in writing, on Thursdays.
@@ -153,10 +160,10 @@ className="flex items-center gap-3 sm:gap-4 mb-6"
             />
 </div>
 <div className="flex-1 border-t border-b border-ink/30 py-2">
-<div className="font-caps text-[0.6rem] sm:text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
 By post
 </div>
-<div className="font-serif text-sm sm:text-base text-ink mt-1">
+<div className="font-serif text-text-base sm:text-text-lg text-ink mt-1">
 Mr. Pathak answers letters in the order they arrive.
 </div>
 </div>
@@ -176,12 +183,12 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ delay: 0.4 }}
-className="absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-6 lg:right-6 font-caps text-[0.6rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft"
+className="absolute top-3 right-3 sm:top-4 sm:right-4 lg:top-6 lg:right-6 font-caps text-[0.75rem] sm:text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft"
 >
-Folio · {new Date().toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}
+Folio · {folioDate || "\u00A0"}
 </motion.div>
 
-<div className="font-caps text-[0.7rem] sm:text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft mb-6 sm:mb-8">
+<div className="font-caps text-[0.85rem] sm:text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft mb-6 sm:mb-8">
 To Darshan Pathak, from
 </div>
 
@@ -208,7 +215,7 @@ onChange={(v) => setForm({ ...form, subject: v })}
 </div>
 
 <div>
-<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 Your Letter
 </div>
 <textarea
@@ -227,7 +234,7 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ delay: 0.6 }}
-className="font-serif text-xs sm:text-sm text-ink-soft"
+className="font-serif text-text-sm sm:text-text-base text-ink-soft"
 >
 All letters are read in the order they arrive. Patience, please.
 </motion.div>
@@ -236,7 +243,7 @@ type="submit"
 disabled={state !== "idle"}
 whileHover={{ scale: 1.04, y: -2 }}
 whileTap={{ scale: 0.96 }}
-className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-link text-vellum font-caps uppercase tracking-[0.35em] text-[0.8rem] sm:text-[0.85rem] hover:bg-link-hover transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
+className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-link text-vellum font-caps uppercase tracking-[0.35em] text-[0.95rem] sm:text-[1rem] hover:bg-link-hover transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
 >
 {/* Sweep on hover */}
 <span
@@ -254,7 +261,7 @@ exit={{ opacity: 0 }}
 className="flex items-center gap-3"
 >
 Seal & Send
-                  <span className="font-display text-base animate-arrow-nudge-x">
+                  <span className="font-display text-text-lg animate-arrow-nudge-x">
                     →
                   </span>
 </motion.span>
@@ -270,7 +277,7 @@ className="flex items-center gap-3"
 <motion.span
 animate={{ scale: [1, 1.3, 0.9, 1.1, 1], rotate: [0, 5, -5, 0] }}
 transition={{ duration: 1, repeat: Infinity }}
-className="font-display text-base"
+className="font-display text-text-lg"
 >
 ✻
 </motion.span>
@@ -289,7 +296,7 @@ className="flex items-center gap-3"
 <motion.span
 animate={{ rotate: [0, 360] }}
 transition={{ duration: 1 }}
-className="font-display text-base"
+className="font-display text-text-lg"
 >
 ✦
 </motion.span>
@@ -311,7 +318,7 @@ exit={{ opacity: 0 }}
 transition={{ type: "spring", stiffness: 200, damping: 12 }}
 className="pointer-events-none absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 w-24 h-24 lg:w-32 lg:h-32 rounded-full border-4 border-double border-oxblood flex items-center justify-center"
 >
-<span className="font-display text-oxblood text-xs lg:text-sm text-center leading-none">
+<span className="font-display text-oxblood text-text-sm lg:text-text-base text-center leading-none">
 Sent<br />MMXXVI
 </span>
 </motion.div>
@@ -339,7 +346,7 @@ onChange: (v: string) => void;
 const [focused, setFocused] = useState(false);
 return (
 <div>
-<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 {label}
 </div>
 <div className="relative">

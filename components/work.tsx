@@ -58,7 +58,7 @@ initial={{ opacity: 0, x: -20 }}
 whileInView={{ opacity: 1, x: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.6 }}
-className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft"
+className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft"
 >
 <motion.span
 key={works.length}
@@ -96,7 +96,7 @@ viewport={{ once: true }}
 transition={{ duration: 0.6 }}
 className="mt-16 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-ink/40"
 >
-<div className="font-serif text-base text-ink-soft">
+<div className="font-serif text-text-lg text-ink-soft">
 <em className="text-ink">White Words</em> (2023) — the author&rsquo;s
 only published work. Download the complete PDF from the{" "}
 <Link href="/bookstore" className="text-link underline underline-offset-4 decoration-link transition-colors">
@@ -104,10 +104,10 @@ Bookstore
 </Link>.
 </div>
 <div className="flex items-center gap-3">
-              <span className="fleuron text-gold text-base animate-fleuron-sway">
+              <span className="fleuron text-gold text-text-lg animate-fleuron-sway">
                 ❦
               </span>
-<span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
+<span className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 End of Index
 </span>
 </div>
@@ -203,7 +203,7 @@ initial={{ opacity: 0, y: 8 }}
 whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ delay: 0.3 + i * 0.05 }}
-className="absolute bottom-1.5 left-1.5 right-1.5 text-vellum font-caps text-[0.55rem] tracking-[0.3em] uppercase text-center"
+className="absolute bottom-1.5 left-1.5 right-1.5 text-vellum font-caps text-[0.7rem] tracking-[0.3em] uppercase text-center"
 >
 {w.no}
 </motion.div>
@@ -243,26 +243,26 @@ initial={{ scale: 0, rotate: -20 }}
 whileInView={{ scale: 1, rotate: -3 }}
 viewport={{ once: true }}
 transition={{ delay: 0.4, type: "spring", stiffness: 300 }}
-className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-gold border border-gold/60 px-2 py-0.5"
+className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-gold border border-gold/60 px-2 py-0.5"
 >
 Notable
 </motion.span>
 )}
 </div>
-<p className="mt-2 font-serif text-[1.1rem] sm:text-[1.2rem] leading-relaxed text-ink-soft max-w-2xl">
+<p className="mt-2 font-serif text-[1.2rem] sm:text-[1.3rem] leading-relaxed text-ink-soft max-w-2xl">
 {w.excerpt}
 </p>
 </div>
 
 {/* Publisher & category */}
 <div className="col-span-12 sm:col-span-12 lg:col-span-3 lg:text-right mt-3 sm:mt-2 lg:mt-0">
-<div className="font-caps text-[0.7rem] tracking-[0.35em] uppercase text-oxblood">
+<div className="font-caps text-[0.85rem] tracking-[0.35em] uppercase text-oxblood">
 {w.category}
 </div>
-<div className="mt-1 font-serif text-sm sm:text-base text-ink">
+<div className="mt-1 font-serif text-text-base sm:text-text-lg text-ink">
 {w.publisher}
 </div>
-<div className="mt-0.5 font-serif text-xs sm:text-sm text-ink-soft">
+<div className="mt-0.5 font-serif text-text-sm sm:text-text-base text-ink-soft">
 {w.edition}
 </div>
 </div>

@@ -12,7 +12,7 @@ const italiana = Italiana({
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
   variable: "--font-serif-var",
   display: "swap",
@@ -28,7 +28,7 @@ const jetbrains = JetBrains_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#f4efe6",
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {

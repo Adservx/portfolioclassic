@@ -115,10 +115,10 @@ viewport={{ once: true }}
 transition={{ delay: 0.4 }}
 className="absolute top-4 left-4 right-4 flex items-start justify-between text-vellum"
 >
-<span className="font-caps text-[0.85rem] tracking-[0.45em] uppercase">
+<span className="font-caps text-[1rem] tracking-[0.45em] uppercase">
 Plate III · The Desk
 </span>
-<span className="font-caps text-[0.85rem] tracking-[0.45em] uppercase">
+<span className="font-caps text-[1rem] tracking-[0.45em] uppercase">
 Nepal · early morning
 </span>
 </motion.div>
@@ -133,7 +133,7 @@ className="absolute bottom-6 left-6 right-6 lg:left-10 lg:right-auto lg:max-w-md
 &ldquo;Writing is the statue, cannot be destroyed, but try to
 protect and preserve it from acid rain.&rdquo;
 </div>
-<div className="mt-3 font-caps text-[0.85rem] uppercase text-vellum/80">
+<div className="mt-3 font-caps text-[1rem] uppercase text-vellum/80">
 From &ldquo;White Words&rdquo; · Biology Love
 </div>
 </motion.div>
@@ -181,15 +181,15 @@ className="font-display text-6xl text-oxblood leading-none"
 <h3 className="font-serif text-4xl text-ink leading-tight group-hover:text-oxblood transition-colors duration-500">
 {d.title}
 </h3>
-<p className="mt-3 font-serif text-[1.15rem] leading-relaxed text-ink-soft">
+<p className="mt-3 font-serif text-[1.25rem] leading-relaxed text-ink-soft">
 {d.description}
 </p>
 
 <div className="mt-6 pt-4 border-t border-rule">
-<div className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+<div className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 Forms
 </div>
-<div className="flex flex-wrap gap-x-3 gap-y-1 font-serif text-sm text-ink">
+<div className="flex flex-wrap gap-x-3 gap-y-1 font-serif text-text-base text-ink">
 {d.forms.map((f, j) => (
 <span key={f} className="flex items-center gap-3">
 {j > 0 && <span className="text-rule">·</span>}
@@ -200,10 +200,10 @@ Forms
 </div>
 
 <div className="mt-4 pt-4 border-t border-rule">
-<div className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+<div className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 Tools of the Trade
 </div>
-<div className="flex flex-wrap gap-x-3 gap-y-1 font-serif text-sm text-ink-soft">
+<div className="flex flex-wrap gap-x-3 gap-y-1 font-serif text-text-base text-ink-soft">
 {d.tools.map((t, j) => (
 <span key={t} className="flex items-center gap-3">
 {j > 0 && <span className="text-rule">·</span>}
@@ -226,7 +226,7 @@ viewport={{ once: true, margin: "-50px" }}
 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
 className="lg:col-span-5"
 >
-<div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 The Tongues I Work In
 </div>
 <h3 className="mt-3 font-serif text-5xl sm:text-6xl lg:text-7xl text-ink">
@@ -251,7 +251,7 @@ aria-hidden
 <span className="relative font-serif text-2xl text-ink group-hover:text-oxblood group-hover:translate-x-2 transition-[color,transform] duration-500">
 {l.name}
 </span>
-<span className="relative font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-gold transition-colors duration-500">
+<span className="relative font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-gold transition-colors duration-500">
 {l.level}
 </span>
 </motion.div>
@@ -268,7 +268,7 @@ className="mt-8 flex items-center gap-3"
 <span className="font-display text-5xl text-oxblood">
 <Counter target={3} />
 </span>
-<span className="font-serif text-base text-ink-soft">
+<span className="font-serif text-text-lg text-ink-soft">
 Tongues at my command
 </span>
 </motion.div>
@@ -282,7 +282,7 @@ viewport={{ once: true, margin: "-50px" }}
 transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
 className="lg:col-span-7"
 >
-<div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 Reading & Company
 </div>
 <h3 className="mt-3 font-serif text-5xl sm:text-6xl lg:text-7xl text-ink">

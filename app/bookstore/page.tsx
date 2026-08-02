@@ -181,7 +181,7 @@ className="group inline-flex items-center gap-2 text-link underline underline-of
 <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-lg">
 ←
 </motion.span>
-<span className="font-caps text-[0.7rem] tracking-[0.35em] uppercase">
+<span className="font-caps text-[0.85rem] tracking-[0.35em] uppercase">
 Portfolio
 </span>
 </Link>
@@ -189,11 +189,11 @@ Portfolio
 <motion.span
 animate={{ rotate: [0, 10, -10, 0] }}
 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-className="fleuron text-gold text-base"
+className="fleuron text-gold text-text-lg"
 >
 ❦
 </motion.span>
-<span className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
+<span className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 Official Bookstore
 </span>
 </div>
@@ -280,7 +280,7 @@ initial={{ opacity: 0, y: 10 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.6, delay: 0.35 }}
 >
-<span className="inline-block font-caps text-[0.6rem] tracking-[0.45em] uppercase text-oxblood mb-4 border border-oxblood/40 px-3 py-1">
+<span className="inline-block font-caps text-[0.75rem] tracking-[0.45em] uppercase text-oxblood mb-4 border border-oxblood/40 px-3 py-1">
 The Only Edition
 </span>
 </motion.div>
@@ -307,7 +307,7 @@ className="mt-5 font-serif text-xl text-ink-soft max-w-xl leading-relaxed"
 initial={{ opacity: 0 }}
 animate={{ opacity: 1 }}
 transition={{ duration: 0.7, delay: 0.6 }}
-className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 font-caps text-[0.85rem] uppercase text-gold"
+className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 font-caps text-[1rem] uppercase text-gold"
 >
 <span>ISBN {book.isbn}</span>
 <span className="text-gold/50">❦</span>
@@ -331,7 +331,7 @@ className="mt-10 flex flex-wrap items-center gap-6"
 >
 <div className="flex items-baseline gap-2">
 <span className="font-display text-6xl text-oxblood">{book.price}</span>
-<span className="font-serif text-sm text-faded">incl. VAT</span>
+<span className="font-serif text-text-base text-faded">incl. VAT</span>
 </div>
 <div className="flex flex-wrap items-center gap-6">
 <div className="flex items-center gap-1 border border-rule bg-vellum/50">
@@ -402,7 +402,7 @@ className="space-y-10"
 >
 {/* Author */}
 <div>
-<h3 className="font-caps text-[0.85rem] uppercase text-oxblood mb-3">
+<h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Author
 </h3>
 <p className="font-serif text-2xl text-ink">{book.author}</p>
@@ -411,10 +411,10 @@ Author
 {/* Dedication */}
 {book.dedication && (
 <div>
-<h3 className="font-caps text-[0.85rem] uppercase text-oxblood mb-3">
+<h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Dedication
 </h3>
-<blockquote className="font-serif text-base text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
+<blockquote className="font-serif text-text-lg text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
 “{book.dedication}”
 </blockquote>
 </div>
@@ -423,10 +423,10 @@ Dedication
 {/* Preface */}
 {book.preface && (
 <div>
-<h3 className="font-caps text-[0.85rem] uppercase text-oxblood mb-3">
+<h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Preface
 </h3>
-<blockquote className="font-serif text-base text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
+<blockquote className="font-serif text-text-lg text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
 “{book.preface}”
 </blockquote>
 </div>
@@ -434,10 +434,10 @@ Preface
 
 {/* Contact */}
 <div>
-<h3 className="font-caps text-[0.85rem] uppercase text-oxblood mb-3">
+<h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Inquiries
 </h3>
-<div className="font-serif text-base text-ink-soft space-y-1">
+<div className="font-serif text-text-lg text-ink-soft space-y-1">
 {book.email && <p>{book.email}</p>}
 {book.phone && <p>{book.phone}</p>}
 </div>
@@ -453,10 +453,10 @@ transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="bg-vellum border border-rule p-6 lg:p-8">
 <div className="flex items-center justify-between mb-5">
-<h3 className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-oxblood">
+<h3 className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-oxblood">
 Table of Contents
 </h3>
-<span className="font-caps text-[0.55rem] tracking-[0.3em] uppercase text-faded">
+<span className="font-caps text-[0.7rem] tracking-[0.3em] uppercase text-faded">
 {book.toc?.length || 0} articles
 </span>
 </div>
@@ -467,10 +467,10 @@ Table of Contents
 key={idx}
 className="flex items-baseline justify-between gap-3 py-1.5 border-b border-rule group"
 >
-<span className="font-serif text-sm text-ink-soft group-hover:text-ink transition-colors duration-300 leading-snug">
+<span className="font-serif text-text-base text-ink-soft group-hover:text-ink transition-colors duration-300 leading-snug">
 {entry.title}
 </span>
-<span className="shrink-0 font-caps text-[0.55rem] tracking-widest text-faded">
+<span className="shrink-0 font-caps text-[0.7rem] tracking-widest text-faded">
 p.{entry.page}
 </span>
 </li>
@@ -489,13 +489,13 @@ transition={{ duration: 0.6 }}
 className="mt-20 pt-10 border-t border-rule"
 >
 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-<div className="font-serif text-sm text-faded">
+<div className="font-serif text-text-base text-faded">
 White Words (2023) by Darshan Pathak — the author&rsquo;s only
 published work. Free PDF download for readers.
 </div>
 <Link
 href="/"
-className="group inline-flex items-center gap-3 font-caps text-[0.65rem] tracking-[0.35em] uppercase text-link underline underline-offset-4 decoration-link/60 transition-colors duration-300"
+className="group inline-flex items-center gap-3 font-caps text-[0.8rem] tracking-[0.35em] uppercase text-link underline underline-offset-4 decoration-link/60 transition-colors duration-300"
 >
 <motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-lg">
 ←
@@ -547,10 +547,10 @@ className="relative z-10 pt-12 pb-32 px-6 lg:px-12"
 onClick={onBack}
 className="group inline-flex items-center gap-2 text-ink-soft hover:text-ink transition-colors duration-300 mb-6 cursor-pointer"
 >
-<motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-base text-gold">
+<motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-text-lg text-gold">
 ←
 </motion.span>
-<span className="font-caps text-[0.6rem] tracking-[0.35em] uppercase">
+<span className="font-caps text-[0.75rem] tracking-[0.35em] uppercase">
 Back to Bookstore
 </span>
 </button>
@@ -566,11 +566,11 @@ Back to Bookstore
             />
 </div>
         <div className="flex-1 min-w-0">
-              <p className="font-serif text-base text-ink truncate">{book.title}</p>
-              <p className="font-caps text-[0.7rem] tracking-[0.3em] uppercase text-ink-soft mt-0.5">
+              <p className="font-serif text-text-lg text-ink truncate">{book.title}</p>
+              <p className="font-caps text-[0.85rem] tracking-[0.3em] uppercase text-ink-soft mt-0.5">
                 {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: {quantity}
               </p>
-              <p className="font-serif text-[0.8rem] text-faded mt-0.5">
+              <p className="font-serif text-[0.95rem] text-faded mt-0.5">
                 {format === "print"
                   ? "Dispatch in 2–4 weeks"
                   : "Delivered via email after purchase"}
@@ -579,7 +579,7 @@ Back to Bookstore
             <div className="text-right shrink-0">
               <span className="font-display text-lg text-oxblood block">{book.price}</span>
               {quantity > 1 && (
-                <span className="font-caps text-[0.6rem] tracking-[0.2em] text-faded">
+                <span className="font-caps text-[0.75rem] tracking-[0.2em] text-faded">
                   × {quantity} = ${(parsePrice(book.price) * quantity).toFixed(2)}
                 </span>
               )}
@@ -647,7 +647,7 @@ D · P
 initial={{ y: 10, opacity: 0 }}
 animate={{ y: 0, opacity: 1 }}
 transition={{ delay: 0.7 }}
-className="font-caps text-oxblood/60 text-[0.55rem] tracking-[0.4em] mt-1"
+className="font-caps text-oxblood/60 text-[0.7rem] tracking-[0.4em] mt-1"
 >
 CONFIRMED
 </motion.span>
@@ -705,10 +705,10 @@ className="mt-6"
 <a
 href={book.pdfUrl}
 download
-className="inline-flex items-center gap-2 bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-8 py-3.5 transition-all duration-300"
+className="inline-flex items-center gap-2 bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3.5 transition-all duration-300"
 >
 <span>Download PDF</span>
-<span className="text-base">↓</span>
+<span className="text-text-lg">↓</span>
 </a>
 </motion.div>
 )}
@@ -719,7 +719,7 @@ className="inline-flex items-center gap-2 bg-ink text-vellum hover:bg-ink-2 font
             transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
             className="mt-8 inline-flex items-center gap-3 border border-rule bg-vellum px-6 py-3"
           >
-            <span className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+            <span className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
               Order No.
             </span>
             <span className="font-mono text-lg text-oxblood">{orderNumber}</span>
@@ -729,7 +729,7 @@ className="inline-flex items-center gap-2 bg-ink text-vellum hover:bg-ink-2 font
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1 }}
-            className="mt-4 font-serif text-sm text-faded"
+            className="mt-4 font-serif text-text-base text-faded"
           >
             {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: {quantity}
           </motion.p>
@@ -744,7 +744,7 @@ className="mt-10"
 whileHover={{ scale: 1.02 }}
 whileTap={{ scale: 0.98 }}
 onClick={onReturn}
-className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.7rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
+className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
 >
 Continue Browsing
 </motion.button>

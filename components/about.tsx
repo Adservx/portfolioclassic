@@ -97,13 +97,13 @@ initial={{ opacity: 0, x: -20 }}
 whileInView={{ opacity: 1, x: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.6 }}
-className="font-caps text-[1rem] sm:text-[1.1rem] text-ink-soft mb-4 sm:mb-6 flex items-center gap-3"
+className="font-caps text-[1rem] sm:text-[1.2rem] text-ink-soft mb-4 sm:mb-6 flex items-center gap-3"
 >
 <span className="fleuron text-gold">❦</span>
 From the preface to White Words, 2023
 </motion.div>
 
-<div className="font-serif text-[1.2rem] sm:text-[1.35rem] leading-[1.75] text-ink-2 space-y-5">
+<div className="font-serif text-[1.3rem] sm:text-[1.45rem] leading-[1.75] text-ink-2 space-y-5">
 <p>
 <span className="drop-cap animate-splotch-pop">T</span>
 <motion.span
@@ -151,7 +151,7 @@ transition={{ duration: 0.6, delay: 0.5 }}
 className="mt-8 sm:mt-10 flex items-center gap-4 text-ink-soft"
 >
 <span className="h-px flex-1 bg-rule" />
-<span className="font-serif text-sm sm:text-base">
+<span className="font-serif text-text-base sm:text-text-lg">
 — Darshan Pathak
 </span>
 </motion.div>
@@ -182,7 +182,7 @@ initial={{ opacity: 0, letterSpacing: "0.1em" }}
 whileInView={{ opacity: 1, letterSpacing: "0.45em" }}
 viewport={{ once: true }}
 transition={{ duration: 1.2 }}
-className="font-caps text-[0.7rem] uppercase text-ink-soft"
+className="font-caps text-[0.85rem] uppercase text-ink-soft"
 >
 White Words &middot; First Edition
 </motion.div>
@@ -205,7 +205,7 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ duration: 0.8, delay: 0.6 }}
-className="mt-1 font-serif text-sm text-ink-soft"
+className="mt-1 font-serif text-text-base text-ink-soft"
 >
 &ldquo;The series of 93 Articles&rdquo;
 </motion.div>
@@ -218,18 +218,18 @@ transition={{ duration: 0.8, delay: 0.7 }}
 className="mt-6 grid grid-cols-2 gap-px bg-rule"
 >
 <div className="bg-parchment-2 p-3">
-<div className="font-caps text-[0.55rem] tracking-[0.35em] uppercase text-ink-soft">
+<div className="font-caps text-[0.7rem] tracking-[0.35em] uppercase text-ink-soft">
 Articles
 </div>
-<div className="font-serif text-base text-ink mt-1">
+<div className="font-serif text-text-lg text-ink mt-1">
 93
 </div>
 </div>
 <div className="bg-parchment-2 p-3">
-<div className="font-caps text-[0.55rem] tracking-[0.35em] uppercase text-ink-soft">
+<div className="font-caps text-[0.7rem] tracking-[0.35em] uppercase text-ink-soft">
 Published
 </div>
-<div className="font-serif text-base text-ink mt-1">
+<div className="font-serif text-text-lg text-ink mt-1">
 2023
 </div>
 </div>
@@ -239,7 +239,7 @@ Published
 style={{ y: y2 }}
 className="mt-8 pt-6 border-t border-rule"
 >
-<div className="font-caps text-[0.55rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft">
 Article &ldquo;Dark&rdquo;
 </div>
 <div className="font-serif text-lg text-ink mt-1">
@@ -305,10 +305,10 @@ viewport={{ once: true }}
 transition={{ delay: 0.4 }}
 className="absolute top-4 left-4 right-4 flex items-start justify-between text-vellum"
 >
-<span className="font-caps text-[0.65rem] tracking-[0.45em] uppercase">
+<span className="font-caps text-[0.8rem] tracking-[0.45em] uppercase">
 Plate II · The Honours
 </span>
-<span className="font-caps text-[0.65rem] tracking-[0.45em] uppercase">
+<span className="font-caps text-[0.8rem] tracking-[0.45em] uppercase">
 Nepal · 2023–MMXXV
 </span>
 </motion.div>
@@ -323,7 +323,7 @@ className="absolute bottom-4 left-4 right-4 text-vellum"
 &ldquo;The recognition is not mine alone — it belongs to
 every word, every page, every sleepless hour.&rdquo;
 </div>
-<div className="mt-2 font-caps text-[0.65rem] tracking-[0.4em] uppercase text-vellum/80">
+<div className="mt-2 font-caps text-[0.8rem] tracking-[0.4em] uppercase text-vellum/80">
 From the author&rsquo;s notes · 2023
 </div>
 </motion.div>
@@ -334,7 +334,7 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ delay: 1 }}
-className="mt-3 text-center font-serif text-sm sm:text-base text-ink-soft px-4"
+className="mt-3 text-center font-serif text-text-base sm:text-text-lg text-ink-soft px-4"
 >
 A collection of achievements recognising a lifetime devoted to
 the written word.
@@ -356,7 +356,7 @@ className="bg-vellum p-4 sm:p-6 lg:p-8 text-center group cursor-default transiti
 <div className="font-display text-5xl sm:text-6xl lg:text-7xl text-ink leading-none">
 <Counter target={s.target} suffix={s.suffix} />
 </div>
-<div className="mt-2 sm:mt-3 font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-oxblood transition-colors duration-500">
+<div className="mt-2 sm:mt-3 font-caps text-[0.8rem] sm:text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft group-hover:text-oxblood transition-colors duration-500">
 {s.label}
 </div>
 </motion.div>
@@ -367,16 +367,16 @@ className="bg-vellum p-4 sm:p-6 lg:p-8 text-center group cursor-default transiti
 <div className="mt-20 sm:mt-24 lg:mt-32">
 <div className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-8 sm:mb-10 gap-4">
 <div>
-<div className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 Chronology
 </div>
 <h3 className="font-serif text-5xl sm:text-6xl lg:text-7xl text-ink mt-2">
-Five dates, <em className="text-oxblood">a life.</em>
+Four dates, <em className="text-oxblood">a life.</em>
 </h3>
 </div>
 <div className="hidden md:flex items-center gap-3 text-ink-soft">
 <span className="fleuron text-gold text-xl animate-pulse-dot">❦</span>
-<span className="font-serif text-sm">Anno Domini</span>
+<span className="font-serif text-text-base">Anno Domini</span>
 </div>
 </div>
 
@@ -399,7 +399,7 @@ className="group relative grid grid-cols-12 gap-3 sm:gap-6 py-6 sm:py-8 border-t
 <h4 className="font-serif text-xl sm:text-2xl lg:text-3xl text-ink group-hover:text-oxblood transition-colors duration-500 break-words">
 {b.title}
 </h4>
-<p className="mt-2 font-serif text-[1rem] sm:text-[1.1rem] lg:text-[1.2rem] leading-relaxed text-ink-soft max-w-2xl break-words">
+<p className="mt-2 font-serif text-[1rem] sm:text-[1.2rem] lg:text-[1.3rem] leading-relaxed text-ink-soft max-w-2xl break-words">
 {b.text}
 </p>
 </div>
@@ -448,7 +448,7 @@ viewport={{ once: true }}
 transition={{ duration: 0.8, delay: 0.2 }}
 className="h-px w-12 bg-ink origin-right"
 />
-<span className="font-caps text-[0.72rem] tracking-[0.45em] uppercase text-ink-soft">
+<span className="font-caps text-[0.85rem] tracking-[0.45em] uppercase text-ink-soft">
 {eyebrow}
 </span>
 <motion.span
@@ -487,7 +487,7 @@ initial={{ opacity: 0, y: 10 }}
 whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.6, delay: 0.5 }}
-className="mt-4 sm:mt-6 font-serif text-base sm:text-lg text-ink-soft px-4 sm:px-0"
+className="mt-4 sm:mt-6 font-serif text-text-lg sm:text-lg text-ink-soft px-4 sm:px-0"
 >
 {subtitle}
 </motion.p>

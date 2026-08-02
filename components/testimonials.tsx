@@ -93,7 +93,7 @@ style={{ boxShadow: "inset 0 0 40px 8px rgba(0, 0, 0,0.4)" }}
 </div>
 </div>
 <div className="sm:col-span-7 pb-2 sm:pb-4">
-<div className="font-caps text-[0.85rem] uppercase text-ink-soft">
+<div className="font-caps text-[1rem] uppercase text-ink-soft">
 From the Preface
 </div>
 <motion.p
@@ -113,7 +113,7 @@ initial={{ opacity: 0 }}
 whileInView={{ opacity: 1 }}
 viewport={{ once: true }}
 transition={{ delay: 0.6 }}
-className="mt-2 sm:mt-3 font-caps text-[0.85rem] uppercase text-faded"
+className="mt-2 sm:mt-3 font-caps text-[1rem] uppercase text-faded"
 >
 Indra Prasad Pathak, Language Literature Editor.
 </motion.div>
@@ -124,7 +124,7 @@ Indra Prasad Pathak, Language Literature Editor.
 {/* ✦ Asymmetric masonry-ish grid */}
 <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-10">
 {press.map((p, i) => {
-const isFeature = i === 0 || i === 4;
+const isFeature = i === 0 || i === 3 || i === 4;
 const isOffset = i === 1 || i === 3;
 return (
 <motion.figure
@@ -158,7 +158,7 @@ background:
 <span className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
 {p.publication}
 </span>
-<span className="font-caps text-[0.65rem] sm:text-[0.7rem] tracking-[0.4em] uppercase text-ink-soft shrink-0">
+<span className="font-caps text-[0.8rem] sm:text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft shrink-0">
 {p.year}
 </span>
 </div>
@@ -195,15 +195,15 @@ className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-rule flex items-center gap-
 >
 <span className="h-px w-6 sm:w-8 bg-ink" />
 <div>
-<div className="font-serif text-sm sm:text-base text-ink">
+<div className="font-serif text-text-base sm:text-text-lg text-ink">
 {p.author}
 </div>
 {p.subtitle ? (
-<div className="font-caps text-[0.6rem] sm:text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
 {p.subtitle}
 </div>
 ) : p.publication && (
-<div className="font-caps text-[0.6rem] sm:text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft">
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
 For {p.publication}
 </div>
 )}

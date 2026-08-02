@@ -32,7 +32,7 @@ export default function Prologue() {
           <div className="paper-grain absolute inset-0 pointer-events-none" />
           <div className="relative mx-auto max-w-7xl">
             <div className="flex flex-col items-center text-center">
-              <span className="font-caps text-[0.72rem] tracking-[0.4em] uppercase text-ink-soft">The Chapters</span>
+              <span className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">The Chapters</span>
               <h2 className="mt-3 font-serif text-5xl sm:text-6xl lg:text-7xl text-ink">Explore the <em className="text-oxblood">portfolio</em></h2>
             </div>
             <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-rule">
@@ -59,12 +59,12 @@ export default function Prologue() {
                       <span className="font-display text-5xl text-oxblood leading-none">{String(i + 2).padStart(2, "0")}</span>
                       <span className="fleuron text-gold text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500">❦</span>
                     </div>
-                    <div className="font-caps text-[0.65rem] tracking-[0.4em] uppercase text-ink-soft mb-3">{h.chapter}</div>
+                    <div className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mb-3">{h.chapter}</div>
                     <h3 className="font-serif text-3xl text-ink group-hover:text-oxblood transition-colors duration-500">{h.title}</h3>
-                    <p className="mt-3 font-serif text-base text-ink-soft">{h.desc}</p>
-                    <div className="mt-6 flex items-center gap-2 text-link font-caps text-[0.7rem] tracking-[0.35em] uppercase group-hover:gap-4 transition-all duration-500">
+                    <p className="mt-3 font-serif text-text-lg text-ink-soft">{h.desc}</p>
+                    <div className="mt-6 flex items-center gap-2 text-link font-caps text-[0.85rem] tracking-[0.35em] uppercase group-hover:gap-4 transition-all duration-500">
                       <span>Explore</span>
-                      <span className="font-display text-sm">→</span>
+                      <span className="font-display text-text-base">→</span>
                     </div>
                   </Link>
                 </motion.div>
