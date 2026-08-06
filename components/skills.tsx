@@ -75,6 +75,7 @@ className="relative py-section px-6 lg:px-12 overflow-hidden bg-parchment-2"
 eyebrow="Chapter III"
 title="Of the Craft"
 subtitle="What the work is made of, and what the work is made for."
+as="h1"
 />
 
 {/* ✦ Wide photographic band — the desk (ken burns) */}

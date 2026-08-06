@@ -427,10 +427,12 @@ export function SectionHeader({
 eyebrow,
 title,
 subtitle,
+as = "h2",
 }: {
 eyebrow: string;
 title: string;
 subtitle: ReactNode;
+as?: "h1" | "h2";
 }) {
 return (
 <div className="text-center max-w-3xl mx-auto">
@@ -460,15 +462,27 @@ className="h-px w-12 bg-ink origin-left"
 />
 </motion.div>
 
-<motion.h2
-initial={{ opacity: 0, y: 20 }}
-whileInView={{ opacity: 1, y: 0 }}
-viewport={{ once: true }}
-transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-ink leading-[1.05]"
->
-{title}
-</motion.h2>
+{as === "h1" ? (
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-ink leading-[1.05]"
+        >
+          {title}
+        </motion.h1>
+      ) : (
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-ink leading-[1.05]"
+        >
+          {title}
+        </motion.h2>
+      )}
 
 <motion.div
 initial={{ opacity: 0, scale: 0 }}

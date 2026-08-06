@@ -44,8 +44,9 @@ className="relative py-section px-6 lg:px-12 overflow-hidden bg-parchment-2"
 <div className="relative mx-auto max-w-7xl">
 <SectionHeader
 eyebrow="Chapter V"
-title="Contact"
-subtitle="To write to Darshan Pathak, please use the form below, or email directly."
+title="Letters"
+subtitle="Write to Darshan Pathak — prose to paper, ink to postbox."
+as="h1"
 />
 
 <div className="mt-16 sm:mt-20 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">

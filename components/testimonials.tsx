@@ -63,6 +63,7 @@ className="relative py-section px-6 lg:px-12 overflow-hidden"
 eyebrow="Chapter IV"
 title="Of the Reception"
 subtitle="What the readers and the well-wishers have said of White Words, First Edition."
+as="h1"
 />
 
 {/* ✦ Compact press photograph band — ken burns */}

@@ -49,6 +49,7 @@ className="relative py-section px-6 lg:px-12 overflow-hidden"
 eyebrow="Chapter II"
 title="The Library"
 subtitle="One book, 93 articles — the complete works."
+as="h1"
 />
 
 {/* ✦ Count — single volume */}
