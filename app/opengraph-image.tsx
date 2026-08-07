@@ -15,9 +15,10 @@ async function loadFont(url: string): Promise<ArrayBuffer | null> {
 }
 
 export default async function OpengraphImage() {
-  const [italiana, cormorant] = await Promise.all([
-    loadFont("https://cdn.jsdelivr.net/fontsource/fonts/italiana@latest/latin-400-normal.ttf"),
-    loadFont("https://cdn.jsdelivr.net/fontsource/fonts/cormorant-garamond@latest/latin-400-normal.ttf"),
+  const [fraunces, sourceSerif, sourceSerifItalic] = await Promise.all([
+    loadFont("https://cdn.jsdelivr.net/fontsource/fonts/fraunces@latest/latin-600-normal.ttf"),
+    loadFont("https://cdn.jsdelivr.net/fontsource/fonts/source-serif-4@latest/latin-400-normal.ttf"),
+    loadFont("https://cdn.jsdelivr.net/fontsource/fonts/source-serif-4@latest/latin-400-italic.ttf"),
   ]);
 
   return new ImageResponse(
@@ -77,7 +78,7 @@ export default async function OpengraphImage() {
             letterSpacing: "0.55em",
             textTransform: "uppercase",
             color: "rgba(0,0,0,0.55)",
-            fontFamily: cormorant ? "Cormorant Garamond" : "Georgia",
+            fontFamily: sourceSerif ? "Source Serif 4" : "Georgia",
           }}
         >
           THE OFFICIAL BOOKSTORE · 2023
@@ -99,7 +100,7 @@ export default async function OpengraphImage() {
             fontSize: 150,
             letterSpacing: "0.01em",
             lineHeight: 1,
-            fontFamily: italiana ? "Italiana" : "Georgia",
+            fontFamily: fraunces ? "Fraunces" : "Georgia",
           }}
         >
           White Words
@@ -130,7 +131,7 @@ export default async function OpengraphImage() {
             fontStyle: "italic",
             textAlign: "center",
             color: "rgba(0,0,0,0.78)",
-            fontFamily: cormorant ? "Cormorant Garamond" : "Georgia",
+            fontFamily: sourceSerif ? "Source Serif 4" : "Georgia",
           }}
         >
           93 articles on love, spirit, science &amp; the quiet architecture of the mind
@@ -162,7 +163,7 @@ export default async function OpengraphImage() {
                 fontSize: 40,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                fontFamily: italiana ? "Italiana" : "Georgia",
+                fontFamily: fraunces ? "Fraunces" : "Georgia",
               }}
             >
               {SITE_NAME}
@@ -173,7 +174,7 @@ export default async function OpengraphImage() {
                 letterSpacing: "0.35em",
                 textTransform: "uppercase",
                 color: "rgba(0,0,0,0.5)",
-                fontFamily: cormorant ? "Cormorant Garamond" : "Georgia",
+                fontFamily: sourceSerif ? "Source Serif 4" : "Georgia",
               }}
             >
               Author · Microbiologist · Sociologist
@@ -193,7 +194,7 @@ export default async function OpengraphImage() {
             fontSize: 20,
             letterSpacing: "0.4em",
             color: "rgba(0,0,0,0.45)",
-            fontFamily: cormorant ? "Cormorant Garamond" : "Georgia",
+            fontFamily: sourceSerif ? "Source Serif 4" : "Georgia",
           }}
         >
           ISBN 978-9937-1-3757-7
@@ -203,11 +204,14 @@ export default async function OpengraphImage() {
     {
       ...size,
       fonts: [
-        ...(italiana
-          ? [{ name: "Italiana", data: italiana, style: "normal" as const, weight: 400 as const }]
+        ...(fraunces
+          ? [{ name: "Fraunces", data: fraunces, style: "normal" as const, weight: 600 as const }]
           : []),
-        ...(cormorant
-          ? [{ name: "Cormorant Garamond", data: cormorant, style: "normal" as const, weight: 400 as const }]
+        ...(sourceSerif
+          ? [{ name: "Source Serif 4", data: sourceSerif, style: "normal" as const, weight: 400 as const }]
+          : []),
+        ...(sourceSerifItalic
+          ? [{ name: "Source Serif 4", data: sourceSerifItalic, style: "italic" as const, weight: 400 as const }]
           : []),
       ],
     }

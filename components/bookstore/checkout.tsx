@@ -29,148 +29,107 @@ return `$${n.toFixed(2)}`;
 }
 
 /* ============================================================
-CREDIT CARD
+eSEWA QR PAYMENT
 ============================================================ */
 
-function formatCardNumber(value: string): string {
-const digits = value.replace(/\D/g, "").slice(0, 16);
-return digits.replace(/(.{4})/g, "$1 ").trim();
-}
-
-function maskCardNumber(value: string): string {
-const digits = value.replace(/\D/g, "");
-if (digits.length <= 4) return digits;
-const last4 = digits.slice(-4);
-const masked = digits.slice(0, -4).replace(/\d/g, "•");
-const grouped = (masked + last4).replace(/(.{4})/g, "$1 ").trim();
-return grouped;
-}
-
-function CreditCardDisplay({
-number,
-name,
-expiry,
-cvv,
-flip,
+function QRDisplay({
+  amount,
+  focused,
 }: {
-number: string;
-name: string;
-expiry: string;
-cvv: string;
-flip: boolean;
+  amount: string;
+  focused: string | null;
 }) {
-return (
-<div className="[perspective:1000px] w-full max-w-[340px] mx-auto h-[200px]">
-<motion.div
-animate={{ rotateY: flip ? 180 : 0 }}
-transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-className="relative w-full h-full [transform-style:preserve-3d]"
->
-{/* Front */}
-<div className="absolute inset-0 [backface-visibility:hidden]">
-<div className="w-full h-full bg-gradient-to-br from-ink-3 via-ink to-ink-2 border border-ink-2 rounded-[14px] p-6 flex flex-col justify-between shadow-xl">
-{/* Top row */}
-<div className="flex items-center justify-between">
-<motion.div
-animate={{ opacity: number ? 1 : 0.4 }}
-className="flex items-center gap-1"
->
-<span className="text-vellum/50 font-caps text-[1rem] tracking-[0.2em]">
-{number.replace(/\D/g, "").startsWith("4")
-? "VISA"
-: number.replace(/\D/g, "").startsWith("5")
-? "MASTERCARD"
-: "CREDIT"}
-</span>
-</motion.div>
-<motion.div
-initial={{ scale: 0 }}
-animate={{ scale: 1 }}
-transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-className="w-10 h-7 rounded-md bg-gradient-to-br from-gold/80 to-gold-2/80 flex items-center justify-center"
->
-<span className="text-ink font-caps text-[1rem] tracking-[0.15em]">
-{number.replace(/\D/g, "").startsWith("4")
-? "VISA"
-: number.replace(/\D/g, "").startsWith("5")
-? "MC"
-: "CC"}
-</span>
-</motion.div>
-</div>
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{
+        opacity: 1,
+        y: 0,
+        rotateY: focused === "txnId" ? -6 : 0,
+        rotateX: focused === "payerPhone" ? 4 : 0,
+      }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="[perspective:1000px] w-full max-w-[340px] mx-auto"
+    >
+      <div className="relative w-full [transform-style:preserve-3d]">
+        <div className="w-full bg-gradient-to-br from-ink-3 via-ink to-ink-2 border border-ink-2 rounded-[14px] p-6 shadow-xl">
+          {/* Top row */}
+          <div className="flex items-center justify-between mb-4">
+            <motion.div
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.15 }}
+              className="flex items-center gap-1"
+            >
+              <span className="text-vellum/60 font-caps text-[1rem] tracking-[0.2em]">
+                eSEWA
+              </span>
+            </motion.div>
+            <motion.span
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              className="px-2 py-0.5 rounded bg-gradient-to-br from-gold/80 to-gold-2/80 text-ink font-caps text-[0.9rem] tracking-[0.15em]"
+            >
+              QR
+            </motion.span>
+          </div>
 
-{/* Card number */}
-<div className="mt-2">
-<motion.p
-key={number}
-initial={{ opacity: 0, y: 5 }}
-animate={{ opacity: 1, y: 0 }}
-className="font-mono text-xl tracking-[0.2em] text-vellum/90"
->
-{maskCardNumber(number) || (
-<span className="text-vellum/30 text-text-lg">•••• •••• •••• ••••</span>
-)}
-</motion.p>
-</div>
+          {/* QR image */}
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="relative aspect-square bg-vellum rounded-lg p-3 flex items-center justify-center shadow-inner"
+          >
+            <motion.div
+              animate={{ scale: [1, 1.02, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              className="relative w-full h-full"
+            >
+              <Image
+                src="/PHOTO-2026-07-25-14-04-28.jpg"
+                alt="eSewa payment QR code"
+                fill
+                className="object-contain"
+              />
+            </motion.div>
+          </motion.div>
 
-{/* Bottom row */}
-<div className="flex items-end justify-between">
-<div>
-<p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
-Cardholder
-</p>
-<motion.p
-key={name}
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-className="font-serif text-text-base tracking-wider text-vellum/80 uppercase"
->
-{name || "YOUR NAME"}
-</motion.p>
-</div>
-<div className="text-right">
-<p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
-Expires
-</p>
-<motion.p
-key={expiry}
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-className="font-mono text-text-base text-vellum/80"
->
-{expiry || "MM/YY"}
-</motion.p>
-</div>
-</div>
-</div>
-</div>
+          {/* Amount */}
+          <div className="mt-4 text-center">
+            <p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
+              Amount to pay
+            </p>
+            <motion.p
+              key={amount}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-display text-2xl text-gold"
+            >
+              {amount}
+            </motion.p>
+          </div>
 
-{/* Back */}
-<div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-<div className="w-full h-full bg-gradient-to-br from-ink-3 via-ink to-ink-2 border border-ink-2 rounded-[14px] overflow-hidden shadow-xl">
-{/* Magnetic stripe */}
-<div className="mt-6 h-10 bg-ink-3/80" />
-{/* Signature strip */}
-<div className="mx-6 mt-4 h-8 bg-parchment/20 rounded flex items-center justify-end px-3">
-{cvv && (
-<motion.span
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-className="font-mono text-text-base text-ink tracking-widest"
->
-{cvv}
-</motion.span>
-)}
-</div>
-<p className="mx-6 mt-3 font-caps text-[1rem] tracking-[0.2em] text-vellum/30">
-This card is issued by The Pathak Estate Bank. Authorised signature
-required.
-</p>
-</div>
-</div>
-</motion.div>
-</div>
-);
+          <p className="mt-3 font-caps text-[0.7rem] tracking-[0.25em] text-vellum/35 text-center">
+            Scan &amp; pay with eSewa · The Pathak Estate
+          </p>
+        </div>
+
+        {/* Instructions */}
+        <motion.ol
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-4 bg-parchment/60 border border-rule p-4 list-decimal list-inside space-y-1 font-serif text-text-base text-ink-soft"
+        >
+          <li>Scan this QR in the eSewa app.</li>
+          <li>Pay the exact amount shown above.</li>
+          <li>Enter the transaction details from your receipt below.</li>
+        </motion.ol>
+      </div>
+    </motion.div>
+  );
 }
 
 /* ============================================================
@@ -602,232 +561,137 @@ PAYMENT FORM
 ============================================================ */
 
 interface PaymentInfo {
-cardNumber: string;
-cardName: string;
-expiry: string;
-cvv: string;
+txnId: string;
+payerName: string;
+payerPhone: string;
 }
 
 function PaymentForm({
-data,
-onChange,
-onNext,
-onBack,
+  items,
+  data,
+  onChange,
+  onNext,
+  onBack,
 }: {
-data: PaymentInfo;
-onChange: (d: PaymentInfo) => void;
-onNext: () => void;
-onBack: () => void;
+  items: CartItem[];
+  data: PaymentInfo;
+  onChange: (d: PaymentInfo) => void;
+  onNext: () => void;
+  onBack: () => void;
 }) {
 const [focused, setFocused] = useState<string | null>(null);
 const [errors, setErrors] = useState<Partial<Record<keyof PaymentInfo, string>>>({});
-const numRef = useRef<HTMLInputElement>(null);
+const txnRef = useRef<HTMLInputElement>(null);
+
+const total = items.reduce(
+  (s, i) => s + parsePrice(i.price) * i.quantity,
+  0
+);
 
 useEffect(() => {
-numRef.current?.focus();
+  txnRef.current?.focus();
 }, []);
 
 const validate = () => {
-const errs: Partial<Record<keyof PaymentInfo, string>> = {};
-const digits = data.cardNumber.replace(/\D/g, "");
-if (digits.length < 13) errs.cardNumber = "Invalid card number";
-if (!data.cardName.trim()) errs.cardName = "Required";
-if (!/^\d{2}\/\d{2}$/.test(data.expiry)) errs.expiry = "MM/YY required";
-if (!/^\d{3,4}$/.test(data.cvv)) errs.cvv = "Invalid CVV";
-setErrors(errs);
-return Object.keys(errs).length === 0;
+  const errs: Partial<Record<keyof PaymentInfo, string>> = {};
+  if (!data.txnId.trim()) errs.txnId = "Required";
+  if (!data.payerName.trim()) errs.payerName = "Required";
+  if (data.payerPhone.replace(/\D/g, "").length < 10)
+    errs.payerPhone = "Valid mobile number required";
+  setErrors(errs);
+  return Object.keys(errs).length === 0;
 };
 
 const handleSubmit = (e: React.FormEvent) => {
-e.preventDefault();
-if (validate()) onNext();
+  e.preventDefault();
+  if (validate()) onNext();
 };
 
-const handleCardNumber = (value: string) => {
-const digits = value.replace(/\D/g, "").slice(0, 16);
-onChange({ ...data, cardNumber: digits });
-};
-
-const handleExpiry = (value: string) => {
-let digits = value.replace(/\D/g, "").slice(0, 4);
-if (digits.length >= 3) digits = digits.slice(0, 2) + "/" + digits.slice(2);
-onChange({ ...data, expiry: digits });
-};
-
-const handleCvv = (value: string) => {
-onChange({ ...data, cvv: value.replace(/\D/g, "").slice(0, 4) });
-};
+const field = (
+  label: string,
+  key: keyof PaymentInfo,
+  placeholder: string,
+  opts?: { type?: string }
+) => (
+  <div>
+    <label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+      {label}
+    </label>
+    <input
+      ref={key === "txnId" ? txnRef : undefined}
+      type={opts?.type || "text"}
+      value={data[key]}
+      onChange={(e) => onChange({ ...data, [key]: e.target.value })}
+      onFocus={() => setFocused(key)}
+      onBlur={() => setFocused(null)}
+      placeholder={placeholder}
+      className={`w-full bg-transparent border px-3 py-2.5 font-serif text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
+        errors[key]
+          ? "border-oxblood"
+          : "border-rule hover:border-ink/40 focus:border-ink"
+      }`}
+    />
+    {errors[key] && (
+      <motion.p
+        initial={{ opacity: 0, y: -5 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
+      >
+        {errors[key]}
+      </motion.p>
+    )}
+  </div>
+);
 
 return (
 <div>
-{/* Animated card */}
-<div className="mb-8">
-<CreditCardDisplay
-number={data.cardNumber}
-name={data.cardName}
-expiry={data.expiry}
-cvv={data.cvv}
-flip={focused === "cvv"}
-/>
-</div>
+  {/* Animated QR payment */}
+  <div className="mb-8">
+    <QRDisplay amount={formatPrice(total)} focused={focused} />
+  </div>
 
-<form onSubmit={handleSubmit} className="space-y-5">
-<div className="flex items-center justify-between">
-<div>
-<h3 className="font-display text-2xl text-ink mb-1">Payment</h3>
-<p className="font-serif text-text-lg text-ink-soft">
-Secure checkout — your details are encrypted.
-</p>
-</div>
-<motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-className="flex items-center gap-1 text-faded"
->
-<span className="font-caps text-[0.8rem] tracking-[0.15em] border border-rule px-1.5 py-0.5">
-SSL
-</span>
-<span className="text-text-lg">🔒</span>
-</motion.div>
-</div>
-<div className="h-px bg-rule" />
+  <form onSubmit={handleSubmit} className="space-y-5">
+    <div className="flex items-center justify-between">
+      <div>
+        <h3 className="font-display text-2xl text-ink mb-1">Payment</h3>
+        <p className="font-serif text-text-lg text-ink-soft">
+          Pay by scanning the eSewa QR, then confirm your transaction below.
+        </p>
+      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="flex items-center gap-1 text-faded"
+      >
+        <span className="font-caps text-[0.8rem] tracking-[0.15em] border border-rule px-1.5 py-0.5">
+          eSewa
+        </span>
+      </motion.div>
+    </div>
+    <div className="h-px bg-rule" />
 
-<div>
-<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
-Card Number
-</label>
-<input
-ref={numRef}
-type="text"
-inputMode="numeric"
-value={formatCardNumber(data.cardNumber)}
-onChange={(e) => handleCardNumber(e.target.value)}
-onFocus={() => setFocused("number")}
-onBlur={() => setFocused(null)}
-placeholder="1234 5678 9012 3456"
-className={`w-full bg-transparent border px-3 py-2.5 font-mono text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
-errors.cardNumber
-? "border-oxblood"
-: "border-rule hover:border-ink/40 focus:border-ink"
-}`}
-/>
-{errors.cardNumber && (
-<motion.p
-initial={{ opacity: 0, y: -5 }}
-animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
->
-{errors.cardNumber}
-</motion.p>
-)}
-</div>
+    {field("eSewa Transaction ID", "txnId", "Transaction ID from your eSewa receipt")}
+    {field("Payer Name", "payerName", "Darshan Pathak")}
+    {field("eSewa Mobile Number", "payerPhone", "98XXXXXXXX", { type: "tel" })}
 
-<div>
-<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
-Cardholder Name
-</label>
-<input
-type="text"
-value={data.cardName}
-onChange={(e) => onChange({ ...data, cardName: e.target.value })}
-onFocus={() => setFocused("name")}
-onBlur={() => setFocused(null)}
-placeholder="Darshan Pathak"
-className={`w-full bg-transparent border px-3 py-2.5 font-serif text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
-errors.cardName
-? "border-oxblood"
-: "border-rule hover:border-ink/40 focus:border-ink"
-}`}
-/>
-{errors.cardName && (
-<motion.p
-initial={{ opacity: 0, y: -5 }}
-animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
->
-{errors.cardName}
-</motion.p>
-)}
-</div>
-
-<div className="grid grid-cols-2 gap-4">
-<div>
-<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
-Expiry
-</label>
-<input
-type="text"
-inputMode="numeric"
-autoComplete="cc-exp"
-value={data.expiry}
-onChange={(e) => handleExpiry(e.target.value)}
-onFocus={() => setFocused("expiry")}
-onBlur={() => setFocused(null)}
-placeholder="MM/YY"
-className={`w-full bg-transparent border px-3 py-2.5 font-mono text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
-errors.expiry
-? "border-oxblood"
-: "border-rule hover:border-ink/40 focus:border-ink"
-}`}
-/>
-{errors.expiry && (
-<motion.p
-initial={{ opacity: 0, y: -5 }}
-animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
->
-{errors.expiry}
-</motion.p>
-)}
-</div>
-<div>
-<label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
-CVV
-</label>
-<input
-type="text"
-inputMode="numeric"
-value={data.cvv}
-onChange={(e) => handleCvv(e.target.value)}
-onFocus={() => setFocused("cvv")}
-onBlur={() => setFocused(null)}
-placeholder="123"
-className={`w-full bg-transparent border px-3 py-2.5 font-mono text-text-lg text-ink placeholder:text-faded/50 outline-none transition-colors duration-200 ${
-errors.cvv
-? "border-oxblood"
-: "border-rule hover:border-ink/40 focus:border-ink"
-}`}
-/>
-{errors.cvv && (
-<motion.p
-initial={{ opacity: 0, y: -5 }}
-animate={{ opacity: 1, y: 0 }}
-className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
->
-{errors.cvv}
-</motion.p>
-)}
-</div>
-</div>
-
-<div className="flex gap-3 pt-4">
-<button
-type="button"
-onClick={onBack}
-className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
->
-Back
-</button>
-<motion.button
-whileHover={{ scale: 1.01 }}
-whileTap={{ scale: 0.99 }}
-type="submit"
-className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
->
-Review Order
-</motion.button>
-</div>
-</form>
+    <div className="flex gap-3 pt-4">
+      <button
+        type="button"
+        onClick={onBack}
+        className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
+      >
+        Back
+      </button>
+      <motion.button
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        type="submit"
+        className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
+      >
+        Review Order
+      </motion.button>
+    </div>
+  </form>
 </div>
 );
 }
@@ -925,9 +789,16 @@ Qty: {item.quantity}
 <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
 Payment
 </p>
-<div className="bg-parchment/60 border border-rule p-4 font-mono text-text-base text-ink flex items-center gap-3">
-<span className="text-faded">•••• •••• ••••</span>
-<span>{payment.cardNumber.slice(-4)}</span>
+<div className="bg-parchment/60 border border-rule p-4 space-y-1.5">
+  <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-faded">
+    Paid via eSewa QR
+  </p>
+  <p className="font-mono text-text-base text-ink">
+    Txn: {payment.txnId}
+  </p>
+  <p className="font-serif text-base text-ink-soft">
+    {payment.payerName} · {payment.payerPhone}
+  </p>
 </div>
 </div>
 
@@ -981,10 +852,9 @@ province: "",
 postal: "",
 });
 const [payment, setPayment] = useState<PaymentInfo>({
-cardNumber: "",
-cardName: "",
-expiry: "",
-cvv: "",
+  txnId: "",
+  payerName: "",
+  payerPhone: "",
 });
 const [orderNumber, setOrderNumber] = useState("");
 
@@ -1050,11 +920,12 @@ format={format}
 )}
 {step === 1 && (
 <PaymentForm
-data={payment}
-onChange={setPayment}
-onNext={() => setStep(2)}
-onBack={() => setStep(0)}
-/>
+        items={items}
+        data={payment}
+        onChange={setPayment}
+        onNext={() => setStep(2)}
+        onBack={() => setStep(0)}
+      />
 )}
 {step === 2 && (
 <ReviewOrder

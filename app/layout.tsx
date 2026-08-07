@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Italiana, Cormorant_Garamond, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Source_Serif_4, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { PageLoader } from "@/components/page-loader";
 import {
@@ -11,14 +11,15 @@ import {
   AUTHOR,
 } from "@/lib/site";
 
-const italiana = Italiana({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
   variable: "--font-display-var",
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
+const sourceSerif = Source_Serif_4({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
@@ -100,7 +101,7 @@ export default function RootLayout({
     <html
       lang="en"
       data-scroll-behavior="smooth"
-      className={`${italiana.variable} ${cormorant.variable} ${jetbrains.variable}`}
+      className={`${fraunces.variable} ${sourceSerif.variable} ${jetbrains.variable}`}
     >
       <body className="relative min-h-screen">
         <PageLoader />
