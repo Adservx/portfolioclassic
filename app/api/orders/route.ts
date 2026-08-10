@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { initFirebaseAdmin, initFirebaseMessaging } from "@/lib/firebase-admin";
 import { sendNewOrderAdminEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
+import * as firestoreAdmin from "firebase-admin/firestore";
 
 export interface OrderItemPayload {
   id: number;
@@ -121,19 +122,33 @@ async function pushNewOrderToAdmins(
 ) {
   const admins = await db.collection("admins").get();
   const tokens = admins.docs
-    .map((d) => d.data().fcmToken as string | undefined)
-    .filter(Boolean) as string[];
+    .map((d) => ({ uid: d.id, token: d.data().fcmToken as string | undefined }))
+    .filter((e): e is { uid: string; token: string } => typeof e.token === "string");
   if (!tokens.length) return;
   const messaging = initFirebaseMessaging();
   await Promise.allSettled(
-    tokens.map((token) =>
-      messaging.send({
-        token,
-        notification: {
-          title: `New order ${orderNumber}`,
-          body: `${buyerName} · ${format} · ${total}`,
-        },
-      })
+    tokens.map(({ uid, token }) =>
+      messaging
+        .send({
+          token,
+          notification: {
+            title: `New order ${orderNumber}`,
+            body: `${buyerName} · ${format} · ${total}`,
+          },
+        })
+        .catch(async (err) => {
+          const code = (err as { errorInfo?: { code?: string } })?.errorInfo?.code ?? "";
+          if (code.includes("not-registered") || code.includes("invalid-argument")) {
+            await db
+              .collection("admins")
+              .doc(uid)
+              .update({ fcmToken: firestoreAdmin.FieldValue.delete() })
+              .catch(() => {});
+            console.warn(`Pruned stale FCM token for admin ${uid} (${code})`);
+          } else {
+            console.error(`Push to admin ${uid} failed (${code || err}):`, err);
+          }
+        })
     )
   );
 }

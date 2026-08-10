@@ -45,3 +45,6 @@ service-account.json
 
 .firebase/
 .env*
+
+# admin app (separate deployment, not part of this repo)
+admin-app/
