@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   collection,
+  deleteDoc,
   doc,
   onSnapshot,
   orderBy,
@@ -36,6 +37,7 @@ export default function DashboardPage() {
   const [filter, setFilter] = useState<"all" | "pending" | "confirmed">("all");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [confirmingId, setConfirmingId] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [notif, setNotif] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
 
   useEffect(() => {
@@ -104,6 +106,21 @@ export default function DashboardPage() {
       setNotif({ kind: "err", text: err instanceof Error ? err.message : "Confirmation failed" });
     } finally {
       setConfirmingId(null);
+    }
+  };
+
+  const deleteOrder = async (order: OrderRecord) => {
+    if (!window.confirm(`Delete order ${order.orderNumber}? This cannot be undone.`)) return;
+    setDeletingId(order.id);
+    setNotif(null);
+    try {
+      await deleteDoc(doc(getFirestoreClient(), "orders", order.id));
+      setNotif({ kind: "ok", text: `${order.orderNumber} deleted.` });
+      if (selectedId === order.id) setSelectedId(null);
+    } catch (err) {
+      setNotif({ kind: "err", text: err instanceof Error ? err.message : "Delete failed" });
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -263,6 +280,13 @@ export default function DashboardPage() {
                     {confirmingId === selected.id ? "Confirming…" : "Confirm order"}
                   </button>
                 )}
+                <button
+                  onClick={() => deleteOrder(selected)}
+                  disabled={deletingId === selected.id}
+                  className="inline-block rounded border border-red-800 px-5 py-2 text-sm text-red-400 hover:bg-red-950 hover:text-red-300 disabled:opacity-50 cursor-pointer"
+                >
+                  {deletingId === selected.id ? "Deleting…" : "Delete order"}
+                </button>
               </div>
             </div>
 
