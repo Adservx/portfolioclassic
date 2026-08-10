@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { initFirebaseAdmin, initFirebaseMessaging } from "@/lib/firebase-admin";
-import { sendNewOrderAdminEmail } from "@/lib/email";
+import { sendNewOrderAdminEmail, sendOrderConfirmationEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export interface OrderItemPayload {
@@ -101,6 +101,34 @@ export async function POST(request: Request) {
     });
   } catch (err) {
     console.error("New-order email failed (non-fatal):", err);
+  }
+
+  try {
+    await sendOrderConfirmationEmail({
+      orderNumber,
+      buyerName: shipping.name,
+      buyerEmail: shipping.email,
+      format,
+      total,
+      items,
+      address: [
+        shipping.address,
+        shipping.municipality,
+        shipping.city,
+        shipping.ward,
+        shipping.province,
+        shipping.postal,
+      ]
+        .filter(Boolean)
+        .join(", "),
+      downloadUrl,
+      siteUrl: SITE_URL,
+      siteName: SITE_NAME,
+      authorName: AUTHOR.name,
+      authorEmail: AUTHOR.email,
+    });
+  } catch (err) {
+    console.error("Buyer confirmation email failed (non-fatal):", err);
   }
 
   try {
