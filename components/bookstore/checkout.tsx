@@ -4,6 +4,19 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
 
+async function fileToDataUrl(file: File): Promise<string> {
+  const maxDim = 1000;
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  const ctx = canvas.getContext("2d");
+  if (!ctx) throw new Error("Canvas unsupported");
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  return canvas.toDataURL("image/jpeg", 0.75);
+}
+
 interface CartItem {
 id: number;
 title: string;
@@ -396,8 +409,8 @@ Thank You
 </h2>
 <p className="font-serif text-lg text-ink-soft max-w-md mx-auto">
 {format === "digital"
-? "Your digital copy is ready — a download link has been sent to your email."
-: "Your order has been received and will be dispatched from the author&rsquo;s study within 2–4 weeks."}
+? "We've received your order. Once the author confirms your payment, your download link will arrive in your email."
+: "Your order has been received and will be dispatched from the author&rsquo;s study within 2–4 weeks, once payment is confirmed."}
 </p>
 
 {/* Order number */}
@@ -564,6 +577,8 @@ interface PaymentInfo {
 txnId: string;
 payerName: string;
 payerPhone: string;
+screenshotUrl: string;
+screenshotStatus: "idle" | "uploading" | "done" | "error";
 }
 
 function PaymentForm({
@@ -572,16 +587,19 @@ function PaymentForm({
   onChange,
   onNext,
   onBack,
+  submitError,
 }: {
   items: CartItem[];
   data: PaymentInfo;
   onChange: (d: PaymentInfo) => void;
   onNext: () => void;
   onBack: () => void;
+  submitError: string;
 }) {
 const [focused, setFocused] = useState<string | null>(null);
 const [errors, setErrors] = useState<Partial<Record<keyof PaymentInfo, string>>>({});
 const txnRef = useRef<HTMLInputElement>(null);
+const fileRef = useRef<HTMLInputElement>(null);
 
 const total = items.reduce(
   (s, i) => s + parsePrice(i.price) * i.quantity,
@@ -591,6 +609,17 @@ const total = items.reduce(
 useEffect(() => {
   txnRef.current?.focus();
 }, []);
+
+const handleScreenshot = async (file: File | undefined) => {
+  if (!file) return;
+  onChange({ ...data, screenshotUrl: "", screenshotStatus: "uploading" });
+  try {
+    const dataUrl = await fileToDataUrl(file);
+    onChange({ ...data, screenshotUrl: dataUrl, screenshotStatus: "done" });
+  } catch {
+    onChange({ ...data, screenshotUrl: "", screenshotStatus: "error" });
+  }
+};
 
 const validate = () => {
   const errs: Partial<Record<keyof PaymentInfo, string>> = {};
@@ -674,6 +703,56 @@ return (
     {field("Payer Name", "payerName", "Darshan Pathak")}
     {field("eSewa Mobile Number", "payerPhone", "98XXXXXXXX", { type: "tel" })}
 
+    {/* Payment screenshot */}
+    <div>
+      <label className="block font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-1.5">
+        Payment Screenshot (optional)
+      </label>
+      <input
+        ref={fileRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        onChange={(e) => handleScreenshot(e.target.files?.[0])}
+        className="hidden"
+      />
+      {data.screenshotUrl ? (
+        <div className="relative aspect-video max-w-xs overflow-hidden border border-rule bg-parchment">
+          <Image
+            src={data.screenshotUrl}
+            alt="Payment screenshot"
+            fill
+            className="object-contain"
+            unoptimized
+          />
+        </div>
+      ) : null}
+      <button
+        type="button"
+        onClick={() => fileRef.current?.click()}
+        disabled={data.screenshotStatus === "uploading"}
+        className="w-full border border-rule px-3 py-2.5 font-caps text-[0.9rem] tracking-[0.25em] text-ink-soft hover:text-ink hover:border-ink/40 transition-[color,border-color] duration-200 cursor-pointer disabled:opacity-50"
+      >
+        {data.screenshotStatus === "uploading"
+          ? "Uploading…"
+          : data.screenshotStatus === "done"
+            ? "Change screenshot"
+            : data.screenshotStatus === "error"
+              ? "Upload failed — tap to retry"
+              : "Upload payment screenshot"}
+      </button>
+    </div>
+
+    {submitError && (
+      <motion.p
+        initial={{ opacity: 0, y: -5 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood"
+      >
+        {submitError}
+      </motion.p>
+    )}
+
     <div className="flex gap-3 pt-4">
       <button
         type="button"
@@ -706,6 +785,7 @@ shipping,
 payment,
 onBack,
 onPlaceOrder,
+submitting,
 format,
 }: {
 items: CartItem[];
@@ -713,6 +793,7 @@ shipping: ShippingInfo;
 payment: PaymentInfo;
 onBack: () => void;
 onPlaceOrder: () => void;
+submitting: boolean;
 format?: "print" | "digital";
 }) {
 const total = items.reduce(
@@ -799,6 +880,21 @@ Payment
   <p className="font-serif text-base text-ink-soft">
     {payment.payerName} · {payment.payerPhone}
   </p>
+  {payment.screenshotUrl ? (
+    <div className="relative w-full aspect-video overflow-hidden border border-rule bg-parchment mt-2 max-w-sm">
+      <Image
+        src={payment.screenshotUrl}
+        alt="Payment screenshot"
+        fill
+        className="object-contain"
+        unoptimized
+      />
+    </div>
+  ) : (
+    <p className="font-caps text-[0.9rem] tracking-[0.2em] text-faded">
+      No screenshot uploaded
+    </p>
+  )}
 </div>
 </div>
 
@@ -825,9 +921,10 @@ type="button"
 whileHover={{ scale: 1.01 }}
 whileTap={{ scale: 0.99 }}
 onClick={onPlaceOrder}
-className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
+disabled={submitting}
+className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer disabled:opacity-50"
 >
-Place Order
+{submitting ? "Placing…" : "Place Order"}
 </motion.button>
 </div>
 </div>
@@ -855,14 +952,44 @@ const [payment, setPayment] = useState<PaymentInfo>({
   txnId: "",
   payerName: "",
   payerPhone: "",
+  screenshotUrl: "",
+  screenshotStatus: "idle",
 });
 const [orderNumber, setOrderNumber] = useState("");
+const [submitting, setSubmitting] = useState(false);
+const [submitError, setSubmitError] = useState("");
 
-const placeOrder = useCallback(() => {
-const num = `DP-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}`;
-setOrderNumber(num);
-setStep(3);
-}, []);
+const placeOrder = useCallback(async () => {
+  setSubmitting(true);
+  setSubmitError("");
+  try {
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        shipping,
+        payment,
+        items: items.map(({ id, title, price, quantity }) => ({
+          id,
+          title,
+          price,
+          quantity,
+        })),
+        format: format ?? "digital",
+        total: formatPrice(items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0)),
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error ?? "Order could not be placed");
+    setOrderNumber(data.orderNumber);
+    setStep(3);
+  } catch (err) {
+    setSubmitError(err instanceof Error ? err.message : "Order could not be placed");
+    setStep(2);
+  } finally {
+    setSubmitting(false);
+  }
+}, [items, shipping, payment, format]);
 
 return (
 <div className="mx-auto max-w-2xl">
@@ -925,17 +1052,30 @@ format={format}
         onChange={setPayment}
         onNext={() => setStep(2)}
         onBack={() => setStep(0)}
+        submitError={submitError}
       />
 )}
 {step === 2 && (
-<ReviewOrder
-items={items}
-shipping={shipping}
-payment={payment}
-onBack={() => setStep(1)}
-onPlaceOrder={placeOrder}
-format={format}
-/>
+<div className="space-y-4">
+  {submitError && (
+    <motion.p
+      initial={{ opacity: 0, y: -5 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood border border-oxblood/40 px-3 py-2"
+    >
+      {submitError} — please go back and retry.
+    </motion.p>
+  )}
+  <ReviewOrder
+    items={items}
+    shipping={shipping}
+    payment={payment}
+    onBack={() => setStep(1)}
+    onPlaceOrder={placeOrder}
+    submitting={submitting}
+    format={format}
+  />
+</div>
 )}
 {step === 3 && <ProcessingScreen onComplete={() => setStep(4)} />}
 {step === 4 && (

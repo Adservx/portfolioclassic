@@ -34,7 +34,7 @@ text: "First Edition of 'White Words' released — 93 articles spanning love, sp
 {
 period: "Today",
 title: "Author & Researcher",
-text: "Continues writing and research. Lives in Nepal. Email: darshanpathak2082@gmail.com. Phone: +977 9741766064.",
+text: "Continues writing and research. Lives in Nepal. Email: prajolchhetry1@gmail.com. Phone: +977 9741766064.",
 },
 ];
 

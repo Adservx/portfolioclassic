@@ -32,7 +32,7 @@ export const book: Book = {
   pdfUrl: "/bookstore/white-words.pdf",
   isbn: "978-9937-1-3757-7",
   publisher: "Darshan Pathak",
-  email: "darshanpathak2082@gmail.com",
+  email: "prajolchhetry1@gmail.com",
   phone: "+977 9741766064",
   dedication:
     "Dedicated to my wife — B.S.C. Nurse (SGT University, India). “The book WHITE WORDS made me proud and challenge to my soul with no proof of love existence with the character of this book’s words, the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing out.” — The wife.",

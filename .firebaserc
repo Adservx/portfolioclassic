@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "darshanpathak-com-np-67ddf"
+  },
+  "targets": {
+    "darshanpathak-com-np-67ddf": {
+      "hosting": {
+        "admin": ["darshanpathak-admin"]
+      }
+    }
+  }
+}

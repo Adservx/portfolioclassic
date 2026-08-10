@@ -39,3 +39,6 @@ page_*.png
 ocr_chunks/
 \ book.pdf
 public/bookstore/white-words.pdf
+
+# firebase
+service-account.json
