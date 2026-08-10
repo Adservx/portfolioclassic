@@ -44,3 +44,4 @@ public/bookstore/white-words.pdf
 service-account.json
 
 .firebase/
+.env*
