@@ -42,3 +42,5 @@ public/bookstore/white-words.pdf
 
 # firebase
 service-account.json
+
+.firebase/
