@@ -9,7 +9,7 @@ import { InkMotes } from "@/components/ink-motes";
 import { book, type Book } from "@/lib/book";
 
 export function Store() {
-const [mode, setMode] = useState<"catalog" | "checkout" | "complete">("catalog");
+const [mode, setMode] = useState<"catalog" | "checkout">("catalog");
 const [format, setFormat] = useState<"print" | "digital">("print");
 const [quantity, setQuantity] = useState(1);
 
@@ -28,7 +28,7 @@ setMode("catalog");
 }, []);
 
 const handleComplete = useCallback(() => {
-setMode("complete");
+setMode("catalog");
 }, []);
 
 return (
@@ -88,9 +88,6 @@ quantity={quantity}
 onBack={handleBack}
 onComplete={handleComplete}
 />
-)}
-{mode === "complete" && (
-<CompleteView key="complete" format={format} book={book} quantity={quantity} onReturn={handleBack} />
 )}
 </AnimatePresence>
 </div>
@@ -474,149 +471,3 @@ Back to Bookstore
 );
 }
 
-/* =====================================================================
-COMPLETE VIEW — post-purchase
-===================================================================== */
-
-function CompleteView({ onReturn, format, book, quantity }: { onReturn: () => void; format: "print" | "digital"; book: Book; quantity: number }) {
-const orderNumber = `DP-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, "0")}`;
-
-return (
-<motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-exit={{ opacity: 0 }}
-transition={{ duration: 0.4 }}
-className="relative z-10 flex flex-col items-center justify-center min-h-[70vh] px-6"
->
-{/* Wax seal */}
-<motion.div
-initial={{ scale: 5, rotate: -30, opacity: 0 }}
-animate={{ scale: 1, rotate: -8, opacity: 1 }}
-transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], type: "spring", stiffness: 120 }}
-className="w-32 h-32 rounded-full border-4 border-double border-oxblood flex items-center justify-center bg-oxblood/5 mb-8"
->
-<motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-transition={{ delay: 0.4 }}
-className="w-[104px] h-[104px] rounded-full border border-oxblood/40 flex flex-col items-center justify-center"
->
-<motion.span
-initial={{ y: -10, opacity: 0 }}
-animate={{ y: 0, opacity: 1 }}
-transition={{ delay: 0.6 }}
-className="font-display text-oxblood text-lg leading-none"
->
-D · P
-</motion.span>
-<motion.span
-initial={{ y: 10, opacity: 0 }}
-animate={{ y: 0, opacity: 1 }}
-transition={{ delay: 0.7 }}
-className="font-caps text-oxblood/60 text-[0.7rem] tracking-[0.4em] mt-1"
->
-CONFIRMED
-</motion.span>
-</motion.div>
-</motion.div>
-
-{/* Confetti */}
-{[...Array(12)].map((_, i) => (
-<motion.div
-key={i}
-initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
-animate={{
-opacity: [0, 1, 0],
-scale: [0, 1, 0],
-x: Math.cos((i / 12) * Math.PI * 2) * (80 + Math.random() * 60),
-y: Math.sin((i / 12) * Math.PI * 2) * (80 + Math.random() * 60) - 40,
-}}
-transition={{ duration: 1.5, delay: 0.3 + i * 0.05, ease: "easeOut" }}
-className="absolute w-2 h-2"
-style={{
-background: i % 3 === 0 ? "#444444" : i % 3 === 1 ? "#000000" : "#000000",
-clipPath: `polygon(${50 + 50 * Math.cos((i * 60 * Math.PI) / 180)}% ${50 + 50 * Math.sin((i * 60 * Math.PI) / 180)}%, ${50 + 50 * Math.cos(((i * 60 + 120) * Math.PI) / 180)}% ${50 + 50 * Math.sin(((i * 60 + 120) * Math.PI) / 180)}%, ${50 + 50 * Math.cos(((i * 60 + 240) * Math.PI) / 180)}% ${50 + 50 * Math.sin(((i * 60 + 240) * Math.PI) / 180)}%)`,
-}}
-/>
-))}
-
-<motion.div
-initial={{ opacity: 0, y: 20 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ delay: 0.5 }}
-className="text-center relative"
->
-<div className="rule-ornate text-faded max-w-xs mx-auto mb-6">
-<span>Order</span>
-<span className="fleuron text-gold">❦</span>
-<span>Confirmed</span>
-</div>
-
-<h2 className="font-display text-5xl md:text-6xl text-ink leading-[0.9] mb-4">
-Thank You
-</h2>
-<p className="font-serif text-lg text-ink-soft max-w-md mx-auto">
-{format === "print"
-? "Your order has been received and will be dispatched from the author&rsquo;s study within 2–4 weeks."
-: "Your digital copy is ready. Download it below — a receipt has been sent to your email."}
-</p>
-
-{format === "digital" && book.pdfUrl && (
-<motion.div
-initial={{ opacity: 0, y: 10 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ delay: 0.6 }}
-className="mt-6"
->
-<a
-href={book.pdfUrl}
-download
-className="inline-flex items-center gap-2 bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3.5 transition-all duration-300"
->
-<span>Download PDF</span>
-<span className="text-text-lg">↓</span>
-</a>
-</motion.div>
-)}
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
-            className="mt-8 inline-flex items-center gap-3 border border-rule bg-vellum px-6 py-3"
-          >
-            <span className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
-              Order No.
-            </span>
-            <span className="font-mono text-lg text-oxblood">{orderNumber}</span>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="mt-4 font-serif text-text-base text-faded"
-          >
-            {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: {quantity}
-          </motion.p>
-
-<motion.div
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-transition={{ delay: 1.2 }}
-className="mt-10"
->
-<motion.button
-whileHover={{ scale: 1.02 }}
-whileTap={{ scale: 0.98 }}
-onClick={onReturn}
-className="bg-ink text-vellum hover:bg-ink-2 font-caps text-[0.85rem] tracking-[0.35em] uppercase px-8 py-3 transition-all duration-300 cursor-pointer"
->
-Continue Browsing
-</motion.button>
-</motion.div>
-</motion.div>
-</motion.div>
-);
-}
