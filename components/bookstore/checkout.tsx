@@ -540,7 +540,6 @@ PAYMENT FORM
 
 interface PaymentInfo {
 txnId: string;
-payerName: string;
 payerPhone: string;
 screenshotUrl: string;
 screenshotStatus: "idle" | "uploading" | "done" | "error";
@@ -589,7 +588,6 @@ const handleScreenshot = async (file: File | undefined) => {
 const validate = () => {
   const errs: Partial<Record<keyof PaymentInfo, string>> = {};
   if (!data.txnId.trim()) errs.txnId = "Required";
-  if (!data.payerName.trim()) errs.payerName = "Required";
   if (data.payerPhone.replace(/\D/g, "").length < 10)
     errs.payerPhone = "Valid mobile number required";
   setErrors(errs);
@@ -665,7 +663,6 @@ return (
     <div className="h-px bg-rule" />
 
     {field("eSewa Transaction ID", "txnId", "Transaction ID from your eSewa receipt")}
-    {field("Payer Name", "payerName", "Darshan Pathak")}
     {field("eSewa Mobile Number", "payerPhone", "98XXXXXXXX", { type: "tel" })}
 
     {/* Payment screenshot */}
@@ -843,7 +840,7 @@ Payment
     Txn: {payment.txnId}
   </p>
   <p className="font-serif text-base text-ink-soft">
-    {payment.payerName} · {payment.payerPhone}
+    {payment.payerPhone}
   </p>
   {payment.screenshotUrl ? (
     <div className="relative w-full aspect-video overflow-hidden border border-rule bg-parchment mt-2 max-w-sm">
@@ -915,7 +912,6 @@ postal: "",
 });
 const [payment, setPayment] = useState<PaymentInfo>({
   txnId: "",
-  payerName: "",
   payerPhone: "",
   screenshotUrl: "",
   screenshotStatus: "idle",

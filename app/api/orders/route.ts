@@ -25,7 +25,6 @@ export interface PlaceOrderPayload {
   };
   payment: {
     txnId: string;
-    payerName: string;
     payerPhone: string;
   };
   screenshotUrl?: string;
