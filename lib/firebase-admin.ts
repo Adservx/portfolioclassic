@@ -4,6 +4,7 @@ import { cert, getApps, getApp, initializeApp } from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 import { getMessaging } from "firebase-admin/messaging";
+import { getDatabase, type Database } from "firebase-admin/database";
 import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
@@ -12,26 +13,27 @@ export interface FirebaseServices {
   auth: ReturnType<typeof getAuth>;
 }
 
+function initApp() {
+  return getApps().length > 0
+    ? getApp()
+    : initializeApp({
+        credential: resolveCredential(),
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        databaseURL: `https://${process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID}-default-rtdb.firebaseio.com`,
+      });
+}
+
 export function initFirebaseAdmin(): FirebaseServices {
-  const app =
-    getApps().length > 0
-      ? getApp()
-      : initializeApp({
-          credential: resolveCredential(),
-          projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        });
+  const app = initApp();
   return { db: getFirestore(app), auth: getAuth(app) };
 }
 
 export function initFirebaseMessaging() {
-  const app =
-    getApps().length > 0
-      ? getApp()
-      : initializeApp({
-          credential: resolveCredential(),
-          projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-        });
-  return getMessaging(app);
+  return getMessaging(initApp());
+}
+
+export function initFirebaseDatabase(): Database {
+  return getDatabase(initApp());
 }
 
 function resolveCredential() {

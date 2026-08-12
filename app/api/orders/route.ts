@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { initFirebaseAdmin, initFirebaseMessaging } from "@/lib/firebase-admin";
+import { initFirebaseAdmin, initFirebaseMessaging, initFirebaseDatabase } from "@/lib/firebase-admin";
 import { sendNewOrderAdminEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
 import * as firestoreAdmin from "firebase-admin/firestore";
@@ -48,20 +48,47 @@ export async function POST(request: Request) {
   if (format !== "print" && format !== "digital") {
     return NextResponse.json({ error: "Invalid format" }, { status: 400 });
   }
+
+  let screenshotDataUrl: string | null = null;
+  let screenshotMime = "image/jpeg";
   if (screenshotUrl) {
-    if (!/^data:image\/(png|jpe?g|webp);base64,/.test(screenshotUrl)) {
+    const m = /^data:(image\/(?:png|jpe?g|webp));base64,/.exec(screenshotUrl);
+    if (!m) {
       return NextResponse.json({ error: "Invalid screenshot format" }, { status: 400 });
     }
-    if (screenshotUrl.length > 900_000) {
+    if (screenshotUrl.length > 4_000_000) {
       return NextResponse.json({ error: "Screenshot is too large" }, { status: 400 });
     }
+    screenshotDataUrl = screenshotUrl;
+    screenshotMime = m[1];
   }
 
   const { db } = initFirebaseAdmin();
   const orderNumber = `DP-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
   const now = new Date();
 
-  const orderRef = await db.collection("orders").add({
+  const orderRef = db.collection("orders").doc();
+  const screenshotRef = orderRef.id;
+
+  if (screenshotDataUrl) {
+    const rtdb = initFirebaseDatabase();
+    try {
+      await rtdb.ref(`screenshots/${screenshotRef}`).set({
+        data: screenshotDataUrl.replace(/^data:image\/[^;]+;base64,/, ""),
+        mime: screenshotMime,
+        createdAt: now.toISOString(),
+      });
+    } catch (err) {
+      console.error("Screenshot upload to RTDB failed:", err);
+      return NextResponse.json({ error: "Screenshot could not be stored, please try again" }, { status: 500 });
+    }
+  }
+
+  const screenshotUrlStored = screenshotDataUrl
+    ? `${SITE_URL}/api/orders/${screenshotRef}/screenshot`
+    : null;
+
+  await orderRef.set({
     orderNumber,
     status: "pending",
     format,
@@ -69,7 +96,7 @@ export async function POST(request: Request) {
     items,
     shipping,
     payment,
-    screenshotUrl: screenshotUrl ?? null,
+    screenshotUrl: screenshotUrlStored,
     createdAt: now.toISOString(),
   });
 
