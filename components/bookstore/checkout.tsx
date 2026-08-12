@@ -383,7 +383,7 @@ function ThankYouScreen({
         <span className="text-ink underline decoration-link/60 underline-offset-4">
           {email}
         </span>{" "}
-        by email shortly.
+        by email within 1–24 hours.
       </motion.p>
 
       <motion.p
