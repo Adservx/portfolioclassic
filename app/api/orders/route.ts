@@ -26,6 +26,8 @@ export interface PlaceOrderPayload {
   payment: {
     txnId: string;
     payerPhone: string;
+    screenshotUrl?: string;
+    screenshotStatus?: string;
   };
   screenshotUrl?: string;
   items: OrderItemPayload[];
@@ -41,13 +43,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { shipping, payment, items, format, total, screenshotUrl } = body ?? {};
+  const { shipping, payment, items, format, total, screenshotUrl: topLevelScreenshotUrl } = body ?? {};
   if (!shipping?.name || !shipping?.email || !payment?.txnId || !items?.length) {
     return NextResponse.json({ error: "Missing required order fields" }, { status: 400 });
   }
   if (format !== "print" && format !== "digital") {
     return NextResponse.json({ error: "Invalid format" }, { status: 400 });
   }
+
+  const screenshotUrl = payment?.screenshotUrl ?? topLevelScreenshotUrl;
 
   let screenshotDataUrl: string | null = null;
   let screenshotMime = "image/jpeg";
@@ -95,7 +99,10 @@ export async function POST(request: Request) {
     total,
     items,
     shipping,
-    payment,
+    payment: {
+      txnId: payment.txnId,
+      payerPhone: payment.payerPhone,
+    },
     screenshotUrl: screenshotUrlStored,
     createdAt: now.toISOString(),
   });
