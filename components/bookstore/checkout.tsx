@@ -311,6 +311,107 @@ Your order has been recorded in the ledger.
 }
 
 /* ============================================================
+THANK YOU
+============================================================ */
+
+function ThankYouScreen({
+  orderNumber,
+  email,
+  format,
+  onComplete,
+}: {
+  orderNumber: string;
+  email: string;
+  format?: "print" | "digital";
+  onComplete: () => void;
+}) {
+  const isDigital = format === "digital";
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="flex flex-col items-center justify-center py-16 px-6 text-center"
+    >
+      {/* Seal */}
+      <motion.div
+        initial={{ scale: 0.6, rotate: -15, opacity: 0 }}
+        animate={{ scale: 1, rotate: -8, opacity: 1 }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        className="w-28 h-28 rounded-full border-4 border-double border-gold flex items-center justify-center bg-gold/10 mb-8"
+      >
+        <div className="w-24 h-24 rounded-full border border-gold/60 flex flex-col items-center justify-center">
+          <span className="font-display text-gold text-text-base leading-none">
+            D · P
+          </span>
+          <span className="font-caps text-gold/80 text-[1rem] tracking-[0.4em] mt-1">
+            EST. MCMLXXII
+          </span>
+        </div>
+      </motion.div>
+
+      <motion.h2
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.15 }}
+        className="font-display text-3xl sm:text-4xl text-ink mb-3"
+      >
+        Thank You
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.25 }}
+        className="font-caps text-[1rem] tracking-[0.4em] uppercase text-oxblood mb-6"
+      >
+        Order {orderNumber}
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.35 }}
+        className="font-serif text-text-lg text-ink-soft max-w-md mb-4"
+      >
+        Your order has been received. We will check your payment and send{" "}
+        {isDigital
+          ? "your PDF download link"
+          : "your order confirmation and shipping details"}{" "}
+        to{" "}
+        <span className="text-ink underline decoration-link/60 underline-offset-4">
+          {email}
+        </span>{" "}
+        by email shortly.
+      </motion.p>
+
+      <motion.p
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.45 }}
+        className="font-caps text-[0.9rem] tracking-[0.3em] uppercase text-faded mb-10"
+      >
+        Please check your inbox — and your spam folder.
+      </motion.p>
+
+      <motion.button
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.55 }}
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        type="button"
+        onClick={onComplete}
+        className="bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-8 py-3 transition-[background-color] duration-300 cursor-pointer"
+      >
+        Back to the Bookstore
+      </motion.button>
+    </motion.div>
+  );
+}
+
+/* ============================================================
 SHIPPING FORM
 ============================================================ */
 
@@ -941,7 +1042,15 @@ format={format}
   />
 </div>
 )}
-{step === 3 && <ProcessingScreen onComplete={onComplete} />}
+{step === 3 && <ProcessingScreen onComplete={() => setStep(4)} />}
+{step === 4 && (
+<ThankYouScreen
+orderNumber={orderNumber}
+email={shipping.email}
+format={format}
+onComplete={onComplete}
+/>
+)}
 </motion.div>
 </AnimatePresence>
 </div>
