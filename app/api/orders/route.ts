@@ -44,14 +44,18 @@ export async function POST(request: Request) {
   }
 
   const { shipping, payment, items, format, total, screenshotUrl: topLevelScreenshotUrl } = body ?? {};
-  if (!shipping?.name || !shipping?.email || !payment?.txnId || !items?.length) {
+  if (!shipping?.name || !items?.length) {
     return NextResponse.json({ error: "Missing required order fields" }, { status: 400 });
   }
   if (format !== "print" && format !== "digital") {
     return NextResponse.json({ error: "Invalid format" }, { status: 400 });
   }
+  if (format === "digital" && (!shipping?.email || !payment?.txnId)) {
+    return NextResponse.json({ error: "Missing required order fields" }, { status: 400 });
+  }
 
-  const screenshotUrl = payment?.screenshotUrl ?? topLevelScreenshotUrl;
+  const isCashOnDelivery = format === "print";
+  const screenshotUrl = isCashOnDelivery ? null : payment?.screenshotUrl ?? topLevelScreenshotUrl;
 
   let screenshotDataUrl: string | null = null;
   let screenshotMime = "image/jpeg";
@@ -99,9 +103,10 @@ export async function POST(request: Request) {
     total,
     items,
     shipping,
+    paymentMethod: isCashOnDelivery ? "cod" : "esewa",
     payment: {
-      txnId: payment.txnId,
-      payerPhone: payment.payerPhone,
+      txnId: isCashOnDelivery ? "COD" : payment.txnId,
+      payerPhone: isCashOnDelivery ? shipping.phone : payment.payerPhone,
     },
     screenshotUrl: screenshotUrlStored,
     createdAt: now.toISOString(),

@@ -318,11 +318,13 @@ THANK YOU
 function ThankYouScreen({
   orderNumber,
   email,
+  phone,
   format,
   onComplete,
 }: {
   orderNumber: string;
   email: string;
+  phone: string;
   format?: "print" | "digital";
   onComplete: () => void;
 }) {
@@ -376,15 +378,25 @@ function ThankYouScreen({
         transition={{ delay: 0.35 }}
         className="font-serif text-text-lg text-ink-soft max-w-md mb-4"
       >
-        Your order has been received. We will check your payment and send{" "}
-        {isDigital
-          ? "your PDF download link"
-          : "your order confirmation and shipping details"}{" "}
-        to{" "}
-        <span className="text-ink underline decoration-link/60 underline-offset-4">
-          {email}
-        </span>{" "}
-        by email within 1–24 hours.
+        {isDigital ? (
+          <>
+            Your order has been received. We will check your payment and send
+            your PDF download link to{" "}
+            <span className="text-ink underline decoration-link/60 underline-offset-4">
+              {email}
+            </span>{" "}
+            by email within 1–24 hours.
+          </>
+        ) : (
+          <>
+            Your order has been received. We will call you at{" "}
+            <span className="text-ink underline decoration-link/60 underline-offset-4">
+              {phone}
+            </span>{" "}
+            within 5–24 hours to confirm delivery. Pay in cash when your copy
+            arrives.
+          </>
+        )}
       </motion.p>
 
       <motion.p
@@ -393,7 +405,9 @@ function ThankYouScreen({
         transition={{ delay: 0.45 }}
         className="font-caps text-[0.9rem] tracking-[0.3em] uppercase text-faded mb-10"
       >
-        Please check your inbox — and your spam folder.
+        {isDigital
+          ? "Please check your inbox — and your spam folder."
+          : "Keep your phone nearby — and your cash ready."}
       </motion.p>
 
       <motion.button
@@ -448,15 +462,17 @@ nameRef.current?.focus();
 }, []);
 
 const validate = () => {
-const errs: Partial<Record<keyof ShippingInfo, string>> = {};
-if (!data.name.trim()) errs.name = "Required";
-if (!data.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-errs.email = "Valid email required";
-if (!isDigital) {
-if (!data.phone.trim()) errs.phone = "Required";
-if (!data.address.trim()) errs.address = "Required";
-if (!data.city.trim()) errs.city = "Required";
-if (!data.municipality.trim()) errs.municipality = "Required";
+  const errs: Partial<Record<keyof ShippingInfo, string>> = {};
+  if (!data.name.trim()) errs.name = "Required";
+  if (isDigital) {
+    if (!data.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
+      errs.email = "Valid email required";
+  }
+  if (!isDigital) {
+    if (!data.phone.trim()) errs.phone = "Required";
+    if (!data.address.trim()) errs.address = "Required";
+    if (!data.city.trim()) errs.city = "Required";
+    if (!data.municipality.trim()) errs.municipality = "Required";
 if (!data.ward.trim()) errs.ward = "Required";
 if (!data.province.trim()) errs.province = "Required";
 }
@@ -504,35 +520,35 @@ className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood mt-1"
 );
 
 return (
-<form onSubmit={handleSubmit} className="space-y-5">
-<div>
-<h3 className="font-display text-2xl text-ink mb-1">{isDigital ? "Your Details" : "Shipping"}</h3>
-<p className="font-serif text-text-lg text-ink-soft">
-{isDigital ? "Where should we send your download link?" : "Where should we send your books?"}
-</p>
-</div>
-<div className="h-px bg-rule" />
-{field("Full Name", "name", "Darshan Pathak")}
-{field("Email", "email", "reader@example.com", { type: "email" })}
-{!isDigital && field("Phone Number", "phone", "+977 9741766064")}
-{!isDigital && field("Address", "address", "Triyashi")}
-{!isDigital && field("City", "city", "London")}
-{!isDigital && field("Municipality", "municipality", "Waling")}
-{!isDigital && field("Ward No.", "ward", "8")}
-{!isDigital && field("Province", "province", "Lumbini")}
-{!isDigital && field("Postal Code", "postal", "33801")}
-<div className="pt-4">
-<motion.button
-whileHover={{ scale: 1.01 }}
-whileTap={{ scale: 0.99 }}
-type="submit"
-className="w-full bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-6 py-3 transition-[background-color] duration-300 cursor-pointer"
->
-Continue to Payment
-</motion.button>
-</div>
-</form>
-);
+    <form onSubmit={handleSubmit} className="space-y-5">
+      <div>
+        <h3 className="font-display text-2xl text-ink mb-1">{isDigital ? "Your Details" : "Shipping & Contact"}</h3>
+        <p className="font-serif text-text-lg text-ink-soft">
+          {isDigital ? "Where should we send your download link?" : "Where should we deliver your book? We'll call you to confirm."}
+        </p>
+      </div>
+      <div className="h-px bg-rule" />
+      {field("Full Name", "name", "Darshan Pathak")}
+      {isDigital && field("Email", "email", "reader@example.com", { type: "email" })}
+      {!isDigital && field("Phone Number", "phone", "+977 9741766064", { type: "tel" })}
+      {!isDigital && field("Address", "address", "Triyashi")}
+      {!isDigital && field("City", "city", "London")}
+      {!isDigital && field("Municipality", "municipality", "Waling")}
+      {!isDigital && field("Ward No.", "ward", "8")}
+      {!isDigital && field("Province", "province", "Lumbini")}
+      {!isDigital && field("Postal Code", "postal", "33801")}
+      <div className="pt-4">
+        <motion.button
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          type="submit"
+          className="w-full bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-6 py-3 transition-[background-color] duration-300 cursor-pointer"
+        >
+          {isDigital ? "Continue to Payment" : "Continue to Review"}
+        </motion.button>
+      </div>
+    </form>
+  );
 }
 
 /* ============================================================
@@ -743,155 +759,174 @@ REVIEW
 ============================================================ */
 
 function ReviewOrder({
-items,
-shipping,
-payment,
-onBack,
-onPlaceOrder,
-submitting,
-format,
+  items,
+  shipping,
+  payment,
+  onBack,
+  onPlaceOrder,
+  submitting,
+  format,
 }: {
-items: CartItem[];
-shipping: ShippingInfo;
-payment: PaymentInfo;
-onBack: () => void;
-onPlaceOrder: () => void;
-submitting: boolean;
-format?: "print" | "digital";
+  items: CartItem[];
+  shipping: ShippingInfo;
+  payment: PaymentInfo;
+  onBack: () => void;
+  onPlaceOrder: () => void;
+  submitting: boolean;
+  format?: "print" | "digital";
 }) {
-const total = items.reduce(
-(s, i) => s + parsePrice(i.price) * i.quantity,
-0
-);
+  const total = items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0);
+  const isDigital = format === "digital";
 
-return (
-<div className="space-y-6">
-<div>
-<h3 className="font-display text-2xl text-ink mb-1">Review Order</h3>
-<p className="font-serif text-text-lg text-ink-soft">
-Please confirm your details before placing the order.
-</p>
-</div>
-<div className="h-px bg-rule" />
+  return (
+    <div className="space-y-6">
+      <div>
+        <h3 className="font-display text-2xl text-ink mb-1">Review Order</h3>
+        <p className="font-serif text-text-lg text-ink-soft">
+          Please confirm your details before placing the order.
+        </p>
+      </div>
+      <div className="h-px bg-rule" />
 
-{/* Items summary */}
-<div className="space-y-2">
-<p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft">
-Items ({items.length})
-</p>
-{items.map((item) => (
-<div
-key={item.id}
-className="flex items-center justify-between py-2 border-b border-rule"
->
-<div className="flex items-center gap-3">
-<div className="w-8 h-10 overflow-hidden plate-thin relative">
-<Image
-  src={item.cover}
-  alt={item.title}
-  fill
-  className="object-cover"
-/>
-</div>
-<div>
-<p className="font-serif text-text-base text-ink">{item.title}</p>
-<p className="font-caps text-[1rem] tracking-[0.3em] text-ink-soft">
-Qty: {item.quantity}
-</p>
-</div>
-</div>
-<span className="font-display text-text-lg text-oxblood">
-{formatPrice(parsePrice(item.price) * item.quantity)}
-</span>
-</div>
-))}
-</div>
+      {/* Items summary */}
+      <div className="space-y-2">
+        <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft">
+          Items ({items.length})
+        </p>
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="flex items-center justify-between py-2 border-b border-rule"
+          >
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-10 overflow-hidden plate-thin relative">
+                <Image
+                  src={item.cover}
+                  alt={item.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div>
+                <p className="font-serif text-text-base text-ink">{item.title}</p>
+                <p className="font-caps text-[1rem] tracking-[0.3em] text-ink-soft">
+                  Qty: {item.quantity}
+                </p>
+              </div>
+            </div>
+            <span className="font-display text-text-lg text-oxblood">
+              {formatPrice(parsePrice(item.price) * item.quantity)}
+            </span>
+          </div>
+        ))}
+      </div>
 
-{/* Shipping */}
-<div>
-<p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
-{format === "digital" ? "Contact" : "Shipping To"}
-</p>
-<div className="bg-parchment/60 border border-rule p-4 font-serif text-text-base text-ink space-y-0.5">
-<p>{shipping.name}</p>
-<p>{shipping.email}</p>
-{format !== "digital" && (
-<>
-<p>{shipping.phone}</p>
-<p>{shipping.address}</p>
-<p>{shipping.municipality}</p>
-<p>
-{shipping.city}{shipping.ward ? `, Ward ${shipping.ward}` : ""}{shipping.province ? `, ${shipping.province}` : ""}{shipping.postal ? `, ${shipping.postal}` : ""}
-</p>
-</>
-)}
-</div>
-</div>
+      {/* Shipping */}
+      <div>
+        <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+          {isDigital ? "Contact" : "Shipping To"}
+        </p>
+        <div className="bg-parchment/60 border border-rule p-4 font-serif text-text-base text-ink space-y-0.5">
+          <p>{shipping.name}</p>
+          {shipping.email && <p>{shipping.email}</p>}
+          {!isDigital && (
+            <>
+              <p>{shipping.phone}</p>
+              <p>{shipping.address}</p>
+              <p>{shipping.municipality}</p>
+              <p>
+                {shipping.city}
+                {shipping.ward ? `, Ward ${shipping.ward}` : ""}
+                {shipping.province ? `, ${shipping.province}` : ""}
+                {shipping.postal ? `, ${shipping.postal}` : ""}
+              </p>
+            </>
+          )}
+        </div>
+      </div>
 
-{/* Payment */}
-<div>
-<p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
-Payment
-</p>
-<div className="bg-parchment/60 border border-rule p-4 space-y-1.5">
-  <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-faded">
-    Paid via eSewa QR
-  </p>
-  <p className="font-mono text-text-base text-ink">
-    Txn: {payment.txnId}
-  </p>
-  <p className="font-serif text-base text-ink-soft">
-    {payment.payerPhone}
-  </p>
-  {payment.screenshotUrl ? (
-    <div className="relative w-full aspect-video overflow-hidden border border-rule bg-parchment mt-2 max-w-sm">
-      <Image
-        src={payment.screenshotUrl}
-        alt="Payment screenshot"
-        fill
-        className="object-contain"
-        unoptimized
-      />
+      {/* Payment */}
+      <div>
+        <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-ink-soft mb-2">
+          Payment
+        </p>
+        <div className="bg-parchment/60 border border-rule p-4 space-y-1.5">
+          {isDigital ? (
+            <>
+              <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-faded">
+                Paid via eSewa QR
+              </p>
+              <p className="font-mono text-text-base text-ink">
+                Txn: {payment.txnId}
+              </p>
+              <p className="font-serif text-base text-ink-soft">
+                {payment.payerPhone}
+              </p>
+              {payment.screenshotUrl ? (
+                <div className="relative w-full aspect-video overflow-hidden border border-rule bg-parchment mt-2 max-w-sm">
+                  <Image
+                    src={payment.screenshotUrl}
+                    alt="Payment screenshot"
+                    fill
+                    className="object-contain"
+                    unoptimized
+                  />
+                </div>
+              ) : (
+                <p className="font-caps text-[0.9rem] tracking-[0.2em] text-faded">
+                  No screenshot uploaded
+                </p>
+              )}
+            </>
+          ) : (
+            <div className="flex items-start gap-3">
+              <span className="text-2xl leading-none mt-0.5">💵</span>
+              <div>
+                <p className="font-caps text-[0.9rem] tracking-[0.4em] uppercase text-faded">
+                  Cash on Delivery
+                </p>
+                <p className="font-serif text-base text-ink-soft">
+                  Pay in cash when your copy arrives. We'll call you at{" "}
+                  <span className="text-ink">{shipping.phone}</span> within
+                  5–24 hours to confirm your order.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Total */}
+      <div className="flex items-center justify-between py-3 border-t border-ink">
+        <span className="font-caps text-[1rem] tracking-[0.35em] uppercase text-ink">
+          Total
+        </span>
+        <span className="font-display text-3xl text-ink">
+          {formatPrice(total)}
+        </span>
+      </div>
+
+      <div className="flex gap-3 pt-2">
+        <button
+          type="button"
+          onClick={onBack}
+          className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
+        >
+          Back
+        </button>
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.01 }}
+          whileTap={{ scale: 0.99 }}
+          onClick={onPlaceOrder}
+          disabled={submitting}
+          className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer disabled:opacity-50"
+        >
+          {submitting ? "Placing…" : "Place Order"}
+        </motion.button>
+      </div>
     </div>
-  ) : (
-    <p className="font-caps text-[0.9rem] tracking-[0.2em] text-faded">
-      No screenshot uploaded
-    </p>
-  )}
-</div>
-</div>
-
-{/* Total */}
-<div className="flex items-center justify-between py-3 border-t border-ink">
-<span className="font-caps text-[1rem] tracking-[0.35em] uppercase text-ink">
-Total
-</span>
-<span className="font-display text-3xl text-ink">
-{formatPrice(total)}
-</span>
-</div>
-
-<div className="flex gap-3 pt-2">
-<button
-type="button"
-onClick={onBack}
-className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
->
-Back
-</button>
-<motion.button
-type="button"
-whileHover={{ scale: 1.01 }}
-whileTap={{ scale: 0.99 }}
-onClick={onPlaceOrder}
-disabled={submitting}
-className="flex-1 bg-oxblood text-vellum hover:bg-oxblood-2 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer disabled:opacity-50"
->
-{submitting ? "Placing…" : "Place Order"}
-</motion.button>
-</div>
-</div>
-);
+  );
 }
 
 /* ============================================================
@@ -899,157 +934,165 @@ CHECKOUT — orchestrator
 ============================================================ */
 
 export function Checkout({ items, onBack, onComplete, format }: CheckoutProps) {
-const [step, setStep] = useState(0);
-const [shipping, setShipping] = useState<ShippingInfo>({
-name: "",
-email: "",
-phone: "",
-address: "",
-city: "",
-municipality: "",
-ward: "",
-province: "",
-postal: "",
-});
-const [payment, setPayment] = useState<PaymentInfo>({
-  txnId: "",
-  payerPhone: "",
-  screenshotUrl: "",
-  screenshotStatus: "idle",
-});
-const [orderNumber, setOrderNumber] = useState("");
-const [submitting, setSubmitting] = useState(false);
-const [submitError, setSubmitError] = useState("");
+  const isDigital = format === "digital";
+  const [step, setStep] = useState(0);
+  const [shipping, setShipping] = useState<ShippingInfo>({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    municipality: "",
+    ward: "",
+    province: "",
+    postal: "",
+  });
+  const [payment, setPayment] = useState<PaymentInfo>({
+    txnId: "",
+    payerPhone: "",
+    screenshotUrl: "",
+    screenshotStatus: "idle",
+  });
+  const [orderNumber, setOrderNumber] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-const placeOrder = useCallback(async () => {
-  setSubmitting(true);
-  setSubmitError("");
-  try {
-    const res = await fetch("/api/orders", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        shipping,
-        payment,
-        items: items.map(({ id, title, price, quantity }) => ({
-          id,
-          title,
-          price,
-          quantity,
-        })),
-        format: format ?? "digital",
-        total: formatPrice(items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0)),
-      }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error ?? "Order could not be placed");
-    setOrderNumber(data.orderNumber);
-    setStep(3);
-  } catch (err) {
-    setSubmitError(err instanceof Error ? err.message : "Order could not be placed");
-    setStep(2);
-  } finally {
-    setSubmitting(false);
-  }
-}, [items, shipping, payment, format]);
+  const stepLabels = isDigital
+    ? ["Shipping", "Payment", "Review", "Confirm"]
+    : ["Shipping", "Review", "Confirm"];
 
-return (
-<div className="mx-auto max-w-2xl">
-{/* Step indicator */}
-<div className="flex items-center gap-2 mb-8">
-{["Shipping", "Payment", "Review", "Confirm"].map((label, i) => (
-<div key={label} className="flex items-center gap-2">
-<motion.div
-animate={{
-backgroundColor:
-i <= step ? "var(--color-oxblood)" : "transparent",
-borderColor:
-i <= step
-? "var(--color-oxblood)"
-: "var(--color-rule-strong)",
-color:
-i <= step
-? "var(--color-vellum)"
-: "var(--color-ink-soft)",
-}}
-className="w-6 h-6 rounded-full border flex items-center justify-center"
->
-<span className="font-caps text-[1rem] tracking-[0.1em]">
-{i < step ? "✓" : i + 1}
-</span>
-</motion.div>
-<span
-className={`font-caps text-[1rem] tracking-[0.25em] uppercase hidden sm:inline ${
-i <= step ? "text-ink" : "text-faded"
-}`}
->
-{label}
-</span>
-{i < 3 && <span className="w-4 h-px bg-rule hidden sm:block" />}
-</div>
-))}
-</div>
+  const placeOrder = useCallback(async () => {
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          shipping,
+          payment: isDigital ? payment : { txnId: "COD", payerPhone: shipping.phone },
+          items: items.map(({ id, title, price, quantity }) => ({
+            id,
+            title,
+            price,
+            quantity,
+          })),
+          format: format ?? "digital",
+          total: formatPrice(items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0)),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Order could not be placed");
+      setOrderNumber(data.orderNumber);
+      setStep(isDigital ? 3 : 2);
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Order could not be placed");
+      setStep(isDigital ? 2 : 1);
+    } finally {
+      setSubmitting(false);
+    }
+  }, [items, shipping, payment, format, isDigital]);
 
-{/* Step content */}
-<AnimatePresence mode="wait">
-<motion.div
-key={step}
-initial={{ opacity: 0, x: 30 }}
-animate={{ opacity: 1, x: 0 }}
-exit={{ opacity: 0, x: -30 }}
-transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
->
-{step === 0 && (
-<ShippingForm
-data={shipping}
-onChange={setShipping}
-onNext={() => setStep(1)}
-format={format}
-/>
-)}
-{step === 1 && (
-<PaymentForm
-        items={items}
-        data={payment}
-        onChange={setPayment}
-        onNext={() => setStep(2)}
-        onBack={() => setStep(0)}
-        submitError={submitError}
-      />
-)}
-{step === 2 && (
-<div className="space-y-4">
-  {submitError && (
-    <motion.p
-      initial={{ opacity: 0, y: -5 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood border border-oxblood/40 px-3 py-2"
-    >
-      {submitError} — please go back and retry.
-    </motion.p>
-  )}
-  <ReviewOrder
-    items={items}
-    shipping={shipping}
-    payment={payment}
-    onBack={() => setStep(1)}
-    onPlaceOrder={placeOrder}
-    submitting={submitting}
-    format={format}
-  />
-</div>
-)}
-{step === 3 && <ProcessingScreen onComplete={() => setStep(4)} />}
-{step === 4 && (
-<ThankYouScreen
-orderNumber={orderNumber}
-email={shipping.email}
-format={format}
-onComplete={onComplete}
-/>
-)}
-</motion.div>
-</AnimatePresence>
-</div>
-);
+  return (
+    <div className="mx-auto max-w-2xl">
+      {/* Step indicator */}
+      <div className="flex items-center gap-2 mb-8">
+        {stepLabels.map((label, i) => (
+          <div key={label} className="flex items-center gap-2">
+            <motion.div
+              animate={{
+                backgroundColor:
+                  i <= step ? "var(--color-oxblood)" : "transparent",
+                borderColor:
+                  i <= step
+                    ? "var(--color-oxblood)"
+                    : "var(--color-rule-strong)",
+                color:
+                  i <= step
+                    ? "var(--color-vellum)"
+                    : "var(--color-ink-soft)",
+              }}
+              className="w-6 h-6 rounded-full border flex items-center justify-center"
+            >
+              <span className="font-caps text-[1rem] tracking-[0.1em]">
+                {i < step ? "✓" : i + 1}
+              </span>
+            </motion.div>
+            <span
+              className={`font-caps text-[1rem] tracking-[0.25em] uppercase hidden sm:inline ${
+                i <= step ? "text-ink" : "text-faded"
+              }`}
+            >
+              {label}
+            </span>
+            {i < stepLabels.length - 1 && <span className="w-4 h-px bg-rule hidden sm:block" />}
+          </div>
+        ))}
+      </div>
+
+      {/* Step content */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={step}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -30 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        >
+          {step === 0 && (
+            <ShippingForm
+              data={shipping}
+              onChange={setShipping}
+              onNext={() => setStep(1)}
+              format={format}
+            />
+          )}
+          {isDigital && step === 1 && (
+            <PaymentForm
+              items={items}
+              data={payment}
+              onChange={setPayment}
+              onNext={() => setStep(2)}
+              onBack={() => setStep(0)}
+              submitError={submitError}
+            />
+          )}
+          {step === (isDigital ? 2 : 1) && (
+            <div className="space-y-4">
+              {submitError && (
+                <motion.p
+                  initial={{ opacity: 0, y: -5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="font-caps text-[0.9rem] tracking-[0.2em] text-oxblood border border-oxblood/40 px-3 py-2"
+                >
+                  {submitError} — please go back and retry.
+                </motion.p>
+              )}
+              <ReviewOrder
+                items={items}
+                shipping={shipping}
+                payment={payment}
+                onBack={() => setStep(isDigital ? 1 : 0)}
+                onPlaceOrder={placeOrder}
+                submitting={submitting}
+                format={format}
+              />
+            </div>
+          )}
+          {step === (isDigital ? 3 : 2) && (
+            <ProcessingScreen onComplete={() => setStep(isDigital ? 4 : 3)} />
+          )}
+          {step === (isDigital ? 4 : 3) && (
+            <ThankYouScreen
+              orderNumber={orderNumber}
+              email={shipping.email}
+              phone={shipping.phone}
+              format={format}
+              onComplete={onComplete}
+            />
+          )}
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
 }

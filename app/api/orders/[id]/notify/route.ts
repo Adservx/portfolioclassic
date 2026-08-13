@@ -55,6 +55,10 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     );
   }
 
+  if (order.format === "print") {
+    return NextResponse.json({ ok: true, skipped: "cash-on-delivery", orderId: id }, { headers: cors });
+  }
+
   const downloadUrl = `${SITE_URL}/bookstore/white-words.pdf`;
 
   try {

@@ -39,6 +39,7 @@ export async function sendNewOrderAdminEmail(order: OrderInfo) {
 export async function sendOrderConfirmationEmail(order: OrderInfo) {
   const transporter = getTransporter();
   if (!transporter) return;
+  if (!order.buyerEmail?.trim()) return;
   const subject =
     order.format === "digital"
       ? `Your White Words download — Order ${order.orderNumber} confirmed`
