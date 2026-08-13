@@ -95,18 +95,14 @@ function QRDisplay({
             transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             className="relative aspect-[41/64] bg-vellum rounded-lg overflow-hidden shadow-inner"
           >
-            <motion.div
-              animate={{ scale: [1.6, 1.632, 1.6] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-full h-full"
-            >
+            <div className="relative w-full h-full scale-[1.6] origin-top">
               <Image
                 src="/PHOTO-2026-07-25-14-04-28.jpg"
                 alt="eSewa payment QR code"
                 fill
                 className="object-cover"
               />
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* Amount */}
