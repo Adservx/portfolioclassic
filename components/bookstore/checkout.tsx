@@ -96,7 +96,7 @@ function QRDisplay({
             className="relative aspect-[41/64] bg-vellum rounded-lg overflow-hidden shadow-inner"
           >
             <motion.div
-              animate={{ scale: [1, 1.02, 1] }}
+              animate={{ scale: [1.6, 1.632, 1.6] }}
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               className="relative w-full h-full"
             >
