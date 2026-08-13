@@ -65,7 +65,7 @@ function QRDisplay({
       className="[perspective:1000px] w-full max-w-[340px] mx-auto"
     >
       <div className="relative w-full [transform-style:preserve-3d]">
-        <div className="w-full bg-gradient-to-br from-ink-3 via-ink to-ink-2 border border-ink-2 rounded-[14px] p-6 shadow-xl">
+        <div className="w-full bg-gradient-to-br from-[#6cc24a] via-[#3fa63c] to-[#1c7c38] border border-[#166b30] rounded-[14px] p-6 shadow-xl">
           {/* Top row */}
           <div className="flex items-center justify-between mb-4">
             <motion.div
@@ -74,7 +74,7 @@ function QRDisplay({
               transition={{ delay: 0.15 }}
               className="flex items-center gap-1"
             >
-              <span className="text-vellum/60 font-caps text-[1rem] tracking-[0.2em]">
+              <span className="text-white/80 font-caps text-[1rem] tracking-[0.2em]">
                 eSEWA
               </span>
             </motion.div>
@@ -82,7 +82,7 @@ function QRDisplay({
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
-              className="px-2 py-0.5 rounded bg-gradient-to-br from-gold/80 to-gold-2/80 text-ink font-caps text-[0.9rem] tracking-[0.15em]"
+              className="px-2 py-0.5 rounded bg-white/90 text-[#1c7c38] font-caps text-[0.9rem] tracking-[0.15em]"
             >
               QR
             </motion.span>
@@ -93,9 +93,9 @@ function QRDisplay({
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative aspect-[41/64] bg-vellum rounded-lg overflow-hidden shadow-inner"
+            className="relative aspect-[41/64] bg-white rounded-lg overflow-hidden shadow-inner"
           >
-            <div className="relative w-full h-full scale-[1.6] origin-top">
+            <div className="relative w-full h-full scale-[1.6] origin-top -translate-y-[6%]">
               <Image
                 src="/PHOTO-2026-07-25-14-04-28.jpg"
                 alt="eSewa payment QR code"
@@ -107,20 +107,20 @@ function QRDisplay({
 
           {/* Amount */}
           <div className="mt-4 text-center">
-            <p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-vellum/40 mb-1">
+            <p className="font-caps text-[0.8rem] tracking-[0.25em] uppercase text-white/70 mb-1">
               Amount to pay
             </p>
             <motion.p
               key={amount}
               initial={{ opacity: 0, y: 5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-display text-2xl text-gold"
+              className="font-display text-2xl text-white"
             >
               {amount}
             </motion.p>
           </div>
 
-          <p className="mt-3 font-caps text-[0.7rem] tracking-[0.25em] text-vellum/35 text-center">
+          <p className="mt-3 font-caps text-[0.7rem] tracking-[0.25em] text-white/70 text-center">
             Scan &amp; pay with eSewa · The Pathak Estate
           </p>
         </div>
