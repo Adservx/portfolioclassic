@@ -93,7 +93,7 @@ function QRDisplay({
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="relative aspect-square bg-vellum rounded-lg p-3 flex items-center justify-center shadow-inner"
+            className="relative aspect-[41/64] bg-vellum rounded-lg overflow-hidden shadow-inner"
           >
             <motion.div
               animate={{ scale: [1, 1.02, 1] }}
@@ -104,7 +104,7 @@ function QRDisplay({
                 src="/PHOTO-2026-07-25-14-04-28.jpg"
                 alt="eSewa payment QR code"
                 fill
-                className="object-contain"
+                className="object-cover"
               />
             </motion.div>
           </motion.div>
