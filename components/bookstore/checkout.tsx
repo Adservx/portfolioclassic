@@ -689,7 +689,7 @@ return (
         type="button"
         onClick={() => fileRef.current?.click()}
         disabled={data.screenshotStatus === "uploading"}
-        className="w-full border border-rule px-3 py-2.5 font-caps text-[0.9rem] tracking-[0.25em] text-ink-soft hover:text-ink hover:border-ink/40 transition-[color,border-color] duration-200 cursor-pointer disabled:opacity-50"
+        className="w-full border border-[#3fa63c] bg-gradient-to-br from-[#6cc24a] via-[#3fa63c] to-[#1c7c38] px-3 py-2.5 font-caps text-[0.9rem] tracking-[0.25em] text-white shadow-md transition-[filter,transform] duration-200 cursor-pointer hover:brightness-110 active:scale-[0.99] disabled:opacity-50"
       >
         {data.screenshotStatus === "uploading"
           ? "Uploading…"
