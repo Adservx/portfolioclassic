@@ -103,6 +103,11 @@ function QRDisplay({
                 className="object-cover"
               />
             </div>
+            <motion.div
+              animate={{ top: ["-10%", "105%"] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute left-0 right-0 h-10 bg-gradient-to-b from-transparent via-[#6cc24a]/70 to-transparent pointer-events-none"
+            />
           </motion.div>
 
           {/* Amount */}
