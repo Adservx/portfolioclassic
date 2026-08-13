@@ -38,7 +38,7 @@ return parseFloat(price.replace(/[£$€]/g, ""));
 }
 
 function formatPrice(n: number): string {
-return `$${n.toFixed(2)}`;
+  return `$${n.toFixed(2)} · NPR ${Math.round(n * (460 / 3))}`;
 }
 
 /* ============================================================

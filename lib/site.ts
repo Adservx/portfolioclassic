@@ -43,7 +43,7 @@ export const BOOK = {
   isbn: "978-9937-1-3757-7",
   publisher: "Darshan Pathak",
   binding: "First Edition · 312 pp.",
-  price: "$3.00/-",
+  price: "$3.00/- · NPR 460",
   pageCount: 312,
   url: `${SITE_URL}/bookstore`,
   coverImage: `${SITE_URL}/bookstore/white-words-cover.webp`,

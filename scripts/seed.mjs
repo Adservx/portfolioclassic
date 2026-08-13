@@ -38,7 +38,7 @@ const book = {
   year: "2023",
   cover: "/bookstore/white-words-cover.webp",
   binding: "First Edition · 312 pp.",
-  price: "$3.00/-",
+  price: "$3.00/- · NPR 460",
   pdfUrl: "/bookstore/white-words.pdf",
   isbn: "978-9937-1-3757-7",
   publisher: "Darshan Pathak",

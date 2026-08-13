@@ -28,7 +28,7 @@ export const book: Book = {
   excerpt:
     "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
   binding: "First Edition · 312 pp.",
-  price: "$3.00/-",
+  price: "$3.00/- · NPR 460",
   pdfUrl: "/bookstore/white-words.pdf",
   isbn: "978-9937-1-3757-7",
   publisher: "Darshan Pathak",

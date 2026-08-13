@@ -444,7 +444,9 @@ Back to Bookstore
               <span className="font-display text-lg text-oxblood block">{book.price}</span>
               {quantity > 1 && (
                 <span className="font-caps text-[0.75rem] tracking-[0.2em] text-faded">
-                  × {quantity} = ${(parsePrice(book.price) * quantity).toFixed(2)}
+                  × {quantity} = $
+                  {(parsePrice(book.price) * quantity).toFixed(2)} · NPR{" "}
+                  {Math.round(parsePrice(book.price) * (460 / 3) * quantity)}
                 </span>
               )}
             </div>
