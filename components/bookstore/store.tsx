@@ -420,37 +420,39 @@ Back to Bookstore
 </button>
 
 {/* Mini cart summary */}
-<div className="flex items-center gap-4 mb-6 p-4 bg-parchment border border-rule">
-<div className="relative w-12 h-16 overflow-hidden plate-thin shrink-0">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 mb-6 p-4 bg-parchment border border-rule">
+        <div className="relative w-12 h-16 overflow-hidden plate-thin shrink-0">
           <Image
-              src={book.cover}
-              alt={book.title}
-              fill
-              className="object-cover"
-            />
-</div>
-        <div className="flex-1 min-w-0">
-              <p className="font-serif text-text-lg text-ink truncate">{book.title}</p>
-              <p className="font-caps text-[0.85rem] tracking-[0.3em] uppercase text-ink-soft mt-0.5">
-                {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: {quantity}
-              </p>
-              <p className="font-serif text-[0.95rem] text-faded mt-0.5">
-                {format === "print"
-                  ? "Dispatch in 2–4 weeks"
-                  : "Delivered via email after purchase"}
-              </p>
-            </div>
-            <div className="text-right shrink-0">
-              <span className="font-display text-lg text-oxblood block">{book.price}</span>
-              {quantity > 1 && (
-                <span className="font-caps text-[0.75rem] tracking-[0.2em] text-faded">
-                  × {quantity} = $
-                  {(parsePrice(book.price) * quantity).toFixed(2)} · NPR{" "}
-                  {Math.round(parsePrice(book.price) * (460 / 3) * quantity)}
-                </span>
-              )}
-            </div>
-</div>
+            src={book.cover}
+            alt={book.title}
+            fill
+            className="object-cover"
+          />
+        </div>
+        <div className="flex-1 min-w-0 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4">
+          <div className="min-w-0">
+            <p className="font-serif text-text-lg text-ink truncate">{book.title}</p>
+            <p className="font-caps text-[0.85rem] tracking-[0.3em] uppercase text-ink-soft mt-0.5">
+              {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: {quantity}
+            </p>
+            <p className="font-serif text-[0.95rem] text-faded mt-0.5">
+              {format === "print"
+                ? "Dispatch in 2–4 weeks"
+                : "Delivered via email after purchase"}
+            </p>
+          </div>
+          <div className="sm:text-right shrink-0">
+            <span className="font-display text-lg text-oxblood block">{book.price}</span>
+            {quantity > 1 && (
+              <span className="font-caps text-[0.75rem] tracking-[0.2em] text-faded">
+                × {quantity} = $
+                {(parsePrice(book.price) * quantity).toFixed(2)} · NPR{" "}
+                {Math.round(parsePrice(book.price) * (460 / 3) * quantity)}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
 
           <Checkout
             items={[
