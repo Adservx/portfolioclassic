@@ -14,7 +14,7 @@ import { readFileSync, existsSync } from "node:fs";
 import path from "node:path";
 
 const projectId = "darshanpathak-com-np-67ddf";
-const adminEmail = process.env.ADMIN_EMAIL ?? "darshanpathak2083@gmail.com";
+const adminEmail = process.env.ADMIN_EMAIL ?? "darshanpathak2082@gmail.com";
 
 let serviceAccount;
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {

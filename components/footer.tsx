@@ -9,7 +9,7 @@ const colophon = [
 ["First Edition", "A.D. 2023"],
 ["Publisher", "Darshan Pathak, Nepal"],
 ["Printer", "New Baba Chhapakhana, Butwal-8, Rupandehi"],
-["Contact", "prajolchhetry1@gmail.com"],
+["Contact", "darshanpathak2082@gmail.com"],
 ];
 
 const links = [

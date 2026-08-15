@@ -278,9 +278,21 @@ Author
 <h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Dedication
 </h3>
+<div className="flex items-start gap-4">
+<div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden plate shrink-0">
+<Image
+src="/wifey.jpg"
+alt="The Wife"
+fill
+loading="lazy"
+sizes="64px"
+className="object-cover sepia-[0.3] contrast-105"
+/>
+</div>
 <blockquote className="font-serif text-text-lg text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
 “{book.dedication}”
 </blockquote>
+</div>
 </div>
 )}
 

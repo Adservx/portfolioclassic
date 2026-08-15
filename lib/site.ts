@@ -26,7 +26,7 @@ export const AUTHOR = {
   name: "Darshan Pathak",
   givenName: "Darshan",
   familyName: "Pathak",
-  email: "darshanpathak2083@gmail.com",
+  email: "darshanpathak2082@gmail.com",
   phone: "+977 9741766064",
   jobTitle: "Author, Microbiologist & Sociologist",
   nationality: "Nepal",

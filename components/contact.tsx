@@ -6,7 +6,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/about";
 
 const channels = [
-{ label: "Email", value: "prajolchhetry1@gmail.com", icon: "✎" },
+{ label: "Email", value: "darshanpathak2082@gmail.com", icon: "✎" },
 { label: "Phone", value: "+977 9741766064", icon: "☏" },
 { label: "Author", value: "Darshan Pathak · Nepal", icon: "⌂" },
 { label: "Book", value: "White Words (First Edition, 2023) · ISBN 978-9937-1-3757-7", icon: "☰" },
@@ -127,7 +127,7 @@ For the Press
 </span>
 </div>
 <p className="font-serif text-text-base sm:text-text-lg text-ink-2 leading-relaxed">
-Press inquiries to <em>prajolchhetry1@gmail.com</em>. The author
+Press inquiries to <em>darshanpathak2082@gmail.com</em>. The author
 does not give interviews by telephone, but answers written
 questions, in writing, on Thursdays.
 </p>

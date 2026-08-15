@@ -6,6 +6,13 @@ import { SectionHeader } from "@/components/about";
 
 const press = [
 {
+publication: "Wife's Words",
+author: "The Wife",
+year: "2023",
+quote:
+"The book 'WHITE WORDS' made me proud and challenge to my soul with proof of love existence with the character of this book's words — the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing.",
+},
+{
 publication: "",
 subtitle: "Literature Language Editor",
 author: "Indra Prasad Pathak",
@@ -22,7 +29,7 @@ quote:
 },
 {
 publication: "Readers' Perspectives",
-author: "Youbraj Bhandari & Ishwari Bhandari",
+author: "Chinta Mani Bhandari & Debaka Bhandari",
 year: "2023",
 quote:
 "At the time of engagement of marriage, we observed and interviewed him and found that he is independent and create something new that will be beneficial for green world.",
@@ -36,17 +43,10 @@ quote:
 },
 {
 publication: "Readers' Perspectives",
-author: "Yadav Bhandari",
+author: "Bijay & Bipin Bhandari",
 year: "2023",
 quote:
 "Darshan Pathak, who is microbiologist and sociologist, has eternal power to select best words to explain the matter that is happening around us in a systematic and scientific source.",
-},
-{
-publication: "Wife's Words",
-author: "The Wife",
-year: "2023",
-quote:
-"The book 'WHITE WORDS' made me proud and challenge to my soul with no proof of love existence with the character of this book's words — the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing.",
 },
 ];
 
@@ -93,7 +93,7 @@ style={{ boxShadow: "inset 0 0 40px 8px rgba(0, 0, 0,0.4)" }}
 />
 </div>
 <div className="mt-3 text-center font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
-Evanjilina Pathak
+Evanjelina Pathak
 </div>
 </div>
 <div className="sm:col-span-7 pb-2 sm:pb-4">
@@ -107,7 +107,7 @@ viewport={{ once: true }}
 transition={{ delay: 0.4 }}
 className="mt-2 sm:mt-3 font-serif text-lg sm:text-xl lg:text-2xl text-ink leading-snug"
 >
-Dedicated to my daughter Evanjilina Pathak, not yet
+Dedicated to my daughter Evanjelina Pathak, not yet
 a year old, whose gurgles were the first songs to fill
 this house. May these white words grow with her — a
 garden for her first steps, a lantern for her first
@@ -161,9 +161,123 @@ background:
 />
 
 <div className="flex items-center justify-between border-b border-ink/40 pb-3 mb-6 relative gap-3">
-<span className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
-{p.publication}
+{i === 0 ? (
+<div className="flex items-center gap-3">
+<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+              <Image
+                src="/wifey.jpg"
+                alt="The Wife"
+                fill
+                loading="lazy"
+                sizes="56px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
+</div>
+<div>
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+The Wife
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+From Wife&rsquo;s Words
+</div>
+</div>
+</div>
+) : i === 1 ? (
+<div className="flex items-center gap-3">
+<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+              <Image
+                src="/indra.jpg"
+                alt="Indra Prasad Pathak"
+                fill
+                loading="lazy"
+                sizes="56px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
+</div>
+<div>
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+Indra Prasad Pathak
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+Literature Language Editor
+</div>
+</div>
+</div>
+) : i === 2 ? (
+<div className="flex items-center gap-3">
+<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+              <Image
+                src="/indra%20and%20hari.jpg"
+                alt="Indra Prasad Pathak &amp; Hari kala Pathak"
+                fill
+                loading="lazy"
+                sizes="56px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
+</div>
+<div>
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+Indra Prasad Pathak &amp; Hari kala Pathak
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+Readers&rsquo; Perspectives
+</div>
+</div>
+</div>
+) : i === 3 ? (
+<div className="flex items-center gap-3">
+<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+              <Image
+                src="/chinta-debaka.jpg"
+                alt="Chinta Mani Bhandari &amp; Debaka Bhandari"
+                fill
+                loading="lazy"
+                sizes="56px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
+</div>
+<div>
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+Chinta Mani Bhandari &amp; Debaka Bhandari
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+Readers&rsquo; Perspectives
+</div>
+</div>
+</div>
+) : i === 4 ? (
+<div className="flex items-center gap-3">
+<div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0 flex items-center justify-center bg-vellum">
+<span className="font-display text-lg sm:text-xl text-oxblood">
+GP
 </span>
+</div>
+<div>
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+Geeta Pathak
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+Education Officer
+</div>
+</div>
+</div>
+) : (
+<div className="flex items-center gap-3">
+<div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0 flex items-center justify-center bg-vellum">
+<span className="font-display text-lg sm:text-xl text-oxblood">
+BB
+</span>
+</div>
+<div>
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+Bijay &amp; Bipin Bhandari
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+Civil Engineers
+</div>
+</div>
+</div>
+)}
 <span className="font-caps text-[0.8rem] sm:text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft shrink-0">
 {p.year}
 </span>
@@ -192,29 +306,6 @@ isFeature ? "text-2xl sm:text-3xl lg:text-4xl" : "text-xl sm:text-2xl lg:text-3x
 {p.quote}
 </motion.blockquote>
 
-<motion.figcaption
-initial={{ opacity: 0, x: -10 }}
-whileInView={{ opacity: 1, x: 0 }}
-viewport={{ once: true }}
-transition={{ duration: 0.6, delay: 0.5 + i * 0.08 }}
-className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-rule flex items-center gap-3 relative"
->
-<span className="h-px w-6 sm:w-8 bg-ink" />
-<div>
-<div className="font-serif text-text-base sm:text-text-lg text-ink">
-{p.author}
-</div>
-{p.subtitle ? (
-<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
-{p.subtitle}
-</div>
-) : p.publication && (
-<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
-For {p.publication}
-</div>
-)}
-</div>
-</motion.figcaption>
 </motion.div>
 
 <motion.div
