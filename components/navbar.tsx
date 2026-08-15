@@ -130,15 +130,14 @@ export function Navbar() {
                 className="w-full h-full object-cover scale-125"
               />
             </motion.span>
-            <span className="hidden sm:flex flex-col items-start leading-none">
-              <span className="font-caps text-[1rem] tracking-[0.1em] text-ink font-bold transition-colors duration-500">
+            <span className="flex flex-col items-start leading-none">
+              <span className="font-caps text-[0.95rem] sm:text-[1rem] tracking-[0.1em] text-ink font-bold transition-colors duration-500">
                 DARSHAN PATHAK
               </span>
-              <span className="font-caps text-[0.9rem] tracking-[0.2em] text-ink/60 mt-0.5 transition-colors duration-500 group-hover:text-link">
+              <span className="font-caps text-[0.8rem] sm:text-[0.9rem] tracking-[0.18em] sm:tracking-[0.2em] text-ink/60 mt-0.5 transition-colors duration-500 group-hover:text-link">
                 Author, Microbiologist, Sociologist &amp; Teacher
               </span>
             </span>
-            <span className="sm:hidden font-display text-lg font-semibold text-ink group-hover:text-link transition-colors">Darshan Pathak</span>
           </Link>
 
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8 group/nav relative">

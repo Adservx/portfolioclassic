@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform, useReducedMotion } from "motion/react";
 import { useRef } from "react";
 import Image from "next/image";
-import { useCanParallax } from "@/lib/use-is-mobile";
 
 const PORTRAIT =
 "/bookstore/messenger-creation.webp";
@@ -12,7 +11,7 @@ const BURST_PORTRAIT =
 
 export function Hero() {
   const prefersReduced = useReducedMotion();
-  const canParallax = useCanParallax();
+  const canParallax = !prefersReduced;
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -29,7 +28,7 @@ return (
 <section
 id="prologue"
 ref={ref}
-className="relative min-h-screen flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
+className="relative min-h-[130vh] flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
 style={{
 backgroundColor: "var(--color-background)"
 }}
@@ -41,7 +40,7 @@ backgroundColor: "var(--color-background)"
 aria-hidden
 className="absolute inset-0 pointer-events-none overflow-hidden"
 initial={prefersReduced ? false : { opacity: 0 }}
-animate={{ opacity: 0.75 }}
+animate={{ opacity: 0.98 }}
 transition={{ duration: prefersReduced ? 0 : 1.2, delay: prefersReduced ? 0 : 0.3, ease: [0.16, 1, 0.3, 1] }}
 >
 <div className="absolute inset-0">
@@ -54,10 +53,8 @@ quality={90}
 sizes="100vw"
 className="object-cover hero-burst-img"
 style={{
-// Light warm grade — keeps the portrait natural and crisp
-filter: "sepia(0.3) contrast(1.06) brightness(1.05) saturate(1.05)",
-objectPosition: "50% 55%",
-}}
+              objectPosition: "50% 48%",
+            }}
 />
 {/* Soft vignette — depth at top/sides, white dissolve at the very bottom */}
 <div
@@ -81,7 +78,7 @@ clipPath: "inset(0)",
 className="absolute inset-0"
 style={{
 background:
-"radial-gradient(ellipse 72% 48% at 50% 55%, rgba(255,255,255,0.78) 0%, rgba(255,255,255,0.35) 55%, transparent 85%)",
+"radial-gradient(ellipse 72% 48% at 50% 55%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.18) 55%, transparent 85%)",
 }}
 />
 </motion.div>
@@ -101,19 +98,19 @@ style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparen
 <div className="paper-grain absolute inset-0 pointer-events-none hidden md:block" />
 
 {/* Decorative corner medallions — slow rotate on hover */}
-<div className="absolute top-20 left-6 lg:left-12 hidden md:block z-10">
+<div className="absolute bottom-24 left-6 lg:left-12 hidden md:block z-10">
 <Medallion label="Vol." value="I" />
 </div>
-<div className="absolute top-20 right-6 lg:right-12 hidden md:block z-10">
+<div className="absolute bottom-24 right-6 lg:right-12 hidden md:block z-10">
 <Medallion label="Folio" value="01" />
 </div>
 
 <motion.div
 style={scrollStyle}
-className="relative mx-auto max-w-7xl w-full px-6 lg:px-12 z-10"
+className="relative mx-auto max-w-7xl w-full px-6 lg:px-12 z-10 flex-1 flex flex-col"
 >
 {/* ✦ Two-column body — epigraph & portrait */}
-<div className="mt-8 lg:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+<div className="mt-auto grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
 {/* Left: Epigraph with drop cap */}
 <motion.div
 initial={{ opacity: 0, y: 20 }}
