@@ -10,9 +10,6 @@ const PORTRAIT =
 const BURST_PORTRAIT =
 "/hero.webp";
 
-const NAME_FIRST = "Darshan";
-const NAME_LAST = "Pathak";
-
 export function Hero() {
   const prefersReduced = useReducedMotion();
   const canParallax = useCanParallax();
@@ -115,88 +112,6 @@ style={{ background: "radial-gradient(circle, rgba(255,255,255,0.04), transparen
 style={scrollStyle}
 className="relative mx-auto max-w-7xl w-full px-6 lg:px-12 z-10"
 >
-{/* ✦ Top register — masthead (spaced below the face strip) */}
-<motion.div
-initial={{ opacity: 0, y: -10 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-className="mt-28 sm:mt-36 lg:mt-32 flex flex-col items-center text-center"
->
-<div className="flex items-center gap-2 sm:gap-3 text-ink-soft">
-<motion.span
-initial={{ scaleX: 0 }}
-animate={{ scaleX: 1 }}
-transition={{ duration: 0.8, delay: 0.4 }}
-className="hidden sm:block h-px w-8 lg:w-12 bg-rule-strong origin-left"
-/>
-<span className="font-caps text-[0.78rem] sm:text-[0.9rem] lg:text-[1rem] tracking-[0.3em] sm:tracking-[0.45em] uppercase font-bold">
-The Complete Works & Life
-</span>
-<motion.span
-initial={{ scaleX: 0 }}
-animate={{ scaleX: 1 }}
-transition={{ duration: 0.8, delay: 0.4 }}
-className="hidden sm:block h-px w-8 lg:w-12 bg-rule-strong origin-right"
-/>
-</div>
-<motion.p
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-transition={{ delay: 0.7, duration: 0.8 }}
-className="mt-3 font-serif text-text-lg text-ink-soft"
->
-A portfolio in five movements
-</motion.p>
-</motion.div>
-
-{/* ✦ MASTHEAD — name with letter cascade */}
-<div className="mt-4 sm:mt-6 lg:mt-8 flex flex-col items-center">
-<h1 className="font-display text-[clamp(3.5rem,12vw,8rem)] leading-[0.85] tracking-[-0.02em] text-ink text-center">
-<span className="letter-cascade inline-block">
-{NAME_FIRST.split("").map((ch, i) => (
-<span
-key={`a-${i}`}
-style={{ animationDelay: `${700 + i * 50}ms` }}
-className="inline-block"
->
-{ch}
-</span>
-))}
-</span>
-<motion.span
-initial={{ opacity: 0, y: -10 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-className="block text-oxblood font-display text-[0.58em] -mt-2 tracking-[0.04em]"
->
-<span className="letter-cascade inline-block">
-{NAME_LAST.split("").map((ch, i) => (
-<span
-key={`b-${i}`}
-style={{ animationDelay: `${1500 + i * 50}ms` }}
-className="inline-block"
->
-{ch}
-</span>
-))}
-</span>
-</motion.span>
-</h1>
-
-<motion.div
-initial={{ opacity: 0, scaleX: 0 }}
-animate={{ opacity: 1, scaleX: 1 }}
-transition={{ duration: 1, delay: 1.9, ease: [0.16, 1, 0.3, 1] }}
-className="origin-center mt-3 sm:mt-4 flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-ink"
->
-<span className="hidden sm:block h-px w-16 bg-ink" />
-<span className="font-caps text-[1.1rem] sm:text-[1.15rem] text-center sm:text-left">
-Microbiologist · Sociologist · Teacher · Author of <em>White Words</em>
-</span>
-<span className="hidden sm:block h-px w-16 bg-ink" />
-</motion.div>
-</div>
-
 {/* ✦ Two-column body — epigraph & portrait */}
 <div className="mt-8 lg:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-start">
 {/* Left: Epigraph with drop cap */}
