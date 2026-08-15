@@ -92,6 +92,9 @@ className="absolute inset-2 pointer-events-none"
 style={{ boxShadow: "inset 0 0 40px 8px rgba(0, 0, 0,0.4)" }}
 />
 </div>
+<div className="mt-3 text-center font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
+Evanjilina Pathak
+</div>
 </div>
 <div className="sm:col-span-7 pb-2 sm:pb-4">
 <div className="font-caps text-[1rem] uppercase text-ink-soft">
@@ -104,9 +107,9 @@ viewport={{ once: true }}
 transition={{ delay: 0.4 }}
 className="mt-2 sm:mt-3 font-serif text-lg sm:text-xl lg:text-2xl text-ink leading-snug"
 >
-Dedicated to my daughter, not yet a year old,
-whose gurgles were the first songs to fill this
-house. May these white words grow with her — a
+Dedicated to my daughter Evanjilina Pathak, not yet
+a year old, whose gurgles were the first songs to fill
+this house. May these white words grow with her — a
 garden for her first steps, a lantern for her first
 words, and a quiet promise that her father&rsquo;s love
 is written in every line.
@@ -118,7 +121,7 @@ viewport={{ once: true }}
 transition={{ delay: 0.6 }}
 className="mt-2 sm:mt-3 font-caps text-[1rem] uppercase text-faded"
 >
-Darshan Pathak, Author of White Words.
+Daughter of the Author.
 </motion.div>
 </div>
 </div>
