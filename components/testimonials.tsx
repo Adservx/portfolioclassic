@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/about";
+import { useUsdNprRate } from "@/lib/rate";
 
 const press = [
 {
@@ -51,6 +52,7 @@ quote:
 ];
 
 export function Praise() {
+const { rate } = useUsdNprRate();
 return (
 <section
 id="press"
@@ -335,7 +337,7 @@ className="absolute -bottom-1 -left-1 w-3 sm:w-4 h-3 sm:h-4 border-b border-l bo
 "Published by Darshan Pathak, Nepal",
 "Printed at New Baba Chhapakhana, Butwal",
 "Distributed by the Author",
-"Price · $3 / NPR 460",
+"Price · $3 / NPR " + Math.round(3 * rate),
 ].map((item, i) => (
 <motion.div
 key={item}

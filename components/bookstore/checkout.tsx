@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import Image from "next/image";
+import { DEFAULT_NPR_PER_USD } from "@/lib/rate";
 
 async function fileToDataUrl(file: File): Promise<string> {
   const maxDim = 1000;
@@ -31,14 +32,15 @@ items: CartItem[];
 onBack: () => void;
 onComplete: () => void;
 format?: "print" | "digital";
+rate?: number;
 }
 
 function parsePrice(price: string): number {
 return parseFloat(price.replace(/[£$€]/g, ""));
 }
 
-function formatPrice(n: number): string {
-  return `$${n.toFixed(2)} · NPR ${Math.round(n * (460 / 3))}`;
+function formatPrice(n: number, rate: number = DEFAULT_NPR_PER_USD): string {
+  return `$${n.toFixed(2)} · NPR ${Math.round(n * rate)}`;
 }
 
 /* ============================================================
@@ -569,6 +571,7 @@ function PaymentForm({
   onNext,
   onBack,
   submitError,
+  rate = DEFAULT_NPR_PER_USD,
 }: {
   items: CartItem[];
   data: PaymentInfo;
@@ -576,6 +579,7 @@ function PaymentForm({
   onNext: () => void;
   onBack: () => void;
   submitError: string;
+  rate?: number;
 }) {
 const [focused, setFocused] = useState<string | null>(null);
 const [errors, setErrors] = useState<Partial<Record<keyof PaymentInfo, string>>>({});
@@ -656,7 +660,7 @@ return (
 <div>
   {/* Animated QR payment */}
   <div className="mb-8">
-    <QRDisplay amount={formatPrice(total)} focused={focused} />
+    <QRDisplay amount={formatPrice(total, rate)} focused={focused} />
   </div>
 
   <form onSubmit={handleSubmit} className="space-y-5">
@@ -766,6 +770,7 @@ function ReviewOrder({
   onPlaceOrder,
   submitting,
   format,
+  rate = DEFAULT_NPR_PER_USD,
 }: {
   items: CartItem[];
   shipping: ShippingInfo;
@@ -774,6 +779,7 @@ function ReviewOrder({
   onPlaceOrder: () => void;
   submitting: boolean;
   format?: "print" | "digital";
+  rate?: number;
 }) {
   const total = items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0);
   const isDigital = format === "digital";
@@ -815,7 +821,7 @@ function ReviewOrder({
               </div>
             </div>
             <span className="font-display text-text-lg text-oxblood">
-              {formatPrice(parsePrice(item.price) * item.quantity)}
+              {formatPrice(parsePrice(item.price) * item.quantity, rate)}
             </span>
           </div>
         ))}
@@ -902,7 +908,7 @@ function ReviewOrder({
           Total
         </span>
         <span className="font-display text-3xl text-ink">
-          {formatPrice(total)}
+          {formatPrice(total, rate)}
         </span>
       </div>
 
@@ -933,7 +939,7 @@ function ReviewOrder({
 CHECKOUT — orchestrator
 ============================================================ */
 
-export function Checkout({ items, onBack, onComplete, format }: CheckoutProps) {
+export function Checkout({ items, onBack, onComplete, format, rate = DEFAULT_NPR_PER_USD }: CheckoutProps) {
   const isDigital = format === "digital";
   const [step, setStep] = useState(0);
   const [shipping, setShipping] = useState<ShippingInfo>({
@@ -978,7 +984,7 @@ export function Checkout({ items, onBack, onComplete, format }: CheckoutProps) {
             quantity,
           })),
           format: format ?? "digital",
-          total: formatPrice(items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0)),
+          total: formatPrice(items.reduce((s, i) => s + parsePrice(i.price) * i.quantity, 0), rate),
         }),
       });
       const data = await res.json();
@@ -991,7 +997,7 @@ export function Checkout({ items, onBack, onComplete, format }: CheckoutProps) {
     } finally {
       setSubmitting(false);
     }
-  }, [items, shipping, payment, format, isDigital]);
+  }, [items, shipping, payment, format, isDigital, rate]);
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -1055,6 +1061,7 @@ export function Checkout({ items, onBack, onComplete, format }: CheckoutProps) {
               onNext={() => setStep(2)}
               onBack={() => setStep(0)}
               submitError={submitError}
+              rate={rate}
             />
           )}
           {step === (isDigital ? 2 : 1) && (
@@ -1076,6 +1083,7 @@ export function Checkout({ items, onBack, onComplete, format }: CheckoutProps) {
                 onPlaceOrder={placeOrder}
                 submitting={submitting}
                 format={format}
+                rate={rate}
               />
             </div>
           )}

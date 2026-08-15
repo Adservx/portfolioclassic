@@ -7,11 +7,13 @@ import Link from "next/link";
 import { Checkout } from "./checkout";
 import { InkMotes } from "@/components/ink-motes";
 import { book, type Book } from "@/lib/book";
+import { useUsdNprRate } from "@/lib/rate";
 
 export function Store() {
 const [mode, setMode] = useState<"catalog" | "checkout">("catalog");
 const [format, setFormat] = useState<"print" | "digital">("print");
 const [quantity, setQuantity] = useState(1);
+const { rate } = useUsdNprRate();
 
 const handlePrintPurchase = useCallback(() => {
 setFormat("print");
@@ -74,6 +76,7 @@ Official Bookstore
 key="catalog"
 book={book}
 quantity={quantity}
+rate={rate}
 onQuantityChange={setQuantity}
 onPrintPurchase={handlePrintPurchase}
 onDigitalPurchase={handleDigitalPurchase}
@@ -85,6 +88,7 @@ key="checkout"
 book={book}
 format={format}
 quantity={quantity}
+rate={rate}
 onBack={handleBack}
 onComplete={handleComplete}
 />
@@ -98,7 +102,7 @@ onComplete={handleComplete}
 CATALOG VIEW — full book detail page
 ===================================================================== */
 
-function CatalogView({ book, quantity, onQuantityChange, onPrintPurchase, onDigitalPurchase }: { book: Book; quantity: number; onQuantityChange: (q: number) => void; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
+function CatalogView({ book, quantity, rate, onQuantityChange, onPrintPurchase, onDigitalPurchase }: { book: Book; quantity: number; rate: number; onQuantityChange: (q: number) => void; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
 return (
 <motion.div
 initial={{ opacity: 0 }}
@@ -194,7 +198,7 @@ transition={{ duration: 0.7, delay: 0.7 }}
 className="mt-10 flex flex-wrap items-center gap-6"
 >
 <div className="flex items-baseline gap-2">
-<span className="font-display text-6xl text-oxblood">{book.price}</span>
+<span className="font-display text-6xl text-oxblood">${parsePrice(book.price).toFixed(2)}/- · NPR {Math.round(parsePrice(book.price) * rate)}</span>
 <span className="font-serif text-text-base text-faded">incl. VAT</span>
 </div>
 <div className="flex flex-wrap items-center gap-6">
@@ -399,12 +403,14 @@ function CheckoutView({
 book,
 format,
 quantity,
+rate,
 onBack,
 onComplete,
 }: {
 book: Book;
 format: "print" | "digital";
 quantity: number;
+rate: number;
 onBack: () => void;
 onComplete: () => void;
 }) {
@@ -454,12 +460,12 @@ Back to Bookstore
             </p>
           </div>
           <div className="sm:text-right shrink-0">
-            <span className="font-display text-lg text-oxblood block">{book.price}</span>
+            <span className="font-display text-lg text-oxblood block">${parsePrice(book.price).toFixed(2)}/- · NPR {Math.round(parsePrice(book.price) * rate)}</span>
             {quantity > 1 && (
               <span className="font-caps text-[0.75rem] tracking-[0.2em] text-faded">
                 × {quantity} = $
                 {(parsePrice(book.price) * quantity).toFixed(2)} · NPR{" "}
-                {Math.round(parsePrice(book.price) * (460 / 3) * quantity)}
+                {Math.round(parsePrice(book.price) * rate * quantity)}
               </span>
             )}
           </div>
@@ -480,6 +486,7 @@ Back to Bookstore
             onBack={onBack}
             onComplete={onComplete}
             format={format}
+            rate={rate}
           />
 </div>
 </div>
