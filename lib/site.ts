@@ -3,7 +3,7 @@ export const SITE_URL = "https://darshanpathak.com.np";
 export const SITE_NAME = "Darshan Pathak";
 export const SITE_TITLE = "Darshan Pathak — Author of White Words";
 export const SITE_DESCRIPTION =
-  "The official portfolio of Darshan Pathak, author of White Words (2023). Microbiologist, sociologist, and writer of 93 articles on love, spirit, science, and the quiet architecture of the mind.";
+  "The official portfolio of Darshan Pathak, author of White Words (2023). Microbiologist, sociologist, teacher, and writer of 93 articles on love, spirit, science, and the quiet architecture of the mind.";
 export const SITE_KEYWORDS = [
   "Darshan Pathak",
   "White Words",
@@ -28,7 +28,7 @@ export const AUTHOR = {
   familyName: "Pathak",
   email: "darshanpathak2082@gmail.com",
   phone: "+977 9741766064",
-  jobTitle: "Author, Microbiologist & Sociologist",
+  jobTitle: "Author, Microbiologist, Sociologist & Teacher",
   nationality: "Nepal",
   url: `${SITE_URL}/`,
   image: `${SITE_URL}/bookstore/messenger-creation.webp`,

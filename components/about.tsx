@@ -11,7 +11,7 @@ const VARANASI_IMG = "/varanasi-author.webp";
 const stats = [
 { target: 93, suffix: "", label: "Articles in White Words" },
 { target: 2023, suffix: "", label: "First Edition" },
-{ target: 2, suffix: "", label: "Professions" },
+{ target: 3, suffix: "", label: "Professions" },
 { target: 1, suffix: "", label: "Book Published" },
 ];
 
@@ -390,21 +390,12 @@ viewport={{ once: true, margin: "-50px" }}
 transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
 className="group relative grid grid-cols-12 gap-3 sm:gap-6 py-6 sm:py-8 border-t border-rule last:border-b last:border-b-rule hover:bg-vellum/30 transition-colors duration-500"
 >
-<div className="col-span-5 sm:col-span-4 lg:col-span-2 overflow-hidden">
-<div className="font-display text-xl sm:text-3xl lg:text-5xl text-oxblood leading-none">
+<div className="col-span-5 sm:col-span-4 lg:col-span-3 min-w-0 relative">
+<div className="font-display text-xl sm:text-3xl lg:text-4xl xl:text-5xl text-oxblood leading-none whitespace-nowrap overflow-hidden text-ellipsis">
 {b.period}
 </div>
-</div>
-<div className="col-span-7 sm:col-span-8 lg:col-span-10 min-w-0">
-<h4 className="font-serif text-xl sm:text-2xl lg:text-3xl text-ink group-hover:text-oxblood transition-colors duration-500 break-words">
-{b.title}
-</h4>
-<p className="mt-2 font-serif text-[1rem] sm:text-[1.2rem] lg:text-[1.3rem] leading-relaxed text-ink-soft max-w-2xl break-words">
-{b.text}
-</p>
-</div>
 {/* Vertical timeline rule with draw animation */}
-<div className="absolute left-[8.5rem] top-0 bottom-0 w-px bg-rule hidden lg:block">
+<div className="absolute right-0 top-0 bottom-0 w-px bg-rule hidden lg:block">
 <motion.div
 initial={{ scaleY: 0 }}
 whileInView={{ scaleY: 1 }}
@@ -413,6 +404,15 @@ transition={{ duration: 1.2, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
 style={{ transformOrigin: "top" }}
 className="w-px h-full bg-oxblood/40"
 />
+</div>
+</div>
+<div className="col-span-7 sm:col-span-8 lg:col-span-9 min-w-0">
+<h4 className="font-serif text-xl sm:text-2xl lg:text-3xl text-ink group-hover:text-oxblood transition-colors duration-500 break-words">
+{b.title}
+</h4>
+<p className="mt-2 font-serif text-[1rem] sm:text-[1.2rem] lg:text-[1.3rem] leading-relaxed text-ink-soft max-w-2xl break-words">
+{b.text}
+</p>
 </div>
 </motion.div>
 ))}
@@ -468,7 +468,7 @@ className="h-px w-12 bg-ink origin-left"
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-ink leading-[1.05]"
+          className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl text-ink leading-[1.05]"
         >
           {title}
         </motion.h1>
@@ -478,7 +478,7 @@ className="h-px w-12 bg-ink origin-left"
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl text-ink leading-[1.05]"
+          className="mt-4 sm:mt-6 font-serif text-6xl sm:text-7xl md:text-8xl lg:text-8xl xl:text-9xl text-ink leading-[1.05]"
         >
           {title}
         </motion.h2>

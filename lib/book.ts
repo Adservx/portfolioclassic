@@ -35,7 +35,7 @@ export const book: Book = {
   email: "darshanpathak2082@gmail.com",
   phone: "+977 9741766064",
   dedication:
-    "Dedicated to my wife — B.B.S. Graduate. “The book WHITE WORDS made me proud and challenge to my soul with proof of love existence with the character of this book’s words, the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing out.” — The wife.",
+    "Dedicated to my wife — B.B.S. Graduate. “The book WHITE WORDS made me proud and challenge to my soul with proof of love existence with the character of this book’s words, the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing out.” — Binita Bhandari Pathak.",
   preface:
     "“This book may be useful for all. In this book the key feature is the series of 93 Articles, containing positive status, a glossary of literary terms, and motivates to writing literary essays and documenting them in correct format. In this book the article 'Dark' guides to find the natural light in our life. The author has tries to avoid the bad habits of people.” — Indra Prasad Pathak, Language Literature Editor, Bayetari.",
   toc: [

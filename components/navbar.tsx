@@ -122,10 +122,11 @@ export function Navbar() {
               className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 border border-ink rounded-full overflow-hidden"
             >
               <Image
-                src="/darshan.png"
+                src="/darshan-256.webp"
                 alt="Darshan Pathak"
                 width={48}
                 height={48}
+                priority
                 className="w-full h-full object-cover scale-125"
               />
             </motion.span>
@@ -134,13 +135,13 @@ export function Navbar() {
                 DARSHAN PATHAK
               </span>
               <span className="font-caps text-[0.9rem] tracking-[0.2em] text-ink/60 mt-0.5 transition-colors duration-500 group-hover:text-link">
-                Author, Microbiologist &amp; Sociologist
+                Author, Microbiologist, Sociologist &amp; Teacher
               </span>
             </span>
             <span className="sm:hidden font-display text-lg font-semibold text-ink group-hover:text-link transition-colors">Darshan Pathak</span>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8 group/nav relative">
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8 group/nav relative">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -173,7 +174,7 @@ export function Navbar() {
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex items-center justify-center w-12 h-12 cursor-pointer z-50 -mr-2 active:scale-90 transition-transform duration-200"
+            className="lg:hidden flex items-center justify-center w-12 h-12 cursor-pointer z-50 -mr-2 active:scale-90 transition-transform duration-200"
             aria-label="Toggle menu"
             aria-expanded={open}
           >
@@ -206,7 +207,7 @@ export function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 top-0 left-0 w-full h-[100dvh] z-40 bg-background/85 md:hidden"
+              className="fixed inset-0 top-0 left-0 w-full h-[100dvh] z-40 bg-background/85 lg:hidden"
             >
               <motion.div
                 initial={{ x: "100%" }}

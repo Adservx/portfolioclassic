@@ -152,7 +152,7 @@ className="flex items-center gap-3 sm:gap-4 mb-6"
 >
 <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 plate-thin overflow-hidden shrink-0 group">
             <Image
-              src="/darshan.png"
+              src="/darshan-256.webp"
               alt="An old typewriter, with a letter in its carriage"
               fill
               loading="lazy"
@@ -244,7 +244,7 @@ type="submit"
 disabled={state !== "idle"}
 whileHover={{ scale: 1.04, y: -2 }}
 whileTap={{ scale: 0.96 }}
-className="group relative inline-flex items-center gap-3 px-6 sm:px-8 py-3 sm:py-4 bg-link text-vellum font-caps uppercase tracking-[0.35em] text-[0.95rem] sm:text-[1rem] hover:bg-link-hover transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
+className="group relative inline-flex items-center gap-3 px-5 sm:px-8 py-3 sm:py-4 bg-link text-vellum font-caps uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[0.9rem] sm:text-[1rem] hover:bg-link-hover transition-colors duration-500 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer overflow-hidden"
 >
 {/* Sweep on hover */}
 <span
@@ -317,7 +317,7 @@ initial={{ opacity: 0, scale: 4, rotate: -25 }}
 animate={{ opacity: 0.85, scale: 1, rotate: -8 }}
 exit={{ opacity: 0 }}
 transition={{ type: "spring", stiffness: 200, damping: 12 }}
-className="pointer-events-none absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 w-24 h-24 lg:w-32 lg:h-32 rounded-full border-4 border-double border-oxblood flex items-center justify-center"
+className="pointer-events-none absolute -top-4 -right-4 lg:top-auto lg:bottom-0 lg:-right-6 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 rounded-full border-4 border-double border-oxblood flex items-center justify-center"
 >
 <span className="font-display text-oxblood text-text-sm lg:text-text-base text-center leading-none">
 Sent<br />MMXXVI

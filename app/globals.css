@@ -74,7 +74,7 @@
     height: 100%;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 1023px) {
     html {
       -webkit-overflow-scrolling: touch;
       scroll-behavior: auto; /* smooth scroll + address-bar resize = flicker */
@@ -94,7 +94,6 @@
     /* Never force max-width: 100vw on * — causes reflow thrash & fixed-element bugs */
 
     /* Kill continuous / expensive motion on mobile (keep one-shot entrance CSS) */
-    .animate-marquee,
     .animate-ken-burns,
     .animate-slow-rotate,
     .animate-slow-rotate-reverse,
@@ -293,6 +292,21 @@
 @utility text-gold-soft { color: var(--color-gold-soft); }
 @utility text-link { color: var(--color-link); }
 @utility text-link-hover { color: var(--color-link-hover); }
+
+@utility text-text-sm {
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+@utility text-text-base {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@utility text-text-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
 
 @utility text-italic-serif {
   font-family: var(--font-body);

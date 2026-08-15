@@ -1,48 +1,49 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/site";
 
+const LAST_MODIFIED = new Date("2026-08-15T00:00:00Z");
+
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   return [
     {
       url: `${SITE_URL}/`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 1,
     },
     {
       url: `${SITE_URL}/prologue`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/works`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/bookstore`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/craft`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
       priority: 0.6,
     },
     {
       url: `${SITE_URL}/press`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
       priority: 0.6,
     },
     {
       url: `${SITE_URL}/letters`,
-      lastModified: now,
+      lastModified: LAST_MODIFIED,
       changeFrequency: "yearly",
       priority: 0.5,
     },

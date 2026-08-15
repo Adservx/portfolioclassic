@@ -8,7 +8,7 @@ import { useCanParallax } from "@/lib/use-is-mobile";
 const PORTRAIT =
 "/bookstore/messenger-creation.webp";
 const BURST_PORTRAIT =
-"/bookstore/burst-portrait.webp";
+"/hero.webp";
 
 const NAME_FIRST = "Darshan";
 const NAME_LAST = "Pathak";
@@ -59,6 +59,7 @@ className="object-cover hero-burst-img"
 style={{
 // Light warm grade — keeps the portrait natural and crisp
 filter: "sepia(0.3) contrast(1.06) brightness(1.05) saturate(1.05)",
+objectPosition: "50% 55%",
 }}
 />
 {/* Soft vignette — depth at top/sides, white dissolve at the very bottom */}
@@ -190,7 +191,7 @@ className="origin-center mt-3 sm:mt-4 flex flex-col sm:flex-row items-center gap
 >
 <span className="hidden sm:block h-px w-16 bg-ink" />
 <span className="font-caps text-[1.1rem] sm:text-[1.15rem] text-center sm:text-left">
-Microbiologist · Sociologist · Author of <em>White Words</em>
+Microbiologist · Sociologist · Teacher · Author of <em>White Words</em>
 </span>
 <span className="hidden sm:block h-px w-16 bg-ink" />
 </motion.div>
@@ -292,7 +293,7 @@ background:
               </motion.span>
             </div>
 <div className="absolute bottom-3 left-3 right-3 text-vellum font-serif text-text-sm">
-Darshan Pathak · Microbiologist & Sociologist · Nepal
+Darshan Pathak · Microbiologist, Sociologist & Teacher · Nepal
 </div>
 <div
 className="absolute inset-0 pointer-events-none"

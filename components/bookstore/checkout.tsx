@@ -102,6 +102,7 @@ function QRDisplay({
                 src="/PHOTO-2026-07-25-14-04-28.jpg"
                 alt="eSewa payment QR code"
                 fill
+                sizes="(max-width: 640px) 240px, 340px"
                 className="object-cover"
               />
             </div>
@@ -736,11 +737,11 @@ return (
       </motion.p>
     )}
 
-    <div className="flex gap-3 pt-4">
+    <div className="flex flex-col sm:flex-row gap-3 pt-4">
       <button
         type="button"
         onClick={onBack}
-        className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
+        className="flex-1 border border-rule text-ink-soft hover:text-ink hover:border-ink/40 font-caps text-[0.9rem] sm:text-[1rem] tracking-[0.35em] uppercase px-2 sm:px-4 py-3 transition-[color,border-color] duration-300 cursor-pointer"
       >
         Back
       </button>
@@ -748,7 +749,7 @@ return (
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
         type="submit"
-        className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[1rem] tracking-[0.35em] uppercase px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
+        className="flex-1 bg-link text-vellum hover:bg-link-hover font-caps text-[0.9rem] sm:text-[1rem] tracking-[0.35em] uppercase px-2 sm:px-4 py-3 transition-[background-color] duration-300 cursor-pointer"
       >
         Review Order
       </motion.button>
@@ -810,6 +811,7 @@ function ReviewOrder({
                   src={item.cover}
                   alt={item.title}
                   fill
+                  sizes="32px"
                   className="object-cover"
                 />
               </div>
@@ -1025,13 +1027,13 @@ export function Checkout({ items, onBack, onComplete, format, rate = DEFAULT_NPR
               </span>
             </motion.div>
             <span
-              className={`font-caps text-[1rem] tracking-[0.25em] uppercase hidden sm:inline ${
+              className={`font-caps text-[1rem] tracking-[0.25em] uppercase hidden md:inline ${
                 i <= step ? "text-ink" : "text-faded"
               }`}
             >
               {label}
             </span>
-            {i < stepLabels.length - 1 && <span className="w-4 h-px bg-rule hidden sm:block" />}
+            {i < stepLabels.length - 1 && <span className="w-4 h-px bg-rule hidden md:block" />}
           </div>
         ))}
       </div>

@@ -62,7 +62,7 @@ className="fleuron text-gold text-text-lg"
 >
 ❦
 </motion.span>
-<span className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
+<span className="hidden sm:inline font-caps text-[0.85rem] tracking-[0.4em] uppercase text-ink-soft">
 Official Bookstore
 </span>
 </div>
@@ -157,7 +157,7 @@ The Only Edition
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-className="font-display text-6xl md:text-8xl lg:text-9xl text-ink leading-[0.9]"
+className="font-display text-6xl md:text-8xl lg:text-8xl xl:text-9xl text-ink leading-[0.9]"
 >
 {book.title}
 </motion.h1>
@@ -197,15 +197,15 @@ animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.7 }}
 className="mt-10 flex flex-wrap items-center gap-6"
 >
-<div className="flex items-baseline gap-2">
-<span className="font-display text-6xl text-oxblood">${parsePrice(book.price).toFixed(2)}/- · NPR {Math.round(parsePrice(book.price) * rate)}</span>
+<div className="flex items-baseline gap-2 flex-wrap">
+<span className="font-display text-4xl sm:text-5xl lg:text-6xl text-oxblood">${parsePrice(book.price).toFixed(2)}/- · NPR {Math.round(parsePrice(book.price) * rate)}</span>
 <span className="font-serif text-text-base text-faded">incl. VAT</span>
 </div>
 <div className="flex flex-wrap items-center gap-6">
 <div className="flex items-center gap-1 border border-rule bg-vellum/50">
 <button
 onClick={() => onQuantityChange(Math.max(1, quantity - 1))}
-className="w-10 h-10 flex items-center justify-center text-ink hover:bg-rule transition-colors duration-200 cursor-pointer font-serif text-xl leading-none"
+className="w-12 h-12 flex items-center justify-center text-ink hover:bg-rule transition-colors duration-200 cursor-pointer font-serif text-xl leading-none"
 >
 −
 </button>
@@ -219,33 +219,33 @@ if (!isNaN(val) && val >= 1 && val <= 10000) onQuantityChange(val);
 onBlur={(e) => {
 if (!e.target.value || parseInt(e.target.value, 10) < 1) onQuantityChange(1);
 }}
-className="w-14 h-10 flex items-center justify-center font-serif text-lg text-ink border-x border-rule bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+className="w-14 h-12 flex items-center justify-center font-serif text-lg text-ink border-x border-rule bg-transparent text-center outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
 />
 <button
 onClick={() => onQuantityChange(Math.min(10000, quantity + 1))}
-className="w-10 h-10 flex items-center justify-center text-ink hover:bg-rule transition-colors duration-200 cursor-pointer font-serif text-xl leading-none"
+className="w-12 h-12 flex items-center justify-center text-ink hover:bg-rule transition-colors duration-200 cursor-pointer font-serif text-xl leading-none"
 >
 +
 </button>
 </div>
-<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+<div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
 <motion.button
 whileHover={{ scale: 1.05 }}
 whileTap={{ scale: 0.95 }}
 onClick={onPrintPurchase}
-className="relative rounded-[16px] bg-gradient-to-b from-[#222222] to-[#000000] text-[#FAFAFA] px-14 py-7 transition-all duration-200 hover:brightness-110 shadow-[0_10px_0_#222222,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#222222] active:translate-y-[7px] cursor-pointer text-center"
+className="relative rounded-[16px] bg-gradient-to-b from-[#222222] to-[#000000] text-[#FAFAFA] px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-7 transition-all duration-200 hover:brightness-110 shadow-[0_10px_0_#222222,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#222222] active:translate-y-[7px] cursor-pointer text-center flex-1 sm:flex-none"
 >
-<span className="relative z-10 block font-caps font-bold text-4xl leading-tight text-link">🛒 Buy</span>
-<span className="relative z-10 block font-caps font-bold text-xl tracking-[0.1em] text-[#888888] mt-1">Hardcopy (Physical)</span>
+<span className="relative z-10 block font-caps font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-link">🛒 Buy</span>
+<span className="relative z-10 block font-caps font-bold text-base sm:text-lg lg:text-xl tracking-[0.1em] text-[#888888] mt-1">Hardcopy (Physical)</span>
 </motion.button>
 <motion.button
 whileHover={{ scale: 1.05 }}
 whileTap={{ scale: 0.95 }}
 onClick={onDigitalPurchase}
-className="relative rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] text-[#FAFAFA] px-14 py-7 transition-all duration-200 hover:brightness-125 shadow-[0_10px_0_#111111,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#111111] active:translate-y-[7px] cursor-pointer text-center"
+className="relative rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] text-[#FAFAFA] px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-7 transition-all duration-200 hover:brightness-125 shadow-[0_10px_0_#111111,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#111111] active:translate-y-[7px] cursor-pointer text-center flex-1 sm:flex-none"
 >
-<span className="relative z-10 block font-caps font-bold text-4xl leading-tight text-link">🛒 Buy</span>
-<span className="relative z-10 block font-caps font-bold text-xl tracking-[0.1em] text-[#888888] mt-1">Softcopy (PDF)</span>
+<span className="relative z-10 block font-caps font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-link">🛒 Buy</span>
+<span className="relative z-10 block font-caps font-bold text-base sm:text-lg lg:text-xl tracking-[0.1em] text-[#888888] mt-1">Softcopy (PDF)</span>
 </motion.button>
 </div>
 </div>
@@ -286,7 +286,7 @@ Dedication
 <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full overflow-hidden plate shrink-0">
 <Image
 src="/wifey.jpg"
-alt="The Wife"
+alt="Binita Bhandari Pathak"
 fill
 loading="lazy"
 sizes="64px"
@@ -444,6 +444,7 @@ Back to Bookstore
             src={book.cover}
             alt={book.title}
             fill
+            sizes="48px"
             className="object-cover"
           />
         </div>

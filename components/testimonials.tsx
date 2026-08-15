@@ -8,14 +8,14 @@ import { useUsdNprRate } from "@/lib/rate";
 const press = [
 {
 publication: "Wife's Words",
-author: "The Wife",
+author: "Binita Bhandari Pathak",
 year: "2023",
 quote:
 "The book 'WHITE WORDS' made me proud and challenge to my soul with proof of love existence with the character of this book's words — the potential energy from imagination and thoughts to cure and prevention the chronic that the whole world is facing.",
 },
 {
 publication: "",
-subtitle: "Literature Language Editor",
+subtitle: "Literature Language Editor, from the Preface",
 author: "Indra Prasad Pathak",
 year: "2023",
 quote:
@@ -37,7 +37,7 @@ quote:
 },
 {
 publication: "Readers' Perspectives",
-author: "Geeta Pathak",
+author: "Geeta & Bina Pathak",
 year: "2023",
 quote:
 "The book 'WHITE WORDS' improves English and literature to each and every individual as universal language art and skills — biotic and abiotic, molecular and atomic.",
@@ -165,10 +165,10 @@ background:
 <div className="flex items-center justify-between border-b border-ink/40 pb-3 mb-6 relative gap-3">
 {i === 0 ? (
 <div className="flex items-center gap-3">
-<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
               <Image
                 src="/wifey.jpg"
-                alt="The Wife"
+                alt="Binita Bhandari Pathak"
                 fill
                 loading="lazy"
                 sizes="56px"
@@ -177,7 +177,7 @@ background:
 </div>
 <div>
 <div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
-The Wife
+Binita Bhandari Pathak
 </div>
 <div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
 From Wife&rsquo;s Words
@@ -186,7 +186,7 @@ From Wife&rsquo;s Words
 </div>
 ) : i === 1 ? (
 <div className="flex items-center gap-3">
-<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
               <Image
                 src="/indra.jpg"
                 alt="Indra Prasad Pathak"
@@ -201,15 +201,15 @@ From Wife&rsquo;s Words
 Indra Prasad Pathak
 </div>
 <div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
-Literature Language Editor
+Literature Language Editor, from the Preface
 </div>
 </div>
 </div>
 ) : i === 2 ? (
 <div className="flex items-center gap-3">
-<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
               <Image
-                src="/indra%20and%20hari.jpg"
+                src="/indra-and-hari.webp"
                 alt="Indra Prasad Pathak &amp; Hari kala Pathak"
                 fill
                 loading="lazy"
@@ -228,9 +228,9 @@ Readers&rsquo; Perspectives
 </div>
 ) : i === 3 ? (
 <div className="flex items-center gap-3">
-<div className="relative w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0">
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
               <Image
-                src="/chinta-debaka.jpg"
+                src="/chinta-debaka.webp"
                 alt="Chinta Mani Bhandari &amp; Debaka Bhandari"
                 fill
                 loading="lazy"
@@ -249,26 +249,48 @@ Readers&rsquo; Perspectives
 </div>
 ) : i === 4 ? (
 <div className="flex items-center gap-3">
-<div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0 flex items-center justify-center bg-vellum">
-<span className="font-display text-lg sm:text-xl text-oxblood">
-GP
-</span>
+<div className="flex -space-x-3 sm:-space-x-4">
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
+              <Image
+                src="/geeta.jpg"
+                alt="Geeta Pathak"
+                fill
+                loading="lazy"
+                sizes="80px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
+</div>
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
+              <Image
+                src="/bina.jpg"
+                alt="Bina Pathak"
+                fill
+                loading="lazy"
+                sizes="80px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
+</div>
 </div>
 <div>
 <div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
-Geeta Pathak
+Geeta &amp; Bina Pathak
 </div>
 <div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
-Education Officer
+Business Partners
 </div>
 </div>
 </div>
 ) : (
 <div className="flex items-center gap-3">
-<div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden plate shrink-0 flex items-center justify-center bg-vellum">
-<span className="font-display text-lg sm:text-xl text-oxblood">
-BB
-</span>
+<div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
+              <Image
+                src="/bb.jpg"
+                alt="Bijay &amp; Bipin Bhandari"
+                fill
+                loading="lazy"
+                sizes="80px"
+                className="object-cover sepia-[0.3] contrast-105"
+              />
 </div>
 <div>
 <div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">

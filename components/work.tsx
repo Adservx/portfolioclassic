@@ -233,7 +233,7 @@ className="font-serif text-2xl sm:text-3xl lg:text-4xl text-ink-soft leading-non
 </div>
 
 {/* Title & excerpt */}
-<div className="col-span-6 sm:col-span-8 lg:col-span-5">
+<div className="col-span-12 sm:col-span-8 lg:col-span-5">
 <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
 <h3 className="font-serif text-2xl sm:text-3xl lg:text-4xl text-ink group-hover:text-oxblood transition-colors duration-500 link-underline inline-block cursor-pointer">
 {w.title}

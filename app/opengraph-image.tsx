@@ -6,7 +6,7 @@ export const contentType = "image/png";
 
 async function loadFont(url: string): Promise<ArrayBuffer | null> {
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "force-cache" });
     if (!res.ok) return null;
     return await res.arrayBuffer();
   } catch {
@@ -177,7 +177,7 @@ export default async function OpengraphImage() {
                 fontFamily: sourceSerif ? "Source Serif 4" : "Georgia",
               }}
             >
-              Author · Microbiologist · Sociologist
+              Author · Microbiologist · Sociologist · Teacher
             </div>
           </div>
         </div>
