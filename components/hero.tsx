@@ -28,7 +28,7 @@ return (
 <section
 id="prologue"
 ref={ref}
-className="relative min-h-[170svh] sm:min-h-[130vh] flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
+className="relative min-h-[200svh] sm:min-h-[130vh] flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
 style={{
 backgroundColor: "var(--color-background)"
 }}
@@ -169,14 +169,14 @@ transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
 style={portraitStyle}
 className="lg:col-span-5"
 >
-<div className="plate p-3 sm:p-4 lg:p-5 max-w-[200px] sm:max-w-[240px] lg:max-w-[260px] mx-auto group cursor-pointer">
+<div className="plate p-3 sm:p-4 lg:p-5 max-w-[180px] sm:max-w-[240px] lg:max-w-[260px] mx-auto group cursor-pointer">
 <div className="relative aspect-[4/5] bg-ink overflow-hidden splotch-reveal">
 <Image
 src={PORTRAIT}
 alt="Darshan Pathak — author of White Words"
 fill
 priority
-sizes="(max-width: 640px) 200px, (max-width: 1024px) 240px, 260px"
+sizes="(max-width: 640px) 180px, (max-width: 1024px) 240px, 260px"
 className="object-cover md:contrast-110 md:saturate-125 contrast-100 scale-[1.3] transition-transform duration-1000 group-hover:scale-[1.4]"
 />
 <div
