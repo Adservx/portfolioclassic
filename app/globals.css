@@ -719,8 +719,8 @@
     .hero-burst-img {
       /* Avoid continuous CSS filter re-raster on mobile GPUs during scroll */
       filter: sepia(0.3) contrast(1.06) brightness(1.05) saturate(1.05) !important;
-      transform: scale(1.5) translateZ(0);
-      object-position: 50% 74%;
+      transform: translateZ(0);
+      object-position: 50% 48%;
     }
   }
 }

@@ -28,7 +28,7 @@ return (
 <section
 id="prologue"
 ref={ref}
-className="relative min-h-[130vh] flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
+className="relative min-h-[170svh] sm:min-h-[130vh] flex flex-col pt-20 sm:pt-24 pb-8 overflow-hidden"
 style={{
 backgroundColor: "var(--color-background)"
 }}

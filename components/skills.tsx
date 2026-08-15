@@ -113,29 +113,31 @@ initial={{ opacity: 0, y: -10 }}
 whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ delay: 0.4 }}
-className="absolute top-4 left-4 right-4 flex items-start justify-between text-vellum"
+  className="absolute top-4 left-4 right-4 flex items-start justify-between text-vellum"
+  style={{ textShadow: "0 1px 3px rgba(0, 0, 0, 0.85)" }}
 >
-<span className="font-caps text-[1rem] tracking-[0.45em] uppercase">
-Plate III · The Desk
-</span>
-<span className="font-caps text-[1rem] tracking-[0.45em] uppercase">
-Nepal · early morning
-</span>
+  <span className="font-caps text-[0.7rem] tracking-[0.45em] uppercase sm:text-xs">
+    Plate III · The Desk
+  </span>
+  <span className="font-caps text-[0.7rem] tracking-[0.45em] uppercase sm:text-xs">
+    Nepal · early morning
+  </span>
 </motion.div>
 <motion.div
 initial={{ opacity: 0, x: -20 }}
 whileInView={{ opacity: 1, x: 0 }}
 viewport={{ once: true }}
 transition={{ delay: 0.7, duration: 0.8 }}
-className="absolute bottom-6 left-6 right-6 lg:left-10 lg:right-auto lg:max-w-md text-vellum"
+  className="absolute bottom-6 left-6 right-6 lg:left-10 lg:right-auto lg:max-w-md text-vellum"
+  style={{ textShadow: "0 1px 3px rgba(0, 0, 0, 0.85)" }}
 >
-<div className="font-serif text-lg lg:text-2xl leading-snug">
-&ldquo;Writing is the statue, cannot be destroyed, but try to
-protect and preserve it from acid rain.&rdquo;
-</div>
-<div className="mt-3 font-caps text-[1rem] uppercase text-vellum/80">
-From &ldquo;White Words&rdquo; · Biology Love
-</div>
+  <div className="font-serif text-sm leading-snug sm:text-base">
+    &ldquo;Writing is the statue, cannot be destroyed, but try to
+    protect and preserve it from acid rain.&rdquo;
+  </div>
+  <div className="mt-2 font-caps text-[0.7rem] uppercase text-vellum/90 sm:text-xs">
+    From &ldquo;White Words&rdquo; · Biology Love
+  </div>
 </motion.div>
 </div>
 </div>
