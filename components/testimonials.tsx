@@ -1,5 +1,6 @@
 "use client";
 
+import { Fragment } from "react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { SectionHeader } from "@/components/about";
@@ -37,7 +38,7 @@ quote:
 },
 {
 publication: "Readers' Perspectives",
-author: "Geeta & Bina Pathak",
+author: "Bina & Geeta Pathak",
 year: "2023",
 quote:
 "The book 'WHITE WORDS' improves English and literature to each and every individual as universal language art and skills — biotic and abiotic, molecular and atomic.",
@@ -135,8 +136,8 @@ Daughter of the Author.
 const isFeature = i === 0 || i === 3 || i === 4;
 const isOffset = i === 1 || i === 3;
 return (
+<Fragment key={`${p.author}-${p.quote.slice(0, 20)}`}>
 <motion.figure
-key={`${p.author}-${p.quote.slice(0, 20)}`}
 initial={{ opacity: 0, y: 30 }}
 whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true, margin: "-50px" }}
@@ -252,8 +253,8 @@ Readers&rsquo; Perspectives
 <div className="flex -space-x-3 sm:-space-x-4">
 <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
               <Image
-                src="/geeta.jpg"
-                alt="Geeta Pathak"
+                src="/bina.jpg"
+                alt="Bina Pathak"
                 fill
                 loading="lazy"
                 sizes="80px"
@@ -262,8 +263,8 @@ Readers&rsquo; Perspectives
 </div>
 <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-md overflow-hidden plate shrink-0">
               <Image
-                src="/bina.jpg"
-                alt="Bina Pathak"
+                src="/geeta.jpg"
+                alt="Geeta Pathak"
                 fill
                 loading="lazy"
                 sizes="80px"
@@ -273,10 +274,10 @@ Readers&rsquo; Perspectives
 </div>
 <div>
 <div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
-Geeta &amp; Bina Pathak
+Bina &amp; Geeta Pathak
 </div>
 <div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
-Business Partners
+Business Partner · Education Officer
 </div>
 </div>
 </div>
@@ -347,6 +348,68 @@ transition={{ duration: 0.5, delay: 0.5 + i * 0.08 }}
 className="absolute -bottom-1 -left-1 w-3 sm:w-4 h-3 sm:h-4 border-b border-l border-oxblood"
 />
 </motion.figure>
+
+{i === 1 && (
+<motion.div
+initial={{ opacity: 0, y: 30 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, margin: "-50px" }}
+transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+className="lg:col-span-12"
+>
+<div className="plate-thin p-6 sm:p-8 lg:p-10 h-full relative overflow-hidden">
+<div className="text-center">
+<div className="font-display text-lg sm:text-xl lg:text-2xl text-ink leading-none">
+Acknowledgement
+</div>
+<div className="font-caps text-[0.75rem] sm:text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft mt-1">
+From the Author
+</div>
+</div>
+<div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+<span className="fleuron text-gold text-text-lg animate-fleuron-wobble" aria-hidden>
+❦
+</span>
+<span className="hidden sm:block w-16 h-px bg-ink/30" aria-hidden />
+<span className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-ink-soft">
+Acknowledgement · White Words
+</span>
+<span className="hidden sm:block w-16 h-px bg-ink/30" aria-hidden />
+<span className="fleuron text-gold text-text-lg animate-fleuron-wobble" aria-hidden>
+❦
+</span>
+</div>
+<div className="text-center space-y-5 font-serif text-ink-2 leading-relaxed text-xl sm:text-2xl max-w-4xl mx-auto">
+<p>
+Thanks for the mood of brain from which mind moved some distance through these <em className="text-ink">“WHITE WORDS.”</em>
+</p>
+<p>
+Parents had felt happy when I used to write some words and sentence knowingly and unknowingly reflecting the rays of some hidden success.
+</p>
+<p>
+Thanks to the publisher New Baba Chhapakhana, Butwal-8, Rupandehi.
+</p>
+</div>
+<div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 border-t border-ink/20 pt-5">
+<div className="flex items-center gap-3">
+<span className="fleuron text-gold-soft text-text-lg" aria-hidden>
+❧
+</span>
+<span className="font-caps text-[0.85rem] tracking-[0.4em] uppercase text-faded">
+With gratitude
+</span>
+<span className="font-display text-3xl sm:text-4xl text-ink leading-none">
+— Author
+</span>
+<span className="fleuron text-gold-soft text-text-lg animate-fleuron-spin" aria-hidden>
+❦
+</span>
+</div>
+</div>
+</div>
+</motion.div>
+)}
+</Fragment>
 );
 })}
 </div>
