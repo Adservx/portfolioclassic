@@ -159,30 +159,55 @@ async function pushNewOrderToAdmins(
   buyerName: string
 ) {
   const admins = await db.collection("admins").get();
-  const tokens = admins.docs
-    .map((d) => ({ uid: d.id, token: d.data().fcmToken as string | undefined }))
-    .filter((e): e is { uid: string; token: string } => typeof e.token === "string");
-  if (!tokens.length) return;
+  const targets = new Map<string, { uid: string; inLegacy: boolean; inArray: boolean }>();
+  for (const d of admins.docs) {
+    const data = d.data();
+    const uid = d.id;
+    if (typeof data.fcmToken === "string" && data.fcmToken) {
+      const entry = targets.get(data.fcmToken) ?? { uid, inLegacy: false, inArray: false };
+      entry.inLegacy = true;
+      targets.set(data.fcmToken, entry);
+    }
+    if (Array.isArray(data.fcmTokens)) {
+      for (const t of data.fcmTokens) {
+        if (typeof t !== "string" || !t) continue;
+        const entry = targets.get(t) ?? { uid, inLegacy: false, inArray: false };
+        entry.inArray = true;
+        targets.set(t, entry);
+      }
+    }
+  }
+  if (!targets.size) return;
   const messaging = initFirebaseMessaging();
   await Promise.allSettled(
-    tokens.map(({ uid, token }) =>
+    [...targets.entries()].map(([target, { uid, inLegacy, inArray }]) =>
       messaging
-        .send({
-          token,
-          notification: {
-            title: `New order ${orderNumber}`,
-            body: `${buyerName} · ${format} · ${total}`,
-          },
-        })
+        .send(
+          inLegacy && !inArray
+            ? {
+                token: target,
+                notification: {
+                  title: `New order ${orderNumber}`,
+                  body: `${buyerName} · ${format} · ${total}`,
+                },
+              }
+            : {
+                fid: target,
+                notification: {
+                  title: `New order ${orderNumber}`,
+                  body: `${buyerName} · ${format} · ${total}`,
+                },
+              }
+        )
         .catch(async (err) => {
           const code = (err as { errorInfo?: { code?: string } })?.errorInfo?.code ?? "";
           if (code.includes("not-registered") || code.includes("invalid-argument")) {
-            await db
-              .collection("admins")
-              .doc(uid)
-              .update({ fcmToken: firestoreAdmin.FieldValue.delete() })
-              .catch(() => {});
-            console.warn(`Pruned stale FCM token for admin ${uid} (${code})`);
+            const ref = db.collection("admins").doc(uid);
+            const updates: Record<string, unknown> = {};
+            if (inLegacy) updates.fcmToken = firestoreAdmin.FieldValue.delete();
+            if (inArray) updates.fcmTokens = firestoreAdmin.FieldValue.arrayRemove(target);
+            await ref.update(updates).catch(() => {});
+            console.warn(`Pruned stale FCM target for admin ${uid} (${code})`);
           } else {
             console.error(`Push to admin ${uid} failed (${code || err}):`, err);
           }
