@@ -18,7 +18,7 @@ const links = [
   { label: "The Library", href: "/works" },
   { label: "Of the Craft", href: "/craft" },
   { label: "Of the Reception", href: "/press" },
-  { label: "Letters", href: "/letters" },
+  { label: "Contacts", href: "/letters" },
   { label: "Bookstore", href: "/bookstore" },
 ];
 
