@@ -5,8 +5,7 @@ import Image from "next/image";
 import { SectionHeader } from "@/components/about";
 import { Counter } from "@/components/counter";
 
-const DESK_IMG =
-"https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1000&q=65&auto=format&fit=crop";
+const DESK_IMG = "/vab.jpg";
 
 const disciplines = [
 {
@@ -88,14 +87,14 @@ className="mt-16"
 >
 <div className="plate p-2 sm:p-3 lg:p-4 max-w-5xl mx-auto">
 <div className="relative aspect-[4/3] sm:aspect-[16/7] overflow-hidden">
-<div className="absolute inset-0 animate-ken-burns">
+<div className="absolute inset-0">
             <Image
               src={DESK_IMG}
               alt="The author's desk, with a typewriter and a sheaf of half-finished pages"
               fill
               loading="lazy"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1024px"
-              className="object-cover sepia-[0.45] contrast-105"
+              className="object-cover object-[50%_34%] sepia-[0.45] contrast-105"
             />
 </div>
 <div

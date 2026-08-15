@@ -152,7 +152,7 @@ className="flex items-center gap-3 sm:gap-4 mb-6"
 >
 <div className="relative w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 plate-thin overflow-hidden shrink-0 group">
             <Image
-              src="https://images.unsplash.com/photo-1591958911259-bee2173bdccc?w=160&q=60&auto=format&fit=crop"
+              src="/darshan.png"
               alt="An old typewriter, with a letter in its carriage"
               fill
               loading="lazy"

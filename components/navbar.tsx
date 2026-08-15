@@ -122,7 +122,7 @@ export function Navbar() {
               className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 border border-ink rounded-full overflow-hidden"
             >
               <Image
-                src="/darshan-avatar.webp"
+                src="/darshan.png"
                 alt="Darshan Pathak"
                 width={48}
                 height={48}

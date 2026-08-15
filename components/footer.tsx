@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCanParallax } from "@/lib/use-is-mobile";
 
 const colophon = [
@@ -267,6 +268,26 @@ className="mt-16 pt-6 border-t border-vellum/15 flex flex-col sm:flex-row items-
               <span className="fleuron text-gold-soft text-text-lg animate-fleuron-spin" style={{ animationDelay: "-3s" }}>
                 ❦
               </span>
+</div>
+<div className="sm:absolute sm:bottom-0 sm:left-1/2 sm:-translate-x-1/2 mt-4 sm:mt-0 text-center">
+<a
+href="https://prajkit.com.np"
+target="_blank"
+rel="noopener noreferrer"
+className="group inline-flex items-center gap-2 font-caps text-[0.75rem] tracking-[0.35em] uppercase text-vellum/40 transition-colors duration-300 hover:text-vellum/70 cursor-pointer"
+>
+<span className="relative w-6 h-6 rounded-full overflow-hidden border border-vellum/30 group-hover:border-gold-soft transition-colors duration-300">
+<Image
+src="/prajkit.jpeg"
+alt="PrajKit Company"
+fill
+loading="lazy"
+sizes="24px"
+className="object-cover"
+/>
+</span>
+Crafted by <span className="text-gold-soft group-hover:text-gold-soft/80">PrajKit Company</span> ↗
+</a>
 </div>
 </motion.div>
 </div>
