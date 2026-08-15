@@ -79,8 +79,8 @@ className="mt-16 max-w-4xl mx-auto"
 <div className="relative aspect-[4/3] plate p-2 overflow-hidden">
 <div className="absolute inset-2 animate-ken-burns">
             <Image
-              src="https://images.unsplash.com/photo-1495640388908-05fa85288e61?w=600&q=65&auto=format&fit=crop"
-              alt="A press archive — bound reviews and clippings in a wooden drawer"
+              src="/baby.jpg"
+              alt="A dedication to the author's daughter"
               fill
               loading="lazy"
               sizes="(max-width: 640px) 100vw, 400px"
@@ -95,7 +95,7 @@ style={{ boxShadow: "inset 0 0 40px 8px rgba(0, 0, 0,0.4)" }}
 </div>
 <div className="sm:col-span-7 pb-2 sm:pb-4">
 <div className="font-caps text-[1rem] uppercase text-ink-soft">
-From the Preface
+From the Father&rsquo;s Dedication
 </div>
 <motion.p
 initial={{ opacity: 0, y: 10 }}
@@ -104,10 +104,12 @@ viewport={{ once: true }}
 transition={{ delay: 0.4 }}
 className="mt-2 sm:mt-3 font-serif text-lg sm:text-xl lg:text-2xl text-ink leading-snug"
 >
-The first edition of author tries to include the social,
-cultural and intellectual context of his time. It throws
-new light on the theoretical and imaginative structures
-of Pope&rsquo;s poetry.
+Dedicated to my daughter, not yet a year old,
+whose gurgles were the first songs to fill this
+house. May these white words grow with her — a
+garden for her first steps, a lantern for her first
+words, and a quiet promise that her father&rsquo;s love
+is written in every line.
 </motion.p>
 <motion.div
 initial={{ opacity: 0 }}
@@ -116,7 +118,7 @@ viewport={{ once: true }}
 transition={{ delay: 0.6 }}
 className="mt-2 sm:mt-3 font-caps text-[1rem] uppercase text-faded"
 >
-Indra Prasad Pathak, Language Literature Editor.
+Darshan Pathak, Author of White Words.
 </motion.div>
 </div>
 </div>
