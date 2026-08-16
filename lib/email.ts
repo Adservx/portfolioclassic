@@ -24,22 +24,36 @@ function getTransporter(): Transporter | null {
   return nodemailer.createTransport({ host, port, secure: port === 465, auth: { user, pass } });
 }
 
-export async function sendNewOrderAdminEmail(order: OrderInfo) {
+function requireTransporter(): Transporter {
   const transporter = getTransporter();
-  if (!transporter) return;
+  if (!transporter) {
+    throw new Error("SMTP is not configured — set SMTP_HOST, SMTP_USER and SMTP_PASS");
+  }
+  return transporter;
+}
+
+export async function sendNewOrderAdminEmail(order: OrderInfo) {
+  const transporter = requireTransporter();
   const items = order.items.map((i) => `${i.title} ×${i.quantity} (${i.price})`).join("<br/>");
-  await transporter.sendMail({
-    from: `"${order.siteName} Bookstore" <${order.authorEmail}>`,
-    to: order.authorEmail,
-    subject: `New order ${order.orderNumber} (${order.format})`,
-    html: `<h2>New bookstore order</h2><p><b>Order:</b> ${order.orderNumber}<br/><b>Buyer:</b> ${order.buyerName} &lt;${order.buyerEmail}&gt;<br/><b>Format:</b> ${order.format}<br/><b>Total:</b> ${order.total}<br/><b>Items:</b><br/>${items}${order.address ? `<br/><b>Ship to:</b> ${order.address.replace(/\n/g, ", ")}` : ""}</p><p>Confirm it from the admin app: ${process.env.NEXT_PUBLIC_ADMIN_ORIGIN ?? ""}</p>`,
-  });
+  try {
+    const info = await transporter.sendMail({
+      from: `"${order.siteName} Bookstore" <${order.authorEmail}>`,
+      to: order.authorEmail,
+      subject: `New order ${order.orderNumber} (${order.format})`,
+      html: `<h2>New bookstore order</h2><p><b>Order:</b> ${order.orderNumber}<br/><b>Buyer:</b> ${order.buyerName} &lt;${order.buyerEmail}&gt;<br/><b>Format:</b> ${order.format}<br/><b>Total:</b> ${order.total}<br/><b>Items:</b><br/>${items}${order.address ? `<br/><b>Ship to:</b> ${order.address.replace(/\n/g, ", ")}` : ""}</p><p>Confirm it from the admin app: ${process.env.NEXT_PUBLIC_ADMIN_ORIGIN ?? ""}</p>`,
+    });
+    console.log(`Admin email sent to ${order.authorEmail} (${info.messageId})`);
+  } catch (err) {
+    console.error(`Admin email to ${order.authorEmail} failed:`, err);
+    throw err;
+  }
 }
 
 export async function sendOrderConfirmationEmail(order: OrderInfo) {
-  const transporter = getTransporter();
-  if (!transporter) return;
-  if (!order.buyerEmail?.trim()) return;
+  const transporter = requireTransporter();
+  if (!order.buyerEmail?.trim()) {
+    throw new Error("Buyer email is empty — cannot send confirmation");
+  }
   const subject =
     order.format === "digital"
       ? `Your White Words download — Order ${order.orderNumber} confirmed`
@@ -53,10 +67,16 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
     body = `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your printed copy will be dispatched from the author's study within 2–4 weeks.</p>`;
   }
   body += `<p>— ${order.authorName}, ${order.siteName}</p>`;
-  await transporter.sendMail({
-    from: `"${order.siteName}" <${order.authorEmail}>`,
-    to: order.buyerEmail,
-    subject,
-    html: `<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto">${body}</div>`,
-  });
+  try {
+    const info = await transporter.sendMail({
+      from: `"${order.siteName}" <${order.authorEmail}>`,
+      to: order.buyerEmail,
+      subject,
+      html: `<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto">${body}</div>`,
+    });
+    console.log(`Confirmation email sent to ${order.buyerEmail} (${info.messageId})`);
+  } catch (err) {
+    console.error(`Confirmation email to ${order.buyerEmail} failed:`, err);
+    throw err;
+  }
 }

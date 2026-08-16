@@ -5,6 +5,9 @@ import { sendNewOrderAdminEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
 import * as firestoreAdmin from "firebase-admin/firestore";
 
+export const maxDuration = 60;
+export const runtime = "nodejs";
+
 export interface OrderItemPayload {
   id: number;
   title: string;

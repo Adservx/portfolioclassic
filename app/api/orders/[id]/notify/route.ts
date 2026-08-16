@@ -4,6 +4,9 @@ import { getLiveDownloadUrl } from "@/lib/download";
 import { sendOrderConfirmationEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
 
+export const maxDuration = 60;
+export const runtime = "nodejs";
+
 function corsHeaders(origin: string | null) {
   const configured = process.env.NEXT_PUBLIC_ADMIN_ORIGIN;
   const isDevOrigin = origin != null && /^http:\/\/localhost(:\d+)?$/.test(origin);
