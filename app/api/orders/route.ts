@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { initFirebaseAdmin, initFirebaseMessaging, initFirebaseDatabase } from "@/lib/firebase-admin";
+import { getLiveDownloadUrl } from "@/lib/download";
 import { sendNewOrderAdminEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
 import * as firestoreAdmin from "firebase-admin/firestore";
@@ -112,7 +113,7 @@ export async function POST(request: Request) {
     createdAt: now.toISOString(),
   });
 
-  const downloadUrl = `${SITE_URL}/bookstore/white-words.pdf`;
+  const downloadUrl = (await getLiveDownloadUrl()) ?? undefined;
 
   try {
     await sendNewOrderAdminEmail({

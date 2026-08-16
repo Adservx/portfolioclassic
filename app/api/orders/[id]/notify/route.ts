@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { initFirebaseAdmin } from "@/lib/firebase-admin";
+import { getLiveDownloadUrl } from "@/lib/download";
 import { sendOrderConfirmationEmail } from "@/lib/email";
-import { AUTHOR, SITE_NAME, SITE_URL, BOOK } from "@/lib/site";
+import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
 
 function corsHeaders(origin: string | null) {
   const configured = process.env.NEXT_PUBLIC_ADMIN_ORIGIN;
@@ -59,7 +60,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     return NextResponse.json({ ok: true, skipped: "cash-on-delivery", orderId: id }, { headers: cors });
   }
 
-  const downloadUrl = `${SITE_URL}/bookstore/white-words.pdf`;
+  const downloadUrl = (await getLiveDownloadUrl()) ?? undefined;
 
   try {
     await sendOrderConfirmationEmail({

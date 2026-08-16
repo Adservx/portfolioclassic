@@ -46,7 +46,9 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
       : `Order ${order.orderNumber} confirmed — White Words`;
   let body = "";
   if (order.format === "digital") {
-    body = `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Download your copy here:</p><p><a href="${order.downloadUrl}">Download White Words (PDF)</a></p>`;
+    body = order.downloadUrl
+      ? `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Download your copy here:</p><p><a href="${order.downloadUrl}">Download White Words (PDF)</a></p><p>This link expires 7 days after it was generated.</p>`
+      : `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your download link is being prepared — please email ${order.authorEmail} if you don't receive it shortly.</p>`;
   } else {
     body = `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your printed copy will be dispatched from the author's study within 2–4 weeks.</p>`;
   }
