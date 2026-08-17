@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Contact } from "@/components/contact";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { SITE_NAME, AUTHOR } from "@/lib/site";
+import { SITE_NAME, SITE_URL, AUTHOR } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact — Write to Darshan Pathak",
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "Contact — Write to Darshan Pathak",
     description: `Contact details for Darshan Pathak — author of White Words (2023). Email: ${AUTHOR.email}.`,
+    images: [{ url: `${SITE_URL}/hero-og.webp`, width: 1200, height: 630 }],
   },
 };
 

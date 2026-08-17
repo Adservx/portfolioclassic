@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "About Darshan Pathak — Author of White Words",
     description: SITE_DESCRIPTION,
+    images: [{ url: `${SITE_URL}/hero-og.webp`, width: 1200, height: 630 }],
   },
 };
 

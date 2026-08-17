@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
+    images: [{ url: `${SITE_URL}/hero-og.webp`, width: 1200, height: 630 }],
   },
 };
 

@@ -70,10 +70,10 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: `${SITE_URL}/opengraph-image`,
+        url: `${SITE_URL}/hero-og.webp`,
         width: 1200,
         height: 630,
-        alt: "White Words — Darshan Pathak",
+        alt: "Darshan Pathak — Author of White Words",
       },
     ],
   },
@@ -81,10 +81,20 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
-    images: [`${SITE_URL}/twitter-image`],
+    images: [`${SITE_URL}/hero-og.webp`],
   },
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+  },
+  icons: {
+    icon: [
+      {
+        url: "/darshan-256.webp",
+        type: "image/webp",
+        sizes: "256x256",
+      },
+    ],
+    shortcut: "/darshan-256.webp",
   },
 };
 

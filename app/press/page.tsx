@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Praise } from "@/components/testimonials";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Of the Reception — Praise for White Words | Darshan Pathak",
@@ -21,6 +21,7 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "Of the Reception — Praise for White Words",
     description: "Readers' and well-wishers' words on White Words by Darshan Pathak.",
+    images: [{ url: `${SITE_URL}/hero-og.webp`, width: 1200, height: 630 }],
   },
 };
 

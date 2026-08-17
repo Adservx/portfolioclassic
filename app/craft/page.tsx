@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Craft } from "@/components/skills";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-import { SITE_NAME } from "@/lib/site";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Of the Craft — How White Words Was Made | Darshan Pathak",
@@ -22,6 +22,7 @@ export const metadata: Metadata = {
     title: "Of the Craft — Darshan Pathak",
     description:
       "A close look at the disciplines behind White Words and the writing life of Darshan Pathak.",
+    images: [{ url: `${SITE_URL}/hero-og.webp`, width: 1200, height: 630 }],
   },
 };
 
