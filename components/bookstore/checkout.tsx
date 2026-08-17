@@ -697,7 +697,6 @@ Pay by scanning the eSewa QR, then confirm your transaction below.
         ref={fileRef}
         type="file"
         accept="image/*"
-        capture="environment"
         onChange={(e) => handleScreenshot(e.target.files?.[0])}
         className="hidden"
       />
