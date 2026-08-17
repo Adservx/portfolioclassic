@@ -1,6 +1,9 @@
 export interface Book {
   id: number;
   title: string;
+  subtitle?: string;
+  shortTitle?: string;
+  badge?: string;
   author: string;
   category: string;
   year: string;
@@ -8,6 +11,9 @@ export interface Book {
   excerpt: string;
   binding: string;
   price: string;
+  digitalOnly?: boolean;
+  tocLabel?: string;
+  details?: { label: string; value: string }[];
   pdfUrl?: string;
   isbn?: string;
   publisher?: string;
@@ -15,7 +21,7 @@ export interface Book {
   phone?: string;
   dedication?: string;
   preface?: string;
-  toc?: { title: string; page: string }[];
+  toc?: { title: string; page?: string }[];
 }
 
 export const book: Book = {
@@ -131,3 +137,50 @@ export const book: Book = {
     { title: "Emptiness", page: "146" },
   ],
 };
+
+export const thesis: Book = {
+  id: 2,
+  title: "Persistence and Change in Livelihood Strategies in the Magar Community",
+  subtitle: "A Case Study of Guwadi Gaun, Galyang Municipality, Ward No. 4",
+  shortTitle: "MA Thesis",
+  badge: "Digital Edition · MA Sociology",
+  author: "Darshan Pathak",
+  category: "Sociology · Thesis",
+  year: "2024",
+  cover: "/thesis_cover.png",
+  excerpt:
+    "A sociological research study examining the persistence, transformation and adaptation of livelihood strategies within the Magar community of Guwadi Gaun, with particular attention to traditional and contemporary economic practices.",
+  binding: "Master of Arts in Sociology · Thesis Writing (So. 593)",
+  price: "$7.00/- · NPR 1073",
+  digitalOnly: true,
+  tocLabel: "chapters",
+  publisher: "Tribhuvan University · Galyang Multiple Campus",
+  email: "darshanpathak2082@gmail.com",
+  phone: "+977 9741766064",
+  preface:
+    "This thesis explores the livelihood strategies of the Magar community in Guwadi Gaun, Galyang Municipality Ward No. 4. It examines traditional livelihood practices and the changes that have occurred over the past 15 years, including shifts in agriculture, animal husbandry, business, employment and foreign employment. The research draws on primary data collected through household questionnaires, focus group discussions, key informant interviews and field observation, alongside secondary sources. The study uses descriptive and exploratory research approaches and examines the economic, social, cultural, educational and health-related dimensions associated with livelihood change.",
+  details: [
+    { label: "Degree", value: "Master of Arts in Sociology · Thesis Writing (So. 593)" },
+    { label: "University", value: "Tribhuvan University · Faculty of Humanities and Social Sciences · Department of Sociology" },
+    { label: "Campus", value: "Galyang Multiple Campus, Galyang, Syangja" },
+    { label: "Submitted", value: "November 2024" },
+    { label: "Study Area", value: "Guwadi Gaun, Galyang Municipality, Ward No. 4, Syangja" },
+    { label: "Research Population", value: "270 Magar families" },
+    { label: "Respondents", value: "54 respondents · 10 key-informant interviews" },
+    { label: "Research Approach", value: "Exploratory and descriptive" },
+    { label: "Data Sources", value: "Primary and secondary" },
+    { label: "Methods", value: "Questionnaire survey · Focus group discussions · Key informant interviews · Field observation" },
+    { label: "T.U. Registration No.", value: "5-2-37-338-2010" },
+    { label: "Exam Roll No.", value: "47532001 · Campus Roll No. 01/2021" },
+  ],
+  toc: [
+    { title: "I — Introduction" },
+    { title: "II — Review of Literature" },
+    { title: "III — Research Methods" },
+    { title: "IV — Data Presentation & Analysis" },
+    { title: "V — Summary & Conclusion" },
+    { title: "References & Annexes" },
+  ],
+};
+
+export const products: Book[] = [book, thesis];

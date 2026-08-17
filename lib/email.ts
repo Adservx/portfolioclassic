@@ -7,7 +7,7 @@ export interface OrderInfo {
   buyerEmail: string;
   format: "print" | "digital";
   total: string;
-  items: { title: string; quantity: number; price: string }[];
+  items: { title: string; quantity: number; price: string; cover?: string }[];
   address?: string;
   downloadUrl?: string;
   siteUrl: string;
@@ -56,10 +56,11 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
     throw new Error("Buyer email is empty — cannot send confirmation");
   }
   const buyerName = /[a-zA-Z]/.test(order.buyerName?.trim() ?? "") ? order.buyerName!.trim() : "Reader";
+  const productTitle = order.items?.[0]?.title?.trim() || "White Words";
   const subject =
     order.format === "digital"
-      ? `Your White Words download — Order ${order.orderNumber} confirmed`
-      : `Order ${order.orderNumber} confirmed — White Words`;
+      ? `Your ${productTitle} download — Order ${order.orderNumber} confirmed`
+      : `Order ${order.orderNumber} confirmed — ${productTitle}`;
   try {
     const info = await transporter.sendMail({
       from: `"${order.siteName}" <${process.env.SMTP_USER}>`,

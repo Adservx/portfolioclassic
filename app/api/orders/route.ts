@@ -3,6 +3,7 @@ import { initFirebaseAdmin, initFirebaseMessaging, initFirebaseDatabase } from "
 import { getLiveDownloadUrl } from "@/lib/download";
 import { sendNewOrderAdminEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
+import { products } from "@/lib/book";
 import * as firestoreAdmin from "firebase-admin/firestore";
 
 export const maxDuration = 60;
@@ -116,7 +117,11 @@ export async function POST(request: Request) {
     createdAt: now.toISOString(),
   });
 
-  const downloadUrl = (await getLiveDownloadUrl()) ?? undefined;
+  const downloadUrl = (await getLiveDownloadUrl(items[0]?.id)) ?? undefined;
+  const emailItems = items.map((i) => ({
+    ...i,
+    cover: products.find((p) => p.id === i.id)?.cover ?? "",
+  }));
 
   try {
     await sendNewOrderAdminEmail({
@@ -125,7 +130,7 @@ export async function POST(request: Request) {
       buyerEmail: shipping.email,
       format,
       total,
-      items,
+      items: emailItems,
       address: [
         shipping.address,
         shipping.municipality,

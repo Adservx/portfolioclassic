@@ -6,14 +6,26 @@ import Image from "next/image";
 import Link from "next/link";
 import { Checkout } from "./checkout";
 import { InkMotes } from "@/components/ink-motes";
-import { book, type Book } from "@/lib/book";
+import { book, thesis, products, type Book } from "@/lib/book";
 import { useUsdNprRate } from "@/lib/rate";
 
 export function Store() {
+const [productId, setProductId] = useState<number>(book.id);
 const [mode, setMode] = useState<"catalog" | "checkout">("catalog");
 const [format, setFormat] = useState<"print" | "digital">("print");
 const [quantity, setQuantity] = useState(1);
 const { rate } = useUsdNprRate();
+
+const product = products.find((p) => p.id === productId) ?? book;
+
+const selectProduct = useCallback((id: number) => {
+const p = products.find((x) => x.id === id);
+if (!p) return;
+setProductId(id);
+setFormat(p.digitalOnly ? "digital" : "print");
+setQuantity(1);
+setMode("catalog");
+}, []);
 
 const handlePrintPurchase = useCallback(() => {
 setFormat("print");
@@ -73,19 +85,22 @@ Official Bookstore
 <AnimatePresence mode="wait">
 {mode === "catalog" && (
 <CatalogView
-key="catalog"
-book={book}
+key={`catalog-${product.id}`}
+product={product}
+products={products}
+productId={product.id}
 quantity={quantity}
 rate={rate}
 onQuantityChange={setQuantity}
+onSelectProduct={selectProduct}
 onPrintPurchase={handlePrintPurchase}
 onDigitalPurchase={handleDigitalPurchase}
 />
 )}
 {mode === "checkout" && (
 <CheckoutView
-key="checkout"
-book={book}
+key={`checkout-${product.id}`}
+book={product}
 format={format}
 quantity={quantity}
 rate={rate}
@@ -102,7 +117,7 @@ onComplete={handleComplete}
 CATALOG VIEW — full book detail page
 ===================================================================== */
 
-function CatalogView({ book, quantity, rate, onQuantityChange, onPrintPurchase, onDigitalPurchase }: { book: Book; quantity: number; rate: number; onQuantityChange: (q: number) => void; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
+function CatalogView({ product, products, productId, quantity, rate, onQuantityChange, onSelectProduct, onPrintPurchase, onDigitalPurchase }: { product: Book; products: Book[]; productId: number; quantity: number; rate: number; onQuantityChange: (q: number) => void; onSelectProduct: (id: number) => void; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
 return (
 <motion.div
 initial={{ opacity: 0 }}
@@ -111,6 +126,32 @@ exit={{ opacity: 0, y: -20 }}
 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
 className="relative z-10"
 >
+{/* ✦ Catalogue Switcher */}
+<section className="relative z-10 pt-10 px-6 lg:px-12">
+<div className="mx-auto max-w-7xl">
+<div className="flex flex-wrap items-end justify-between gap-6 border-b border-rule pb-4">
+<div className="flex gap-2 sm:gap-3">
+{products.map((p) => (
+<button
+key={p.id}
+onClick={() => onSelectProduct(p.id)}
+className={`px-4 sm:px-6 py-2.5 font-caps text-[0.8rem] sm:text-[0.9rem] tracking-[0.3em] uppercase border transition-colors duration-300 cursor-pointer ${
+p.id === productId
+? "border-ink bg-ink text-vellum"
+: "border-rule text-ink-soft hover:border-ink/40 hover:text-ink"
+}`}
+>
+{p.shortTitle ?? p.title}
+</button>
+))}
+</div>
+<span className="font-caps text-[0.7rem] tracking-[0.35em] uppercase text-faded">
+{product.digitalOnly ? "Digital Edition" : "First Edition"} · {product.year}
+</span>
+</div>
+</div>
+</section>
+
 {/* ✦ Hero — Split Layout */}
 <section className="relative pt-12 pb-20 px-6 lg:px-12 overflow-hidden">
 <div className="mx-auto max-w-7xl">
@@ -125,8 +166,8 @@ className="lg:col-span-2 relative"
 >
 <div className="relative aspect-[3/4] max-w-md mx-auto lg:mx-0 overflow-hidden plate shadow-paper-2">
 <Image
-              src={book.cover}
-              alt={`Cover of ${book.title}`}
+              src={product.cover}
+              alt={`Cover of ${product.title}`}
               fill
               priority
               sizes="(max-width: 640px) 100vw, 400px"
@@ -149,7 +190,7 @@ animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.6, delay: 0.35 }}
 >
 <span className="inline-block font-caps text-[0.75rem] tracking-[0.45em] uppercase text-oxblood mb-4 border border-oxblood/40 px-3 py-1">
-The Only Edition
+{product.badge ?? "The Only Edition"}
 </span>
 </motion.div>
 
@@ -157,10 +198,21 @@ The Only Edition
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-className="font-display text-6xl md:text-8xl lg:text-8xl xl:text-9xl text-ink leading-[0.9]"
+className={`font-display text-ink leading-[0.95] ${product.digitalOnly ? "text-4xl md:text-5xl lg:text-6xl" : "text-6xl md:text-8xl lg:text-8xl xl:text-9xl leading-[0.9]"}`}
 >
-{book.title}
+{product.title}
 </motion.h1>
+
+{product.subtitle && (
+<motion.p
+initial={{ opacity: 0, y: 15 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+className="mt-4 font-display text-2xl md:text-3xl text-oxblood"
+>
+{product.subtitle}
+</motion.p>
+)}
 
 <motion.p
 initial={{ opacity: 0, y: 15 }}
@@ -168,7 +220,7 @@ animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
 className="mt-5 font-serif text-xl text-ink-soft max-w-xl leading-relaxed"
 >
-{book.excerpt}
+{product.excerpt}
 </motion.p>
 
 <motion.div
@@ -177,15 +229,19 @@ animate={{ opacity: 1 }}
 transition={{ duration: 0.7, delay: 0.6 }}
 className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 font-caps text-[1rem] uppercase text-gold"
 >
-<span>ISBN {book.isbn}</span>
+{product.isbn && (
+<>
+<span>ISBN {product.isbn}</span>
 <span className="text-gold/50">❦</span>
-<span>{book.binding}</span>
+</>
+)}
+<span>{product.binding}</span>
 <span className="text-gold/50">❦</span>
-<span>{book.year}</span>
-{book.publisher && (
+<span>{product.year}</span>
+{product.publisher && (
 <>
 <span className="text-gold/50">❦</span>
-<span>{book.publisher}</span>
+<span>{product.publisher}</span>
 </>
 )}
 </motion.div>
@@ -198,7 +254,7 @@ transition={{ duration: 0.7, delay: 0.7 }}
 className="mt-10 flex flex-wrap items-center gap-6"
 >
 <div className="flex items-baseline gap-2 flex-wrap">
-<span className="font-display text-4xl sm:text-5xl lg:text-6xl text-oxblood">${parsePrice(book.price).toFixed(2)}/- · NPR {Math.round(parsePrice(book.price) * rate)}</span>
+<span className="font-display text-4xl sm:text-5xl lg:text-6xl text-oxblood">${parsePrice(product.price).toFixed(2)}/- · NPR {Math.round(parsePrice(product.price) * rate)}</span>
 <span className="font-serif text-text-base text-faded">incl. VAT</span>
 </div>
 <div className="flex flex-wrap items-center gap-6">
@@ -229,6 +285,7 @@ className="w-12 h-12 flex items-center justify-center text-ink hover:bg-rule tra
 </button>
 </div>
 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+{!product.digitalOnly && (
 <motion.button
 whileHover={{ scale: 1.05 }}
 whileTap={{ scale: 0.95 }}
@@ -238,11 +295,12 @@ className="relative rounded-[16px] bg-gradient-to-b from-[#222222] to-[#000000] 
 <span className="relative z-10 block font-caps font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-link">🛒 Buy</span>
 <span className="relative z-10 block font-caps font-bold text-base sm:text-lg lg:text-xl tracking-[0.1em] text-[#888888] mt-1">Hardcopy (Physical)</span>
 </motion.button>
+)}
 <motion.button
 whileHover={{ scale: 1.05 }}
 whileTap={{ scale: 0.95 }}
 onClick={onDigitalPurchase}
-className="relative rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] text-[#FAFAFA] px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-7 transition-all duration-200 hover:brightness-125 shadow-[0_10px_0_#111111,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#111111] active:translate-y-[7px] cursor-pointer text-center flex-1 sm:flex-none"
+className={`relative rounded-[16px] bg-gradient-to-b from-[#333333] to-[#000000] text-[#FAFAFA] px-6 sm:px-10 lg:px-14 py-4 sm:py-6 lg:py-7 transition-all duration-200 hover:brightness-125 shadow-[0_10px_0_#111111,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#111111] active:translate-y-[7px] cursor-pointer text-center flex-1 sm:flex-none ${product.digitalOnly ? "bg-gradient-to-b from-[#222222] to-[#000000] shadow-[0_10px_0_#222222,0_16px_32px_-8px_rgba(0,0,0,0.4)] active:shadow-[0_3px_0_#222222]" : ""}`}
 >
 <span className="relative z-10 block font-caps font-bold text-2xl sm:text-3xl lg:text-4xl leading-tight text-link">🛒 Buy</span>
 <span className="relative z-10 block font-caps font-bold text-base sm:text-lg lg:text-xl tracking-[0.1em] text-[#888888] mt-1">Softcopy (PDF)</span>
@@ -273,11 +331,11 @@ className="space-y-10"
 <h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Author
 </h3>
-<p className="font-serif text-2xl text-ink">{book.author}</p>
+<p className="font-serif text-2xl text-ink">{product.author}</p>
 </div>
 
 {/* Dedication */}
-{book.dedication && (
+{product.dedication && (
 <div>
 <h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
 Dedication
@@ -294,21 +352,42 @@ className="object-cover sepia-[0.3] contrast-105"
 />
 </div>
 <blockquote className="font-serif text-text-lg text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
-“{book.dedication}”
+“{product.dedication}”
 </blockquote>
 </div>
 </div>
 )}
 
 {/* Preface */}
-{book.preface && (
+{product.preface && (
 <div>
 <h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
-Preface
+{product.digitalOnly ? "About the Thesis" : "Preface"}
 </h3>
 <blockquote className="font-serif text-text-lg text-ink-soft leading-relaxed border-l border-oxblood/30 pl-4">
-“{book.preface}”
+“{product.preface}”
 </blockquote>
+</div>
+)}
+
+{/* Thesis research details */}
+{product.details && (
+<div>
+<h3 className="font-caps text-[1rem] uppercase text-oxblood mb-3">
+Research
+</h3>
+<div className="border border-rule bg-parchment/40 p-5 space-y-3">
+{product.details.map((d) => (
+<div key={d.label}>
+<p className="font-caps text-[0.8rem] tracking-[0.3em] uppercase text-faded mb-0.5">
+{d.label}
+</p>
+<p className="font-serif text-text-lg text-ink-soft leading-relaxed">
+{d.value}
+</p>
+</div>
+))}
+</div>
 </div>
 )}
 
@@ -318,8 +397,8 @@ Preface
 Inquiries
 </h3>
 <div className="font-serif text-text-lg text-ink-soft space-y-1">
-{book.email && <p>{book.email}</p>}
-{book.phone && <p>{book.phone}</p>}
+{product.email && <p>{product.email}</p>}
+{product.phone && <p>{product.phone}</p>}
 </div>
 </div>
 </motion.div>
@@ -331,18 +410,19 @@ whileInView={{ opacity: 1, y: 0 }}
 viewport={{ once: true }}
 transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
 >
+{product.toc && (
 <div className="bg-vellum border border-rule p-6 lg:p-8">
 <div className="flex items-center justify-between mb-5">
 <h3 className="font-caps text-[0.8rem] tracking-[0.4em] uppercase text-oxblood">
-Table of Contents
+Table of {product.tocLabel ?? "Contents"}
 </h3>
 <span className="font-caps text-[0.7rem] tracking-[0.3em] uppercase text-faded">
-{book.toc?.length || 0} articles
+{product.toc.length} {product.tocLabel ?? "articles"}
 </span>
 </div>
 <div className="h-px bg-rule mb-5" />
 <ul className="space-y-1.5 max-h-[420px] overflow-y-auto pr-2 custom-scrollbar">
-{book.toc?.map((entry, idx) => (
+{product.toc.map((entry, idx) => (
 <li
 key={idx}
 className="flex items-baseline justify-between gap-3 py-1.5 border-b border-rule group"
@@ -350,13 +430,16 @@ className="flex items-baseline justify-between gap-3 py-1.5 border-b border-rule
 <span className="font-serif text-text-base text-ink-soft group-hover:text-ink transition-colors duration-300 leading-snug">
 {entry.title}
 </span>
+{entry.page && (
 <span className="shrink-0 font-caps text-[0.7rem] tracking-widest text-faded">
 p.{entry.page}
 </span>
+)}
 </li>
 ))}
 </ul>
 </div>
+)}
 </motion.div>
 </div>
 
@@ -370,8 +453,7 @@ className="mt-20 pt-10 border-t border-rule"
 >
 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
 <div className="font-serif text-text-base text-faded">
-White Words (2023) by Darshan Pathak — the author&rsquo;s only
-published work. Free PDF download for readers.
+{product.title} ({product.year}) by {product.author} — {product.digitalOnly ? "digital edition · PDF delivered by email after purchase." : "the author&rsquo;s only published work. Free PDF download for readers."}
 </div>
 <Link
 href="/"

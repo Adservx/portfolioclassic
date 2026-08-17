@@ -3,6 +3,9 @@ export const SITE_URL = "https://darshanpathak.com.np";
 export const BOOK_DOWNLOAD_URL =
   "https://drive.usercontent.google.com/download?id=1VX2xoLVAWbIjglwuWcKkYCnc39LDg980&export=download&confirm=t";
 
+export const THESIS_DOWNLOAD_URL =
+  "https://drive.usercontent.google.com/download?id=1uNei-UosIZmTuuBvcHuIKkbbO_MiPQ4m&export=download&confirm=t";
+
 export const SITE_NAME = "Darshan Pathak";
 export const SITE_TITLE = "Darshan Pathak — Author of White Words";
 export const SITE_DESCRIPTION =
@@ -52,6 +55,20 @@ export const BOOK = {
   coverImage: `${SITE_URL}/bookstore/white-words-cover.webp`,
   description:
     "A collection of 93 articles on love, spirit, science and the quiet architecture of the mind — written to cure and prevent the chronic ache the world faces.",
+};
+
+export const THESIS = {
+  title: "Persistence and Change in Livelihood Strategies in the Magar Community",
+  subtitle: "A Case Study of Guwadi Gaun, Galyang Municipality, Ward No. 4",
+  author: AUTHOR.name,
+  category: "Sociology · Thesis",
+  year: "2024",
+  binding: "Master of Arts in Sociology · Thesis Writing (So. 593)",
+  price: "$7.00/- · NPR 1073",
+  url: `${SITE_URL}/bookstore`,
+  coverImage: `${SITE_URL}/thesis_cover.png`,
+  description:
+    "A sociological research study examining the persistence, transformation and adaptation of livelihood strategies within the Magar community of Guwadi Gaun — submitted in partial fulfillment of the Master of Arts in Sociology at Tribhuvan University.",
 };
 
 export function absoluteUrl(path: string): string {

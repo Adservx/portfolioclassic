@@ -3,6 +3,7 @@ import { initFirebaseAdmin } from "@/lib/firebase-admin";
 import { getLiveDownloadUrl } from "@/lib/download";
 import { sendOrderConfirmationEmail } from "@/lib/email";
 import { AUTHOR, SITE_NAME, SITE_URL } from "@/lib/site";
+import { products } from "@/lib/book";
 
 export const maxDuration = 60;
 export const runtime = "nodejs";
@@ -63,7 +64,14 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
     return NextResponse.json({ ok: true, skipped: "cash-on-delivery", orderId: id }, { headers: cors });
   }
 
-  const downloadUrl = (await getLiveDownloadUrl()) ?? undefined;
+  const rawItems = order.items ?? [];
+  const downloadUrl = (await getLiveDownloadUrl(rawItems[0]?.id)) ?? undefined;
+  const emailItems = rawItems.map((i: { id?: number; title?: string; quantity?: number; price?: string }) => ({
+    title: i.title ?? "White Words",
+    quantity: i.quantity ?? 1,
+    price: i.price ?? "",
+    cover: products.find((p) => p.id === i.id)?.cover ?? "",
+  }));
 
   try {
     await sendOrderConfirmationEmail({
@@ -72,7 +80,7 @@ export async function POST(request: Request, { params }: { params: Promise<{ id:
       buyerEmail: order.shipping.email,
       format: order.format ?? "digital",
       total: order.total,
-      items: order.items ?? [],
+      items: emailItems,
       downloadUrl,
       siteUrl: SITE_URL,
       siteName: SITE_NAME,

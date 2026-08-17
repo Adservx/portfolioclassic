@@ -15,6 +15,14 @@ function rules(): string {
   return '<div style="height:1px;background-color:#D9D9D9;"></div><div style="height:1px;background-color:#F0F0F0;margin-top:2px;"></div>';
 }
 
+function firstItem(order: OrderInfo) {
+  const item = order.items?.[0];
+  return {
+    title: item?.title?.trim() ? item.title : "White Words",
+    cover: item?.cover || `${order.siteUrl}/bookstore/white-words-cover.webp`,
+  };
+}
+
 function itemsRows(items: OrderInfo["items"]): string {
   return items
     .map(
@@ -42,10 +50,11 @@ function summaryTable(order: OrderInfo): string {
 
 function ctaBlock(order: OrderInfo): string {
   if (order.format !== "digital") return "";
+  const { title } = firstItem(order);
   if (order.downloadUrl) {
     return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:30px;">
       <tr><td align="center" style="padding:0 40px;">
-        <a href="${esc(order.downloadUrl)}" style="display:inline-block;background-color:#000000;color:#FFFFFF;font-family:${CAPS};font-size:12px;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;padding:16px 36px;border-radius:2px;">Download White Words (PDF)</a>
+        <a href="${esc(order.downloadUrl)}" style="display:inline-block;background-color:#000000;color:#FFFFFF;font-family:${CAPS};font-size:12px;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;padding:16px 36px;border-radius:2px;">Download ${esc(title)} (PDF)</a>
         <div style="margin-top:14px;font-family:${SERIF};font-size:12px;color:#999999;word-break:break-all;">or copy: <a href="${esc(order.downloadUrl)}" style="color:#666666;">${esc(order.downloadUrl)}</a></div>
       </td></tr>
     </table>`;
@@ -56,10 +65,11 @@ function ctaBlock(order: OrderInfo): string {
 }
 
 export function renderOrderEmailHtml(order: OrderInfo, buyerName: string): string {
+  const { title, cover } = firstItem(order);
   const greeting = `<p style="margin:0 0 14px;font-family:${SERIF};font-size:18px;color:#000000;">Dear ${esc(buyerName)},</p>`;
   const lead =
     order.format === "digital"
-      ? `<p style="margin:0;font-family:${SERIF};font-size:15px;line-height:1.8;color:#333333;">Your order <b style="color:#000000;">${esc(order.orderNumber)}</b> is confirmed. Your copy of <i>White Words</i> is ready — download it below.</p>`
+      ? `<p style="margin:0;font-family:${SERIF};font-size:15px;line-height:1.8;color:#333333;">Your order <b style="color:#000000;">${esc(order.orderNumber)}</b> is confirmed. Your copy of <i>${esc(title)}</i> is ready — download it below.</p>`
       : `<p style="margin:0;font-family:${SERIF};font-size:15px;line-height:1.8;color:#333333;">Your order <b style="color:#000000;">${esc(order.orderNumber)}</b> is confirmed. Your printed copy will be dispatched from the author's study within 2–4 weeks.</p>`;
 
   return `<div style="background-color:#F5F5F5;padding:32px 12px;">
@@ -71,10 +81,10 @@ export function renderOrderEmailHtml(order: OrderInfo, buyerName: string): strin
           <div style="margin-top:20px;">${rules()}</div>
         </td></tr>
         <tr><td style="padding:26px 40px 0;text-align:center;">
-          <div style="font-family:${CAPS};font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:#999999;">White Words &nbsp;·&nbsp; Order ${esc(order.orderNumber)}</div>
+          <div style="font-family:${CAPS};font-size:11px;letter-spacing:0.35em;text-transform:uppercase;color:#999999;">${esc(title)} &nbsp;·&nbsp; Order ${esc(order.orderNumber)}</div>
         </td></tr>
         <tr><td align="center" style="padding:28px 40px 0;">
-          <img src="${esc(order.siteUrl)}/bookstore/white-words-cover.webp" alt="White Words — Darshan Pathak" width="220" style="width:220px;max-width:100%;border:1px solid #E5E5E5;display:block;" />
+          <img src="${esc(cover)}" alt="${esc(title)} — ${esc(order.authorName)}" width="220" style="width:220px;max-width:100%;border:1px solid #E5E5E5;display:block;" />
         </td></tr>
         <tr><td style="padding:30px 40px 0;">
           ${greeting}
