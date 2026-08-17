@@ -37,7 +37,7 @@ export async function sendNewOrderAdminEmail(order: OrderInfo) {
   const items = order.items.map((i) => `${i.title} ×${i.quantity} (${i.price})`).join("<br/>");
   try {
     const info = await transporter.sendMail({
-      from: `"${order.siteName} Bookstore" <${order.authorEmail}>`,
+      from: `"${order.siteName} Bookstore" <${process.env.SMTP_USER}>`,
       to: order.authorEmail,
       subject: `New order ${order.orderNumber} (${order.format})`,
       html: `<h2>New bookstore order</h2><p><b>Order:</b> ${order.orderNumber}<br/><b>Buyer:</b> ${order.buyerName} &lt;${order.buyerEmail}&gt;<br/><b>Format:</b> ${order.format}<br/><b>Total:</b> ${order.total}<br/><b>Items:</b><br/>${items}${order.address ? `<br/><b>Ship to:</b> ${order.address.replace(/\n/g, ", ")}` : ""}</p><p>Confirm it from the admin app: ${process.env.NEXT_PUBLIC_ADMIN_ORIGIN ?? ""}</p>`,
@@ -69,7 +69,8 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
   body += `<p>— ${order.authorName}, ${order.siteName}</p>`;
   try {
     const info = await transporter.sendMail({
-      from: `"${order.siteName}" <${order.authorEmail}>`,
+      from: `"${order.siteName}" <${process.env.SMTP_USER}>`,
+      replyTo: order.authorEmail,
       to: order.buyerEmail,
       subject,
       html: `<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto">${body}</div>`,
