@@ -151,7 +151,7 @@ Official Bookstore
 initial={{ opacity: 0, y: 15 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-className="font-display text-5xl md:text-7xl text-ink leading-[0.95]"
+className="font-display text-4xl sm:text-6xl md:text-7xl text-ink leading-[0.95] [text-wrap:balance]"
 >
 The Library of Darshan Pathak
 </motion.h1>
@@ -173,7 +173,7 @@ initial={{ opacity: 0, y: 30 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.35 + idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
 onClick={() => onSelectProduct(p.id)}
-className="group text-left cursor-pointer focus:outline-none"
+className="group text-left cursor-pointer focus:outline-none w-full max-w-xs sm:max-w-none mx-auto"
 >
 <div className="relative aspect-[3/4] overflow-hidden plate shadow-paper-2 transition-transform duration-500 group-hover:scale-[1.015] group-hover:-translate-y-1">
 <Image
@@ -187,11 +187,12 @@ className="object-cover transition-transform duration-700 group-hover:scale-[1.0
 <div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 40px 4px rgba(0,0,0,0.35)" }} />
 </div>
 <div className="mt-5 text-center">
-<h2 className="font-display text-3xl md:text-4xl text-ink group-hover:text-oxblood transition-colors duration-300">
+<h2 className="font-display text-3xl md:text-4xl text-ink group-hover:text-oxblood transition-colors duration-300 [text-wrap:balance]">
 {p.title}
 </h2>
-<p className="mt-2 font-display text-2xl md:text-3xl text-oxblood">
-${parsePrice(p.price).toFixed(2)}/- · NPR {Math.round(parsePrice(p.price) * rate)}
+<p className="mt-2 font-display text-2xl md:text-3xl text-oxblood flex flex-wrap justify-center gap-x-2">
+<span>${parsePrice(p.price).toFixed(2)}/-</span>
+<span>· NPR {Math.round(parsePrice(p.price) * rate)}</span>
 </p>
 <p className="mt-2 font-caps text-[0.8rem] tracking-[0.35em] uppercase text-faded">
 {p.badge ?? "The Only Edition"} · {p.year}
@@ -314,7 +315,7 @@ transition={{ duration: 0.6, delay: 0.35 }}
 initial={{ opacity: 0, y: 20 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-className={`font-display text-ink leading-[0.95] ${product.digitalOnly ? "text-4xl md:text-5xl lg:text-6xl" : "text-6xl md:text-8xl lg:text-8xl xl:text-9xl leading-[0.9]"}`}
+className={`font-display text-ink leading-[0.95] [text-wrap:balance] ${product.digitalOnly ? "text-3xl sm:text-4xl md:text-5xl lg:text-6xl" : "text-5xl md:text-8xl lg:text-8xl xl:text-9xl leading-[0.9]"}`}
 >
 {product.title}
 </motion.h1>
@@ -324,7 +325,7 @@ className={`font-display text-ink leading-[0.95] ${product.digitalOnly ? "text-4
 initial={{ opacity: 0, y: 15 }}
 animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-className="mt-4 font-display text-2xl md:text-3xl text-oxblood"
+className="mt-4 font-display text-2xl md:text-3xl text-oxblood [text-wrap:balance]"
 >
 {product.subtitle}
 </motion.p>
@@ -369,8 +370,9 @@ animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.7, delay: 0.7 }}
 className="mt-10 flex flex-wrap items-center gap-6"
 >
-<div className="flex items-baseline gap-2 flex-wrap">
-<span className="font-display text-4xl sm:text-5xl lg:text-6xl text-oxblood">${parsePrice(product.price).toFixed(2)}/- · NPR {Math.round(parsePrice(product.price) * rate)}</span>
+<div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+<span className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-oxblood">${parsePrice(product.price).toFixed(2)}/-</span>
+<span className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-oxblood">· NPR {Math.round(parsePrice(product.price) * rate)}</span>
 <span className="font-serif text-text-base text-faded">incl. VAT</span>
 </div>
 <div className="flex flex-wrap items-center gap-6">

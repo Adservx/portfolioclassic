@@ -666,13 +666,13 @@ return (
   </div>
 
   <form onSubmit={handleSubmit} className="space-y-5">
-    <div className="flex items-center justify-between">
-      <div>
-        <h3 className="font-display text-2xl text-ink mb-1">Payment</h3>
-        <p className="font-serif text-text-lg text-ink-soft">
-          Pay by scanning the eSewa QR, then confirm your transaction below.
-        </p>
-      </div>
+<div className="flex flex-wrap items-center justify-between gap-3">
+<div className="min-w-0">
+<h3 className="font-display text-2xl text-ink mb-1">Payment</h3>
+<p className="font-serif text-text-lg text-ink-soft">
+Pay by scanning the eSewa QR, then confirm your transaction below.
+</p>
+</div>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -802,22 +802,22 @@ function ReviewOrder({
           Items ({items.length})
         </p>
         {items.map((item) => (
-          <div
-            key={item.id}
-            className="flex items-center justify-between py-2 border-b border-rule"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-10 overflow-hidden plate-thin relative">
-                <Image
-                  src={item.cover}
-                  alt={item.title}
-                  fill
-                  sizes="32px"
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <p className="font-serif text-text-base text-ink">{item.title}</p>
+<div
+key={item.id}
+className="flex items-center justify-between gap-3 py-2 border-b border-rule"
+>
+<div className="flex items-center gap-3 min-w-0">
+<div className="w-8 h-10 overflow-hidden plate-thin relative shrink-0">
+<Image
+src={item.cover}
+alt={item.title}
+fill
+sizes="32px"
+className="object-cover"
+/>
+</div>
+<div className="min-w-0">
+<p className="font-serif text-text-base text-ink leading-snug break-words">{item.title}</p>
                 {!isDigital && (
                   <p className="font-caps text-[1rem] tracking-[0.3em] text-ink-soft">
                     Qty: {item.quantity}
@@ -825,9 +825,9 @@ function ReviewOrder({
                 )}
               </div>
             </div>
-            <span className="font-display text-text-lg text-oxblood">
-              {formatPrice(parsePrice(item.price) * item.quantity, rate)}
-            </span>
+<span className="font-display text-text-lg text-oxblood shrink-0 text-right">
+{formatPrice(parsePrice(item.price) * item.quantity, rate)}
+</span>
           </div>
         ))}
       </div>
@@ -908,14 +908,14 @@ function ReviewOrder({
       </div>
 
       {/* Total */}
-      <div className="flex items-center justify-between py-3 border-t border-ink">
-        <span className="font-caps text-[1rem] tracking-[0.35em] uppercase text-ink">
-          Total
-        </span>
-        <span className="font-display text-3xl text-ink">
-          {formatPrice(total, rate)}
-        </span>
-      </div>
+<div className="flex items-center justify-between gap-3 py-3 border-t border-ink">
+<span className="font-caps text-[1rem] tracking-[0.35em] uppercase text-ink shrink-0">
+Total
+</span>
+<span className="font-display text-2xl sm:text-3xl text-ink text-right">
+{formatPrice(total, rate)}
+</span>
+</div>
 
       <div className="flex gap-3 pt-2">
         <button
