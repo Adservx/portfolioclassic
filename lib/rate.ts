@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 export const DEFAULT_NPR_PER_USD = 460 / 3;
 
 const CACHE_KEY = "darshan-npr-rate";
-const CACHE_TTL_MS = 6 * 60 * 60 * 1000;
+const CACHE_TTL_MS = 60 * 60 * 1000;
+export const REFRESH_INTERVAL_MS = 60 * 60 * 1000;
 
 interface CachedRate {
   rate: number;
@@ -65,13 +66,21 @@ export function useUsdNprRate(): { rate: number; isLoading: boolean } {
 
   useEffect(() => {
     let mounted = true;
-    getUsdNprRate().then((r) => {
-      if (!mounted) return;
-      setRate(r);
-      setIsLoading(false);
-    });
+
+    const refresh = () => {
+      getUsdNprRate().then((r) => {
+        if (!mounted) return;
+        setRate(r);
+        setIsLoading(false);
+      });
+    };
+
+    refresh();
+    const timer = setInterval(refresh, REFRESH_INTERVAL_MS);
+
     return () => {
       mounted = false;
+      clearInterval(timer);
     };
   }, []);
 
