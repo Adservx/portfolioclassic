@@ -1,7 +1,7 @@
 export const SITE_URL = "https://darshanpathak.com.np";
 
-export const BOOK_MASTER_URL =
-  "https://drive.usercontent.google.com/download?id=18FPW80lOGw702W222RZJDZ2f6df4tSBV&export=download&confirm=t";
+export const BOOK_DOWNLOAD_URL =
+  "https://drive.usercontent.google.com/download?id=1VX2xoLVAWbIjglwuWcKkYCnc39LDg980&export=download&confirm=t";
 
 export const SITE_NAME = "Darshan Pathak";
 export const SITE_TITLE = "Darshan Pathak — Author of White Words";
