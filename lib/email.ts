@@ -1,4 +1,5 @@
 import nodemailer, { type Transporter } from "nodemailer";
+import { renderOrderEmailHtml, renderOrderEmailText } from "@/lib/email-template";
 
 export interface OrderInfo {
   orderNumber: string;
@@ -59,22 +60,14 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
     order.format === "digital"
       ? `Your White Words download — Order ${order.orderNumber} confirmed`
       : `Order ${order.orderNumber} confirmed — White Words`;
-  let body = "";
-  if (order.format === "digital") {
-    body = order.downloadUrl
-      ? `<p>Dear ${buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Download your copy here:</p><p><a href="${order.downloadUrl}">Download White Words (PDF)</a></p>`
-      : `<p>Dear ${buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your download link is being prepared — please email ${order.authorEmail} if you don't receive it shortly.</p>`;
-  } else {
-    body = `<p>Dear ${buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your printed copy will be dispatched from the author's study within 2–4 weeks.</p>`;
-  }
-  body += `<p>— ${order.authorName}, ${order.siteName}</p>`;
   try {
     const info = await transporter.sendMail({
       from: `"${order.siteName}" <${process.env.SMTP_USER}>`,
       replyTo: order.authorEmail,
       to: order.buyerEmail,
       subject,
-      html: `<div style="font-family:Georgia,serif;max-width:560px;margin:0 auto">${body}</div>`,
+      html: renderOrderEmailHtml(order, buyerName),
+      text: renderOrderEmailText(order, buyerName),
     });
     console.log(`Confirmation email sent to ${order.buyerEmail} (${info.messageId})`);
   } catch (err) {
