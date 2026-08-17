@@ -11,7 +11,7 @@ import { useUsdNprRate } from "@/lib/rate";
 
 export function Store() {
 const [productId, setProductId] = useState<number>(book.id);
-const [mode, setMode] = useState<"catalog" | "checkout">("catalog");
+const [mode, setMode] = useState<"home" | "detail" | "checkout">("home");
 const [format, setFormat] = useState<"print" | "digital">("print");
 const [quantity, setQuantity] = useState(1);
 const { rate } = useUsdNprRate();
@@ -24,7 +24,7 @@ if (!p) return;
 setProductId(id);
 setFormat(p.digitalOnly ? "digital" : "print");
 setQuantity(1);
-setMode("catalog");
+setMode("detail");
 }, []);
 
 const handlePrintPurchase = useCallback(() => {
@@ -34,15 +34,16 @@ setMode("checkout");
 
 const handleDigitalPurchase = useCallback(() => {
 setFormat("digital");
+setQuantity(1);
 setMode("checkout");
 }, []);
 
 const handleBack = useCallback(() => {
-setMode("catalog");
+setMode("detail");
 }, []);
 
 const handleComplete = useCallback(() => {
-setMode("catalog");
+setMode("home");
 }, []);
 
 return (
@@ -83,7 +84,15 @@ Official Bookstore
 </header>
 
 <AnimatePresence mode="wait">
-{mode === "catalog" && (
+{mode === "home" && (
+<CatalogHome
+key="home"
+products={products}
+rate={rate}
+onSelectProduct={selectProduct}
+/>
+)}
+{mode === "detail" && (
 <CatalogView
 key={`catalog-${product.id}`}
 product={product}
@@ -93,6 +102,7 @@ quantity={quantity}
 rate={rate}
 onQuantityChange={setQuantity}
 onSelectProduct={selectProduct}
+onBackToHome={() => setMode("home")}
 onPrintPurchase={handlePrintPurchase}
 onDigitalPurchase={handleDigitalPurchase}
 />
@@ -114,10 +124,105 @@ onComplete={handleComplete}
 }
 
 /* =====================================================================
+CATALOG HOME — cover grid
+===================================================================== */
+
+function CatalogHome({ products, rate, onSelectProduct }: { products: Book[]; rate: number; onSelectProduct: (id: number) => void }) {
+return (
+<motion.div
+initial={{ opacity: 0 }}
+animate={{ opacity: 1 }}
+exit={{ opacity: 0, y: -20 }}
+transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+className="relative z-10"
+>
+<section className="relative pt-14 pb-32 px-6 lg:px-12">
+<div className="mx-auto max-w-7xl">
+<div className="text-center mb-14">
+<motion.p
+initial={{ opacity: 0, y: 10 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.6, delay: 0.1 }}
+className="font-caps text-[0.8rem] tracking-[0.45em] uppercase text-oxblood mb-4"
+>
+Official Bookstore
+</motion.p>
+<motion.h1
+initial={{ opacity: 0, y: 15 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+className="font-display text-5xl md:text-7xl text-ink leading-[0.95]"
+>
+The Library of Darshan Pathak
+</motion.h1>
+<motion.p
+initial={{ opacity: 0, y: 15 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.7, delay: 0.3 }}
+className="mt-4 font-serif text-xl text-ink-soft"
+>
+Two works — choose a title to view its details.
+</motion.p>
+</div>
+
+<div className="grid sm:grid-cols-2 gap-8 lg:gap-14 max-w-5xl mx-auto">
+{products.map((p, idx) => (
+<motion.button
+key={p.id}
+initial={{ opacity: 0, y: 30 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.7, delay: 0.35 + idx * 0.15, ease: [0.16, 1, 0.3, 1] }}
+onClick={() => onSelectProduct(p.id)}
+className="group text-left cursor-pointer focus:outline-none"
+>
+<div className="relative aspect-[3/4] overflow-hidden plate shadow-paper-2 transition-transform duration-500 group-hover:scale-[1.015] group-hover:-translate-y-1">
+<Image
+src={p.cover}
+alt={`Cover of ${p.title}`}
+fill
+priority={idx === 0}
+sizes="(max-width: 640px) 100vw, 480px"
+className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+/>
+<div className="absolute inset-0 pointer-events-none" style={{ boxShadow: "inset 0 0 40px 4px rgba(0,0,0,0.35)" }} />
+</div>
+<div className="mt-5 text-center">
+<h2 className="font-display text-3xl md:text-4xl text-ink group-hover:text-oxblood transition-colors duration-300">
+{p.title}
+</h2>
+<p className="mt-2 font-display text-2xl md:text-3xl text-oxblood">
+${parsePrice(p.price).toFixed(2)}/- · NPR {Math.round(parsePrice(p.price) * rate)}
+</p>
+<p className="mt-2 font-caps text-[0.8rem] tracking-[0.35em] uppercase text-faded">
+{p.badge ?? "The Only Edition"} · {p.year}
+</p>
+<span className="mt-4 inline-block font-caps text-[0.85rem] tracking-[0.35em] uppercase text-link underline underline-offset-4 decoration-link/60 group-hover:decoration-link transition-colors duration-300">
+View Details
+</span>
+</div>
+</motion.button>
+))}
+</div>
+
+<motion.p
+initial={{ opacity: 0 }}
+animate={{ opacity: 1 }}
+transition={{ duration: 0.7, delay: 0.7 }}
+className="mt-20 text-center font-serif text-text-base text-faded"
+>
+Prices shown in Nepali Rupees update hourly with the live exchange rate.
+</motion.p>
+</div>
+</section>
+</motion.div>
+);
+}
+
+/* =====================================================================
 CATALOG VIEW — full book detail page
 ===================================================================== */
 
-function CatalogView({ product, products, productId, quantity, rate, onQuantityChange, onSelectProduct, onPrintPurchase, onDigitalPurchase }: { product: Book; products: Book[]; productId: number; quantity: number; rate: number; onQuantityChange: (q: number) => void; onSelectProduct: (id: number) => void; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
+function CatalogView({ product, products, productId, quantity, rate, onQuantityChange, onSelectProduct, onBackToHome, onPrintPurchase, onDigitalPurchase }: { product: Book; products: Book[]; productId: number; quantity: number; rate: number; onQuantityChange: (q: number) => void; onSelectProduct: (id: number) => void; onBackToHome: () => void; onPrintPurchase: () => void; onDigitalPurchase: () => void }) {
 return (
 <motion.div
 initial={{ opacity: 0 }}
@@ -145,9 +250,20 @@ p.id === productId
 </button>
 ))}
 </div>
+<div className="flex items-center gap-6">
+<button
+onClick={onBackToHome}
+className="group inline-flex items-center gap-2 font-caps text-[0.8rem] tracking-[0.35em] uppercase text-link underline underline-offset-4 decoration-link/60 transition-colors duration-300 cursor-pointer"
+>
+<motion.span whileHover={{ x: -4 }} transition={{ duration: 0.3 }} className="font-display text-lg">
+←
+</motion.span>
+All Titles
+</button>
 <span className="font-caps text-[0.7rem] tracking-[0.35em] uppercase text-faded">
 {product.digitalOnly ? "Digital Edition" : "First Edition"} · {product.year}
 </span>
+</div>
 </div>
 </div>
 </section>
@@ -258,6 +374,7 @@ className="mt-10 flex flex-wrap items-center gap-6"
 <span className="font-serif text-text-base text-faded">incl. VAT</span>
 </div>
 <div className="flex flex-wrap items-center gap-6">
+{!product.digitalOnly && (
 <div className="flex items-center gap-1 border border-rule bg-vellum/50">
 <button
 onClick={() => onQuantityChange(Math.max(1, quantity - 1))}
@@ -284,6 +401,7 @@ className="w-12 h-12 flex items-center justify-center text-ink hover:bg-rule tra
 +
 </button>
 </div>
+)}
 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
 {!product.digitalOnly && (
 <motion.button
@@ -534,7 +652,7 @@ Back to Bookstore
           <div className="min-w-0">
             <p className="font-serif text-text-lg text-ink truncate">{book.title}</p>
             <p className="font-caps text-[0.85rem] tracking-[0.3em] uppercase text-ink-soft mt-0.5">
-              {format === "print" ? "Physical Copy" : "Digital PDF"} · Qty: {quantity}
+              {format === "print" ? `Physical Copy · Qty: ${quantity}` : "Digital PDF"}
             </p>
             <p className="font-serif text-[0.95rem] text-faded mt-0.5">
               {format === "print"
@@ -563,7 +681,7 @@ Back to Bookstore
                 price: book.price,
                 cover: book.cover,
                 binding: book.binding,
-                quantity,
+                quantity: format === "digital" ? 1 : quantity,
               },
             ]}
             onBack={onBack}

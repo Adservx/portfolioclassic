@@ -17,10 +17,14 @@ function rules(): string {
 
 function firstItem(order: OrderInfo) {
   const item = order.items?.[0];
-  return {
-    title: item?.title?.trim() ? item.title : "White Words",
-    cover: item?.cover || `${order.siteUrl}/bookstore/white-words-cover.webp`,
-  };
+  const title = item?.title?.trim() ? item.title : "White Words";
+  let cover = item?.cover?.trim()
+    ? item.cover
+    : `${order.siteUrl}/bookstore/white-words-cover.webp`;
+  if (!/^https?:\/\//.test(cover)) {
+    cover = `${order.siteUrl}${cover.startsWith("/") ? cover : `/${cover}`}`;
+  }
+  return { title, cover };
 }
 
 function itemsRows(items: OrderInfo["items"]): string {

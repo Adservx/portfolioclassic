@@ -818,9 +818,11 @@ function ReviewOrder({
               </div>
               <div>
                 <p className="font-serif text-text-base text-ink">{item.title}</p>
-                <p className="font-caps text-[1rem] tracking-[0.3em] text-ink-soft">
-                  Qty: {item.quantity}
-                </p>
+                {!isDigital && (
+                  <p className="font-caps text-[1rem] tracking-[0.3em] text-ink-soft">
+                    Qty: {item.quantity}
+                  </p>
+                )}
               </div>
             </div>
             <span className="font-display text-text-lg text-oxblood">

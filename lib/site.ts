@@ -58,8 +58,9 @@ export const BOOK = {
 };
 
 export const THESIS = {
-  title: "Persistence and Change in Livelihood Strategies in the Magar Community",
-  subtitle: "A Case Study of Guwadi Gaun, Galyang Municipality, Ward No. 4",
+  title: "Magar Livelihood Thesis",
+  subtitle:
+    "Persistence and Change in Livelihood Strategies in the Magar Community — A Case Study of Guwadi Gaun, Galyang Municipality, Ward No. 4",
   author: AUTHOR.name,
   category: "Sociology · Thesis",
   year: "2024",

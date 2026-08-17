@@ -140,8 +140,9 @@ export const book: Book = {
 
 export const thesis: Book = {
   id: 2,
-  title: "Persistence and Change in Livelihood Strategies in the Magar Community",
-  subtitle: "A Case Study of Guwadi Gaun, Galyang Municipality, Ward No. 4",
+  title: "Magar Livelihood Thesis",
+  subtitle:
+    "Persistence and Change in Livelihood Strategies in the Magar Community — A Case Study of Guwadi Gaun, Galyang Municipality, Ward No. 4",
   shortTitle: "MA Thesis",
   badge: "Digital Edition · MA Sociology",
   author: "Darshan Pathak",

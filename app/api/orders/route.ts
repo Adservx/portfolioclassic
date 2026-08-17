@@ -152,7 +152,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    await pushNewOrderToAdmins(db, orderNumber, format, total, shipping.name);
+    await pushNewOrderToAdmins(db, orderNumber, format, total, shipping.name, items);
   } catch (err) {
     console.error("New-order push failed (non-fatal):", err);
   }
@@ -165,8 +165,13 @@ async function pushNewOrderToAdmins(
   orderNumber: string,
   format: string,
   total: string,
-  buyerName: string
+  buyerName: string,
+  items: OrderItemPayload[]
 ) {
+  const first = items[0];
+  const productLabel = first
+    ? products.find((p) => p.id === first.id)?.shortTitle ?? first.title
+    : "White Words";
   const admins = await db.collection("admins").get();
   const targets = new Map<string, { uid: string; inLegacy: boolean; inArray: boolean }>();
   for (const d of admins.docs) {
@@ -197,14 +202,14 @@ async function pushNewOrderToAdmins(
                 token: target,
                 notification: {
                   title: `New order ${orderNumber}`,
-                  body: `${buyerName} · ${format} · ${total}`,
+                  body: `${buyerName} · ${productLabel} · ${format} · ${total}`,
                 },
               }
             : {
                 fid: target,
                 notification: {
                   title: `New order ${orderNumber}`,
-                  body: `${buyerName} · ${format} · ${total}`,
+                  body: `${buyerName} · ${productLabel} · ${format} · ${total}`,
                 },
               }
         )
