@@ -467,6 +467,7 @@ nameRef.current?.focus();
 const validate = () => {
   const errs: Partial<Record<keyof ShippingInfo, string>> = {};
   if (!data.name.trim()) errs.name = "Required";
+  else if (!/[a-zA-Z]/.test(data.name)) errs.name = "Enter your name, not a number";
   if (isDigital) {
     if (!data.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
       errs.email = "Valid email required";

@@ -54,6 +54,7 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
   if (!order.buyerEmail?.trim()) {
     throw new Error("Buyer email is empty — cannot send confirmation");
   }
+  const buyerName = /[a-zA-Z]/.test(order.buyerName?.trim() ?? "") ? order.buyerName!.trim() : "Reader";
   const subject =
     order.format === "digital"
       ? `Your White Words download — Order ${order.orderNumber} confirmed`
@@ -61,10 +62,10 @@ export async function sendOrderConfirmationEmail(order: OrderInfo) {
   let body = "";
   if (order.format === "digital") {
     body = order.downloadUrl
-      ? `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Download your copy here:</p><p><a href="${order.downloadUrl}">Download White Words (PDF)</a></p>`
-      : `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your download link is being prepared — please email ${order.authorEmail} if you don't receive it shortly.</p>`;
+      ? `<p>Dear ${buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Download your copy here:</p><p><a href="${order.downloadUrl}">Download White Words (PDF)</a></p>`
+      : `<p>Dear ${buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your download link is being prepared — please email ${order.authorEmail} if you don't receive it shortly.</p>`;
   } else {
-    body = `<p>Dear ${order.buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your printed copy will be dispatched from the author's study within 2–4 weeks.</p>`;
+    body = `<p>Dear ${buyerName},</p><p>Your order <b>${order.orderNumber}</b> is confirmed. Your printed copy will be dispatched from the author's study within 2–4 weeks.</p>`;
   }
   body += `<p>— ${order.authorName}, ${order.siteName}</p>`;
   try {
