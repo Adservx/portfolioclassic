@@ -1,4 +1,4 @@
-export const SITE_URL = "https://www.darshanpathak.com.np";
+export const SITE_URL = "https://darshanpathak.com.np";
 
 export const BOOK_DOWNLOAD_URL =
   "https://drive.usercontent.google.com/download?id=1VX2xoLVAWbIjglwuWcKkYCnc39LDg980&export=download&confirm=t";
